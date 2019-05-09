@@ -4,7 +4,7 @@
 
 ### Installation
 
-DevAccelerate is broken down into modules and each module can be installed through its own NuGet package. A DevAccelerate NuGet package automatically installs required dependencies.
+DevAccelerate is broken down into modules and each module has one ore more NuGet package. A DevAccelerate NuGet package automatically installs required dependencies.
 
 The following is the list of DevAccelerate NuGet packages:
 * [DevAccelerateCore](https://www.nuget.org/packages/DevAccelerateCore)
