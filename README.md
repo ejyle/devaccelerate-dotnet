@@ -6,6 +6,12 @@
 
 DevAccelerate is broken down into modules and each module can be installed through its own NuGet package. A DevAccelerate NuGet package automatically installs required dependencies.
 
+The following is the list of DevAccelerate NuGet packages:
+* [DevAccelerateCore](https://www.nuget.org/packages/DevAccelerateCore)
+* [DevAccelerateCoreEF](https://www.nuget.org/packages/DevAccelerateCoreEF)
+* [DevAccelerateCoreExceptionHandlingMsel](https://www.nuget.org/packages/DevAccelerateCoreExceptionHandlingMsel)
+* [DevAccelerateCoreLoggingMsel](https://www.nuget.org/packages/DevAccelerateCoreLoggingMsel)
+
 ### Issues
 
 If you find a bug in the library or you have an idea about a new feature, please try to search in the existing list of [issues](https://github.com/devaccelerate/DevAccelerateNet/issues). If the bug or idea is not listed and addressed there, please [open a new issue](https://github.com/devaccelerate/DevAccelerateNet/issues/new).
