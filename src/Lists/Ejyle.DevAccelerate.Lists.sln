@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejyle.DevAccelerate.Lists", "Lists\src\Ejyle.DevAccelerate.Lists.csproj", "{4A73328A-0D7B-4CC4-898B-B04F677ADC20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejyle.DevAccelerate.Lists.EF", "ListsEF\src\Ejyle.DevAccelerate.Lists.EF.csproj", "{DEBFB734-12F8-49E9-957C-88991A21633C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4A73328A-0D7B-4CC4-898B-B04F677ADC20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A73328A-0D7B-4CC4-898B-B04F677ADC20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A73328A-0D7B-4CC4-898B-B04F677ADC20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A73328A-0D7B-4CC4-898B-B04F677ADC20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEBFB734-12F8-49E9-957C-88991A21633C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEBFB734-12F8-49E9-957C-88991A21633C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEBFB734-12F8-49E9-957C-88991A21633C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEBFB734-12F8-49E9-957C-88991A21633C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45
+		SolutionGuid = {4230B6FC-17FC-4801-B4E3-B0D75F6F965A}
+	EndGlobalSection
+EndGlobal
