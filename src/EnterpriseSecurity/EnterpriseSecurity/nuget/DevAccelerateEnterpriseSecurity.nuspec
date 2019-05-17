@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>DevAccelerateEnterpriseSecurity</id>
+    <version>6.0.0-preview1</version>
+    <title>DevAccelerate Enterprise Security</title>
+    <authors>ejyle,tanveery</authors>
+    <owners>ejyle,tanveery</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <licenseUrl>https://raw.githubusercontent.com/devaccelerate/DevAccelerateNet/master/LICENSE</licenseUrl>
+    <projectUrl>https://devaccelerate.github.io/</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/devaccelerate/devaccelerate.github.io/master/img/logo.png</iconUrl>
+    <description>Provides additional enterprise-level security such as multi-tenancy, subscription management, etc. This package is often used in conjunction with the DevAccelerateIdentity package.</description>
+    <summary>Provides additional enterprise-level security such as multi-tenancy, subscription management, etc.</summary>
+    <releaseNotes>The library comes with the following features:
+
+1) App and feature management
+2) Multi-tenancy and tanent management
+3) Subscription plan management
+4) Subscriptions management
+5) User agreements management</releaseNotes>
+    <copyright>© Ejyle Technologies (P) Ltd. All rights reserved.</copyright>
+    <language>en-US</language>
+    <tags>DevAccelerate EnterpriseSecurity Tenants Subscriptions Multi-Tenancy</tags>
+    <repository type="git" url="https://github.com/devaccelerate/DevAccelerateNet" commit="12f241bcdd706913cbd452de838a84e5449caaaa" />
+    <dependencies>
+      <dependency id="DevAccelerateCore" version="6.0.0-preview4" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="lib\Ejyle.DevAccelerate.EnterpriseSecurity.dll" target="lib\Ejyle.DevAccelerate.EnterpriseSecurity.dll" />
+  </files>
+</package>

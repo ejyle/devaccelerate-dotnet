@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>DevAccelerateMailSendGrid</id>
+    <version>6.0.0-preview2</version>
+    <title>SendGrid for DevAccelerate Mail</title>
+    <authors>ejyle,tanveery</authors>
+    <owners>ejyle,tanveery</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <licenseUrl>https://raw.githubusercontent.com/devaccelerate/DevAccelerateNet/master/LICENSE</licenseUrl>
+    <projectUrl>https://devaccelerate.github.io/</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/devaccelerate/devaccelerate.github.io/master/img/logo.png</iconUrl>
+    <description>A SendGrid implementation for DevAccelerate Mail for sending email messages.</description>
+    <summary>A SendGrid implementation for DevAccelerate Mail for sending email messages.</summary>
+    <releaseNotes>This release contains the following primary changes:
+
+1) Upgraded NuGet packages.
+2) Fixed mail attachment issues.
+3) Updated for DevAccelerate 6 release.
+3) Fixed issues with CC and BCC.</releaseNotes>
+    <copyright>© Ejyle Technologies (P) Ltd. All rights reserved.</copyright>
+    <language>en-US</language>
+    <tags>DevAccelerate Mail SendGrid</tags>
+    <repository type="git" url="https://github.com/devaccelerate/DevAccelerateNet" commit="12f241bcdd706913cbd452de838a84e5449caaaa" />
+    <dependencies>
+      <dependency id="DevAccelerateMail" version="6.0.0-preview2" />
+      <dependency id="Sendgrid" version="9.11.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="lib\Ejyle.DevAccelerate.Mail.SendGrid.dll" target="lib\Ejyle.DevAccelerate.Mail.SendGrid.dll" />
+  </files>
+</package>

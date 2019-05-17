@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Ejyle.DevAccelerate.Facades.Security")]
-[assembly: AssemblyDescription("A facade library for DevAccelerate ASP.NET Identity and DevAccelerate Subscriptions.")]
+[assembly: AssemblyDescription("A facade library that simplifies security APIs. It works on top of DeAaccelerate Idenitty and DevAccelerate Enterprise Security.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ejyle Technologies (P) Ltd")]
 [assembly: AssemblyProduct("Ejyle.DevAccelerate.Facades.Security")]

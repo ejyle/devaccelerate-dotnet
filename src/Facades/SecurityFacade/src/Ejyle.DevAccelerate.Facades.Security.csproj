@@ -121,7 +121,7 @@
       <Project>{320bf7cc-b2bb-40de-afa1-62197c369adb}</Project>
       <Name>Ejyle.DevAccelerate.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\EnterpriseSecurity\EnterpriseSecurityEF\Ejyle.DevAccelerate.EnterpriseSecurity.EF.csproj">
+    <ProjectReference Include="..\..\..\EnterpriseSecurity\EnterpriseSecurityEF\src\Ejyle.DevAccelerate.EnterpriseSecurity.EF.csproj">
       <Project>{d1fbe1d9-3b6d-49e4-97c6-55e7f1d3799c}</Project>
       <Name>Ejyle.DevAccelerate.EnterpriseSecurity.EF</Name>
     </ProjectReference>

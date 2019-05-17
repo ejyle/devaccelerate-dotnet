@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>DevAccelerateNotifications</id>
+    <version>6.0.0-preview2</version>
+    <title>DevAccelerate Notifications</title>
+    <authors>ejyle,tanveery</authors>
+    <owners>ejyle,tanveery</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <licenseUrl>https://raw.githubusercontent.com/devaccelerate/DevAccelerateNet/master/LICENSE</licenseUrl>
+    <projectUrl>https://devaccelerate.github.io/</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/devaccelerate/devaccelerate.github.io/master/img/logo.png</iconUrl>
+    <description>Provides interfaces and base functionality for managing and delivering notifications through different channels such as mail, SMS, etc.</description>
+    <summary>Provides interfaces and base functionality for managing and delivering notifications through different channels such as mail, SMS, etc.</summary>
+    <releaseNotes>This release contains the following primary changes:
+
+1) Upgraded the NuGet packages.
+2) Restructured the library.</releaseNotes>
+    <copyright>© Ejyle Technologies (P) Ltd. All rights reserved.</copyright>
+    <language>en-US</language>
+    <tags>DevAccelerate Notifications Messages</tags>
+    <repository type="git" url="https://github.com/devaccelerate/DevAccelerateNet" commit="12f241bcdd706913cbd452de838a84e5449caaaa" />
+    <dependencies>
+      <dependency id="DevAccelerateCore" version="6.0.0-preview4" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="lib\Ejyle.DevAccelerate.Lists.dll" target="lib\Ejyle.DevAccelerate.Lists.dll" />
+  </files>
+</package>

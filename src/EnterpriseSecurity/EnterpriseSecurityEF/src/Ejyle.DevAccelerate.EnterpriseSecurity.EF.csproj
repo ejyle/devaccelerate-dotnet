@@ -74,15 +74,15 @@
     <Compile Include="UserAgreements\DaUserAgreementRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\CoreEF\src\Ejyle.DevAccelerate.Core.EF.csproj">
+    <ProjectReference Include="..\..\..\Core\CoreEF\src\Ejyle.DevAccelerate.Core.EF.csproj">
       <Project>{591c53e7-7753-422b-a687-4cf116d7f11a}</Project>
       <Name>Ejyle.DevAccelerate.Core.EF</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Core\Core\src\Ejyle.DevAccelerate.Core.csproj">
+    <ProjectReference Include="..\..\..\Core\Core\src\Ejyle.DevAccelerate.Core.csproj">
       <Project>{320bf7cc-b2bb-40de-afa1-62197c369adb}</Project>
       <Name>Ejyle.DevAccelerate.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EnterpriseSecurity\src\Ejyle.DevAccelerate.EnterpriseSecurity.csproj">
+    <ProjectReference Include="..\..\EnterpriseSecurity\src\Ejyle.DevAccelerate.EnterpriseSecurity.csproj">
       <Project>{78b99aed-2c5c-479a-9cc4-9763b7296726}</Project>
       <Name>Ejyle.DevAccelerate.EnterpriseSecurity</Name>
     </ProjectReference>

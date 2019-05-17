@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>DevAccelerateSmsTwilio</id>
+    <version>6.0.0-preview3</version>
+    <title>Twilio for DevAccelerate Sms</title>
+    <authors>ejyle,tanveery</authors>
+    <owners>ejyle,tanveery</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <licenseUrl>https://raw.githubusercontent.com/devaccelerate/DevAccelerateNet/master/LICENSE</licenseUrl>
+    <projectUrl>https://devaccelerate.github.io/</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/devaccelerate/devaccelerate.github.io/master/img/logo.png</iconUrl>
+    <description>Provides Twilio implementation for DevAccelerate SMS for sending SMS messages.</description>
+    <summary>Provides Twilio implementation for DevAccelerate SMS for sending SMS messages.</summary>
+    <releaseNotes>This release contains the following primary changes:
+
+1) Upgraded NuGet packages.
+2) Updated for DevAccelerate 6 release.
+3) Added basic templating support.</releaseNotes>
+    <copyright>© Ejyle Technologies (P) Ltd. All rights reserved.</copyright>
+    <language>en-US</language>
+    <tags>DevAccelerate SMS Twilio</tags>
+    <repository type="git" url="https://github.com/devaccelerate/DevAccelerateNet" commit="12f241bcdd706913cbd452de838a84e5449caaaa" />
+    <dependencies>
+      <dependency id="DevAccelerateSms" version="6.0.0-preview5" />
+      <dependency id="Twilio" version="5.29.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="lib\Ejyle.DevAccelerate.Sms.Twilio.dll" target="lib\Ejyle.DevAccelerate.Sms.Twilio.dll" />
+  </files>
+</package>

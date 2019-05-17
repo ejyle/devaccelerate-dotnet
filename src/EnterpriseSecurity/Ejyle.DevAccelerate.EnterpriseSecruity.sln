@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejyle.DevAccelerate.EnterpriseSecurity", "EnterpriseSecurity\src\Ejyle.DevAccelerate.EnterpriseSecurity.csproj", "{78B99AED-2C5C-479A-9CC4-9763B7296726}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejyle.DevAccelerate.EnterpriseSecurity.EF", "EnterpriseSecurityEF\Ejyle.DevAccelerate.EnterpriseSecurity.EF.csproj", "{D1FBE1D9-3B6D-49E4-97C6-55E7F1D3799C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejyle.DevAccelerate.EnterpriseSecurity.EF", "EnterpriseSecurityEF\src\Ejyle.DevAccelerate.EnterpriseSecurity.EF.csproj", "{D1FBE1D9-3B6D-49E4-97C6-55E7F1D3799C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,7 +26,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45
 		SolutionGuid = {4230B6FC-17FC-4801-B4E3-B0D75F6F965A}
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45
 	EndGlobalSection
 EndGlobal
