@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{78B99AED-2C5C-479A-9CC4-9763B7296726}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Ejyle.DevAccelerate.EnterpriseSecurity</RootNamespace>
+    <AssemblyName>Ejyle.DevAccelerate.EnterpriseSecurity</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Ejyle.DevAccelerate.EnterpriseSecurity.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Apps\Configuration\DaAppsConfigurationManager.cs" />
+    <Compile Include="Apps\Configuration\DaAppsConfigurationSection.cs" />
+    <Compile Include="Apps\DaApp.cs" />
+    <Compile Include="Apps\DaAppFeature.cs" />
+    <Compile Include="Apps\DaAppManager.cs" />
+    <Compile Include="Apps\DaDefaultAppsInitializer.cs" />
+    <Compile Include="Apps\DaFeatureManager.cs" />
+    <Compile Include="Apps\IDaApp.cs" />
+    <Compile Include="Apps\IDaAppFeature.cs" />
+    <Compile Include="Apps\IDaAppRepository.cs" />
+    <Compile Include="Apps\IDaFeature.cs" />
+    <Compile Include="Apps\IDaFeatureAction.cs" />
+    <Compile Include="Apps\IDaFeatureRepository.cs" />
+    <Compile Include="SubscriptionPlans\DaBillingCycle.cs" />
+    <Compile Include="Apps\DaFeature.cs" />
+    <Compile Include="Apps\DaFeatureAction.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubscriptionPlans\DaBillingCycleManager.cs" />
+    <Compile Include="SubscriptionPlans\DaBillingCycleType.cs" />
+    <Compile Include="SubscriptionPlans\DaDuplicateSubscriptionPlanCode.cs" />
+    <Compile Include="SubscriptionPlans\DaSubscriptionPlanManager.cs" />
+    <Compile Include="SubscriptionPlans\IDaBillingCycle.cs" />
+    <Compile Include="SubscriptionPlans\IDaBillingCycleRepository.cs" />
+    <Compile Include="SubscriptionPlans\IDaSubscriptionPlan.cs" />
+    <Compile Include="SubscriptionPlans\IDaSubscriptionPlanApp.cs" />
+    <Compile Include="SubscriptionPlans\IDaSubscriptionPlanFeature.cs" />
+    <Compile Include="SubscriptionPlans\IDaSubscriptionPlanFeatureAttribute.cs" />
+    <Compile Include="SubscriptionPlans\IDaSubscriptionPlanRepository.cs" />
+    <Compile Include="Subscriptions\DaSubscriptionManager.cs" />
+    <Compile Include="Subscriptions\IDaSubscription.cs" />
+    <Compile Include="Subscriptions\IDaSubscriptionApp.cs" />
+    <Compile Include="Subscriptions\IDaSubscriptionAppRole.cs" />
+    <Compile Include="Subscriptions\IDaSubscriptionAppUser.cs" />
+    <Compile Include="Subscriptions\IDaSubscriptionFeature.cs" />
+    <Compile Include="Subscriptions\IDaSubscriptionFeatureAttribute.cs" />
+    <Compile Include="Subscriptions\IDaSubscriptionFeatureRole.cs" />
+    <Compile Include="Subscriptions\IDaSubscriptionFeatureRoleAction.cs" />
+    <Compile Include="Subscriptions\IDaSubscriptionFeatureUser.cs" />
+    <Compile Include="Subscriptions\IDaSubscriptionFeatureUserAction.cs" />
+    <Compile Include="Subscriptions\IDaSubscriptionRepository.cs" />
+    <Compile Include="Subscriptions\DaSubscription.cs" />
+    <Compile Include="Subscriptions\DaSubscriptionApp.cs" />
+    <Compile Include="Subscriptions\DaSubscriptionAppRole.cs" />
+    <Compile Include="Subscriptions\DaSubscriptionAppUser.cs" />
+    <Compile Include="Subscriptions\DaSubscriptionFeature.cs" />
+    <Compile Include="Subscriptions\DaSubscriptionFeatureAttribute.cs" />
+    <Compile Include="Subscriptions\DaSubscriptionFeatureRole.cs" />
+    <Compile Include="Subscriptions\DaSubscriptionFeatureRoleAction.cs" />
+    <Compile Include="Subscriptions\DaSubscriptionFeatureUser.cs" />
+    <Compile Include="Subscriptions\DaSubscriptionFeatureUserAction.cs" />
+    <Compile Include="SubscriptionPlans\DaSubscriptionPlan.cs" />
+    <Compile Include="SubscriptionPlans\DaSubscriptionPlanApp.cs" />
+    <Compile Include="SubscriptionPlans\DaSubscriptionPlanFeature.cs" />
+    <Compile Include="SubscriptionPlans\DaSubscriptionPlanFeatureAttribute.cs" />
+    <Compile Include="Tenants\DaTenantStatus.cs" />
+    <Compile Include="Tenants\DaTenant.cs" />
+    <Compile Include="Tenants\DaTenantManager.cs" />
+    <Compile Include="Tenants\DaTenantType.cs" />
+    <Compile Include="Tenants\DaTenantUser.cs" />
+    <Compile Include="Tenants\IDaTenant.cs" />
+    <Compile Include="Tenants\IDaTenantRepository.cs" />
+    <Compile Include="Tenants\IDaTenantUser.cs" />
+    <Compile Include="UserAgreements\DaUserAgreementManager.cs" />
+    <Compile Include="UserAgreements\DaUserAgreementVersionActionOwner.cs" />
+    <Compile Include="UserAgreements\DaUserAgreementVersionActionType.cs" />
+    <Compile Include="UserAgreements\DaUserAgreementVersionAction.cs" />
+    <Compile Include="UserAgreements\IDaUserAgreement.cs" />
+    <Compile Include="UserAgreements\IDaUserAgreementRepository.cs" />
+    <Compile Include="UserAgreements\IDaUserAgreementVersion.cs" />
+    <Compile Include="UserAgreements\IDaUserAgreementVersionAction.cs" />
+    <Compile Include="UserAgreements\DaUserAgreement.cs" />
+    <Compile Include="UserAgreements\DaUserAgreementVersion.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Ejyle.DevAccelerate.EnterpriseSecurity.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Core\Core\src\Ejyle.DevAccelerate.Core.csproj">
+      <Project>{320bf7cc-b2bb-40de-afa1-62197c369adb}</Project>
+      <Name>Ejyle.DevAccelerate.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

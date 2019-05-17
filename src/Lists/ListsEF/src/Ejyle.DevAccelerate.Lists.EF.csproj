@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DEBFB734-12F8-49E9-957C-88991A21633C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Ejyle.DevAccelerate.Lists.EF</RootNamespace>
+    <AssemblyName>Ejyle.DevAccelerate.Lists.EF</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>da.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Ejyle.DevAccelerate.Lists.EF.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Culture\Configuration\DaCountryEntityConfiguration.cs" />
+    <Compile Include="Culture\Configuration\DaCountryRegionEntityConfiguration.cs" />
+    <Compile Include="Culture\Configuration\DaCurrencyEntityConfiguration.cs" />
+    <Compile Include="Culture\Configuration\DaDateFormatEntityConfiguration.cs" />
+    <Compile Include="Culture\Configuration\DaSystemLanguageEntityConfiguration.cs" />
+    <Compile Include="Culture\Configuration\DaTimeZoneEntityConfiguration.cs" />
+    <Compile Include="Culture\DaCountryManager.cs" />
+    <Compile Include="Culture\DaCountryRepository.cs" />
+    <Compile Include="Culture\DaCurrencyManager.cs" />
+    <Compile Include="Culture\DaCurrencyRepository.cs" />
+    <Compile Include="Culture\DaDateFormatManager.cs" />
+    <Compile Include="Culture\DaDateFormatRepository.cs" />
+    <Compile Include="Culture\DaSystemLanguageManager.cs" />
+    <Compile Include="Culture\DaSystemLanguageRepository.cs" />
+    <Compile Include="Culture\DaTimeZoneManager.cs" />
+    <Compile Include="Culture\DaTimeZoneRepository.cs" />
+    <Compile Include="DaListsDbContext.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="da.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Ejyle.DevAccelerate.Lists.EF.snk" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Core\CoreEF\src\Ejyle.DevAccelerate.Core.EF.csproj">
+      <Project>{591c53e7-7753-422b-a687-4cf116d7f11a}</Project>
+      <Name>Ejyle.DevAccelerate.Core.EF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Core\Core\src\Ejyle.DevAccelerate.Core.csproj">
+      <Project>{320bf7cc-b2bb-40de-afa1-62197c369adb}</Project>
+      <Name>Ejyle.DevAccelerate.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Lists\src\Ejyle.DevAccelerate.Lists.csproj">
+      <Project>{4a73328a-0d7b-4cc4-898b-b04f677adc20}</Project>
+      <Name>Ejyle.DevAccelerate.Lists</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
