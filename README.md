@@ -11,6 +11,18 @@ The following is the list of DevAccelerate NuGet packages:
 * [DevAccelerateCoreEF](https://www.nuget.org/packages/DevAccelerateCoreEF)
 * [DevAccelerateCoreExceptionHandlingMsel](https://www.nuget.org/packages/DevAccelerateCoreExceptionHandlingMsel)
 * [DevAccelerateCoreLoggingMsel](https://www.nuget.org/packages/DevAccelerateCoreLoggingMsel)
+* [DevAccelerateLists](https://www.nuget.org/packages/DevAccelerateLists/)
+* [DevAccelerateListsEF](https://www.nuget.org/packages/DevAccelerateListsEF/)
+* [DevAccelerateIdentity](https://www.nuget.org/packages/DevAccelerateIdentity/)
+* [DevAccelerateIdentityEF](https://www.nuget.org/packages/DevAccelerateIdentityEF/)
+* [DevAccelerateEnterpriseSecurity](https://www.nuget.org/packages/DevAccelerateEnterpriseSecurity/)
+* [DevAccelerateEnterpriseSecurityEF](https://www.nuget.org/packages/DevAccelerateEnterpriseSecurityEF/)
+* [DevAccelerateSecurityFacade](https://www.nuget.org/packages/DevAccelerateSecurityFacade/)
+* [DevAccelerateMail](https://www.nuget.org/packages/DevAccelerateMail/)
+* [DevAccelerateMailSendGrid](https://www.nuget.org/packages/DevAccelerateMailSendGrid/)
+* [DevAccelerateSms](https://www.nuget.org/packages/DevAccelerateSms/)
+* [DevAccelerateSmsTextlocal](https://www.nuget.org/packages/DevAccelerateSmsTextlocal/)
+* [DevAccelerateSmsTwilio](https://www.nuget.org/packages/DevAccelerateSmsTwilio/)
 
 ### Issues
 
