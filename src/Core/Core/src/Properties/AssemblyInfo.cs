@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Ejyle.DevAccelerate.Core")]
-[assembly: AssemblyDescription("rovides all the basic interfaces for the most common cross-cutting concerns such as configuration, caching, logging, exception handling, and entity management.")]
+[assembly: AssemblyDescription("Provides all the basic interfaces for the most common cross-cutting concerns such as configuration, caching, logging, exception handling, and entity management.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ejyle Technologies (P) Ltd")]
 [assembly: AssemblyProduct("Ejyle DevAccelerate Core")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("13e4f97b-8770-45be-816e-60da5b6acd62")]
+[assembly: Guid("320bf7cc-b2bb-40de-afa1-62197c369adb")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("6.0.1.0")]
+[assembly: AssemblyVersion("6.0.0.0")]
 [assembly: AssemblyFileVersion("6.0")]
