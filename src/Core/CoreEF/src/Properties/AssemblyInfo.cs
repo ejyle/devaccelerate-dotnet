@@ -13,7 +13,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Provides common classes for using Microsoft Entity Framework in DevAccelerate libraries.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ejyle Technologies (P) Ltd")]
-[assembly: AssemblyProduct("Ejyle DevAccelerate Core EF")]
+[assembly: AssemblyProduct("Ejyle.DevAccelerate.Core.EF")]
 [assembly: AssemblyCopyright("Copyright © Ejyle Technologies (P) Ltd. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

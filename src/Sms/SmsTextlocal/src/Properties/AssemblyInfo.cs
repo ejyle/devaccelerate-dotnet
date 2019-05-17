@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("A Textlocal implementation for DevAccelerate SMS for sending SMS messages.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ejyle Technologies (P) Ltd")]
-[assembly: AssemblyProduct("Textlocal for DevAccelerate SMS")]
+[assembly: AssemblyProduct("Ejyle.DevAccelerate.Sms.Textlocal")]
 [assembly: AssemblyCopyright("Copyright © Ejyle Technologies (P) Ltd. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -33,4 +33,4 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("6.0.0.0")]
-[assembly: AssemblyFileVersion("6.0.0.0")]
+[assembly: AssemblyFileVersion("6.0")]

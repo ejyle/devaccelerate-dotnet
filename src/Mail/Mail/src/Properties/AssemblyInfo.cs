@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Provides interfaces for sending email messages.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ejyle Technologies (P) Ltd")]
-[assembly: AssemblyProduct("DevAccelerate Mail")]
+[assembly: AssemblyProduct("Ejyle.DevAccelerate.Mail")]
 [assembly: AssemblyCopyright("Copyright © Ejyle Technologies (P) Ltd. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

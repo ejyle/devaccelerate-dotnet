@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Provides all the basic interfaces for the most common cross-cutting concerns such as configuration, caching, logging, exception handling, and entity management.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ejyle Technologies (P) Ltd")]
-[assembly: AssemblyProduct("Ejyle DevAccelerate Core")]
+[assembly: AssemblyProduct("Ejyle.DevAccelerate.Core")]
 [assembly: AssemblyCopyright("Copyright © Ejyle Technologies (P) Ltd. All rirghts reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

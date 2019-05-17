@@ -14,7 +14,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("A Microsoft Enterprise Library Exception Handling Block implementation of exception handling interfaces for DevAccelerate Core.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ejyle Technologies (P) Ltd")]
-[assembly: AssemblyProduct("MSEL Exception Handling for DevAccelerate Core")]
+[assembly: AssemblyProduct("Ejyle.DevAccelerate.Core.ExceptionHandling.Msel")]
 [assembly: AssemblyCopyright("Copyright © Ejyle Technologies (P) Ltd. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

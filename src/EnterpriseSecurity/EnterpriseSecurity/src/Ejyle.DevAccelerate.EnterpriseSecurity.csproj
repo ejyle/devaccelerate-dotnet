@@ -37,6 +37,9 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>Ejyle.DevAccelerate.EnterpriseSecurity.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>da.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -135,6 +138,9 @@
       <Project>{320bf7cc-b2bb-40de-afa1-62197c369adb}</Project>
       <Name>Ejyle.DevAccelerate.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="da.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

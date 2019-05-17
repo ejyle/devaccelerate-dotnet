@@ -14,7 +14,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("A Microsoft Enterprise Library Logging Block implementation of Logging interfaces for DevAccelerate Core.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ejyle Technologies (P) Ltd")]
-[assembly: AssemblyProduct("MSEL Logging for DevAccelerate Core")]
+[assembly: AssemblyProduct("Ejyle.DevAccelerate.Core.Logging.Msel")]
 [assembly: AssemblyCopyright("Copyright © Ejyle Technologies (P) Ltd. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
