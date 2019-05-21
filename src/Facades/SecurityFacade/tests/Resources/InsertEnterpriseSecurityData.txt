@@ -1,0 +1,194 @@
+SET IDENTITY_INSERT [EnterpriseSecurity].[Tenants] ON
+
+INSERT INTO [EnterpriseSecurity].[Tenants]
+([Id],[TenantType],[OwnerUserId],[Name],[Domain],[IsDomainOwnershipVerified],[FriendlyName],[Status],[CountryId],[CurrencyId],[TimeZoneId],[DateFormatId],[DateFormatWithDateOnlyId],[DateFormatWithTimeOnlyId],[SystemLanguageId],[CreatedBy],[CreatedDateUtc])
+VALUES(1, 1,@UserId,'ABC Corp','abc.com','true','ABC Corp',1,1,1,1,1,1,1,1,@UserId,GETUTCDATE())
+
+SET IDENTITY_INSERT [EnterpriseSecurity].[Tenants] OFF
+
+SET IDENTITY_INSERT [EnterpriseSecurity].[TenantUsers] ON
+
+INSERT INTO [EnterpriseSecurity].[TenantUsers]
+([Id],[TenantId],[UserId],[IsActive])
+VALUES (1, 1, @UserId, 'true')
+
+SET IDENTITY_INSERT [EnterpriseSecurity].[TenantUsers] OFF
+
+SET IDENTITY_INSERT [EnterpriseSecurity].[Apps] ON
+
+INSERT INTO [EnterpriseSecurity].[Apps]
+(
+	[Id]
+	,[Name]
+	,[Key]
+	,[Description]
+	,[Status]
+	,[LastUpdatedDateUtc]
+)
+VALUES
+(1, 'SampleApp', 'sampleapp', 'A sample app', 6, GETUTCDATE())
+
+SET IDENTITY_INSERT [EnterpriseSecurity].[Apps] OFF
+
+SET IDENTITY_INSERT [EnterpriseSecurity].[UserAgreements] ON
+
+INSERT INTO [EnterpriseSecurity].[UserAgreements]
+([Id], [Name],[Key],[AppId])
+VALUES
+(1, 'Subscription Agreement', 'subscription', 1)
+
+SET IDENTITY_INSERT [EnterpriseSecurity].[UserAgreements] OFF
+
+SET IDENTITY_INSERT [EnterpriseSecurity].[UserAgreementVersions] ON
+
+INSERT INTO [EnterpriseSecurity].[UserAgreementVersions]
+([Id],[UserAgreementId],[VersionNumber],[Text],[IsCurrent],[IsPublished],[PublishedDateUtc])
+VALUES(1, 1, 1, 'Here are the dummy terms and conditions', 'true', 'true', GETUTCDATE())
+
+SET IDENTITY_INSERT [EnterpriseSecurity].[UserAgreementVersions] OFF
+
+SET IDENTITY_INSERT [EnterpriseSecurity].[Features] ON
+
+INSERT INTO [EnterpriseSecurity].[Features]
+([Id],[Name],[Key],[AppId],[Status],[LastUpdatedDateUtc])
+VALUES(1, 'FeatureA', 'feature-a', 1, 6, GETUTCDATE())
+
+INSERT INTO [EnterpriseSecurity].[Features]
+([Id],[Name],[Key],[AppId],[Status],[LastUpdatedDateUtc])
+VALUES(2, 'Feature B', 'feature-b', 1, 6, GETUTCDATE())
+
+SET IDENTITY_INSERT [EnterpriseSecurity].[Features] OFF
+
+SET IDENTITY_INSERT [EnterpriseSecurity].[SubscriptionPlans] ON
+
+INSERT INTO [EnterpriseSecurity].[SubscriptionPlans]
+([Id],[Name],[Description],[Code],[IsAutoRenewByDefault],[MaximumUsers],[IsFeatured],[Status],[UserAgreementVersionId],[PublishedDateUtc])
+VALUES(1, 'Silver Plan', 'A simple subscription that gives you most features.', 'SILVER', 'true', 10, 'false', 6, 1, GETUTCDATE())
+
+INSERT INTO [EnterpriseSecurity].[SubscriptionPlans]
+([Id],[Name],[Description],[Code],[IsAutoRenewByDefault],[MaximumUsers],[IsFeatured],[Status],[UserAgreementVersionId],[PublishedDateUtc])
+VALUES(2, 'Gold Plan', 'The best subscription that gives you all the features.', 'GOLD', 'true', 100, 'true', 6, 1, GETUTCDATE())
+
+SET IDENTITY_INSERT [EnterpriseSecurity].[SubscriptionPlans] OFF
+
+SET IDENTITY_INSERT [EnterpriseSecurity].[SubscriptionPlanApps] ON
+
+INSERT INTO [EnterpriseSecurity].[SubscriptionPlanApps]
+([Id],[SubscriptionPlanId],[AppId],[CreatedDateUtc])
+VALUES(1, 1, 1, GETUTCDATE())
+
+INSERT INTO [EnterpriseSecurity].[SubscriptionPlanApps]
+([Id],[SubscriptionPlanId],[AppId],[CreatedDateUtc])
+VALUES(2, 2, 1, GETUTCDATE())
+
+SET IDENTITY_INSERT [EnterpriseSecurity].[SubscriptionPlanApps] OFF
+
+SET IDENTITY_INSERT [EnterpriseSecurity].[SubscriptionPlanFeatures] ON
+
+INSERT INTO [EnterpriseSecurity].[SubscriptionPlanFeatures]
+([Id], [SubscriptionPlanId],[FeatureId],[CreatedDateUtc])
+VALUES (1, 1, 1, GETUTCDATE())
+
+INSERT INTO [EnterpriseSecurity].[SubscriptionPlanFeatures]
+([Id], [SubscriptionPlanId],[FeatureId],[CreatedDateUtc])
+VALUES (2, 2, 1, GETUTCDATE())
+
+INSERT INTO [EnterpriseSecurity].[SubscriptionPlanFeatures]
+([Id], [SubscriptionPlanId],[FeatureId],[CreatedDateUtc])
+VALUES (3, 2, 2, GETUTCDATE())
+
+SET IDENTITY_INSERT [EnterpriseSecurity].[SubscriptionPlanFeatures] OFF
+
+SET IDENTITY_INSERT [EnterpriseSecurity].[SubscriptionPlanFeatureAttributes] ON
+
+INSERT INTO [EnterpriseSecurity].[SubscriptionPlanFeatureAttributes]
+([Id], [SubscriptionPlanFeatureId],[Name],[Value])
+VALUES(1, 1, 'num-feature-a', '1000')
+
+INSERT INTO [EnterpriseSecurity].[SubscriptionPlanFeatureAttributes]
+([Id], [SubscriptionPlanFeatureId],[Name],[Value])
+VALUES(2, 2, 'num-feature-a', '10000')
+
+SET IDENTITY_INSERT [EnterpriseSecurity].[SubscriptionPlanFeatureAttributes] OFF
+
+SET IDENTITY_INSERT [EnterpriseSecurity].[BillingCycles] ON
+
+INSERT INTO [EnterpriseSecurity].[BillingCycles]
+([Id],[BillingCycleType],[BillingCycleDuration],[Amount],[CurrencyId],[SubscriptionPlanId],[Name],[Description],[AllowTrial],[StartOnlyWithTrial],[TrialDuration],[TrialDurationType])
+VALUES(1, 1, 1, 99, 1, 1, 'Monthly', 'Monthly subscription. Cancel anytime.', 'true', 'false', 1, 0)
+
+INSERT INTO [EnterpriseSecurity].[BillingCycles]
+([Id],[BillingCycleType],[BillingCycleDuration],[Amount],[CurrencyId],[SubscriptionPlanId],[Name],[Description],[AllowTrial],[StartOnlyWithTrial],[TrialDuration],[TrialDurationType])
+VALUES(2, 3, 1, 899, 1, 1, 'Yearly', 'Yearly subscription. Cancel anytime.', 'true', 'false', 1, 0)
+
+INSERT INTO [EnterpriseSecurity].[BillingCycles]
+([Id],[BillingCycleType],[BillingCycleDuration],[Amount],[CurrencyId],[SubscriptionPlanId],[Name],[Description],[AllowTrial],[StartOnlyWithTrial],[TrialDuration],[TrialDurationType])
+VALUES(3, 1, 1, 299, 1, 2, 'Monthly', 'Monthly subscription. Cancel anytime.', 'true', 'false', 1, 0)
+
+INSERT INTO [EnterpriseSecurity].[BillingCycles]
+([Id],[BillingCycleType],[BillingCycleDuration],[Amount],[CurrencyId],[SubscriptionPlanId],[Name],[Description],[AllowTrial],[StartOnlyWithTrial],[TrialDuration],[TrialDurationType])
+VALUES(4, 3, 1, 1999, 1, 2, 'Yearly', 'Yearly subscription. Cancel anytime.', 'true', 'false', 1, 0)
+
+SET IDENTITY_INSERT [EnterpriseSecurity].[BillingCycles] OFF
+
+DECLARE @BillingCycleAmount INT
+DECLARE @BillingCycleType INT
+DECLARE @BillingCycleDuration INT
+DECLARE @BillingCycleStartDay INT
+DECLARE @BillingCycleEndDay INT
+DECLARE @ExpiryDate DATETIME
+DECLARE @Now DATETIME
+SET @Now = GETUTCDATE()
+
+SELECT @BillingCycleAmount = bc.Amount,
+@BillingCycleType = bc.BillingCycleType,
+@BillingCycleDuration = bc.BillingCycleDuration
+FROM [EnterpriseSecurity].[BillingCycles] bc
+WHERE bc.Id = 1 AND bc.SubscriptionPlanId = 1
+
+IF @BillingCycleType = 1
+BEGIN
+	SET @ExpiryDate = DATEADD(MONTH, 1, @BillingCycleStartDay)
+END
+ELSE IF @BillingCycleType = 3
+BEGIN
+	SET @ExpiryDate = DATEADD(YEAR, 1, @BillingCycleStartDay)
+END
+ELSE IF @BillingCycleType = 0
+BEGIN
+	SET @ExpiryDate = DATEADD(WEEK, 1, @BillingCycleStartDay)
+END
+
+SET @BillingCycleEndDay = CAST(DATEPART(DAY, @ExpiryDate) AS INT)
+
+SET IDENTITY_INSERT [EnterpriseSecurity].[Subscriptions] ON
+
+INSERT INTO [EnterpriseSecurity].[Subscriptions]
+([Id],[Name],[IsActive],[ExpiryDateUtc],[CurrencyId],[CountryId],[BillingAmount],[BillingCycleType],[BillingCycleStartDay],[BillingCycleEndDay],[TenantId],[UserAgreementVersionId],[OwnerUserId],[PaymentMethodId],[SubscriptionPlanId],[IsTrial],[CreatedDateUtc])
+SELECT 1, sp.[Name], 'true', @ExpiryDate, 1, 1, @BillingCycleAmount, @BillingCycleType, @BillingCycleStartDay, NULL, 1, 1, @UserId, NULL, sp.Id, 'false', GETUTCDATE()
+FROM [EnterpriseSecurity].[SubscriptionPlans] AS sp
+WHERE sp.[Id] = 1
+
+SET IDENTITY_INSERT [EnterpriseSecurity].[Subscriptions] OFF
+
+INSERT INTO [EnterpriseSecurity].[SubscriptionApps]
+([SubscriptionId],[AppId],[CreatedDateUtc])
+SELECT 1, [AppId],GETUTCDATE()
+FROM [EnterpriseSecurity].[SubscriptionPlanApps]
+WHERE [SubscriptionPlanId] = 1
+
+INSERT INTO [EnterpriseSecurity].[SubscriptionFeatures]
+([SubscriptionId],[FeatureId],[IsEnabled],[LastUpdatedDateUtc])
+SELECT 1,[FeatureId],'true',GETUTCDATE()
+FROM [EnterpriseSecurity].[SubscriptionPlanFeatures]
+WHERE [SubscriptionPlanId] = 1
+
+DECLARE @SubscriptionFeatureId INT
+
+SELECT @SubscriptionFeatureId = [Id]
+FROM [EnterpriseSecurity].[SubscriptionFeatures]
+WHERE [SubscriptionId] = 1
+
+INSERT INTO [EnterpriseSecurity].[SubscriptionFeatureUsers]
+([SubscriptionFeatureId],[UserId],[IsEnabled],[LastUpdatedDateUtc])
+VALUES (@SubscriptionFeatureId, @UserId, 'true', GETUTCDATE())

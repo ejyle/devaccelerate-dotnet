@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>DevAccelerateIdentityEF</id>
-    <version>6.0.0-preview1</version>
+    <version>6.0.0-preview2</version>
     <title>DevAccelerate Identity EF</title>
     <authors>ejyle,tanveery</authors>
     <owners>ejyle,tanveery</owners>
@@ -30,6 +30,7 @@
       <dependency id="Newtonsoft.Json" version="12.0.2" />
       <dependency id="DevAccelerateIdentity" version="6.0.0-preview1" />
       <dependency id="DevAccelerateCoreEF" version="6.0.0-preview2" />
+      <dependency id="Microsoft.AspNet.Identity.EntityFramework" version="2.2.2" />
     </dependencies>
   </metadata>
   <files>

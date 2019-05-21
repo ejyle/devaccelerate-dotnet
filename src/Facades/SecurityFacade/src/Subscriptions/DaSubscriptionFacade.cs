@@ -333,6 +333,21 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
 
             var feature = subscription.SubscriptionFeatures.Where(m => m.Feature.Key == key).SingleOrDefault();
 
+            if(feature == null)
+            {
+                return null;
+            }
+
+            var subscriptionFeatureUser = feature.SubscriptionFeatureUsers.Where(m => m.UserId.Equals(userId)).SingleOrDefault();
+
+            if(subscriptionFeatureUser != null)
+            {
+                if(!subscriptionFeatureUser.IsEnabled)
+                {
+                    return null;
+                }
+            }
+
             var result = new TSubscriptionFeatureAccessInfo();
             result.Id = feature.Id;
             result.Key = feature.Feature.Key;
