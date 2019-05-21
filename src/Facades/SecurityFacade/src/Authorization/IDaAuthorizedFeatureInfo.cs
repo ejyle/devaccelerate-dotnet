@@ -11,17 +11,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
+namespace Ejyle.DevAccelerate.Facades.Security.Authorization
 {
-    public class DaSubscriptionFeatureInfo : DaSubscriptionFeatureInfo<int>
-    { }
-
-    public class DaSubscriptionFeatureInfo<TKey> : IDaSubscriptionFeatureInfo<TKey>
+    public interface IDaAuthorizedFeatureInfo<TKey>
         where TKey : IEquatable<TKey>
     {
-        public TKey Id {get; set;}
-        public string Name {get; set;}
-        public string Key {get; set;}
-        public string Location {get; set;}
+        TKey Id { get; set; }
+        string Name { get; set; }
+        string Key { get; set; }
+        string Location { get; set; }
     }
 }

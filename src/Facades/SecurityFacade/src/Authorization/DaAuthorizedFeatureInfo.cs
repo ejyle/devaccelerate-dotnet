@@ -11,21 +11,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
+namespace Ejyle.DevAccelerate.Facades.Security.Authorization
 {
-    public interface IDaSubscriptionFeatureAccessInfo<TKey, TSubscriptionFeatureAccessActionInfo>
-        where TKey : IEquatable<TKey>
-        where TSubscriptionFeatureAccessActionInfo : IDaSubscriptionFeatureAccessActionInfo<TKey>
-    {
-        TKey Id { get; set; }
-        string Key { get; set; }
-        List<TSubscriptionFeatureAccessActionInfo> Actions { get; set; }
-    }
+    public class DaAuthorizedFeatureInfo : DaAuthorizedFeatureInfo<int>
+    { }
 
-    public interface IDaSubscriptionFeatureAccessActionInfo<TKey>
+    public class DaAuthorizedFeatureInfo<TKey> : IDaAuthorizedFeatureInfo<TKey>
         where TKey : IEquatable<TKey>
     {
-        string ActionName { get; set; }
-        bool? Allowed { get; set; }
+        public TKey Id {get; set;}
+        public string Name {get; set;}
+        public string Key {get; set;}
+        public string Location {get; set;}
     }
 }

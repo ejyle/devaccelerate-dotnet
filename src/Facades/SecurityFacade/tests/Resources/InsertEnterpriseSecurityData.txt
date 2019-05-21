@@ -191,5 +191,5 @@ WHERE [SubscriptionId] = 1
 
 INSERT INTO [EnterpriseSecurity].[SubscriptionFeatureUsers]
 ([SubscriptionFeatureId],[UserId],[IsEnabled],[LastUpdatedDateUtc])
-VALUES (@SubscriptionFeatureId, @UserId, 'false', GETUTCDATE())
+VALUES (@SubscriptionFeatureId, @UserId, 'true', GETUTCDATE())
 

@@ -10,6 +10,7 @@ using Ejyle.DevAccelerate.EnterpriseSecurity.EF.SubscriptionPlans;
 using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Subscriptions;
 using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Tenants;
 using Ejyle.DevAccelerate.EnterpriseSecurity.EF.UserAgreements;
+using Ejyle.DevAccelerate.Facades.Security.Authorization;
 using Ejyle.DevAccelerate.Facades.Security.Subscriptions;
 using Ejyle.DevAccelerate.Identity.EF;
 using Ejyle.DevAccelerate.List.EF.Culture;
@@ -18,7 +19,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Tests
 {
     public abstract class DaSecurityFacadeTestClassBase
     {
-        protected DaSubscriptionFacade GetSubscriptionFacade()
+        protected DaAuthorizationFacade GetAuthorizationFacade()
         {
             var userManager = new DaUserManager(new DaUserRepository(DaSecurityFacadeTestSuite.IdentityDbContext));
             var tenantManager = new DaTenantManager(new DaTenantRepository(DaSecurityFacadeTestSuite.EnterpriseSecurityDbContext));
@@ -33,7 +34,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Tests
             var timeZoneManager = new DaTimeZoneManager(new DaTimeZoneRepository(DaSecurityFacadeTestSuite.ListsDbContext));
             var systemLanguageManager = new DaSystemLanguageManager(new DaSystemLanguageRepository(DaSecurityFacadeTestSuite.ListsDbContext));
 
-            return new DaSubscriptionFacade(userManager, tenantManager, appManager, featureManager, userAgreementManager, subscriptionPlanManager, subscriptionManager, currencyManager, countryManager, timeZoneManager, systemLanguageManager);
+            return new DaAuthorizationFacade(userManager, tenantManager, appManager, featureManager, userAgreementManager, subscriptionPlanManager, subscriptionManager, currencyManager, countryManager, timeZoneManager, systemLanguageManager);
         }
     }
 }

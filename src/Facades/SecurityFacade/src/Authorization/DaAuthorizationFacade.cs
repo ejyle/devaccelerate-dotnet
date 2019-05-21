@@ -30,12 +30,13 @@ using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Apps;
 using Ejyle.DevAccelerate.EnterpriseSecurity.EF.UserAgreements;
 using System.Collections.Generic;
 using Ejyle.DevAccelerate.Core;
+using Ejyle.DevAccelerate.Facades.Security.Subscriptions;
 
-namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
+namespace Ejyle.DevAccelerate.Facades.Security.Authorization
 {
-    public class DaSubscriptionFacade : DaSubscriptionFacade<DaSubscriptionInfo, DaUserManager, DaUser, DaUserLogin, DaUserRole, DaUserClaim, DaTenantManager, DaTenant, DaTenantUser, DaUserAgreementManager, DaUserAgreement, DaUserAgreementVersion, DaUserAgreementVersionAction, DaAppManager, DaApp, DaFeatureManager, DaFeature, DaAppFeature, DaFeatureAction, DaSubscriptionPlanManager, DaSubscriptionPlan, DaBillingCycle, DaSubscriptionPlanApp, DaSubscriptionPlanFeature, DaSubscriptionPlanFeatureAttribute, DaSubscriptionManager, DaSubscription, DaSubscriptionApp, DaSubscriptionFeature, DaSubscriptionFeatureAttribute, DaSubscriptionAppRole, DaSubscriptionAppUser, DaSubscriptionFeatureRole, DaSubscriptionFeatureRoleAction, DaSubscriptionFeatureUser, DaSubscriptionFeatureUserAction, DaCurrencyManager, DaCurrency, DaCountryManager, DaCountry, DaCountryRegion, DaTimeZoneManager, DaTimeZone, DaSystemLanguageManager, DaSystemLanguage>
+    public class DaAuthorizationFacade : DaAuthorizationFacade<DaSubscriptionInfo, DaAuthorizedFeatureInfo, DaAuthorizationInfo, DaAuthorizedActionInfo, DaUserManager, DaUser, DaUserLogin, DaUserRole, DaUserClaim, DaTenantManager, DaTenant, DaTenantUser, DaUserAgreementManager, DaUserAgreement, DaUserAgreementVersion, DaUserAgreementVersionAction, DaAppManager, DaApp, DaFeatureManager, DaFeature, DaAppFeature, DaFeatureAction, DaSubscriptionPlanManager, DaSubscriptionPlan, DaBillingCycle, DaSubscriptionPlanApp, DaSubscriptionPlanFeature, DaSubscriptionPlanFeatureAttribute, DaSubscriptionManager, DaSubscription, DaSubscriptionApp, DaSubscriptionFeature, DaSubscriptionFeatureAttribute, DaSubscriptionAppRole, DaSubscriptionAppUser, DaSubscriptionFeatureRole, DaSubscriptionFeatureRoleAction, DaSubscriptionFeatureUser, DaSubscriptionFeatureUserAction, DaCurrencyManager, DaCurrency, DaCountryManager, DaCountry, DaCountryRegion, DaTimeZoneManager, DaTimeZone, DaSystemLanguageManager, DaSystemLanguage>
     {
-        public DaSubscriptionFacade(IOwinContext owinContext)
+        public DaAuthorizationFacade(IOwinContext owinContext)
             : base(owinContext.Get<DaUserManager>(),
                   new DaTenantManager(new DaTenantRepository(owinContext.Get<DaEnterpriseSecurityDbContext>())),
                   new DaAppManager(new DaAppRepository(owinContext.Get<DaEnterpriseSecurityDbContext>())),
@@ -50,15 +51,18 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
         {
         }
 
-        public DaSubscriptionFacade(DaUserManager userManager, DaTenantManager tenantManager, DaAppManager appManager, DaFeatureManager featureManager, DaUserAgreementManager userAgreementManager, DaSubscriptionPlanManager subscriptionPlanManager, DaSubscriptionManager subscriptionManager, DaCurrencyManager currencyManager, DaCountryManager countryManager, DaTimeZoneManager timeZoneManager, DaSystemLanguageManager systemLanguageManager)
+        public DaAuthorizationFacade(DaUserManager userManager, DaTenantManager tenantManager, DaAppManager appManager, DaFeatureManager featureManager, DaUserAgreementManager userAgreementManager, DaSubscriptionPlanManager subscriptionPlanManager, DaSubscriptionManager subscriptionManager, DaCurrencyManager currencyManager, DaCountryManager countryManager, DaTimeZoneManager timeZoneManager, DaSystemLanguageManager systemLanguageManager)
             : base(userManager, tenantManager, appManager, featureManager, userAgreementManager, subscriptionPlanManager, subscriptionManager, currencyManager, countryManager, timeZoneManager, systemLanguageManager)
         {
         }
     }
 
-    public class DaSubscriptionFacade<TSubscriptionInfo, TUserManager, TUser, TUserLogin, TUserRole, TUserClaim, TTenantManager, TTenant, TTenantUser, TUserAgreementManager, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction, TAppManager, TApp, TFeatureManager, TFeature, TAppFeature, TFeatureAction, TSubscriptionPlanManager, TSubscriptionPlan, TBillingCycle, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscriptionPlanFeatureAttribute, TSubscriptionManager, TSubscription, TSubscriptionApp, TSubscriptionFeature, TSubscriptionFeatureAttribute, TSubscriptionAppRole, TSubscriptionAppUser, TSubscriptionFeatureRole, TSubscriptionFeatureRoleAction, TSubscriptionFeatureUser, TSubscriptionFeatureUserAction, TCurrencyManager, TCurrency, TCountryManager, TCountry, TCountryRegion, TTimeZoneManager, TTimeZone, TSystemLanguageManager, TSystemLanguage> 
-        : DaSubscriptionFacade<int, int?, TSubscriptionInfo, TUserManager, TUser, TUserLogin, TUserRole, TUserClaim, TTenantManager, TTenant, TTenantUser, TUserAgreementManager, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction, TAppManager, TApp, TFeatureManager, TFeature, TAppFeature, TFeatureAction, TSubscriptionPlanManager, TSubscriptionPlan, TBillingCycle, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscriptionPlanFeatureAttribute, TSubscriptionManager, TSubscription, TSubscriptionApp, TSubscriptionFeature, TSubscriptionFeatureAttribute, TSubscriptionAppRole, TSubscriptionAppUser, TSubscriptionFeatureRole, TSubscriptionFeatureRoleAction, TSubscriptionFeatureUser, TSubscriptionFeatureUserAction, TCurrencyManager, TCurrency, TCountryManager, TCountry, TCountryRegion, TTimeZoneManager, TTimeZone, TSystemLanguageManager, TSystemLanguage>
+    public class DaAuthorizationFacade<TSubscriptionInfo, TAuthorizedFeatureInfo, TAuthorizationInfo, TAuthorizedActionInfo, TUserManager, TUser, TUserLogin, TUserRole, TUserClaim, TTenantManager, TTenant, TTenantUser, TUserAgreementManager, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction, TAppManager, TApp, TFeatureManager, TFeature, TAppFeature, TFeatureAction, TSubscriptionPlanManager, TSubscriptionPlan, TBillingCycle, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscriptionPlanFeatureAttribute, TSubscriptionManager, TSubscription, TSubscriptionApp, TSubscriptionFeature, TSubscriptionFeatureAttribute, TSubscriptionAppRole, TSubscriptionAppUser, TSubscriptionFeatureRole, TSubscriptionFeatureRoleAction, TSubscriptionFeatureUser, TSubscriptionFeatureUserAction, TCurrencyManager, TCurrency, TCountryManager, TCountry, TCountryRegion, TTimeZoneManager, TTimeZone, TSystemLanguageManager, TSystemLanguage>
+        : DaAuthorizationFacade<int, int?, TSubscriptionInfo, TAuthorizedFeatureInfo, TAuthorizationInfo, TAuthorizedActionInfo, TUserManager, TUser, TUserLogin, TUserRole, TUserClaim, TTenantManager, TTenant, TTenantUser, TUserAgreementManager, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction, TAppManager, TApp, TFeatureManager, TFeature, TAppFeature, TFeatureAction, TSubscriptionPlanManager, TSubscriptionPlan, TBillingCycle, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscriptionPlanFeatureAttribute, TSubscriptionManager, TSubscription, TSubscriptionApp, TSubscriptionFeature, TSubscriptionFeatureAttribute, TSubscriptionAppRole, TSubscriptionAppUser, TSubscriptionFeatureRole, TSubscriptionFeatureRoleAction, TSubscriptionFeatureUser, TSubscriptionFeatureUserAction, TCurrencyManager, TCurrency, TCountryManager, TCountry, TCountryRegion, TTimeZoneManager, TTimeZone, TSystemLanguageManager, TSystemLanguage>
         where TSubscriptionInfo : IDaSubscriptionInfo<int>
+        where TAuthorizedFeatureInfo : DaAuthorizedFeatureInfo<int>, new()
+        where TAuthorizationInfo : DaAuthorizationInfo<int, TAuthorizedActionInfo>, new()
+        where TAuthorizedActionInfo : DaAuthorizedActionInfo<int>, new()
         where TUserManager : DaUserManager<int, int?, TUser>
         where TUser : DaUser<int, int?, TUserLogin, TUserRole, TUserClaim>, new()
         where TUserLogin : DaUserLogin<int>
@@ -104,15 +108,18 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
         where TSystemLanguageManager : DaSystemLanguageManager<int, TSystemLanguage>
         where TSystemLanguage : DaSystemLanguage<int, int?, TCountry>
     {
-        public DaSubscriptionFacade(TUserManager userManager, TTenantManager tenantManager, TAppManager appManager, TFeatureManager featureManager, TUserAgreementManager userAgreementManager, TSubscriptionPlanManager subscriptionPlanManager, TSubscriptionManager subscriptionManager, TCurrencyManager currencyManager, TCountryManager countryManager, TTimeZoneManager timeZoneManager, TSystemLanguageManager systemLanguageManager)
+        public DaAuthorizationFacade(TUserManager userManager, TTenantManager tenantManager, TAppManager appManager, TFeatureManager featureManager, TUserAgreementManager userAgreementManager, TSubscriptionPlanManager subscriptionPlanManager, TSubscriptionManager subscriptionManager, TCurrencyManager currencyManager, TCountryManager countryManager, TTimeZoneManager timeZoneManager, TSystemLanguageManager systemLanguageManager)
             : base(userManager, tenantManager, appManager, featureManager, userAgreementManager, subscriptionPlanManager, subscriptionManager, currencyManager, countryManager, timeZoneManager, systemLanguageManager)
         {
         }
     }
 
-    public class DaSubscriptionFacade<TKey, TNullableKey, TSubscriptionInfo, TUserManager, TUser, TUserLogin, TUserRole, TUserClaim, TTenantManager, TTenant, TTenantUser, TUserAgreementManager, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction, TAppManager, TApp, TFeatureManager, TFeature, TAppFeature, TFeatureAction, TSubscriptionPlanManager, TSubscriptionPlan, TBillingCycle, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscriptionPlanFeatureAttribute, TSubscriptionManager, TSubscription, TSubscriptionApp, TSubscriptionFeature, TSubscriptionFeatureAttribute, TSubscriptionAppRole, TSubscriptionAppUser, TSubscriptionFeatureRole, TSubscriptionFeatureRoleAction, TSubscriptionFeatureUser, TSubscriptionFeatureUserAction, TCurrencyManager, TCurrency, TCountryManager, TCountry, TCountryRegion, TTimeZoneManager, TTimeZone, TSystemLanguageManager, TSystemLanguage>
+    public class DaAuthorizationFacade<TKey, TNullableKey, TSubscriptionInfo, TAuthorizedFeatureInfo, TAuthorizationInfo, TAuthorizedActionInfo, TUserManager, TUser, TUserLogin, TUserRole, TUserClaim, TTenantManager, TTenant, TTenantUser, TUserAgreementManager, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction, TAppManager, TApp, TFeatureManager, TFeature, TAppFeature, TFeatureAction, TSubscriptionPlanManager, TSubscriptionPlan, TBillingCycle, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscriptionPlanFeatureAttribute, TSubscriptionManager, TSubscription, TSubscriptionApp, TSubscriptionFeature, TSubscriptionFeatureAttribute, TSubscriptionAppRole, TSubscriptionAppUser, TSubscriptionFeatureRole, TSubscriptionFeatureRoleAction, TSubscriptionFeatureUser, TSubscriptionFeatureUserAction, TCurrencyManager, TCurrency, TCountryManager, TCountry, TCountryRegion, TTimeZoneManager, TTimeZone, TSystemLanguageManager, TSystemLanguage>
         where TKey : IEquatable<TKey>
         where TSubscriptionInfo : IDaSubscriptionInfo<TKey>
+        where TAuthorizedFeatureInfo : DaAuthorizedFeatureInfo<TKey>, new()
+        where TAuthorizationInfo : DaAuthorizationInfo<TKey, TAuthorizedActionInfo>, new()
+        where TAuthorizedActionInfo : DaAuthorizedActionInfo<TKey>, new()
         where TUserManager : DaUserManager<TKey, TNullableKey, TUser>
         where TUser : DaUser<TKey, TNullableKey, TUserLogin, TUserRole, TUserClaim>, new()
         where TUserLogin : DaUserLogin<TKey>
@@ -170,7 +177,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
         private TTimeZoneManager _timeZoneManager;
         private TSystemLanguageManager _systemLanguageManager;
 
-        public DaSubscriptionFacade(TUserManager userManager, TTenantManager tenantManager, TAppManager appManager, TFeatureManager featureManager, TUserAgreementManager userAgreementManager, TSubscriptionPlanManager subscriptionPlanManager, TSubscriptionManager subscriptionManager, TCurrencyManager currencyManager, TCountryManager countryManager, TTimeZoneManager timeZoneManager, TSystemLanguageManager systemLanguageManager)
+        public DaAuthorizationFacade(TUserManager userManager, TTenantManager tenantManager, TAppManager appManager, TFeatureManager featureManager, TUserAgreementManager userAgreementManager, TSubscriptionPlanManager subscriptionPlanManager, TSubscriptionManager subscriptionManager, TCurrencyManager currencyManager, TCountryManager countryManager, TTimeZoneManager timeZoneManager, TSystemLanguageManager systemLanguageManager)
         {
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
             _tenantManager = tenantManager ?? throw new ArgumentNullException(nameof(tenantManager));
@@ -185,234 +192,236 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
             _systemLanguageManager = systemLanguageManager ?? throw new ArgumentNullException(nameof(systemLanguageManager));
         }
 
-        public List<TSubscription> GetSubscriptions(TKey userId, TKey tenantId)
+        public List<TAuthorizedFeatureInfo> GetAuthorizedFeatures(TKey userId, TKey subscriptionId)
         {
-            return DaAsyncHelper.RunSync<List<TSubscription>>(() => GetSubscriptionsAsync(userId, tenantId));
+            return DaAsyncHelper.RunSync<List<TAuthorizedFeatureInfo>>(() => GetAuthorizedFeaturesAsync(userId, subscriptionId));
         }
 
-        public virtual async Task<List<TSubscription>> GetSubscriptionsAsync(TKey userId, TKey tenantId)
+        public virtual async Task<List<TAuthorizedFeatureInfo>> GetAuthorizedFeaturesAsync(TKey userId, TKey subscriptionId)
         {
             var user = await _userManager.FindByIdAsync(userId);
 
             if (user == null)
             {
-                throw new InvalidOperationException("Invalid user ID.");
+                return null;
             }
 
-            var tenant = await _tenantManager.FindByIdAsync(tenantId);
-
-            if(tenant == null)
+            if (user.Status != DaAccountStatus.Active)
             {
-                throw new InvalidOperationException("Invalid tenant ID.");
+                return null;
             }
 
-            var associated = await _tenantManager.CheckTenantUserActiveAssociationAsync(tenantId, userId);
+            var subscription = await _subscriptionManager.FindByIdAsync(subscriptionId);
 
-            if(!associated)
+            if (subscription == null)
             {
-                throw new InvalidOperationException("The tenant and user are not associated at all or the association is not active.");
+                return null;
             }
 
-            return await _subscriptionManager.FindByTenantIdAsync(tenantId);
+            if (!subscription.IsActive)
+            {
+                return null;
+            }
+
+            var tenants = await _tenantManager.FindByUserIdAsync(userId);
+            TTenant tenant = null;
+
+            for (var i = 0; i < tenants.Count; i++)
+            {
+                if (tenants[i].Id.Equals(subscription.TenantId))
+                {
+                    if (tenants[i].Status == DaTenantStatus.Active)
+                    {
+                        tenant = tenants[i];
+                    }
+
+                    break;
+                }
+            }
+
+            if (tenant == null)
+            {
+                return null;
+            }
+
+            if (subscription.SubscriptionFeatures == null || subscription.SubscriptionFeatures.Count <= 0)
+            {
+                return null;
+            }
+
+            var result = new List<TAuthorizedFeatureInfo>();
+
+            foreach (var feature in subscription.SubscriptionFeatures)
+            {
+                var subscriptionFeatureInfo = new TAuthorizedFeatureInfo();
+                subscriptionFeatureInfo.Id = feature.Feature.Id;
+                subscriptionFeatureInfo.Name = feature.Feature.Name;
+                subscriptionFeatureInfo.Key = feature.Feature.Key;
+                subscriptionFeatureInfo.Location = feature.Feature.Location;
+
+                result.Add(subscriptionFeatureInfo);
+            }
+
+            return result;
         }
 
-        public IdentityResult Subscribe(TSubscriptionInfo subscriptionInfo, string password)
+        public TAuthorizationInfo Authorize(TKey userId, TKey subscriptionId, string featureKey)
         {
-            return DaAsyncHelper.RunSync<IdentityResult>(() => SubscribeAsync(subscriptionInfo, password));
+            return DaAsyncHelper.RunSync<TAuthorizationInfo>(() => AuthorizeAsync(userId, subscriptionId, featureKey));
         }
 
-        public virtual async Task<IdentityResult> SubscribeAsync(TSubscriptionInfo subscriptionInfo, string password)
+        public virtual async Task<TAuthorizationInfo> AuthorizeAsync(TKey userId, TKey subscriptionId, string featureKey)
         {
-            var subscriptionPlan = await _subscriptionPlanManager.FindByIdAsync(subscriptionInfo.SubscriptionPlanId);
+            var user = await _userManager.FindByIdAsync(userId);
 
-            if(subscriptionPlan == null)
+            if (user == null)
             {
-                throw new InvalidOperationException(Resources.InvalidSubscriptionPlan);
+                return null;
             }
 
-            var user = new TUser
+            if (user.Status != DaAccountStatus.Active)
             {
-                UserName = subscriptionInfo.UserName,
-                Email = subscriptionInfo.Email,
-                EmailConfirmed = false
-            };
-
-            var result = await _userManager.CreateAsync(user, password);
-
-            var tenant = new TTenant();
-
-            if (subscriptionInfo.TenantType == DaTenantType.Individual)
-            {
-                tenant.Name = user.UserName;
-            }
-            else if(subscriptionInfo.TenantType == DaTenantType.Organization)
-            {
-                tenant.Name = subscriptionInfo.OrganizationName;
+                return null;
             }
 
-            tenant.OwnerUserId = user.Id;
-            tenant.Status = DaTenantStatus.Active;
-            tenant.TenantType = DaTenantType.Organization;
-            tenant.Domain = null;
-            tenant.IsDomainOwnershipVerified = false;
-            tenant.FriendlyName = tenant.Name;
-            tenant.SystemLanguageId = default(TNullableKey);
-            tenant.DateFormatId = default(TNullableKey);
-            tenant.DateFormatWithDateOnlyId = default(TNullableKey);
-            tenant.DateFormatWithTimeOnlyId = default(TNullableKey);
-            tenant.CurrencyId = default(TNullableKey);
-            tenant.CreatedDateUtc = DateTime.UtcNow;
-            tenant.CreatedBy = user.Id;
+            var subscription = await _subscriptionManager.FindByIdAsync(subscriptionId);
 
-            var tenantUser = new TTenantUser
+            if (subscription == null)
             {
-                Tenant = tenant,                 
-                IsActive = true
-            };
+                return null;
+            }
 
-            tenant.TenantUsers.Add(tenantUser);
-
-            await _tenantManager.CreateAsync(tenant);
-
-            var subscription = new TSubscription
+            if (!subscription.IsActive)
             {
-                Name = subscriptionPlan.Name,
-                IsTrial = false,
-                OwnerUserId = user.Id,
-                SubscriptionPlanId = subscriptionPlan.Id,
-                ExpiryDateUtc = DateTime.UtcNow.AddDays(30),
-                CountryId = default(TKey),
-                TenantId = tenant.Id,
-                UserAgreementVersionId = default(TNullableKey),
-                CurrencyId = default(TKey),
-                CreatedDateUtc = DateTime.UtcNow,
-                BillingAmount = 0,
-                BillingCycleEndDay = 10,
-                BillingCycleStartDay = 10,
-                BillingCycleType = DaBillingCycleType.Monthly
-            };
+                return null;
+            }
 
-            var billingCycle = subscriptionPlan.BillingCycles.Where(m => m.Id.Equals(subscriptionInfo.BillingCycleId)).SingleOrDefault();
+            var tenants = await _tenantManager.FindByUserIdAsync(userId);
+            TTenant tenant = null;
 
-            if(billingCycle != null)
+            for (var i = 0; i < tenants.Count; i++)
             {
-                DateTime dt = DateTime.UtcNow;
-
-                subscription.BillingAmount = billingCycle.Amount;
-                subscription.BillingCycleType = billingCycle.BillingCycleType;
-
-                if(billingCycle.BillingCycleType == DaBillingCycleType.Monthly)
+                if (tenants[i].Id.Equals(subscription.TenantId))
                 {
-                    subscription.BillingCycleStartDay = dt.Day;
-
-                    if (dt.Month != 1)
+                    if (tenants[i].Status == DaTenantStatus.Active)
                     {
-                        subscription.BillingCycleEndDay = subscription.BillingCycleStartDay = 1;
-                    }
-                    else
-                    {
-                        subscription.BillingCycleEndDay = 1;
-                    }
-                }
-                else if(billingCycle.BillingCycleType == DaBillingCycleType.Yearly)
-                {
-                    subscription.BillingCycleStartDay = dt.DayOfYear;
-                    subscription.BillingCycleEndDay = dt.AddYears(1).DayOfYear;
-                }
-                else if(billingCycle.BillingCycleType == DaBillingCycleType.Quarterly)
-                {
-                    subscription.BillingCycleStartDay = dt.DayOfYear;
-                    subscription.BillingCycleEndDay = dt.AddMonths(3).DayOfYear;
-                }
-                else if(billingCycle.BillingCycleType == DaBillingCycleType.Weekly)
-                {
-                    switch(dt.DayOfWeek)
-                    {                   
-                        case DayOfWeek.Sunday:
-                            subscription.BillingCycleStartDay = 1;
-                            subscription.BillingCycleEndDay = 7;
-                            break;
-                        case DayOfWeek.Monday:
-                            subscription.BillingCycleStartDay = 2;
-                             break;
-                        case DayOfWeek.Tuesday:
-                            subscription.BillingCycleStartDay = 3;
-                            break;
-                        case DayOfWeek.Wednesday:
-                            subscription.BillingCycleStartDay = 6;
-                            break;
-                        case DayOfWeek.Thursday:
-                            subscription.BillingCycleStartDay = 5;
-                            break;
-                        case DayOfWeek.Friday:
-                            subscription.BillingCycleStartDay = 6;
-                            break;
-                        case DayOfWeek.Saturday:
-                            subscription.BillingCycleStartDay = 7;
-                            break;
+                        tenant = tenants[i];
                     }
 
-                    if(dt.DayOfWeek == DayOfWeek.Saturday)
-                    {
-                        subscription.BillingCycleEndDay = 7;
-                    }
-                    else
-                    {
-                        subscription.BillingCycleEndDay = subscription.BillingCycleStartDay - 1;
-                    }
+                    break;
                 }
             }
 
-            if(subscriptionPlan.SubscriptionPlanApps != null && subscriptionPlan.SubscriptionPlanApps.Count > 0)
+            if (tenant == null)
             {
-                subscription.SubscriptionApps = new List<TSubscriptionApp>();
+                return null;
+            }
 
-                foreach (var subscriptionPlanApp in subscriptionPlan.SubscriptionPlanApps)
+            var feature = subscription.SubscriptionFeatures.Where(m => m.Feature.Key == featureKey).SingleOrDefault();
+
+            if (feature == null)
+            {
+                return null;
+            }
+
+            var subscriptionFeatureUser = feature.SubscriptionFeatureUsers.Where(m => m.UserId.Equals(userId)).SingleOrDefault();
+
+            if (subscriptionFeatureUser != null)
+            {
+                if (!subscriptionFeatureUser.IsEnabled)
                 {
-                    var subscriptionApp = new TSubscriptionApp();
-                    subscriptionApp.AppId = subscriptionPlanApp.AppId;
-                    subscriptionApp.Subscription = subscription;
-                    subscriptionApp.CreatedDateUtc = DateTime.UtcNow;
-
-                    subscription.SubscriptionApps.Add(subscriptionApp);
+                    return null;
                 }
             }
 
-            if (subscriptionPlan.SubscriptionPlanFeatures != null && subscriptionPlan.SubscriptionPlanFeatures.Count > 0)
+            var authorizationInfo = new TAuthorizationInfo();
+            authorizationInfo.Id = feature.Id;
+            authorizationInfo.Key = feature.Feature.Key;
+
+            var authorizedActions = new List<TAuthorizedActionInfo>();
+
+            if (feature.SubscriptionFeatureRoles != null && feature.SubscriptionFeatureRoles.Count > 0)
             {
-                subscription.SubscriptionFeatures = new List<TSubscriptionFeature>();
-
-                foreach (var subscriptionPlanFeature in subscriptionPlan.SubscriptionPlanFeatures)
+                foreach (var userRole in user.Roles)
                 {
-                    var subscriptionFeature = new TSubscriptionFeature();
-                    subscriptionFeature.FeatureId = subscriptionPlanFeature.FeatureId;
-                    subscriptionFeature.Subscription = subscription;
-                    subscriptionFeature.LastUpdatedDateUtc = DateTime.UtcNow;
-                    subscriptionFeature.IsEnabled = true;
+                    var featureRoles = feature.SubscriptionFeatureRoles.Where(m => m.RoleId.Equals(userRole.RoleId)).ToList();
 
-                    if (subscriptionPlanFeature.SubscriptionPlanFeatureAttributes != null && subscriptionPlanFeature.SubscriptionPlanFeatureAttributes.Count > 0)
+                    foreach (var featureRole in featureRoles)
                     {
-                        subscriptionFeature.SubscriptionFeatureAttributes = new List<TSubscriptionFeatureAttribute>();
-
-                        foreach (var subscriptionPlanFeatureAttribute in subscriptionPlanFeature.SubscriptionPlanFeatureAttributes)
+                        foreach (var action in featureRole.SubscriptionFeatureRoleActions)
                         {
-                            var subscriptionFeatureAttribute = new TSubscriptionFeatureAttribute();
+                            var currentAction = authorizedActions.Where(m => m.ActionName == action.ActionName).SingleOrDefault();
 
-                            subscriptionFeatureAttribute.Name = subscriptionPlanFeatureAttribute.Name;
-                            subscriptionFeatureAttribute.Value = subscriptionPlanFeatureAttribute.Value;
-                            subscriptionFeatureAttribute.SubscriptionFeature = subscriptionFeature;
-
-                            subscriptionFeature.SubscriptionFeatureAttributes.Add(subscriptionFeatureAttribute);
+                            if (currentAction == null)
+                            {
+                                authorizedActions.Add(new TAuthorizedActionInfo()
+                                {
+                                    ActionName = action.ActionName,
+                                    Allowed = action.Allowed
+                                });
+                            }
+                            else
+                            {
+                                if (currentAction.Allowed != false)
+                                {
+                                    if (currentAction.Allowed == null)
+                                    {
+                                        currentAction.Allowed = action.Allowed;
+                                    }
+                                    else
+                                    {
+                                        if (action.Allowed != null)
+                                        {
+                                            currentAction.Allowed = action.Allowed;
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
-                    subscription.SubscriptionFeatures.Add(subscriptionFeature);
                 }
             }
 
-            subscription.IsActive = true;
+            if (feature.SubscriptionFeatureUsers != null && feature.SubscriptionFeatureUsers.Count > 0)
+            {
+                var featureUsers = feature.SubscriptionFeatureUsers.Where(m => m.UserId.Equals(userId)).ToList();
 
-            await _subscriptionManager.CreateAsync(subscription);
-            return result;
+                foreach (var featureUser in featureUsers)
+                {
+                    foreach (var action in featureUser.SubscriptionFeatureUserActions)
+                    {
+                        var currentAction = authorizedActions.Where(m => m.ActionName == action.ActionName).SingleOrDefault();
+
+                        if (currentAction == null)
+                        {
+                            authorizedActions.Add(new TAuthorizedActionInfo()
+                            {
+                                ActionName = action.ActionName,
+                                Allowed = action.Allowed
+                            });
+                        }
+                        else
+                        {
+                            if (currentAction.Allowed != false)
+                            {
+                                if (currentAction.Allowed == null)
+                                {
+                                    currentAction.Allowed = action.Allowed;
+                                }
+                                else
+                                {
+                                    if (action.Allowed != null)
+                                    {
+                                        currentAction.Allowed = action.Allowed;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return authorizationInfo;
         }
     }
 }

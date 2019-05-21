@@ -11,24 +11,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
+namespace Ejyle.DevAccelerate.Facades.Security.Authorization
 {
-    public class DaSubscriptionFeatureAccessInfo : DaSubscriptionFeatureAccessInfo<int, DaSubscriptionFeatureAccessActionInfo>
+    public class DaAuthorizationInfo : DaAuthorizationInfo<int, DaAuthorizedActionInfo>
     { }
 
-    public class DaSubscriptionFeatureAccessInfo<TKey, TSubscriptionFeatureAccessActionInfo> : IDaSubscriptionFeatureAccessInfo<TKey, TSubscriptionFeatureAccessActionInfo>
+    public class DaAuthorizationInfo<TKey, TAuthorizedActionInfo> : IDaAuthorizationInfo<TKey, TAuthorizedActionInfo>
         where TKey : IEquatable<TKey>
-        where TSubscriptionFeatureAccessActionInfo : IDaSubscriptionFeatureAccessActionInfo<TKey>
+        where TAuthorizedActionInfo : IDaAuthorizedActionInfo<TKey>
     {
         public TKey Id {get; set;}
         public string Key {get; set;}
-        public List<TSubscriptionFeatureAccessActionInfo> Actions {get; set;}
+        public List<TAuthorizedActionInfo> Actions {get; set;}
     }
 
-    public class DaSubscriptionFeatureAccessActionInfo : DaSubscriptionFeatureAccessActionInfo<int>
+    public class DaAuthorizedActionInfo : DaAuthorizedActionInfo<int>
     { }
 
-    public class DaSubscriptionFeatureAccessActionInfo<TKey> : IDaSubscriptionFeatureAccessActionInfo<TKey>
+    public class DaAuthorizedActionInfo<TKey> : IDaAuthorizedActionInfo<TKey>
         where TKey : IEquatable<TKey>
     {
         public string ActionName {get; set;}

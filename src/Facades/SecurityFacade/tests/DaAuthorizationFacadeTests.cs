@@ -7,28 +7,28 @@
 
 using System.Collections.Generic;
 using Ejyle.DevAccelerate.Core;
-using Ejyle.DevAccelerate.Facades.Security.Subscriptions;
+using Ejyle.DevAccelerate.Facades.Security.Authorization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Tests
 {
     [TestClass]
-    public class DaSubscriptionFacadeTests : DaSecurityFacadeTestClassBase
+    public class DaAuthorizationFacadeTests : DaSecurityFacadeTestClassBase
     {
         [TestMethod]
-        public void GetFeatures()
+        public void GetAuthorizedFeatures()
         {
-            var facade = GetSubscriptionFacade();
-            var features = DaAsyncHelper.RunSync<List<DaSubscriptionFeatureInfo>>(() => facade.GetFeaturesAsync(1, 1));
+            var facade = GetAuthorizationFacade();
+            var features = facade.GetAuthorizedFeatures(1, 1);
             Assert.IsTrue(features.Count > 0);
         }
 
         [TestMethod]
-        public void GetAccessInfo()
+        public void Authorize()
         {
-            var facade = GetSubscriptionFacade();
-            var accessInfo = DaAsyncHelper.RunSync<DaSubscriptionFeatureAccessInfo>(() => facade.GetAccessInfoAsync(1, 1, "feature-a"));
-            Assert.IsNotNull(accessInfo, $"{nameof(DaSubscriptionFeatureAccessInfo)} object is null.");
+            var facade = GetAuthorizationFacade();
+            var authorizationInfo = facade.Authorize(1, 1, "feature-a");
+            Assert.IsNotNull(authorizationInfo, $"{nameof(DaAuthorizationInfo)} object is null.");
         }
 
         #region Cleanup / Teardown Operations
