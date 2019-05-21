@@ -19,7 +19,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Tests
         public void GetFeatures()
         {
             var facade = GetSubscriptionFacade();
-            var features = DaAsyncHelper.RunSync<List<DaSubscriptionFeatureInfo>>(() => facade.GetFeatures(1, 1));
+            var features = DaAsyncHelper.RunSync<List<DaSubscriptionFeatureInfo>>(() => facade.GetFeaturesAsync(1, 1));
             Assert.IsTrue(features.Count > 0);
         }
 

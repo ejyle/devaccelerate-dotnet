@@ -17,6 +17,7 @@ using Ejyle.DevAccelerate.Identity.EF;
 using Ejyle.DevAccelerate.Identity.EF.UserSessions;
 using Ejyle.DevAccelerate.Identity.UserSessions;
 using Microsoft.Owin;
+using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Authentication
 {
@@ -82,7 +83,12 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
             _userSessionManager = userSessionManager ?? throw new ArgumentNullException(nameof(userSessionManager));
         }
 
-        public async Task<SignInStatus> AuthenticateAsync(HttpRequestBase request, HttpSessionStateBase session, DaUserAccountCredentialsInfo credentials)
+        public SignInStatus Authenticate(HttpRequestBase request, HttpSessionStateBase session, DaUserAccountCredentialsInfo credentials)
+        {
+            return DaAsyncHelper.RunSync<SignInStatus>(() => AuthenticateAsync(request, session, credentials));
+        }
+
+        public virtual async Task<SignInStatus> AuthenticateAsync(HttpRequestBase request, HttpSessionStateBase session, DaUserAccountCredentialsInfo credentials)
         {
             var result = await _signInManager.PasswordSignInAsync(credentials.Username, credentials.Password, credentials.RememberUser, shouldLockout: false);
 
@@ -126,7 +132,12 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
             return result;
         }
 
-        public async Task SignOutAsync(HttpSessionStateBase session)
+        public void SignOut(HttpSessionStateBase session)
+        {
+            DaAsyncHelper.RunSync(() => SignOutAsync(session));
+        }
+
+        public virtual async Task SignOutAsync(HttpSessionStateBase session)
         {
             var userSessionKey = session[USER_SESSION_KEY_SESSION_NAME] as string;
 

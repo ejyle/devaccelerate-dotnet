@@ -30,6 +30,7 @@ using Ejyle.DevAccelerate.List.EF;
 using System.Collections.Generic;
 using Ejyle.DevAccelerate.EnterpriseSecurity.EF.UserAgreements;
 using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Apps;
+using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
 {
@@ -165,6 +166,11 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
             _countryManager = countryManager ?? throw new ArgumentNullException(nameof(countryManager));
             _timeZoneManager = timeZoneManager ?? throw new ArgumentNullException(nameof(timeZoneManager));
             _systemLanguageManager = systemLanguageManager ?? throw new ArgumentNullException(nameof(systemLanguageManager));
+        }
+
+        public List<TSubscriptionPlanInfo> GetSubscriptionPlans()
+        {
+            return DaAsyncHelper.RunSync<List<TSubscriptionPlanInfo>>(() => GetSubscriptionPlansAsync());
         }
 
         public virtual async Task<List<TSubscriptionPlanInfo>> GetSubscriptionPlansAsync()

@@ -29,6 +29,7 @@ using Ejyle.DevAccelerate.List.EF;
 using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Apps;
 using Ejyle.DevAccelerate.EnterpriseSecurity.EF.UserAgreements;
 using System.Collections.Generic;
+using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
 {
@@ -190,7 +191,12 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
             _systemLanguageManager = systemLanguageManager ?? throw new ArgumentNullException(nameof(systemLanguageManager));
         }
 
-        public virtual async Task<List<TSubscription>> GetSubscriptions(TKey userId, TKey tenantId)
+        public List<TSubscription> GetSubscriptions(TKey userId, TKey tenantId)
+        {
+            return DaAsyncHelper.RunSync<List<TSubscription>>(() => GetSubscriptionsAsync(userId, tenantId));
+        }
+
+        public virtual async Task<List<TSubscription>> GetSubscriptionsAsync(TKey userId, TKey tenantId)
         {
             var user = await _userManager.FindByIdAsync(userId);
 
@@ -216,7 +222,12 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
             return await _subscriptionManager.FindByTenantIdAsync(tenantId);
         }
 
-        public virtual async Task<List<TSubscriptionFeatureInfo>> GetFeatures(TKey userId, TKey subscriptionId)
+        public List<TSubscriptionFeatureInfo> GetFeatures(TKey userId, TKey subscriptionId)
+        {
+            return DaAsyncHelper.RunSync<List<TSubscriptionFeatureInfo>>(() => GetFeaturesAsync(userId, subscriptionId));
+        }
+
+        public virtual async Task<List<TSubscriptionFeatureInfo>> GetFeaturesAsync(TKey userId, TKey subscriptionId)
         {
             var user = await _userManager.FindByIdAsync(userId);
 
@@ -284,7 +295,12 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
             return result;
         }
 
-        public virtual async Task<TSubscriptionFeatureAccessInfo> GetAccessInfoAsync(TKey userId, TKey subscriptionId, string key)
+        public TSubscriptionFeatureAccessInfo GetAccessInfo(TKey userId, TKey subscriptionId, string featureKey)
+        {
+            return DaAsyncHelper.RunSync<TSubscriptionFeatureAccessInfo>(() => GetAccessInfoAsync(userId, subscriptionId, featureKey));
+        }
+
+        public virtual async Task<TSubscriptionFeatureAccessInfo> GetAccessInfoAsync(TKey userId, TKey subscriptionId, string featureKey)
         {
             var user = await _userManager.FindByIdAsync(userId);
 
@@ -331,7 +347,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                 return null;
             }
 
-            var feature = subscription.SubscriptionFeatures.Where(m => m.Feature.Key == key).SingleOrDefault();
+            var feature = subscription.SubscriptionFeatures.Where(m => m.Feature.Key == featureKey).SingleOrDefault();
 
             if(feature == null)
             {
