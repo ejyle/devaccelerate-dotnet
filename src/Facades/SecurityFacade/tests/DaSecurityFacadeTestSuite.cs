@@ -1,4 +1,11 @@
-﻿using Ejyle.DevAccelerate.Core;
+﻿// ----------------------------------------------------------------------------------------------------------------------
+// Author: Tanveer Yousuf (@tanveery)
+// ----------------------------------------------------------------------------------------------------------------------
+// Copyright © Ejyle Technologies (P) Ltd. All rights reserved.
+// Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
+// ----------------------------------------------------------------------------------------------------------------------
+
+using Ejyle.DevAccelerate.Core;
 using Ejyle.DevAccelerate.Core.Configuration;
 using Ejyle.DevAccelerate.Core.Data;
 using Ejyle.DevAccelerate.EnterpriseSecurity.Apps;
@@ -26,33 +33,9 @@ namespace Ejyle.DevAccelerate.Facades.Security.Tests
     [TestClass]
     public class DaSecurityFacadeTestSuite
     {
-        private static DaIdentityDbContext identityDbContext = null;
-        private static DaEnterpriseSecurityDbContext enterpriseSecurityDbContext = null;
-        private static DaListsDbContext listsDbContext = null;
-
-        public static DaIdentityDbContext IdentityDbContext
-        {
-            get
-            {
-                return identityDbContext;
-            }
-        }
-
-        public static DaEnterpriseSecurityDbContext EnterpriseSecurityDbContext
-        {
-            get
-            {
-                return enterpriseSecurityDbContext;
-            }
-        }
-
-        public static DaListsDbContext ListsDbContext
-        {
-            get
-            {
-                return listsDbContext;
-            }
-        }
+        public static DaIdentityDbContext IdentityDbContext { get; private set; } = null;
+        public static DaEnterpriseSecurityDbContext EnterpriseSecurityDbContext { get; private set; } = null;
+        public static DaListsDbContext ListsDbContext { get; private set; } = null;
 
         [AssemblyInitialize]
         public static void Initialize(TestContext context)
@@ -67,18 +50,18 @@ namespace Ejyle.DevAccelerate.Facades.Security.Tests
 
             DaInitializationManager.Execute();
 
-            identityDbContext = new DaIdentityDbContext();
-            enterpriseSecurityDbContext = new DaEnterpriseSecurityDbContext();
-            listsDbContext = new DaListsDbContext();
+            IdentityDbContext = new DaIdentityDbContext();
+            EnterpriseSecurityDbContext = new DaEnterpriseSecurityDbContext();
+            ListsDbContext = new DaListsDbContext();
 
-            identityDbContext.Database.CreateIfNotExists();
-            enterpriseSecurityDbContext.Database.CreateIfNotExists();
-            listsDbContext.Database.CreateIfNotExists();
+            IdentityDbContext.Database.CreateIfNotExists();
+            EnterpriseSecurityDbContext.Database.CreateIfNotExists();
+            ListsDbContext.Database.CreateIfNotExists();
 
             CreateSystemRoles();
             CreateGlobalSuperAdminUser();
 
-            var userManager = new DaUserManager(new DaUserRepository(identityDbContext));
+            var userManager = new DaUserManager(new DaUserRepository(IdentityDbContext));
             var user = userManager.FindByName(DaUser.GLOBAL_SUPER_ADMIN);
 
             CreateDefaultLists();
@@ -88,24 +71,24 @@ namespace Ejyle.DevAccelerate.Facades.Security.Tests
         [AssemblyCleanup]
         public static void Cleanup()
         {
-            identityDbContext.Database.Delete();
-            enterpriseSecurityDbContext.Database.Delete();
-            listsDbContext.Database.Delete();
+            IdentityDbContext.Database.Delete();
+            EnterpriseSecurityDbContext.Database.Delete();
+            ListsDbContext.Database.Delete();
 
-            identityDbContext.Dispose();
-            enterpriseSecurityDbContext.Dispose();
-            listsDbContext.Dispose();
+            IdentityDbContext.Dispose();
+            EnterpriseSecurityDbContext.Dispose();
+            ListsDbContext.Dispose();
 
-            identityDbContext = null;
-            enterpriseSecurityDbContext = null;
-            listsDbContext = null;
+            IdentityDbContext = null;
+            EnterpriseSecurityDbContext = null;
+            ListsDbContext = null;
         }
 
         private static void CreateSystemRoles()
         {
             string[] systemRoles = { DaRole.GLOBAL_SUPER_ADMIN, DaRole.TENANT_SUPER_ADMIN, DaRole.USER };
 
-            var roleManager = new DaRoleManager(new DaRoleRepository(identityDbContext));
+            var roleManager = new DaRoleManager(new DaRoleRepository(IdentityDbContext));
             DaRole role = null;
 
             foreach (var systemRole in systemRoles)
@@ -136,7 +119,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Tests
         {
             IdentityResult result = null;
 
-            var userManager = new DaUserManager(new DaUserRepository(identityDbContext));
+            var userManager = new DaUserManager(new DaUserRepository(IdentityDbContext));
 
             var user = new DaUser();
             user.UserName = DaUser.GLOBAL_SUPER_ADMIN;
@@ -163,7 +146,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Tests
 
         public static void CreateDefaultLists()
         {
-            var currenciesManager = new DaCurrencyManager(new DaCurrencyRepository(listsDbContext));
+            var currenciesManager = new DaCurrencyManager(new DaCurrencyRepository(ListsDbContext));
             var currencies = currenciesManager.FindAll();
 
             if (currencies == null || currencies.Count <= 0)
@@ -191,7 +174,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Tests
                 }
             }
 
-            var countryManager = new DaCountryManager(new DaCountryRepository(listsDbContext));
+            var countryManager = new DaCountryManager(new DaCountryRepository(ListsDbContext));
             var countries = countryManager.FindAll();
 
             if (countries == null || countries.Count <= 0)
@@ -204,7 +187,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Tests
                 }
             }
 
-            var timeZonesManager = new DaTimeZoneManager(new DaTimeZoneRepository(listsDbContext));
+            var timeZonesManager = new DaTimeZoneManager(new DaTimeZoneRepository(ListsDbContext));
             var timeZones = timeZonesManager.FindAll();
 
             if (timeZones == null || timeZones.Count <= 0)
@@ -223,7 +206,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Tests
                 }
             }
 
-            var dateFormatsManager = new DaDateFormatManager(new DaDateFormatRepository(listsDbContext));
+            var dateFormatsManager = new DaDateFormatManager(new DaDateFormatRepository(ListsDbContext));
             var dateFormats = dateFormatsManager.FindAll();
 
             if (dateFormats == null || dateFormats.Count <= 0)
@@ -231,7 +214,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Tests
                 // Fil up date formats
             }
 
-            var sysLanguagesManager = new DaSystemLanguageManager(new DaSystemLanguageRepository(listsDbContext));
+            var sysLanguagesManager = new DaSystemLanguageManager(new DaSystemLanguageRepository(ListsDbContext));
             var sysLanguages = sysLanguagesManager.FindAll();
 
             if (sysLanguages == null || sysLanguages.Count <= 0)
@@ -263,7 +246,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Tests
                 Value = userId
             };
 
-            enterpriseSecurityDbContext.Database.ExecuteSqlCommand(Resources.InsertEnterpriseSecurityData, paramUserId);
+            EnterpriseSecurityDbContext.Database.ExecuteSqlCommand(Resources.InsertEnterpriseSecurityData, paramUserId);
         }
 
         private static IEnumerable<DaCountry> GetCountries()

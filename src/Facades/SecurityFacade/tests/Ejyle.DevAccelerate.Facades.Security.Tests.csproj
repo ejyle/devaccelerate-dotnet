@@ -148,7 +148,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="LoadTestData.sql" />
     <None Include="Resources\InsertEnterpriseSecurityData.txt" />
   </ItemGroup>
   <ItemGroup>

@@ -61,30 +61,13 @@ namespace Ejyle.DevAccelerate.Facades.Security.Tests.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SET IDENTITY_INSERT [EnterpriseSecurity].[Apps] ON
+        ///   Looks up a localized string similar to SET IDENTITY_INSERT [EnterpriseSecurity].[Tenants] ON
         ///
-        ///INSERT INTO [EnterpriseSecurity].[Apps]
-        ///(
-        ///	[Id]
-        ///	,[Name]
-        ///	,[Key]
-        ///	,[Description]
-        ///	,[Status]
-        ///	,[LastUpdatedDateUtc]
-        ///)
-        ///VALUES
-        ///(1, &apos;SampleApp&apos;, &apos;sampleapp&apos;, &apos;A sample app&apos;, 6, GETDATE())
+        ///INSERT INTO [EnterpriseSecurity].[Tenants]
+        ///([Id],[TenantType],[OwnerUserId],[Name],[Domain],[IsDomainOwnershipVerified],[FriendlyName],[Status],[CountryId],[CurrencyId],[TimeZoneId],[DateFormatId],[DateFormatWithDateOnlyId],[DateFormatWithTimeOnlyId],[SystemLanguageId],[CreatedBy],[CreatedDateUtc])
+        ///VALUES(1, 1,@UserId,&apos;ABC Corp&apos;,&apos;abc.com&apos;,&apos;true&apos;,&apos;ABC Corp&apos;,1,1,1,1,1,1,1,1,@UserId,GETUTCDATE())
         ///
-        ///SET IDENTITY_INSERT [EnterpriseSecurity].[Apps] OFF
-        ///
-        ///GO
-        ///
-        ///SET IDENTITY_INSERT [EnterpriseSecurity].[UserAgreements] ON
-        ///
-        ///INSERT INTO [EnterpriseSecurity].[UserAgreements]
-        ///([Id], [Name],[Key],[AppId])
-        ///VALUES
-        ///(1, &apos;Subscription Agreement&apos;, &apos;subscription&apos;, 1 [rest of string was truncated]&quot;;.
+        ///SET IDENTITY_INSERT [EnterpriseSecurity].[Tenants] OF [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string InsertEnterpriseSecurityData {
             get {

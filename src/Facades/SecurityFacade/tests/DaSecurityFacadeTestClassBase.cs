@@ -1,4 +1,11 @@
-﻿using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Apps;
+﻿// ----------------------------------------------------------------------------------------------------------------------
+// Author: Tanveer Yousuf (@tanveery)
+// ----------------------------------------------------------------------------------------------------------------------
+// Copyright © Ejyle Technologies (P) Ltd. All rights reserved.
+// Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
+// ----------------------------------------------------------------------------------------------------------------------
+
+using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Apps;
 using Ejyle.DevAccelerate.EnterpriseSecurity.EF.SubscriptionPlans;
 using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Subscriptions;
 using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Tenants;
@@ -6,7 +13,6 @@ using Ejyle.DevAccelerate.EnterpriseSecurity.EF.UserAgreements;
 using Ejyle.DevAccelerate.Facades.Security.Subscriptions;
 using Ejyle.DevAccelerate.Identity.EF;
 using Ejyle.DevAccelerate.List.EF.Culture;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Tests
 {
@@ -28,17 +34,6 @@ namespace Ejyle.DevAccelerate.Facades.Security.Tests
             var systemLanguageManager = new DaSystemLanguageManager(new DaSystemLanguageRepository(DaSecurityFacadeTestSuite.ListsDbContext));
 
             return new DaSubscriptionFacade(userManager, tenantManager, appManager, featureManager, userAgreementManager, subscriptionPlanManager, subscriptionManager, currencyManager, countryManager, timeZoneManager, systemLanguageManager);
-        }
-
-        [TestInitialize]
-        public virtual void Initialize()
-        {
-        }
-
-        [TestCleanup]
-        public virtual void Cleanup()
-        {
-
         }
     }
 }
