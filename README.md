@@ -2,7 +2,7 @@
 
 **DevAccelerate for .NET** is a comprehensive and well-designed development accelerator for Microsoft .NET Framework. It is free and open source. It contains common components and functionalities that allow developers to build real-world .NET apps rapidly. It is broken up into individual modules and therefore allows developers to use only what is needed. The usage of the framework is governed by the terms and conditions of its [License](https://github.com/devaccelerate/DevAccelerateNet/blob/master/LICENSE).
 
-### Installation
+### NuGet Packages
 
 DevAccelerate is broken down into modules and each module has one ore more NuGet package. A DevAccelerate NuGet package automatically installs required dependencies.
 
@@ -23,6 +23,25 @@ The following is the list of DevAccelerate NuGet packages:
 * [DevAccelerateSms](https://www.nuget.org/packages/DevAccelerateSms/)
 * [DevAccelerateSmsTextlocal](https://www.nuget.org/packages/DevAccelerateSmsTextlocal/)
 * [DevAccelerateSmsTwilio](https://www.nuget.org/packages/DevAccelerateSmsTwilio/)
+
+### Installation
+
+The best way to install DevAccelerate libraries in your .NET project is through NuGet's **Install-Package** command. For example, if you want to install **DevAccelerateCoreEF** library:
+```
+Install-Package DevAccelerateCoreEF 
+```
+
+You can also install a specific version of a DevAccelerate NuGet package with **-version**. The following is an example of installing specific version **v6.0.0 Preview 2** of **DevAccelerateCoreEF**:
+```
+Install-Package DevAccelerateCoreEF -Version 6.0.0-preview2
+```
+
+If you need all or most of the DevAccelerate libraries in your .NET project, **DevAccelerateAll** can be very handy. It is a metapackage that installs all the DevAccelerate libraries:
+```
+Install-Package DevAccelerateAll
+```
+
+**Note:** You always need to install only top-level NuGet package. Dependencies, whether DevAccelerate libraries or any other, would automatically get installed.
 
 ### Issues
 
