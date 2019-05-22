@@ -31,7 +31,7 @@ The best way to install DevAccelerate libraries in your .NET project is through 
 Install-Package DevAccelerateCoreEF 
 ```
 
-You can also install a specific version of a DevAccelerate NuGet package with **-version**. The following is an example of installing specific version **v6.0.0 Preview 2** of **DevAccelerateCoreEF**:
+You can also install a specific version of a DevAccelerate NuGet package with the **-Version** option. The following is an example of installing specific version **v6.0.0 Preview 2** of **DevAccelerateCoreEF**:
 ```
 Install-Package DevAccelerateCoreEF -Version 6.0.0-preview2
 ```
