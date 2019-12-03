@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>DevAccelerateProfiles</id>
+    <version>6.0.0-preview1</version>
+    <title>DevAccelerate Profiles</title>
+    <authors>ejyle,tanveery</authors>
+    <owners>ejyle,tanveery</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <licenseUrl>https://raw.githubusercontent.com/devaccelerate/DevAccelerateNet/master/LICENSE</licenseUrl>
+    <projectUrl>https://devaccelerate.github.io/</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/devaccelerate/devaccelerate.github.io/master/img/logo.png</iconUrl>
+    <description>Provides interfaces and base functionality for user and organization profiles.</description>
+    <summary>Provides interfaces and base functionality for user and organization profiles.</summary>
+    <releaseNotes>This release contains the following primary changes:
+1) DaUserProfile classes
+2) DaOrganizationProfile classes.</releaseNotes>
+    <copyright>© Ejyle Technologies (P) Ltd. All rights reserved.</copyright>
+    <language>en-US</language>
+    <tags>DevAccelerate Profiles User-Profiles Organization-Profiles</tags>
+    <repository type="git" url="https://github.com/devaccelerate/DevAccelerateNet" commit="102b30085e703f90ce7378ef26f9e9a0265fc788" />
+    <dependencies>
+      <dependency id="DevAccelerateCore" version="6.0.0-preview4" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="lib\Ejyle.DevAccelerate.Profiles.dll" target="lib\Ejyle.DevAccelerate.Profiles.dll" />
+  </files>
+</package>
