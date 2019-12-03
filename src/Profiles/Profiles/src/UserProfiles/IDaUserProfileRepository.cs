@@ -18,6 +18,7 @@ namespace Ejyle.DevAccelerate.Profiles.UserProfiles
     {
         Task CreateAsync(TUserProfile userProfile);
         Task<TUserProfile> FindByIdAsync(TKey id);
+        Task<List<TUserProfile>> FindByUserIdAsync(TKey userId);
         Task UpdateAsync(TUserProfile userProfile);
         Task DeleteAsync(TUserProfile userProfile);
     }

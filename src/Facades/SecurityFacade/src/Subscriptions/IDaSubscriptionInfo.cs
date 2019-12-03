@@ -7,6 +7,7 @@
 
 using System;
 using Ejyle.DevAccelerate.EnterpriseSecurity.Tenants;
+using Ejyle.DevAccelerate.Profiles.Organizations;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
 {
@@ -14,10 +15,13 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
         where TKey : IEquatable<TKey>
     {
         string UserName { get; set; }
+        string FirstName { get; set; }
+        string LastName { get; set; }
         string Email { get; set; }
         TKey SubscriptionPlanId { get; set; }    
         TKey BillingCycleId { get; set; }
         string OrganizationName { get; set; }
+        DaOrganizationType OrganizationType { get; set; }
         DaTenantType TenantType { get; set; }
     }
 }

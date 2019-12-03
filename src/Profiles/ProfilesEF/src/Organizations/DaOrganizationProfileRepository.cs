@@ -52,6 +52,11 @@ namespace Ejyle.DevAccelerate.Profiles.EF.Organizations
             return OrganizationProfiles.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
         }
 
+        public Task<List<TOrganizationProfile>> FindByTenantIdAsync(TKey tenantId)
+        {
+            return OrganizationProfiles.Where(m => m.TenantId.Equals(tenantId)).ToListAsync();
+        }
+
         public Task UpdateAsync(TOrganizationProfile organizationProfile)
         {
             DbContext.Entry<TOrganizationProfile>(organizationProfile).State = EntityState.Modified;

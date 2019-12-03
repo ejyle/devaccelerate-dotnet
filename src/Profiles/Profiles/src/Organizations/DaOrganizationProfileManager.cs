@@ -51,6 +51,8 @@ namespace Ejyle.DevAccelerate.Profiles.Organizations
             ThrowIfDisposed();
             ThrowIfArgumentIsNull(organizationProfile, nameof(organizationProfile));
 
+            organizationProfile.LastUpdatedDateUtc = DateTime.UtcNow;
+
             await Repository.UpdateAsync(organizationProfile);
         }
 
@@ -81,6 +83,17 @@ namespace Ejyle.DevAccelerate.Profiles.Organizations
         {
             ThrowIfDisposed();
             return Repository.FindByIdAsync(id);
+        }
+
+        public virtual List<TOrganizationProfile> FindByTenantId(TKey tenantId)
+        {
+            return DaAsyncHelper.RunSync<List<TOrganizationProfile>>(() => FindByTenantIdAsync(tenantId));
+        }
+
+        public virtual Task<List<TOrganizationProfile>> FindByTenantIdAsync(TKey id)
+        {
+            ThrowIfDisposed();
+            return Repository.FindByTenantIdAsync(id);
         }
     }
 }

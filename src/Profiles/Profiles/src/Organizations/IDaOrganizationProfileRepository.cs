@@ -20,6 +20,7 @@ namespace Ejyle.DevAccelerate.Profiles.Organizations
     {
         Task CreateAsync(TOrganizationProfile organizationProfile);
         Task<TOrganizationProfile> FindByIdAsync(TKey id);
+        Task<List<TOrganizationProfile>> FindByTenantIdAsync(TKey tenantId);
         Task UpdateAsync(TOrganizationProfile organizationProfile);
         Task DeleteAsync(TOrganizationProfile organizationProfile);
     }

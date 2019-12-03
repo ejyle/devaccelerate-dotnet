@@ -51,6 +51,11 @@ namespace Ejyle.DevAccelerate.Profiles.EF.UserProfiles
             return UserProfiles.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
         }
 
+        public Task<List<TUserProfile>> FindByUserIdAsync(TKey userId)
+        {
+            return UserProfiles.Where(m => m.UserId.Equals(userId)).ToListAsync();
+        }
+
         public Task UpdateAsync(TUserProfile userProfile)
         {
             DbContext.Entry<TUserProfile>(userProfile).State = EntityState.Modified;

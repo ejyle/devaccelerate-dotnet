@@ -51,6 +51,8 @@ namespace Ejyle.DevAccelerate.Profiles.UserProfiles
             ThrowIfDisposed();
             ThrowIfArgumentIsNull(userProfile, nameof(userProfile));
 
+            userProfile.LastUpdatedDateUtc = DateTime.UtcNow;
+
             await Repository.UpdateAsync(userProfile);
         }
 
@@ -81,6 +83,17 @@ namespace Ejyle.DevAccelerate.Profiles.UserProfiles
         {
             ThrowIfDisposed();
             return Repository.FindByIdAsync(id);
+        }
+
+        public virtual List<TUserProfile> FindByUserId(TKey userId)
+        {
+            return DaAsyncHelper.RunSync<List<TUserProfile>>(() => FindByUserIdAsync(userId));
+        }
+
+        public virtual Task<List<TUserProfile>> FindByUserIdAsync(TKey id)
+        {
+            ThrowIfDisposed();
+            return Repository.FindByUserIdAsync(id);
         }
     }
 }

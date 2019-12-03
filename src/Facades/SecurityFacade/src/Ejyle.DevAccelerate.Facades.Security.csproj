@@ -149,6 +149,14 @@
       <Project>{4a73328a-0d7b-4cc4-898b-b04f677adc20}</Project>
       <Name>Ejyle.DevAccelerate.Lists</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Profiles\ProfilesEF\src\Ejyle.DevAccelerate.Profiles.EF.csproj">
+      <Project>{a678379c-481c-4f38-be8d-11233913e6ee}</Project>
+      <Name>Ejyle.DevAccelerate.Profiles.EF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Profiles\Profiles\src\Ejyle.DevAccelerate.Profiles.csproj">
+      <Project>{c130cb42-5993-4a61-af0c-30c06a6854fc}</Project>
+      <Name>Ejyle.DevAccelerate.Profiles</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
