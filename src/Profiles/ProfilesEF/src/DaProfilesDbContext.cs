@@ -50,6 +50,9 @@ namespace Ejyle.DevAccelerate.Profiles.EF
             var userProfiles = modelBuilder.Entity<TUserProfile>()
                 .ToTable("UserProfiles", SCHEMA_NAME);
 
+            userProfiles.Property(m => m.Dob)
+                        .HasColumnType("date");
+
             #endregion User Profiles
 
             #region Organization Profiles
