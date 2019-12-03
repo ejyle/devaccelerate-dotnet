@@ -15,6 +15,8 @@ The following is the list of DevAccelerate NuGet packages:
 * [DevAccelerateListsEF](https://www.nuget.org/packages/DevAccelerateListsEF/)
 * [DevAccelerateIdentity](https://www.nuget.org/packages/DevAccelerateIdentity/)
 * [DevAccelerateIdentityEF](https://www.nuget.org/packages/DevAccelerateIdentityEF/)
+* [DevAccelerateProfiles](https://www.nuget.org/packages/DevAccelerateProfiles/)
+* [DevAccelerateProfilesEF](https://www.nuget.org/packages/DevAccelerateProfilesEF/)
 * [DevAccelerateEnterpriseSecurity](https://www.nuget.org/packages/DevAccelerateEnterpriseSecurity/)
 * [DevAccelerateEnterpriseSecurityEF](https://www.nuget.org/packages/DevAccelerateEnterpriseSecurityEF/)
 * [DevAccelerateSecurityFacade](https://www.nuget.org/packages/DevAccelerateSecurityFacade/)
