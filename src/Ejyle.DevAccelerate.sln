@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{7CBCD25F-CD37-4C5F-B405-15BFE5965F97}"
 EndProject
@@ -165,6 +165,7 @@ Global
 		{262F6D86-E351-4F2C-84CD-BE580FF8DEA5} = {192F678F-F816-4064-A850-E2F6FD57EF8D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.ExceptionHandling.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45
 		SolutionGuid = {831BB8D2-2AA2-4B38-BD2F-1C679795682C}
 	EndGlobalSection
 EndGlobal
