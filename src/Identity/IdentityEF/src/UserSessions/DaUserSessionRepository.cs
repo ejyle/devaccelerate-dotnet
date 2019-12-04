@@ -80,5 +80,14 @@ namespace Ejyle.DevAccelerate.Identity.EF.UserSessions
             ThrowIfDisposed();
             return UserSessions.PaginateAsync<TKey, TUserSession>(paginationCriteria);
         }
+
+        public Task UpdateAsync(TUserSession userSession)
+        {
+            ThrowIfDisposed();
+            ThrowIfArgumentIsNull(userSession, nameof(userSession));
+
+            DbContext.Entry<TUserSession>(userSession).State = EntityState.Modified;
+            return SaveChangesAsync();
+        }
     }
 }

@@ -132,6 +132,25 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
             return result;
         }
 
+        public virtual async Task<TUserSession> GetAuthenticatedUserSessionAsync(HttpSessionStateBase session)
+        {
+            var userSessionKey = session[USER_SESSION_KEY_SESSION_NAME] as string;
+
+            TUserSession userSession = default(TUserSession);
+
+            if (!string.IsNullOrEmpty(userSessionKey))
+            {
+                userSession = await _userSessionManager.FindBySessionKeyAsync(userSessionKey);
+            }
+
+            return userSession;
+        }
+
+        public TUserSession GetAuthenticatedUserSession(HttpSessionStateBase session)
+        {
+            return DaAsyncHelper.RunSync(() => GetAuthenticatedUserSessionAsync(session));
+        }
+
         public void SignOut(HttpSessionStateBase session)
         {
             DaAsyncHelper.RunSync(() => SignOutAsync(session));
@@ -141,17 +160,24 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
         {
             var userSessionKey = session[USER_SESSION_KEY_SESSION_NAME] as string;
 
-            if(!string.IsNullOrEmpty(userSessionKey))
-            {
-                var userSession = await _userSessionManager.FindBySessionKeyAsync(userSessionKey);
+            TUserSession userSession = default(TUserSession);
 
-                if(userSession != null)
-                {
-                    userSession.ExpiredDateUtc = DateTime.UtcNow;
-                }
+            if (!string.IsNullOrEmpty(userSessionKey))
+            {
+                userSession = await _userSessionManager.FindBySessionKeyAsync(userSessionKey);
             }
 
-            _signInManager.AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);           
+            _signInManager.AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+
+            if (userSession != null)
+            {
+                await _userSessionManager.UpdateStatusAsync(userSession.Id, DaUserSessionStatus.LoggedOff);
+            }
+
+            if (!string.IsNullOrEmpty(userSessionKey))
+            {
+                session[USER_SESSION_KEY_SESSION_NAME] = null;
+            }
         }
     }
 }

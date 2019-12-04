@@ -18,6 +18,7 @@ namespace Ejyle.DevAccelerate.Identity.UserSessions
         where TUserSession : IDaUserSession<TKey>
     {
         Task CreateAsync(TUserSession userSession);
+        Task UpdateAsync(TUserSession userSession);
         Task<TUserSession> FindByIdAsync(TKey id);
         Task<TUserSession> FindBySessionKeyAsync(string sessionKey);
         Task<List<TUserSession>> FindBySystemSessionIdAsync(string systemSessionId);

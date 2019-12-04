@@ -46,6 +46,28 @@ namespace Ejyle.DevAccelerate.Identity.UserSessions
             DaAsyncHelper.RunSync(() => CreateAsync(userSession));
         }
 
+        public async Task UpdateStatusAsync(TKey userSessionId, DaUserSessionStatus status)
+        {
+            var userSession = await FindByIdAsync(userSessionId);
+
+            if(userSession == null)
+            {
+                throw new InvalidOperationException("Invalid user session ID.");
+            }
+
+            if(status == DaUserSessionStatus.LoggedOff || status == DaUserSessionStatus.Unknown)
+            {
+                userSession.ExpiredDateUtc = DateTime.UtcNow;
+            }
+
+            await GetRepository().UpdateAsync(userSession);
+        }
+
+        public void UpdateStatus(TKey userSessionId, DaUserSessionStatus status)
+        {
+            DaAsyncHelper.RunSync(() => UpdateStatusAsync(userSessionId, status));
+        }
+
         public TUserSession FindById(TKey userSessionId)
         {
             return DaAsyncHelper.RunSync(() => FindByIdAsync(userSessionId));
