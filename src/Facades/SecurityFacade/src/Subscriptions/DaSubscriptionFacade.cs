@@ -261,7 +261,8 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
             var userProfile = new TUserProfile()
             {
                 FirstName = subscriptionInfo.FirstName,
-                LastName = subscriptionInfo.LastName
+                LastName = subscriptionInfo.LastName,
+                UserId = user.Id
             };
 
             await _userProfileManager.CreateAsync(userProfile);
@@ -301,14 +302,17 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
 
             await _tenantManager.CreateAsync(tenant);
 
-            var organizationProfile = new TOrganizationProfile()
+            if (subscriptionInfo.TenantType == DaTenantType.Organization)
             {
-                OrganizationName = subscriptionInfo.OrganizationName,
-                OrganizationType = subscriptionInfo.OrganizationType,
-                TenantId = tenant.Id
-            };
+                var organizationProfile = new TOrganizationProfile()
+                {
+                    OrganizationName = subscriptionInfo.OrganizationName,
+                    OrganizationType = subscriptionInfo.OrganizationType,
+                    TenantId = tenant.Id
+                };
 
-            await _organizationProfileManager.CreateAsync(organizationProfile);
+                await _organizationProfileManager.CreateAsync(organizationProfile);
+            }
 
             var subscription = new TSubscription
             {
