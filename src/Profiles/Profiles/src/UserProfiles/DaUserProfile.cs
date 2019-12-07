@@ -14,15 +14,28 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Profiles.UserProfiles
 {
-    public class DaUserProfile : DaUserProfile<int>
+    public class DaUserProfile : DaUserProfile<DaUserProfileAttribute>
     {
         public DaUserProfile() : base()
         { }
     }
 
-    public class DaUserProfile<TKey> : DaEntityBase<TKey>, IDaUserProfile<TKey>
-        where TKey : IEquatable<TKey>
+    public class DaUserProfile<TUserProfileAttribute> : DaUserProfile<int, TUserProfileAttribute>
+        where TUserProfileAttribute : IDaUserProfileAttribute<int>
     {
+        public DaUserProfile() : base()
+        { }
+    }
+
+    public class DaUserProfile<TKey, TUserProfileAttribute> : DaEntityBase<TKey>, IDaUserProfile<TKey>
+        where TKey : IEquatable<TKey>
+        where TUserProfileAttribute : IDaUserProfileAttribute<TKey>
+    {
+        public DaUserProfile() : base()
+        {
+            Attributes = new HashSet<TUserProfileAttribute>();
+        }
+
         public TKey UserId { get; set; }
         public string Title { get; set; }
         public string FirstName { get; set; }
@@ -32,5 +45,8 @@ namespace Ejyle.DevAccelerate.Profiles.UserProfiles
         public DaGender? Gender { get; set; }
         public DateTime CreatedDateUtc { get; set; }
         public DateTime LastUpdatedDateUtc { get; set; }
+        public string JobTitle { get; set; }
+        public string OrganizationName { get; set; }
+        public virtual ICollection<TUserProfileAttribute> Attributes { get; set; }
     }
 }

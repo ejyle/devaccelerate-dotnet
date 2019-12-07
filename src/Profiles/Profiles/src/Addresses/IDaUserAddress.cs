@@ -7,21 +7,21 @@
 
 using Ejyle.DevAccelerate.Core;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Ejyle.DevAccelerate.Profiles.UserProfiles
+namespace Ejyle.DevAccelerate.Profiles.Addresses
 {
-    public interface IDaUserProfile<TKey> : IDaEntity<TKey>
+    public interface IDaUserAddress<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {
+        TKey AddressProfileId { get; set; }
         TKey UserId { get; set; }
-        string Title { get; set; }
-        string FirstName { get; set; }
-        string MiddleName { get; set; }
-        string LastName { get; set; }
-        string JobTitle { get; set; }
-        string OrganizationName { get; set; }
-        DateTime? Dob { get; set; }
-        DaGender? Gender { get; set; }
+        string Name { get; set; }
+        TKey TenantId { get; set; }
+        DaAddressType AddressType { get; set; }
         DateTime CreatedDateUtc { get; set; }
         DateTime LastUpdatedDateUtc { get; set; }
     }

@@ -50,17 +50,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Addresses\DaAddressProfile.cs" />
+    <Compile Include="Addresses\DaAddressProfileManager.cs" />
+    <Compile Include="Addresses\DaAddressType.cs" />
+    <Compile Include="Addresses\DaUserAddress.cs" />
+    <Compile Include="Addresses\IDaAddressProfileRepository.cs" />
+    <Compile Include="Addresses\IDaUserAddress.cs" />
+    <Compile Include="Addresses\IDaAddressProfile.cs" />
     <Compile Include="Organizations\DaOrganizationProfile.cs" />
+    <Compile Include="Organizations\DaOrganizationProfileAttribute.cs" />
     <Compile Include="Organizations\DaOrganizationProfileManager.cs" />
     <Compile Include="Organizations\DaOrganizationType.cs" />
     <Compile Include="Organizations\IDaOrganizationProfile.cs" />
+    <Compile Include="Organizations\IDaOrganizationProfileAttribute.cs" />
     <Compile Include="Organizations\IDaOrganizationProfileRepository.cs" />
     <Compile Include="UserProfiles\DaGender.cs" />
     <Compile Include="UserProfiles\DaUserProfile.cs" />
+    <Compile Include="UserProfiles\DaUserProfileAttribute.cs" />
     <Compile Include="UserProfiles\DaUserProfileManager.cs" />
     <Compile Include="UserProfiles\IDaUserProfile.cs" />
     <Compile Include="UserProfiles\IDaUserProfileRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserProfiles\IDaUserProfileAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Core\Core\src\Ejyle.DevAccelerate.Core.csproj">

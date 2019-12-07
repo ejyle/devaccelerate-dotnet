@@ -7,22 +7,21 @@
 
 using Ejyle.DevAccelerate.Core;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Ejyle.DevAccelerate.Profiles.UserProfiles
+namespace Ejyle.DevAccelerate.Profiles.Addresses
 {
-    public interface IDaUserProfile<TKey> : IDaEntity<TKey>
+    public interface IDaAddressProfileRepository<TKey, TNullableKey, TAddressProfile> : IDaEntityRepository<TKey, TAddressProfile>
         where TKey : IEquatable<TKey>
+        where TAddressProfile : IDaAddressProfile<TKey, TNullableKey>
     {
-        TKey UserId { get; set; }
-        string Title { get; set; }
-        string FirstName { get; set; }
-        string MiddleName { get; set; }
-        string LastName { get; set; }
-        string JobTitle { get; set; }
-        string OrganizationName { get; set; }
-        DateTime? Dob { get; set; }
-        DaGender? Gender { get; set; }
-        DateTime CreatedDateUtc { get; set; }
-        DateTime LastUpdatedDateUtc { get; set; }
+        Task CreateAsync(TAddressProfile addressProfile);
+        Task<TAddressProfile> FindByIdAsync(TKey id);
+        Task<List<TAddressProfile>> FindByUserIdAsync(TKey ownerUserId);
+        Task UpdateAsync(TAddressProfile addressProfile);
+        Task DeleteAsync(TAddressProfile addressProfile);
     }
 }

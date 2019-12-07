@@ -14,19 +14,32 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Profiles.Organizations
 {
-    public class DaOrganizationProfile : DaOrganizationProfile<int>
+    public class DaOrganizationProfile : DaOrganizationProfile<DaOrganizationProfileAttribute>
     {
         public DaOrganizationProfile() : base()
         { }
     }
 
-    public class DaOrganizationProfile<TKey> : DaEntityBase<TKey>, IDaOrganizationProfile<TKey>
-        where TKey : IEquatable<TKey>
+    public class DaOrganizationProfile<TOrganizationProfileAttribute> : DaOrganizationProfile<int, int?, TOrganizationProfileAttribute>
+        where TOrganizationProfileAttribute : IDaOrganizationProfileAttribute<int>
     {
+    }
+
+    public class DaOrganizationProfile<TKey, TNullableKey, TOrganizationProfileAttribute> : DaEntityBase<TKey>, IDaOrganizationProfile<TKey, TNullableKey>
+        where TKey : IEquatable<TKey>
+        where TOrganizationProfileAttribute : IDaOrganizationProfileAttribute<TKey>
+    {
+        public DaOrganizationProfile() : base()
+        {
+            Attributes = new HashSet<TOrganizationProfileAttribute>();
+        }
+
         public TKey TenantId { get; set; }
         public string OrganizationName { get; set; }
         public DaOrganizationType OrganizationType { get; set; }
         public DateTime CreatedDateUtc { get; set; }
         public DateTime LastUpdatedDateUtc { get; set; }
+        public TNullableKey IndustryId { get; set; }
+        public virtual ICollection<TOrganizationProfileAttribute> Attributes { get; set; }
     }
 }

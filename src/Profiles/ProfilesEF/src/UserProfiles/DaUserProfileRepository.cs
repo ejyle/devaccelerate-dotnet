@@ -15,7 +15,7 @@ using Ejyle.DevAccelerate.Profiles.UserProfiles;
 
 namespace Ejyle.DevAccelerate.Profiles.EF.UserProfiles
 {
-    public class DaUserProfileRepository : DaUserProfileRepository<int, DaUserProfile, DbContext>
+    public class DaUserProfileRepository : DaUserProfileRepository<int, DaUserProfile, DaUserProfileAttribute, DbContext>
     {
         public DaUserProfileRepository(DbContext dbContext)
             : base(dbContext)
@@ -23,10 +23,11 @@ namespace Ejyle.DevAccelerate.Profiles.EF.UserProfiles
     }
 
 
-    public class DaUserProfileRepository<TKey, TUserProfile, TDbContext>
+    public class DaUserProfileRepository<TKey, TUserProfile, TUserProfileAttribute, TDbContext>
         : DaEntityRepositoryBase<TKey, TUserProfile, TDbContext>, IDaUserProfileRepository<TKey, TUserProfile>
         where TKey : IEquatable<TKey>
-        where TUserProfile : DaUserProfile<TKey>
+        where TUserProfile : DaUserProfile<TKey, TUserProfileAttribute>
+        where TUserProfileAttribute : DaUserProfileAttribute<TKey, TUserProfile>
         where TDbContext : DbContext
     {
         public DaUserProfileRepository(TDbContext dbContext)

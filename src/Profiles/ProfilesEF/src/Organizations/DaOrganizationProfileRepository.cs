@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Profiles.EF.Organizations
 {
-    public class DaOrganizationProfileRepository : DaOrganizationProfileRepository<int, DaOrganizationProfile, DbContext>
+    public class DaOrganizationProfileRepository : DaOrganizationProfileRepository<int,int?, DaOrganizationProfile, DaOrganizationProfileAttribute, DbContext>
     {
         public DaOrganizationProfileRepository(DbContext dbContext)
             : base(dbContext)
@@ -24,10 +24,11 @@ namespace Ejyle.DevAccelerate.Profiles.EF.Organizations
     }
 
 
-    public class DaOrganizationProfileRepository<TKey, TOrganizationProfile, TDbContext>
-        : DaEntityRepositoryBase<TKey, TOrganizationProfile, TDbContext>, IDaOrganizationProfileRepository<TKey, TOrganizationProfile>
+    public class DaOrganizationProfileRepository<TKey, TNullableKey, TOrganizationProfile, TOrganizationProfileAttribute, TDbContext>
+        : DaEntityRepositoryBase<TKey, TOrganizationProfile, TDbContext>, IDaOrganizationProfileRepository<TKey, TNullableKey, TOrganizationProfile>
         where TKey : IEquatable<TKey>
-        where TOrganizationProfile : DaOrganizationProfile<TKey>
+        where TOrganizationProfile : DaOrganizationProfile<TKey, TNullableKey, TOrganizationProfileAttribute>
+        where TOrganizationProfileAttribute : DaOrganizationProfileAttribute<TKey, TNullableKey, TOrganizationProfile>
         where TDbContext : DbContext
     {
         public DaOrganizationProfileRepository(TDbContext dbContext)

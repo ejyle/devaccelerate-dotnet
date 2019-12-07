@@ -14,19 +14,19 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Profiles.Organizations
 {
-    public class DaOrganizationProfileManager<TKey, TOrganizationProfile> : DaEntityManagerBase<TKey, TOrganizationProfile>
+    public class DaOrganizationProfileManager<TKey, TNullableKey, TOrganizationProfile> : DaEntityManagerBase<TKey, TOrganizationProfile>
         where TKey : IEquatable<TKey>
-        where TOrganizationProfile : IDaOrganizationProfile<TKey>
+        where TOrganizationProfile : IDaOrganizationProfile<TKey, TNullableKey>
     {
-        public DaOrganizationProfileManager(IDaOrganizationProfileRepository<TKey, TOrganizationProfile> repository) : base(repository)
+        public DaOrganizationProfileManager(IDaOrganizationProfileRepository<TKey, TNullableKey, TOrganizationProfile> repository) : base(repository)
         {
         }
 
-        protected virtual IDaOrganizationProfileRepository<TKey, TOrganizationProfile> Repository
+        protected virtual IDaOrganizationProfileRepository<TKey, TNullableKey, TOrganizationProfile> Repository
         {
             get
             {
-                return GetRepository<IDaOrganizationProfileRepository<TKey, TOrganizationProfile>>();
+                return GetRepository<IDaOrganizationProfileRepository<TKey,TNullableKey, TOrganizationProfile>>();
             }
         }
 

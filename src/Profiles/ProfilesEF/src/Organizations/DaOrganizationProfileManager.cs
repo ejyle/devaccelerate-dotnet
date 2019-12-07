@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Profiles.EF.Organizations
 {
-    public class DaOrganizationProfileManager : DaOrganizationProfileManager<int, DaOrganizationProfile>
+    public class DaOrganizationProfileManager : DaOrganizationProfileManager<int,int?, DaOrganizationProfile>
     {
         public DaOrganizationProfileManager(DaOrganizationProfileRepository repository)
             : base(repository)

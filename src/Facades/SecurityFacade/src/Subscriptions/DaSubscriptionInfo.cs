@@ -11,10 +11,10 @@ using Ejyle.DevAccelerate.Profiles.Organizations;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
 {
-    public class DaSubscriptionInfo : DaSubscriptionInfo<int>
+    public class DaSubscriptionInfo : DaSubscriptionInfo<int, int?>
     { }
 
-    public class DaSubscriptionInfo<TKey> : IDaSubscriptionInfo<TKey>
+    public class DaSubscriptionInfo<TKey, TNullableKey> : IDaSubscriptionInfo<TKey, TNullableKey>
         where TKey : IEquatable<TKey>
     {
         public string UserName { get; set; }
@@ -26,5 +26,14 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
         public string OrganizationName { get; set; }
         public DaOrganizationType OrganizationType { get; set; }
         public DaTenantType TenantType { get; set; }
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public string ZipCode { get; set; }
+        public string State { get; set; }
+        public TNullableKey CountryId { get; set; }
+        public string PhoneNumber { get; set; }
+        public string AreaCode { get; set; }
+        public string Extension { get; set; }
+        public string FaxNumber { get; set; }
     }
 }

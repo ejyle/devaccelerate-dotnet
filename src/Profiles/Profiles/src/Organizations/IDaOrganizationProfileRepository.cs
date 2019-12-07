@@ -14,9 +14,9 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Profiles.Organizations
 {
-    public interface IDaOrganizationProfileRepository<TKey, TOrganizationProfile> : IDaEntityRepository<TKey, TOrganizationProfile>
+    public interface IDaOrganizationProfileRepository<TKey, TNullableKey, TOrganizationProfile> : IDaEntityRepository<TKey, TOrganizationProfile>
         where TKey : IEquatable<TKey>
-        where TOrganizationProfile : IDaOrganizationProfile<TKey>
+        where TOrganizationProfile : IDaOrganizationProfile<TKey, TNullableKey>
     {
         Task CreateAsync(TOrganizationProfile organizationProfile);
         Task<TOrganizationProfile> FindByIdAsync(TKey id);
