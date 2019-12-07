@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>DevAccelerateSecurityFacade</id>
-    <version>6.0.0-preview7</version>
+    <version>6.0.0-preview8</version>
     <title>DevAccelerate Security Facade</title>
     <authors>ejyle,tanveery</authors>
     <owners>ejyle,tanveery</owners>
@@ -18,7 +18,7 @@
     <copyright>© Ejyle Technologies (P) Ltd. All rights reserved.</copyright>
     <language>en-US</language>
     <tags>DevAccelerate Subscriptions Identity Security Facades</tags>
-    <repository type="git" url="https://github.com/devaccelerate/DevAccelerateNet" commit="8231103410b9c1a9bf0ce514c74d2cf7e50b607f" />
+    <repository type="git" url="https://github.com/devaccelerate/DevAccelerateNet" commit="15e82be1af3ede400c56e3e02c6662aac7af31d7" />
     <dependencies>
       <dependency id="DevAccelerateListsEF" version="6.0.0-preview2" />
       <dependency id="DevAccelerateIdentityEF" version="6.0.0-preview1" />
@@ -26,4 +26,7 @@
       <dependency id="DevAccelerateProfilesEF" version="6.0.0-preview2" />
     </dependencies>
   </metadata>
+  <files>
+    <file src="lib\Ejyle.DevAccelerate.Facades.Security.dll" target="lib\Ejyle.DevAccelerate.Facades.Security.dll" />
+  </files>
 </package>
