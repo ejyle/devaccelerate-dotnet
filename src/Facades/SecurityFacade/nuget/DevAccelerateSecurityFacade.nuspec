@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>DevAccelerateSecurityFacade</id>
-    <version>6.0.0-preview6</version>
+    <version>6.0.0-preview7</version>
     <title>DevAccelerate Security Facade</title>
     <authors>ejyle,tanveery</authors>
     <owners>ejyle,tanveery</owners>
@@ -14,12 +14,11 @@
     <summary>A facade library that simplifies security APIs. It works on top of DeAaccelerate Idenitty and DevAccelerate Enterprise Security.</summary>
     <releaseNotes>This release contains the following primary changes:
 
-1) Bug fixes
-2) Added address profile, organization profile attribute, and user profile attribute functionalities to the Subscribe method.</releaseNotes>
+1) Bug fixes</releaseNotes>
     <copyright>© Ejyle Technologies (P) Ltd. All rights reserved.</copyright>
     <language>en-US</language>
     <tags>DevAccelerate Subscriptions Identity Security Facades</tags>
-    <repository type="git" url="https://github.com/devaccelerate/DevAccelerateNet" commit="8d494fda62cf5fc89b6909e4ceaeb3ed246cc5e1" />
+    <repository type="git" url="https://github.com/devaccelerate/DevAccelerateNet" commit="8231103410b9c1a9bf0ce514c74d2cf7e50b607f" />
     <dependencies>
       <dependency id="DevAccelerateListsEF" version="6.0.0-preview2" />
       <dependency id="DevAccelerateIdentityEF" version="6.0.0-preview1" />
