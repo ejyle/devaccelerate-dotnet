@@ -6,6 +6,8 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using Ejyle.DevAccelerate.EnterpriseSecurity.Tenants;
 using Ejyle.DevAccelerate.Profiles.Organizations;
 
@@ -17,6 +19,12 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
     public class DaSubscriptionInfo<TKey, TNullableKey> : IDaSubscriptionInfo<TKey, TNullableKey>
         where TKey : IEquatable<TKey>
     {
+        public DaSubscriptionInfo()
+        {
+            UserProfileAttributes = new Dictionary<string, string>();
+            OrganizationProfileAttributes = new Dictionary<string, string>();
+        }
+
         public string UserName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -35,5 +43,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
         public string AreaCode { get; set; }
         public string Extension { get; set; }
         public string FaxNumber { get; set; }
+        public Dictionary<string, string> UserProfileAttributes { get; set; }
+        public Dictionary<string, string> OrganizationProfileAttributes { get; set; }
     }
 }

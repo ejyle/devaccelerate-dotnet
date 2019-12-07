@@ -75,10 +75,10 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
         where TUserRole : DaUserRole<int>
         where TUserClaim : DaUserClaim<int>
         where TUserProfile : DaUserProfile<int, TUserProfileAttribute>, new()
-        where TUserProfileAttribute : DaUserProfileAttribute<int, TUserProfile>
+        where TUserProfileAttribute : DaUserProfileAttribute<int, TUserProfile>, new()
         where TUserProfileManager : DaUserProfileManager<int, TUserProfile>
         where TOrganizationProfile : DaOrganizationProfile<int, int?, TOrganizationProfileAttribute>, new()
-        where TOrganizationProfileAttribute : DaOrganizationProfileAttribute<int, int?, TOrganizationProfile>
+        where TOrganizationProfileAttribute : DaOrganizationProfileAttribute<int, int?, TOrganizationProfile>, new()
         where TOrganizationProfileManager : DaOrganizationProfileManager<int, int?, TOrganizationProfile>
         where TAddressProfileManager : DaAddressProfileManager<int, int?, TAddressProfile>
         where TAddressProfile : DaAddressProfile<int, int?, TUserAddress>, new()
@@ -138,10 +138,10 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
         where TUserRole : DaUserRole<TKey>
         where TUserClaim : DaUserClaim<TKey>
         where TUserProfile : DaUserProfile<TKey, TUserProfileAttribute>, new()
-        where TUserProfileAttribute : DaUserProfileAttribute<TKey, TUserProfile>
+        where TUserProfileAttribute : DaUserProfileAttribute<TKey, TUserProfile>, new()
         where TUserProfileManager : DaUserProfileManager<TKey, TUserProfile>
         where TOrganizationProfile : DaOrganizationProfile<TKey, TNullableKey, TOrganizationProfileAttribute>, new()
-        where TOrganizationProfileAttribute : DaOrganizationProfileAttribute<TKey, TNullableKey, TOrganizationProfile>
+        where TOrganizationProfileAttribute : DaOrganizationProfileAttribute<TKey, TNullableKey, TOrganizationProfile>, new()
         where TOrganizationProfileManager : DaOrganizationProfileManager<TKey, TNullableKey, TOrganizationProfile>
         where TAddressProfileManager : DaAddressProfileManager<TKey, TNullableKey, TAddressProfile>
         where TAddressProfile : DaAddressProfile<TKey, TNullableKey, TUserAddress>, new()
@@ -280,6 +280,24 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                 UserId = user.Id
             };
 
+            if(subscriptionInfo.UserProfileAttributes != null && subscriptionInfo.UserProfileAttributes.Count > 0)
+            {
+                foreach(var key in subscriptionInfo.UserProfileAttributes.Keys)
+                {
+                    var attribute = new TUserProfileAttribute()
+                    {
+                        AttributeName = key,
+                        AttributeValue = subscriptionInfo.UserProfileAttributes[key],
+                        UserProfileId = userProfile.Id,
+                        UserProfile = userProfile,
+                        CreatedDateUtc = DateTime.UtcNow,
+                        LastUpdatedDateUtc = DateTime.UtcNow
+                    };
+
+                    userProfile.Attributes.Add(attribute);
+                }
+            }
+
             await _userProfileManager.CreateAsync(userProfile);
 
             var tenant = new TTenant();
@@ -326,6 +344,24 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                     TenantId = tenant.Id
                 };
 
+                if (subscriptionInfo.OrganizationProfileAttributes != null && subscriptionInfo.OrganizationProfileAttributes.Count > 0)
+                {
+                    foreach (var key in subscriptionInfo.OrganizationProfileAttributes.Keys)
+                    {
+                        var attribute = new TOrganizationProfileAttribute()
+                        {
+                            AttributeName = key,
+                            AttributeValue = subscriptionInfo.UserProfileAttributes[key],
+                            OrganizationProfile = organizationProfile,
+                            OrganizationProfileId = organizationProfile.Id,
+                            CreatedDateUtc = DateTime.UtcNow,
+                            LastUpdatedDateUtc = DateTime.UtcNow
+                        };
+
+                        organizationProfile.Attributes.Add(attribute);
+                    }
+                }
+
                 await _organizationProfileManager.CreateAsync(organizationProfile);
             }
 
@@ -349,8 +385,13 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                 Name = "Billing",
                 UserId = user.Id,
                 AddressType = DaAddressType.Billing,
-                TenantId = tenant.Id
+                TenantId = tenant.Id,
+                CreatedDateUtc = DateTime.UtcNow,
+                LastUpdatedDateUtc = DateTime.UtcNow,
+                AddressProfileId = addressProfile.Id
             };
+
+            addressProfile.UserAddresses.Add(billingAddress);
 
             await _addressProfileManager.CreateAsync(addressProfile);
 

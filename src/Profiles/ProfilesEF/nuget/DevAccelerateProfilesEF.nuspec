@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>DevAccelerateProfilesEF</id>
-    <version>6.0.0-preview1</version>
+    <version>6.0.0-preview2</version>
     <title>DevAccelerate Profiles EF</title>
     <authors>ejyle,tanveery</authors>
     <owners>ejyle,tanveery</owners>
@@ -13,16 +13,19 @@
     <description>Provides Entity Framework implementation of the DevAccelerate Profiles library.</description>
     <summary>Provides Entity Framework implementation of the DevAccelerate Profiles library.</summary>
     <releaseNotes>This release contains the following primary changes:
-1) DaUserProfile classes
-2) DaOrganizationProfile classes.
-3) DaProfilesDbContext class</releaseNotes>
+1) Added addres profile.
+2) Added orgnaization profile attribute.
+3) Added user profile attribute.</releaseNotes>
     <copyright>© Ejyle Technologies (P) Ltd. All rights reserved.</copyright>
     <language>en-US</language>
     <tags>DevAccelerate Profiles User-Profiles Organization-Profiles Profiles-DbContext</tags>
-    <repository type="git" url="https://github.com/devaccelerate/DevAccelerateNet" commit="102b30085e703f90ce7378ef26f9e9a0265fc788" />
+    <repository type="git" url="https://github.com/devaccelerate/DevAccelerateNet" commit="8d494fda62cf5fc89b6909e4ceaeb3ed246cc5e1" />
     <dependencies>
       <dependency id="DevAccelerateCore" version="6.0.0-preview4" />
-      <dependency id="DevAccelerateProfiles" version="6.0.0-preview1" />
+      <dependency id="DevAccelerateProfiles" version="6.0.0-preview2" />
     </dependencies>
   </metadata>
+  <files>
+    <file src="lib\Ejyle.DevAccelerate.Profiles.EF.dll" target="lib\Ejyle.DevAccelerate.Profiles.EF.dll" />
+  </files>
 </package>

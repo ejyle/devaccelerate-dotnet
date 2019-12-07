@@ -6,6 +6,8 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using Ejyle.DevAccelerate.EnterpriseSecurity.Tenants;
 using Ejyle.DevAccelerate.Profiles.Organizations;
 
@@ -32,5 +34,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
         string AreaCode { get; set; }
         string Extension { get; set; }
         string FaxNumber { get; set; }
+        Dictionary<string, string> UserProfileAttributes { get; set; }
+        Dictionary<string, string> OrganizationProfileAttributes { get; set; }
     }
 }
