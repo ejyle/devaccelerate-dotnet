@@ -351,7 +351,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                         var attribute = new TOrganizationProfileAttribute()
                         {
                             AttributeName = key,
-                            AttributeValue = subscriptionInfo.UserProfileAttributes[key],
+                            AttributeValue = subscriptionInfo.OrganizationProfileAttributes[key],
                             OrganizationProfile = organizationProfile,
                             OrganizationProfileId = organizationProfile.Id,
                             CreatedDateUtc = DateTime.UtcNow,
