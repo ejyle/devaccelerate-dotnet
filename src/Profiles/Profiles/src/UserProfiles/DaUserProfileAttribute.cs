@@ -9,6 +9,7 @@ using Ejyle.DevAccelerate.Core;
 using Ejyle.DevAccelerate.Profiles.UserProfiles;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,6 +37,9 @@ namespace Ejyle.DevAccelerate.Profiles.UserProfiles
         { }
 
         public TKey UserProfileId { get; set; }
+
+        [Required]
+        [StringLength(256)]
         public string AttributeName { get; set; }
         public string AttributeValue { get; set; }
         public DateTime CreatedDateUtc { get; set; }

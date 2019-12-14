@@ -8,6 +8,7 @@
 using Ejyle.DevAccelerate.Core;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,15 +38,21 @@ namespace Ejyle.DevAccelerate.Profiles.UserProfiles
         }
 
         public TKey UserId { get; set; }
-        public string Title { get; set; }
+        [StringLength(50)]
+        public string Salutation { get; set; }
+        [StringLength(100)]
         public string FirstName { get; set; }
+        [StringLength(100)]
         public string MiddleName { get; set; }
+        [StringLength(100)]
         public string LastName { get; set; }
         public DateTime? Dob { get; set; }
         public DaGender? Gender { get; set; }
         public DateTime CreatedDateUtc { get; set; }
         public DateTime LastUpdatedDateUtc { get; set; }
+        [StringLength(256)]
         public string JobTitle { get; set; }
+        [StringLength(256)]
         public string OrganizationName { get; set; }
         public virtual ICollection<TUserProfileAttribute> Attributes { get; set; }
     }

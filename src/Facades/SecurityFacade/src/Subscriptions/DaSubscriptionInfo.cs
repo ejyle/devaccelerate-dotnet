@@ -43,6 +43,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
         public string AreaCode { get; set; }
         public string Extension { get; set; }
         public string FaxNumber { get; set; }
+        public Dictionary<string, string> SubscriptionAttributes { get; set; }
         public Dictionary<string, string> UserProfileAttributes { get; set; }
         public Dictionary<string, string> OrganizationProfileAttributes { get; set; }
     }

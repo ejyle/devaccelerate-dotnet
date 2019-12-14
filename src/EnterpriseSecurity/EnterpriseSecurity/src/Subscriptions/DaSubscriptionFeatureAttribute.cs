@@ -28,8 +28,10 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 
         [Required]
         [StringLength(256)]
-        public string Name { get; set; }
-        public string Value { get; set; }
+        public string AttributeName { get; set; }
+        public string AttributeValue { get; set; }
+        public DateTime CreatedDateUtc { get; set; }
+        public DateTime LastUpdatedDateUtc { get; set; }
         public virtual TSubscriptionFeature SubscriptionFeature { get; set; }
     }
 }

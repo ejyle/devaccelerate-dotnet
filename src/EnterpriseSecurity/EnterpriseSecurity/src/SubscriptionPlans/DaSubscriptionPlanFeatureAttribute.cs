@@ -24,13 +24,12 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
         where TSubscriptionPlanFeature : IDaSubscriptionPlanFeature<TKey>
     {
         public TKey SubscriptionPlanFeatureId { get; set; }
-
         [Required]
         [StringLength(256)]
-        public string Name { get; set; }
-
-        public string Value { get; set; }
-
+        public string AttributeName { get; set; }
+        public string AttributeValue { get; set; }
+        public DateTime CreatedDateUtc { get; set; }
+        public DateTime LastUpdatedDateUtc { get; set; }
         public virtual TSubscriptionPlanFeature SubscriptionPlanFeature { get; set; }
     }
 }

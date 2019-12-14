@@ -18,7 +18,9 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
         where TKey : IEquatable<TKey>
     {
         TKey SubscriptionFeatureId { get; set; }
-        string Name { get; set; }      
-        string Value { get; set; }
+        string AttributeName { get; set; }
+        string AttributeValue { get; set; }
+        DateTime CreatedDateUtc { get; set; }
+        DateTime LastUpdatedDateUtc { get; set; }
     }
 }

@@ -9,39 +9,29 @@ using Ejyle.DevAccelerate.Core;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Ejyle.DevAccelerate.Profiles.Organizations
+namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 {
-    public class DaOrganizationProfileAttribute : DaOrganizationProfileAttribute<DaOrganizationProfile>
+    public class DaSubscriptionAttribute : DaSubscriptionAttribute<int, int?, DaSubscription>
     {
-        public DaOrganizationProfileAttribute() : base()
+        public DaSubscriptionAttribute()
+            : base()
         { }
     }
 
-    public class DaOrganizationProfileAttribute<TOrganizationProfile> : DaOrganizationProfileAttribute<int, int?, TOrganizationProfile>
-        where TOrganizationProfile : IDaOrganizationProfile<int, int?>
-    {
-        public DaOrganizationProfileAttribute() : base()
-        { }
-    }
-
-    public class DaOrganizationProfileAttribute<TKey, TNullableKey, TOrganizationProfile> : DaEntityBase<TKey>, IDaOrganizationProfileAttribute<TKey>
+    public class DaSubscriptionAttribute<TKey, TNullableKey, TSubscription> : DaEntityBase<TKey>, IDaSubscriptionAttribute<TKey>
         where TKey : IEquatable<TKey>
-        where TOrganizationProfile : IDaOrganizationProfile<TKey, TNullableKey>
+        where TSubscription : IDaSubscription<TKey, TNullableKey>
     {
-        public DaOrganizationProfileAttribute() : base()
-        { }
+        public TKey SubscriptionId { get; set; }
 
-        public TKey OrganizationProfileId { get; set; }
         [Required]
         [StringLength(256)]
         public string AttributeName { get; set; }
         public string AttributeValue { get; set; }
         public DateTime CreatedDateUtc { get; set; }
         public DateTime LastUpdatedDateUtc { get; set; }
-        public virtual TOrganizationProfile OrganizationProfile { get; set; }
+        public virtual TSubscription Subscription { get; set; }
     }
 }

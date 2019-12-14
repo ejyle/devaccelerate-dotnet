@@ -14,14 +14,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
 {
-    public class DaSubscriptionPlan : DaSubscriptionPlan<int, int?, DaBillingCycle, DaSubscriptionPlanApp, DaSubscriptionPlanFeature, DaSubscription>
+    public class DaSubscriptionPlan : DaSubscriptionPlan<int, int?, DaSubscriptionPlanAttribute, DaBillingCycle, DaSubscriptionPlanApp, DaSubscriptionPlanFeature, DaSubscription>
     {
         public DaSubscriptionPlan() : base()
         { }
     }
 
-    public class DaSubscriptionPlan<TKey, TNullableKey, TBillingCycle, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscription> : DaEntityBase<TKey>, IDaSubscriptionPlan<TKey, TNullableKey>        
+    public class DaSubscriptionPlan<TKey, TNullableKey, TSubscriptionPlanAttribute, TBillingCycle, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscription> : DaEntityBase<TKey>, IDaSubscriptionPlan<TKey, TNullableKey>        
         where TKey : IEquatable<TKey>
+        where TSubscriptionPlanAttribute : IDaSubscriptionPlanAttribute<TKey>
         where TBillingCycle : IDaBillingCycle<TKey>
         where TSubscriptionPlanFeature : IDaSubscriptionPlanFeature<TKey>
         where TSubscriptionPlanApp : IDaSubscriptionPlanApp<TKey>
@@ -29,6 +30,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
     {
         public DaSubscriptionPlan()
         {
+            Attributes = new HashSet<TSubscriptionPlanAttribute>();
             BillingCycles = new HashSet<TBillingCycle>();
             SubscriptionPlanApps = new HashSet<TSubscriptionPlanApp>();
             SubscriptionPlanFeatures = new HashSet<TSubscriptionPlanFeature>();
@@ -52,6 +54,8 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
         public TNullableKey UserAgreementVersionId { get; set; }
 
         public DateTime? PublishedDateUtc { get; set; }
+
+        public virtual ICollection<TSubscriptionPlanAttribute> Attributes { get; set; }
 
         public virtual ICollection<TBillingCycle> BillingCycles { get; set; }
 

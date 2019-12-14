@@ -9,39 +9,30 @@ using Ejyle.DevAccelerate.Core;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Ejyle.DevAccelerate.Profiles.Organizations
+namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
 {
-    public class DaOrganizationProfileAttribute : DaOrganizationProfileAttribute<DaOrganizationProfile>
+    public class DaSubscriptionPlanAttribute : DaSubscriptionPlanAttribute<int, int?, DaSubscriptionPlan>
     {
-        public DaOrganizationProfileAttribute() : base()
+        public DaSubscriptionPlanAttribute() : base()
         { }
     }
 
-    public class DaOrganizationProfileAttribute<TOrganizationProfile> : DaOrganizationProfileAttribute<int, int?, TOrganizationProfile>
-        where TOrganizationProfile : IDaOrganizationProfile<int, int?>
-    {
-        public DaOrganizationProfileAttribute() : base()
-        { }
-    }
-
-    public class DaOrganizationProfileAttribute<TKey, TNullableKey, TOrganizationProfile> : DaEntityBase<TKey>, IDaOrganizationProfileAttribute<TKey>
+    public class DaSubscriptionPlanAttribute<TKey, TNullableKey, TSubscriptionPlan> : DaEntityBase<TKey>, IDaSubscriptionPlanAttribute<TKey>
         where TKey : IEquatable<TKey>
-        where TOrganizationProfile : IDaOrganizationProfile<TKey, TNullableKey>
+        where TSubscriptionPlan : IDaSubscriptionPlan<TKey, TNullableKey>
     {
-        public DaOrganizationProfileAttribute() : base()
-        { }
+        public TKey SubscriptionPlanId { get; set; }
 
-        public TKey OrganizationProfileId { get; set; }
         [Required]
         [StringLength(256)]
         public string AttributeName { get; set; }
         public string AttributeValue { get; set; }
+        public bool CopyToSubscription { get; set; }
         public DateTime CreatedDateUtc { get; set; }
         public DateTime LastUpdatedDateUtc { get; set; }
-        public virtual TOrganizationProfile OrganizationProfile { get; set; }
+
+        public virtual TSubscriptionPlan SubscriptionPlan { get; set; }
     }
 }

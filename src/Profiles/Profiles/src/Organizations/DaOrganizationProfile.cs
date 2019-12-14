@@ -8,6 +8,7 @@
 using Ejyle.DevAccelerate.Core;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,6 +36,8 @@ namespace Ejyle.DevAccelerate.Profiles.Organizations
         }
 
         public TKey TenantId { get; set; }
+        [Required]
+        [StringLength(256)]
         public string OrganizationName { get; set; }
         public DaOrganizationType OrganizationType { get; set; }
         public DateTime CreatedDateUtc { get; set; }

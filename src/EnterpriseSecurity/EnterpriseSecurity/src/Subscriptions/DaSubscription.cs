@@ -14,20 +14,22 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 {
-    public class DaSubscription : DaSubscription<int, int?, DaSubscriptionApp, DaSubscriptionFeature, DaSubscriptionPlan>
+    public class DaSubscription : DaSubscription<int, int?, DaSubscriptionAttribute, DaSubscriptionApp, DaSubscriptionFeature, DaSubscriptionPlan>
     {
         public DaSubscription() : base()
         { }
     }
 
-    public class DaSubscription<TKey, TNullableKey, TSubscriptionApp, TSubscriptionFeature, TSubscriptionPlan> : DaEntityBase<TKey>, IDaSubscription<TKey, TNullableKey>
+    public class DaSubscription<TKey, TNullableKey, TSubscriptionAttribute, TSubscriptionApp, TSubscriptionFeature, TSubscriptionPlan> : DaEntityBase<TKey>, IDaSubscription<TKey, TNullableKey>
         where TKey : IEquatable<TKey>
+        where TSubscriptionAttribute : IDaSubscriptionAttribute<TKey>
         where TSubscriptionApp : IDaSubscriptionApp<TKey>
         where TSubscriptionFeature : IDaSubscriptionFeature<TKey>
         where TSubscriptionPlan : IDaSubscriptionPlan<TKey, TNullableKey>
     {
         public DaSubscription()
         {
+            Attributes = new HashSet<TSubscriptionAttribute>();
             SubscriptionApps = new HashSet<TSubscriptionApp>();
             SubscriptionFeatures = new HashSet<TSubscriptionFeature>();
         }
@@ -63,6 +65,8 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
         public bool IsTrial { get; set; }
 
         public DateTime CreatedDateUtc { get; set; }
+
+        public virtual ICollection<TSubscriptionAttribute> Attributes { get; set; }
 
         public virtual ICollection<TSubscriptionApp> SubscriptionApps { get; set; }
 

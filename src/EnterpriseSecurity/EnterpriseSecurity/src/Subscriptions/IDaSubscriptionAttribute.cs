@@ -7,22 +7,19 @@
 
 using Ejyle.DevAccelerate.Core;
 using System;
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Ejyle.DevAccelerate.Profiles.UserProfiles
+namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 {
-    public interface IDaUserProfile<TKey> : IDaEntity<TKey>
+    public interface IDaSubscriptionAttribute<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {
-        TKey UserId { get; set; }
-        string Salutation { get; set; }
-        string FirstName { get; set; }
-        string MiddleName { get; set; }
-        string LastName { get; set; }
-        string JobTitle { get; set; }
-        string OrganizationName { get; set; }
-        DateTime? Dob { get; set; }
-        DaGender? Gender { get; set; }
+        TKey SubscriptionId { get; set; }
+        string AttributeName { get; set; }
+        string AttributeValue { get; set; }
         DateTime CreatedDateUtc { get; set; }
         DateTime LastUpdatedDateUtc { get; set; }
     }
