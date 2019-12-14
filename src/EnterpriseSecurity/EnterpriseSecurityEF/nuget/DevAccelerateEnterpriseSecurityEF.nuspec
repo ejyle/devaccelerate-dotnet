@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>DevAccelerateEnterpriseSecurityEF</id>
-    <version>6.0.0-preview1</version>
+    <version>6.0.0-preview2</version>
     <title>DevAccelerate Enterprise Security EF</title>
     <authors>ejyle,tanveery</authors>
     <owners>ejyle,tanveery</owners>
@@ -14,18 +14,15 @@
     <summary>Entity Framework implementation of DevAccelerate EnterpriseSecurity library.</summary>
     <releaseNotes>The library implements repositories using Entity Framework for the following features:
 
-1) Apps and features
-2) Tenants
-3) Subscription plans
-4) Subscriptions
-5) User agreements</releaseNotes>
+1) Added attributes to subscription plans.
+2) Added attributes to subscriptions.</releaseNotes>
     <copyright>© Ejyle Technologies (P) Ltd. All rights reserved.</copyright>
     <language>en-US</language>
     <tags>DevAccelerate EnterpriseSecurity Tenants Subscriptions Multi-Tenancy</tags>
-    <repository type="git" url="https://github.com/devaccelerate/DevAccelerateNet" commit="12f241bcdd706913cbd452de838a84e5449caaaa" />
+    <repository type="git" url="https://github.com/devaccelerate/DevAccelerateNet" commit="1e12f5ecdc9f1e860b17c52d2dc8bc87011be9ec" />
     <dependencies>
       <dependency id="DevAccelerateCoreEF" version="6.0.0-preview2" />
-      <dependency id="DevAccelerateEnterpriseSecurity" version="6.0.0-preview1" />
+      <dependency id="DevAccelerateEnterpriseSecurity" version="6.0.0-preview2" />
     </dependencies>
   </metadata>
   <files>
