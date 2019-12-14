@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>DevAccelerateEnterpriseSecurityEF</id>
-    <version>6.0.0-preview3</version>
+    <version>6.0.0-preview4</version>
     <title>DevAccelerate Enterprise Security EF</title>
     <authors>ejyle,tanveery</authors>
     <owners>ejyle,tanveery</owners>
@@ -23,7 +23,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="lib\_._" target="lib\_._" />
-    <file src="Ejyle.DevAccelerate.EnterpriseSecurity.EF.dll" target="Ejyle.DevAccelerate.EnterpriseSecurity.EF.dll" />
+    <file src="lib\Ejyle.DevAccelerate.EnterpriseSecurity.EF.dll" target="lib\Ejyle.DevAccelerate.EnterpriseSecurity.EF.dll" />
   </files>
 </package>
