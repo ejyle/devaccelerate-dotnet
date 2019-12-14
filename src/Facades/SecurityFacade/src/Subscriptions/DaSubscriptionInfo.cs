@@ -21,6 +21,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
     {
         public DaSubscriptionInfo()
         {
+            SubscriptionAttributes = new Dictionary<string, string>();
             UserProfileAttributes = new Dictionary<string, string>();
             OrganizationProfileAttributes = new Dictionary<string, string>();
         }

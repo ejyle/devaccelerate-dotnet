@@ -149,7 +149,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF
                 .ToTable("SubscriptionPlanApps", SCHEMA_NAME);
 
             modelBuilder.Entity<TSubscriptionPlanAttribute>()
-                .ToTable("SubscriptionPlanAttribute", SCHEMA_NAME);
+                .ToTable("SubscriptionPlanAttributes", SCHEMA_NAME);
 
             var subscriptionPlans = modelBuilder.Entity<TSubscriptionPlan>()
                 .ToTable("SubscriptionPlans", SCHEMA_NAME);
