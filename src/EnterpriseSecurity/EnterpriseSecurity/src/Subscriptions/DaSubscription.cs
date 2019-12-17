@@ -62,7 +62,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 
         public TKey SubscriptionPlanId { get; set; }
 
-        public bool IsTrial { get; set; }
+        public bool IsCurrentlyInTrial { get; set; }
 
         public DateTime CreatedDateUtc { get; set; }
 
@@ -73,5 +73,19 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
         public virtual ICollection<TSubscriptionFeature> SubscriptionFeatures { get; set; }
 
         public virtual TSubscriptionPlan SubscriptionPlan { get; set; }
+
+        public DateTime? TrialPeriodStartDateUtc { get; set; }
+
+        public DateTime? TrialPeriodEndDateUtc { get; set; }
+
+        public DateTime StartDateUtc { get; set; }
+
+        public bool IsAutoRenew { get; set; }
+
+        public string ReferenceNumber { get; set; }
+
+        public DateTime? NextBillingDateUtc { get; set; }
+
+        public DateTime StartDateAfterTrialUtc { get; set; }
     }
 }

@@ -16,9 +16,11 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
         string Name { get; set; }
         string Description { get; set; }
         string Code { get; set; }
-        bool IsAutoRenewByDefault { get; set; }
-        int? MaximumUsers { get; set; }
+        bool IsAutoRenewUntilCanceled { get; set; }
+        int? NumberOfBillingCyclesUntilExpiry { get; set; }
         bool IsFeatured { get; set; }
+        int? FreeTrialDays { get; set; }
+        double? SetupFee { get; set; }
         DaEntityWorkflowStatus Status { get; set; }
         TNullableKey UserAgreementVersionId { get; set; }
         DateTime? PublishedDateUtc { get; set; }

@@ -402,7 +402,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
             var subscription = new TSubscription
             {
                 Name = subscriptionPlan.Name,
-                IsTrial = false,
+                IsCurrentlyInTrial = false,
                 OwnerUserId = user.Id,
                 SubscriptionPlanId = subscriptionPlan.Id,
                 ExpiryDateUtc = DateTime.UtcNow.AddDays(30),

@@ -28,8 +28,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
         public string Name { get; set; }
         public string Description { get; set; }
         public string Code { get; set; }
-        public bool IsAutoRenewByDefault { get; set; }
-        public int? MaximumUsers { get; set; }
+        public bool IsAutoRenew { get; set; }
         public bool IsFeatured { get; set; }
         public List<TBillingCycleInfo> BillingCycles { get; set; }
         public List<TAppInfo> Apps { get; set; }

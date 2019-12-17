@@ -196,7 +196,6 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                 subscriptionPlanInfo.Code = subscriptionPlan.Code;
                 subscriptionPlanInfo.Description = subscriptionPlan.Description;
                 subscriptionPlanInfo.Name = subscriptionPlan.Name;
-                subscriptionPlanInfo.MaximumUsers = subscriptionPlan.MaximumUsers;
 
                 var billingCycles = subscriptionPlan.BillingCycles.ToList();
 

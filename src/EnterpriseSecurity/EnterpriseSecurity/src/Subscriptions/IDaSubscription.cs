@@ -20,14 +20,21 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
         TKey CountryId { get; set; }
         decimal BillingAmount { get; set; }
         TKey SubscriptionPlanId { get; set; }
-        bool IsTrial { get; set; }
+        DateTime? TrialPeriodStartDateUtc { get; set; }
+        DateTime? TrialPeriodEndDateUtc { get; set; }
+        bool IsCurrentlyInTrial { get; set; }
         DaBillingCycleType? BillingCycleType { get; set; }
         int? BillingCycleStartDay { get; set; }
         int? BillingCycleEndDay { get; set; }
+        DateTime StartDateUtc { get; set; }
+        bool IsAutoRenew { get; set; }
         TKey TenantId { get; set; }
         TNullableKey UserAgreementVersionId { get; set; }
         TKey OwnerUserId { get; set; }
         TNullableKey PaymentMethodId { get; set; }
+        string ReferenceNumber { get; set; }
+        DateTime? NextBillingDateUtc { get; set; }
+        DateTime StartDateAfterTrialUtc { get; set; }
         DateTime? ExpiryDateUtc { get; set; }
         DateTime CreatedDateUtc { get; set; }
     }
