@@ -17,14 +17,14 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow.Xml
 {
     [SerializableAttribute()]
     [DesignerCategoryAttribute("code")]
-    [XmlTypeAttribute(TypeName = "workflowItem", AnonymousType = true, Namespace = "https://devaccelerate.github.io/schema/simple-workflow/v1.0")]
+    [XmlTypeAttribute(TypeName = "workflowItem", AnonymousType = true, Namespace = "https://devaccelerate.github.io/schema/simple-workflow-v10.html")]
     public class DaXmlSimpleWorkflowItem : DaXmlSimpleWorkflowItem<DaXmlSimpleWorkflowItemSetting>
     {
     }
 
     [SerializableAttribute()]
     [DesignerCategoryAttribute("code")]
-    [XmlTypeAttribute(TypeName="workflowItem", AnonymousType = true, Namespace = "https://devaccelerate.github.io/schema/simple-workflow/v1.0")]
+    [XmlTypeAttribute(TypeName="workflowItem", AnonymousType = true, Namespace = "https://devaccelerate.github.io/schema/simple-workflow-v10.html")]
     public class DaXmlSimpleWorkflowItem<TSimpleWorkflowItemSetting> : IDaSimpleWorkflowItem<TSimpleWorkflowItemSetting>
         where TSimpleWorkflowItemSetting : IDaSimpleWorkflowItemSetting
     {

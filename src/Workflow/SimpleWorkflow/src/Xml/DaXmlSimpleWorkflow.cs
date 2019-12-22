@@ -17,15 +17,15 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow.Xml
 {
     [SerializableAttribute()]
     [DesignerCategoryAttribute("code")]
-    [XmlTypeAttribute(AnonymousType = true, Namespace = "https://devaccelerate.github.io/schema/simple-workflow/v1.0")]
-    [XmlRootAttribute(ElementName = "simpleWorkflow", Namespace = "https://devaccelerate.github.io/schema/simple-workflow/v1.0", IsNullable = false)]
+    [XmlTypeAttribute(AnonymousType = true, Namespace = "https://devaccelerate.github.io/schema/simple-workflow-v10.html")]
+    [XmlRootAttribute(ElementName = "simpleWorkflow", Namespace = "https://devaccelerate.github.io/schema/simple-workflow-v10.html", IsNullable = false)]
     public class DaXmlSimpleWorkflow : DaXmlSimpleWorkflow<DaXmlSimpleWorkflowItem, DaXmlSimpleWorkflowItemSetting>
     { }
 
     [SerializableAttribute()]
     [DesignerCategoryAttribute("code")]
-    [XmlTypeAttribute(AnonymousType = true, Namespace = "https://devaccelerate.github.io/schema/simple-workflow/v1.0")]
-    [XmlRootAttribute(ElementName= "simpleWorkflow", Namespace = "https://devaccelerate.github.io/schema/simple-workflow/v1.0", IsNullable = false)]
+    [XmlTypeAttribute(AnonymousType = true, Namespace = "https://devaccelerate.github.io/schema/simple-workflow-v10.html")]
+    [XmlRootAttribute(ElementName= "simpleWorkflow", Namespace = "https://devaccelerate.github.io/schema/simple-workflow-v10.html", IsNullable = false)]
     public class DaXmlSimpleWorkflow<TSimpleWorkflowItem, TSimpleWorkflowItemSetting> : IDaSimpleWorkflow<TSimpleWorkflowItem, TSimpleWorkflowItemSetting>
         where TSimpleWorkflowItem : IDaSimpleWorkflowItem<TSimpleWorkflowItemSetting>
         where TSimpleWorkflowItemSetting : IDaSimpleWorkflowItemSetting
