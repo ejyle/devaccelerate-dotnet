@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F6848746-5AD7-43BD-90A4-36FF8AEC00F5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Ejyle.DevAccelerate.SimpleWorkflow</RootNamespace>
+    <AssemblyName>Ejyle.DevAccelerate.SimpleWorkflow</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>da.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Ejyle.DevAccelerate.SimpleWorkflow.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configuration\DaSimpleWorkflowConfigurationManager.cs" />
+    <Compile Include="Configuration\DaSimpleWorkflowConfigurationSection.cs" />
+    <Compile Include="IDaSimpleWorkflowItemSetting.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DaSimpleWorkflowItemActionResultType.cs" />
+    <Compile Include="DaSimpleWorkflowItemResult.cs" />
+    <Compile Include="DaSimpleWorkflowItemType.cs" />
+    <Compile Include="DaSimpleWorkflowResult.cs" />
+    <Compile Include="DaSimpleWorkflowService.cs" />
+    <Compile Include="IDaSimpleWorkflow.cs" />
+    <Compile Include="IDaSimpleWorkflowItem.cs" />
+    <Compile Include="IDaSimpleWorkflowItemAction.cs" />
+    <Compile Include="IDaSimpleWorkflowItemCondition.cs" />
+    <Compile Include="IDaSimpleWorkflowRepository.cs" />
+    <Compile Include="Xml\DaXmlSimpleWorkflow.cs" />
+    <Compile Include="Xml\DaXmlSimpleWorkflowItem.cs" />
+    <Compile Include="Xml\DaXmlSimpleWorkflowItemSetting.cs" />
+    <Compile Include="Xml\DaXmlSimpleWorkflowRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="da.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Core\Core\src\Ejyle.DevAccelerate.Core.csproj">
+      <Project>{320bf7cc-b2bb-40de-afa1-62197c369adb}</Project>
+      <Name>Ejyle.DevAccelerate.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Ejyle.DevAccelerate.SimpleWorkflow.snk" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
