@@ -15,6 +15,8 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow
 {
     public interface IDaSimpleWorkflowItemAction
     {
+        IDaSimpleWorkflowItemSetting[] GetWorkflowItemSettings(IDaSimpleWorkflowItemSetting settings);
+        void SetWorkflowItemSettings(IDaSimpleWorkflowItemSetting[] settings);
         Task<DaSimpleWorkflowItemResult> ExecuteAsync(Dictionary<string, object> mainInput, List<DaSimpleWorkflowItemResult> chainedResult);
     }
 }

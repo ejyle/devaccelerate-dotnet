@@ -70,7 +70,9 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow
                     {
                         throw new InvalidOperationException("Invalid workflow item.");
                     }
-                    
+
+                    simpleWorkflowItemAction.SetWorkflowItemSettings(workflowItem.WorkflowItemSettings as IDaSimpleWorkflowItemSetting[]);
+
                     var itemResult = await simpleWorkflowItemAction.ExecuteAsync(mainInput, chainedResult);
                     itemResult.Name = workflowItem.Name;
                     itemResult.ResultType = workflowItem.ActionResultType;
@@ -91,6 +93,8 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow
                     {
                         throw new InvalidOperationException("Invalid workflow item.");
                     }
+
+                    simpleWorkflowItemCondition.SetWorkflowItemSettings(workflowItem.WorkflowItemSettings as IDaSimpleWorkflowItemSetting[]);
 
                     var boolResult = await simpleWorkflowItemCondition.ExecuteAsync(mainInput, chainedResult);
                     

@@ -18,16 +18,52 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow.WorkflowKit
     public class DaRestApiCallerWorkflowItem : IDaSimpleWorkflowItemAction
     {
         private const string URL = "https://example.com/api";
-        private string urlParameters = "?apiKey=sample";
+
+        private IDaSimpleWorkflowItemSetting[] _settings = null;
 
         public async Task<DaSimpleWorkflowItemResult> ExecuteAsync(Dictionary<string, object> mainInput, List<DaSimpleWorkflowItemResult> chainedResult)
         {
+            if (_settings == null)
+            {
+                throw new ArgumentNullException("Settings have not been set yet.");
+            }
+
+            string url = "", mediaType = "application/json";
+
+            foreach (var setting in _settings)
+            {
+                if (setting.Name == "url")
+                {
+                    url = setting.Value;
+                }
+                else if (setting.Name == "mediaType")
+                {
+                    mediaType = setting.Value;
+                }
+            }
+
+            if (string.IsNullOrEmpty(url))
+            {
+                throw new InvalidOperationException("URL must be set.");
+            }
+
             var client = new HttpClient();
-            client.BaseAddress = new Uri(URL);
+            client.BaseAddress = new Uri(url);
 
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(mediaType));
 
-            HttpResponseMessage response = client.GetAsync(urlParameters).Result;
+            StringBuilder sbParams = new StringBuilder();
+            sbParams.Append("?");
+
+            foreach (var key in mainInput.Keys)
+            {
+                sbParams.Append($"{key}={mainInput[key]}&");
+            }
+
+            string urlParams = sbParams.ToString();
+            urlParams = urlParams.Remove(urlParams.Length - 1, 1);
+
+            HttpResponseMessage response = client.GetAsync(urlParams).Result;
 
             DaSimpleWorkflowItemResult result = null;
 
@@ -45,6 +81,21 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow.WorkflowKit
 
             client.Dispose();
             return result;
+        }
+
+        public IDaSimpleWorkflowItemSetting[] GetWorkflowItemSettings(IDaSimpleWorkflowItemSetting settings)
+        {
+            return _settings;
+        }
+
+        public void SetWorkflowItemSettings(IDaSimpleWorkflowItemSetting[] settings)
+        {
+            if(settings == null)
+            {
+                throw new ArgumentNullException(nameof(settings));
+            }
+
+            _settings = settings;
         }
     }
 }
