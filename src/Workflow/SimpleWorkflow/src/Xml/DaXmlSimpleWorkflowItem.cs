@@ -35,7 +35,7 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow.Xml
         private TSimpleWorkflowItemSetting[] _settings;
         private TSimpleWorkflowItemParameterDefinition[] _expectedParameters;
 
-        [XmlAttributeAttribute(AttributeName = "settings")]
+        [XmlElementAttribute(ElementName = "settings")]
         public TSimpleWorkflowItemSetting[] Settings
         {
             get
@@ -48,7 +48,7 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow.Xml
             }
         }
 
-        [XmlAttributeAttribute(AttributeName = "expectedParameters")]
+        [XmlElementAttribute(ElementName = "expectedParameters")]
         public TSimpleWorkflowItemParameterDefinition[] ExpectedParameters
         {
             get

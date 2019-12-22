@@ -53,7 +53,8 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow
                 throw new ArgumentNullException(nameof(repository));
             }
 
-            repository.SetLocation(repositoryLocation);
+            _repository = repository;
+            _repository.SetLocation(repositoryLocation);
         }
 
         public DaSimpleWorkflowResult Execute(string name, Dictionary<string, object> parameters)
