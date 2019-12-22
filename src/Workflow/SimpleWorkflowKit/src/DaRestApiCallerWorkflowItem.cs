@@ -17,8 +17,6 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow.WorkflowKit
 {
     public class DaRestApiCallerWorkflowItem : IDaSimpleWorkflowItemAction
     {
-        private const string URL = "https://example.com/api";
-
         private IDaSimpleWorkflowItemSetting[] _settings = null;
 
         public async Task<DaSimpleWorkflowItemResult> ExecuteAsync(Dictionary<string, object> mainInput, List<DaSimpleWorkflowItemResult> chainedResult)
