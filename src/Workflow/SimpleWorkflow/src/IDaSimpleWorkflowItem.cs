@@ -13,8 +13,9 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.SimpleWorkflow
 {
-    public interface IDaSimpleWorkflowItem<TSimpleWorkflowItemSetting>
+    public interface IDaSimpleWorkflowItem<TSimpleWorkflowItemSetting, TSimpleWorkflowItemParameterDefinition>
         where TSimpleWorkflowItemSetting : IDaSimpleWorkflowItemSetting
+        where TSimpleWorkflowItemParameterDefinition : IDaSimpleWorkflowParameterDefinition
     {
         DaSimpleWorkflowItemType WorkflowItemType
         {
@@ -28,31 +29,19 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow
             set;
         }
 
-        DaSimpleWorkflowItemActionResultType ActionResultType
-        {
-            get;
-            set;
-        }
-
-        bool IncludeMainInput
-        {
-            get;
-            set;
-        }
-
         string Type
         {
             get;
             set;
         }
 
-        string ItemInput
+        TSimpleWorkflowItemSetting[] Settings
         {
             get;
             set;
         }
 
-        TSimpleWorkflowItemSetting[] WorkflowItemSettings
+        TSimpleWorkflowItemParameterDefinition[] ExpectedParameters
         {
             get;
             set;

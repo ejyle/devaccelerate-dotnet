@@ -15,13 +15,14 @@ using System.Xml.Serialization;
 
 namespace Ejyle.DevAccelerate.SimpleWorkflow.Xml
 {
-    public class DaXmlSimpleWorkflowRepository : DaSimpleWorkflowXmlRepository<DaXmlSimpleWorkflow, DaXmlSimpleWorkflowItem, DaXmlSimpleWorkflowItemSetting>
+    public class DaXmlSimpleWorkflowRepository : DaSimpleWorkflowXmlRepository<DaXmlSimpleWorkflow, DaXmlSimpleWorkflowItem, DaXmlSimpleWorkflowItemSetting, DaXmlSimpleWorkflowItemParameterDefinition>
     { }
 
-    public class DaSimpleWorkflowXmlRepository<TSimpleWorkflow, TSimpleWorkflowItem, TSimpleWorkflowItemSetting> : IDaSimpleWorkflowRepository<TSimpleWorkflow, TSimpleWorkflowItem, TSimpleWorkflowItemSetting>
-        where TSimpleWorkflow : IDaSimpleWorkflow<TSimpleWorkflowItem, TSimpleWorkflowItemSetting>
-        where TSimpleWorkflowItem : IDaSimpleWorkflowItem<TSimpleWorkflowItemSetting>
+    public class DaSimpleWorkflowXmlRepository<TSimpleWorkflow, TSimpleWorkflowItem, TSimpleWorkflowItemSetting, TSimpleWorkflowItemParameterDefinition> : IDaSimpleWorkflowRepository<TSimpleWorkflow, TSimpleWorkflowItem, TSimpleWorkflowItemSetting, TSimpleWorkflowItemParameterDefinition>
+        where TSimpleWorkflow : IDaSimpleWorkflow<TSimpleWorkflowItem, TSimpleWorkflowItemSetting, TSimpleWorkflowItemParameterDefinition>
+        where TSimpleWorkflowItem : IDaSimpleWorkflowItem<TSimpleWorkflowItemSetting, TSimpleWorkflowItemParameterDefinition>
         where TSimpleWorkflowItemSetting : IDaSimpleWorkflowItemSetting
+        where TSimpleWorkflowItemParameterDefinition : IDaSimpleWorkflowParameterDefinition
     {
         public string Location
         {

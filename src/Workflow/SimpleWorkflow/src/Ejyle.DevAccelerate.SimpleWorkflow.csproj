@@ -53,9 +53,10 @@
   <ItemGroup>
     <Compile Include="Configuration\DaSimpleWorkflowConfigurationManager.cs" />
     <Compile Include="Configuration\DaSimpleWorkflowConfigurationSection.cs" />
+    <Compile Include="Xml\DaXmlSimpleWorkflowItemParameterDefinition.cs" />
     <Compile Include="IDaSimpleWorkflowItemSetting.cs" />
+    <Compile Include="IDaSimpleWorkflowParameterDefinition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DaSimpleWorkflowItemActionResultType.cs" />
     <Compile Include="DaSimpleWorkflowItemResult.cs" />
     <Compile Include="DaSimpleWorkflowItemType.cs" />
     <Compile Include="DaSimpleWorkflowResult.cs" />

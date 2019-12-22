@@ -13,9 +13,10 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.SimpleWorkflow
 {
-    public interface IDaSimpleWorkflow<TSimpleWorkflowItem, TSimpleWorkflowSetting>
-        where TSimpleWorkflowItem : IDaSimpleWorkflowItem<TSimpleWorkflowSetting>
+    public interface IDaSimpleWorkflow<TSimpleWorkflowItem, TSimpleWorkflowSetting, TSimpleWorkflowItemParameterDefinition>
+        where TSimpleWorkflowItem : IDaSimpleWorkflowItem<TSimpleWorkflowSetting, TSimpleWorkflowItemParameterDefinition>
         where TSimpleWorkflowSetting : IDaSimpleWorkflowItemSetting
+        where TSimpleWorkflowItemParameterDefinition : IDaSimpleWorkflowParameterDefinition
     {
         TSimpleWorkflowItem[] WorkflowItems
         {

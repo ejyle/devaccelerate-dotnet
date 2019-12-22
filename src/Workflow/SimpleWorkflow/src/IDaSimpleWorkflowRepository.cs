@@ -13,10 +13,11 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.SimpleWorkflow
 {
-    public interface IDaSimpleWorkflowRepository<TSimpleWorkflow, TSimpleWorkflowItem, TSimpleWorkflowItemSetting>
-        where TSimpleWorkflow : IDaSimpleWorkflow<TSimpleWorkflowItem, TSimpleWorkflowItemSetting>
-        where TSimpleWorkflowItem : IDaSimpleWorkflowItem<TSimpleWorkflowItemSetting>
+    public interface IDaSimpleWorkflowRepository<TSimpleWorkflow, TSimpleWorkflowItem, TSimpleWorkflowItemSetting, TSimpleWorkflowParameterDefinition>
+        where TSimpleWorkflow : IDaSimpleWorkflow<TSimpleWorkflowItem, TSimpleWorkflowItemSetting, TSimpleWorkflowParameterDefinition>
+        where TSimpleWorkflowItem : IDaSimpleWorkflowItem<TSimpleWorkflowItemSetting, TSimpleWorkflowParameterDefinition>
         where TSimpleWorkflowItemSetting : IDaSimpleWorkflowItemSetting
+        where TSimpleWorkflowParameterDefinition : IDaSimpleWorkflowParameterDefinition
     {
         TSimpleWorkflow GetWorkflow(string name);
         void SetLocation(string location);

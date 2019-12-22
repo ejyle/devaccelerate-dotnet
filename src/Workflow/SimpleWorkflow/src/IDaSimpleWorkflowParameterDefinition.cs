@@ -13,10 +13,24 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.SimpleWorkflow
 {
-    public enum DaSimpleWorkflowItemActionResultType
+    public interface IDaSimpleWorkflowParameterDefinition
     {
-        None = 0,
-        Data = 1,
-        DataDictionary = 2
+        string Name
+        {
+            get;
+            set;
+        }
+
+        string ParameterType
+        {
+            get;
+            set;
+        }
+
+        bool Required
+        {
+            get;
+            set;
+        }
     }
 }

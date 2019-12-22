@@ -15,19 +15,19 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.SimpleWorkflow
 {
-    public class DaSimpleWorkflowService<TSimpleWorkflow, TSimpleWorkflowItem, TSimpleWorkflowItemSetting>
-        where TSimpleWorkflow : IDaSimpleWorkflow<TSimpleWorkflowItem, TSimpleWorkflowItemSetting>
-        where TSimpleWorkflowItem : IDaSimpleWorkflowItem<TSimpleWorkflowItemSetting>
+    public class DaSimpleWorkflowService<TSimpleWorkflow, TSimpleWorkflowItem, TSimpleWorkflowItemSetting, TSimpleWorkflowItemParameterDefinition>
+        where TSimpleWorkflow : IDaSimpleWorkflow<TSimpleWorkflowItem, TSimpleWorkflowItemSetting, TSimpleWorkflowItemParameterDefinition>
+        where TSimpleWorkflowItem : IDaSimpleWorkflowItem<TSimpleWorkflowItemSetting, TSimpleWorkflowItemParameterDefinition>
         where TSimpleWorkflowItemSetting : IDaSimpleWorkflowItemSetting
+        where TSimpleWorkflowItemParameterDefinition : IDaSimpleWorkflowParameterDefinition
     {
-        private IDaSimpleWorkflowRepository<TSimpleWorkflow, TSimpleWorkflowItem, TSimpleWorkflowItemSetting> _repository;
-
+        private IDaSimpleWorkflowRepository<TSimpleWorkflow, TSimpleWorkflowItem, TSimpleWorkflowItemSetting, TSimpleWorkflowItemParameterDefinition> _repository;
         public DaSimpleWorkflowService()
         {
             var config = DaSimpleWorkflowConfigurationManager.GetConfiguration();
             Type type = Type.GetType(config.RepositoryType);
             
-            _repository = Activator.CreateInstance(type) as IDaSimpleWorkflowRepository<TSimpleWorkflow, TSimpleWorkflowItem, TSimpleWorkflowItemSetting>;
+            _repository = Activator.CreateInstance(type) as IDaSimpleWorkflowRepository<TSimpleWorkflow, TSimpleWorkflowItem, TSimpleWorkflowItemSetting, TSimpleWorkflowItemParameterDefinition>;
             
             if(_repository == null)
             {
@@ -37,12 +37,12 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow
             _repository.SetLocation(config.RepositoryLocation);
         }
 
-        public DaSimpleWorkflowResult Execute(string name, Dictionary<string, object> mainInput)
+        public DaSimpleWorkflowResult Execute(string name, Dictionary<string, object> parameters)
         {
-            return DaAsyncHelper.RunSync<DaSimpleWorkflowResult>(() => ExecuteAsync(name, mainInput));
+            return DaAsyncHelper.RunSync<DaSimpleWorkflowResult>(() => ExecuteAsync(name, parameters));
         }
 
-        public async Task<DaSimpleWorkflowResult> ExecuteAsync(string name, Dictionary<string, object> mainInput)
+        public async Task<DaSimpleWorkflowResult> ExecuteAsync(string name, Dictionary<string, object> parameters)
         {
             var simpleWorkflow = _repository.GetWorkflow(name);
 
@@ -56,10 +56,25 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow
                 WorkflowItemResults = new List<DaSimpleWorkflowItemResult>()
             };
 
-            var chainedResult = new List<DaSimpleWorkflowItemResult>();
-
             foreach(var workflowItem in simpleWorkflow.WorkflowItems)
             {
+                var workflowItemParams = new Dictionary<string, object>();
+
+                foreach(var expectedParameter in workflowItem.ExpectedParameters)
+                {
+                    var foundParameter = parameters[expectedParameter.Name];
+
+                    if(expectedParameter.Required && foundParameter == null)
+                    {
+                        throw new InvalidOperationException($"{expectedParameter.Name} parameter was expected by the work flow item {workflowItem.Name} but was not found in the parameters list.");
+                    }
+
+                    if(foundParameter != null)
+                    {
+                        workflowItemParams.Add(expectedParameter.Name, foundParameter);
+                    }
+                }
+
                 Type type = Type.GetType(workflowItem.Type);
 
                 if(workflowItem.WorkflowItemType == DaSimpleWorkflowItemType.Action)
@@ -71,19 +86,23 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow
                         throw new InvalidOperationException("Invalid workflow item.");
                     }
 
-                    simpleWorkflowItemAction.SetWorkflowItemSettings(workflowItem.WorkflowItemSettings as IDaSimpleWorkflowItemSetting[]);
+                    simpleWorkflowItemAction.SetWorkflowItemSettings(workflowItem.Settings as IDaSimpleWorkflowItemSetting[]);
 
-                    var itemResult = await simpleWorkflowItemAction.ExecuteAsync(mainInput, chainedResult);
-                    itemResult.Name = workflowItem.Name;
-                    itemResult.ResultType = workflowItem.ActionResultType;
-                    itemResult.WorkflowItemType = DaSimpleWorkflowItemType.Action;
+                    var itemResult = await simpleWorkflowItemAction.ExecuteAsync(workflowItemParams);
+
+                    foreach(var parameter in itemResult.Parameters)
+                    {
+                        if (!parameters.ContainsKey(parameter.Key))
+                        {
+                            parameters.Add(parameter.Key, parameter.Value);
+                        }
+                        else
+                        {
+                            parameters[parameter.Key] = parameter.Value;
+                        }
+                    }
 
                     result.WorkflowItemResults.Add(itemResult);
-
-                    if (itemResult.IsSuccess)
-                    {
-                        chainedResult.Add(itemResult);
-                    }
                 }
                 else if (workflowItem.WorkflowItemType == DaSimpleWorkflowItemType.Condition)
                 {
@@ -94,16 +113,12 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow
                         throw new InvalidOperationException("Invalid workflow item.");
                     }
 
-                    simpleWorkflowItemCondition.SetWorkflowItemSettings(workflowItem.WorkflowItemSettings as IDaSimpleWorkflowItemSetting[]);
+                    simpleWorkflowItemCondition.SetWorkflowItemSettings(workflowItem.Settings as IDaSimpleWorkflowItemSetting[]);
 
-                    var boolResult = await simpleWorkflowItemCondition.ExecuteAsync(mainInput, chainedResult);
+                    var boolResult = await simpleWorkflowItemCondition.ExecuteAsync(workflowItemParams);
                     
                     var itemResult = new DaSimpleWorkflowItemResult(boolResult);
-                    itemResult.Name = workflowItem.Name;
-                    itemResult.ResultType = DaSimpleWorkflowItemActionResultType.None;
-                    itemResult.WorkflowItemType = DaSimpleWorkflowItemType.Condition;
                     result.WorkflowItemResults.Add(itemResult);
-                    chainedResult.Add(itemResult);
 
                     if (boolResult == false)
                     {

@@ -18,34 +18,46 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow.Xml
     [SerializableAttribute()]
     [DesignerCategoryAttribute("code")]
     [XmlTypeAttribute(TypeName = "workflowItem", AnonymousType = true, Namespace = "https://devaccelerate.github.io/schema/simple-workflow-v10.html")]
-    public class DaXmlSimpleWorkflowItem : DaXmlSimpleWorkflowItem<DaXmlSimpleWorkflowItemSetting>
+    public class DaXmlSimpleWorkflowItem : DaXmlSimpleWorkflowItem<DaXmlSimpleWorkflowItemSetting, DaXmlSimpleWorkflowItemParameterDefinition>
     {
     }
 
     [SerializableAttribute()]
     [DesignerCategoryAttribute("code")]
     [XmlTypeAttribute(TypeName="workflowItem", AnonymousType = true, Namespace = "https://devaccelerate.github.io/schema/simple-workflow-v10.html")]
-    public class DaXmlSimpleWorkflowItem<TSimpleWorkflowItemSetting> : IDaSimpleWorkflowItem<TSimpleWorkflowItemSetting>
+    public class DaXmlSimpleWorkflowItem<TSimpleWorkflowItemSetting, TSimpleWorkflowItemParameterDefinition> : IDaSimpleWorkflowItem<TSimpleWorkflowItemSetting, TSimpleWorkflowItemParameterDefinition>
         where TSimpleWorkflowItemSetting : IDaSimpleWorkflowItemSetting
+        where TSimpleWorkflowItemParameterDefinition : IDaSimpleWorkflowParameterDefinition
     {
         private DaSimpleWorkflowItemType _workflowItemType;
         private string _name;
-        private bool _includeMainInput;
         private string _type;
-        private string _itemInput;
-        private DaSimpleWorkflowItemActionResultType _actionResultType;
-        private TSimpleWorkflowItemSetting[] _workflowItemSettings;
+        private TSimpleWorkflowItemSetting[] _settings;
+        private TSimpleWorkflowItemParameterDefinition[] _expectedParameters;
 
-        [XmlAttributeAttribute(AttributeName = "workflowItemSettings")]
-        public TSimpleWorkflowItemSetting[] WorkflowItemSettings
+        [XmlAttributeAttribute(AttributeName = "settings")]
+        public TSimpleWorkflowItemSetting[] Settings
         {
             get
             {
-                return this._workflowItemSettings;
+                return this._settings;
             }
             set
             {
-                this._workflowItemSettings = value;
+                this._settings = value;
+            }
+        }
+
+        [XmlAttributeAttribute(AttributeName = "expectedParameters")]
+        public TSimpleWorkflowItemParameterDefinition[] ExpectedParameters
+        {
+            get
+            {
+                return this._expectedParameters;
+            }
+            set
+            {
+                this._expectedParameters = value;
             }
         }
 
@@ -62,19 +74,6 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow.Xml
             }
         }
 
-        [XmlAttributeAttribute(AttributeName = "actionResultType")]
-        public DaSimpleWorkflowItemActionResultType ActionResultType
-        {
-            get
-            {
-                return _actionResultType;
-            }
-            set
-            {
-                _actionResultType = value;
-            }
-        }
-
         [XmlAttributeAttribute(AttributeName = "name")]
         public string Name
         {
@@ -85,19 +84,6 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow.Xml
             set
             {
                 this._name = value;
-            }
-        }
-
-        [XmlAttributeAttribute(AttributeName = "includeMainInput")]
-        public bool IncludeMainInput
-        {
-            get
-            {
-                return this._includeMainInput;
-            }
-            set
-            {
-                this._includeMainInput = value;
             }
         }
 
@@ -113,20 +99,5 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow.Xml
                 this._type = value;
             }
         }
-
-        [XmlAttributeAttribute(AttributeName = "itemInput")]
-        public string ItemInput
-        {
-            get
-            {
-                return this._itemInput;
-            }
-            set
-            {
-                this._itemInput = value;
-            }
-        }
     }
-
-
 }

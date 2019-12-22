@@ -19,33 +19,32 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow.Xml
     [DesignerCategoryAttribute("code")]
     [XmlTypeAttribute(AnonymousType = true, Namespace = "https://devaccelerate.github.io/schema/simple-workflow-v10.html")]
     [XmlRootAttribute(ElementName = "simpleWorkflow", Namespace = "https://devaccelerate.github.io/schema/simple-workflow-v10.html", IsNullable = false)]
-    public class DaXmlSimpleWorkflow : DaXmlSimpleWorkflow<DaXmlSimpleWorkflowItem, DaXmlSimpleWorkflowItemSetting>
+    public class DaXmlSimpleWorkflow : DaXmlSimpleWorkflow<DaXmlSimpleWorkflowItem, DaXmlSimpleWorkflowItemSetting, DaXmlSimpleWorkflowItemParameterDefinition>
     { }
 
     [SerializableAttribute()]
     [DesignerCategoryAttribute("code")]
     [XmlTypeAttribute(AnonymousType = true, Namespace = "https://devaccelerate.github.io/schema/simple-workflow-v10.html")]
     [XmlRootAttribute(ElementName= "simpleWorkflow", Namespace = "https://devaccelerate.github.io/schema/simple-workflow-v10.html", IsNullable = false)]
-    public class DaXmlSimpleWorkflow<TSimpleWorkflowItem, TSimpleWorkflowItemSetting> : IDaSimpleWorkflow<TSimpleWorkflowItem, TSimpleWorkflowItemSetting>
-        where TSimpleWorkflowItem : IDaSimpleWorkflowItem<TSimpleWorkflowItemSetting>
+    public class DaXmlSimpleWorkflow<TSimpleWorkflowItem, TSimpleWorkflowItemSetting, TSimpleWorkflowItemParameterDefinition> : IDaSimpleWorkflow<TSimpleWorkflowItem, TSimpleWorkflowItemSetting, TSimpleWorkflowItemParameterDefinition>
+        where TSimpleWorkflowItem : IDaSimpleWorkflowItem<TSimpleWorkflowItemSetting, TSimpleWorkflowItemParameterDefinition>
         where TSimpleWorkflowItemSetting : IDaSimpleWorkflowItemSetting
+        where TSimpleWorkflowItemParameterDefinition : IDaSimpleWorkflowParameterDefinition
     {
-        private TSimpleWorkflowItem[] workflowItemField;
-
-        private string nameField;
-
-        private bool abortOnErrorField;
+        private TSimpleWorkflowItem[] _workflowItems;
+        private string _name;
+        private bool _abortOnError;
 
         [XmlElementAttribute(ElementName="workflowItems")]
         public TSimpleWorkflowItem[] WorkflowItems
         {
             get
             {
-                return this.workflowItemField;
+                return this._workflowItems;
             }
             set
             {
-                this.workflowItemField = value;
+                this._workflowItems = value;
             }
         }
 
@@ -54,11 +53,11 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow.Xml
         {
             get
             {
-                return this.nameField;
+                return this._name;
             }
             set
             {
-                this.nameField = value;
+                this._name = value;
             }
         }
 
@@ -67,11 +66,11 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow.Xml
         {
             get
             {
-                return this.abortOnErrorField;
+                return this._abortOnError;
             }
             set
             {
-                this.abortOnErrorField = value;
+                this._abortOnError = value;
             }
         }
     }

@@ -15,11 +15,11 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.SimpleWorkflow.WorkflowKit
 {
-    public class DaRestApiCallerWorkflowItem : IDaSimpleWorkflowItemAction
+    public class DaHttpGetCallerWorkflowItem : IDaSimpleWorkflowItemAction
     {
         private IDaSimpleWorkflowItemSetting[] _settings = null;
 
-        public async Task<DaSimpleWorkflowItemResult> ExecuteAsync(Dictionary<string, object> mainInput, List<DaSimpleWorkflowItemResult> chainedResult)
+        public async Task<DaSimpleWorkflowItemResult> ExecuteAsync(Dictionary<string, object> parameters)
         {
             if (_settings == null)
             {
@@ -53,9 +53,9 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow.WorkflowKit
             StringBuilder sbParams = new StringBuilder();
             sbParams.Append("?");
 
-            foreach (var key in mainInput.Keys)
+            foreach (var key in parameters.Keys)
             {
-                sbParams.Append($"{key}={mainInput[key]}&");
+                sbParams.Append($"{key}={parameters[key]}&");
             }
 
             string urlParams = sbParams.ToString();
@@ -79,11 +79,6 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow.WorkflowKit
 
             client.Dispose();
             return result;
-        }
-
-        public IDaSimpleWorkflowItemSetting[] GetWorkflowItemSettings(IDaSimpleWorkflowItemSetting settings)
-        {
-            return _settings;
         }
 
         public void SetWorkflowItemSettings(IDaSimpleWorkflowItemSetting[] settings)

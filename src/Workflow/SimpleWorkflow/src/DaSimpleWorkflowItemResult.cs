@@ -19,10 +19,8 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow
         {
             Data = null;
             IsSuccess = boolResult;
-            ResultType = DaSimpleWorkflowItemActionResultType.None;
             Errors = null;
-            DataDictionary = null;
-            WorkflowItemType = DaSimpleWorkflowItemType.Condition;
+            Parameters = null;
         }
 
         public DaSimpleWorkflowItemResult(object data)
@@ -35,25 +33,23 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow
             Data = data;
             IsSuccess = true;
             Errors = null;
-            DataDictionary = null;
-            ResultType = DaSimpleWorkflowItemActionResultType.Data;
+            Parameters = null;
         }
 
-        public DaSimpleWorkflowItemResult(Dictionary<string, object> dataDictionary)
+        public DaSimpleWorkflowItemResult(Dictionary<string, object> parameters, object data)
         {
-            if (dataDictionary == null)
+            if (parameters == null)
             {
-                throw new ArgumentNullException(nameof(dataDictionary));
+                throw new ArgumentNullException(nameof(parameters));
             }
 
-            Data = null;
+            Data = data;
             IsSuccess = true;
             Errors = null;
-            DataDictionary = dataDictionary;
-            ResultType = DaSimpleWorkflowItemActionResultType.DataDictionary;
+            Parameters = parameters;
         }
 
-        public DaSimpleWorkflowItemResult(string[] errors)
+        public DaSimpleWorkflowItemResult(Dictionary<string, object> parameters, string[] errors)
         {
             if (errors == null)
             {
@@ -68,16 +64,12 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow
             Data = null;
             IsSuccess = true;
             Errors = errors;
-            DataDictionary = null;
-            ResultType = DaSimpleWorkflowItemActionResultType.None;
+            Parameters = parameters;
         }
 
         public bool IsSuccess { get; private set; }
-        public Dictionary<string, object> DataDictionary { get; private set; }
+        public Dictionary<string, object> Parameters { get; private set; }
         public string[] Errors { get; private set; }
-        public string Name { get; internal set; }
         public object Data { get; private set; }
-        public DaSimpleWorkflowItemType WorkflowItemType { get; internal set; }
-        public DaSimpleWorkflowItemActionResultType ResultType { get; internal set; }
     }
 }
