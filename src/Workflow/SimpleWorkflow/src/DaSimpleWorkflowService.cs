@@ -7,6 +7,7 @@
 
 using Ejyle.DevAccelerate.Core;
 using Ejyle.DevAccelerate.SimpleWorkflow.Configuration;
+using Ejyle.DevAccelerate.SimpleWorkflow.Xml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,13 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.SimpleWorkflow
 {
+    public class DaSimpleWorkflowService : DaSimpleWorkflowService<DaXmlSimpleWorkflow, DaXmlSimpleWorkflowItem, DaXmlSimpleWorkflowItemSetting, DaXmlSimpleWorkflowItemParameterDefinition>
+    {
+        public DaSimpleWorkflowService(string repositoryLocation)
+            : base(new DaXmlSimpleWorkflowRepository(), repositoryLocation)
+        { }
+    }
+
     public class DaSimpleWorkflowService<TSimpleWorkflow, TSimpleWorkflowItem, TSimpleWorkflowItemSetting, TSimpleWorkflowItemParameterDefinition>
         where TSimpleWorkflow : IDaSimpleWorkflow<TSimpleWorkflowItem, TSimpleWorkflowItemSetting, TSimpleWorkflowItemParameterDefinition>
         where TSimpleWorkflowItem : IDaSimpleWorkflowItem<TSimpleWorkflowItemSetting, TSimpleWorkflowItemParameterDefinition>
@@ -22,6 +30,7 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow
         where TSimpleWorkflowItemParameterDefinition : IDaSimpleWorkflowParameterDefinition
     {
         private IDaSimpleWorkflowRepository<TSimpleWorkflow, TSimpleWorkflowItem, TSimpleWorkflowItemSetting, TSimpleWorkflowItemParameterDefinition> _repository;
+
         public DaSimpleWorkflowService()
         {
             var config = DaSimpleWorkflowConfigurationManager.GetConfiguration();
@@ -35,6 +44,16 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow
             }
             
             _repository.SetLocation(config.RepositoryLocation);
+        }
+
+        public DaSimpleWorkflowService(IDaSimpleWorkflowRepository<TSimpleWorkflow, TSimpleWorkflowItem, TSimpleWorkflowItemSetting, TSimpleWorkflowItemParameterDefinition> repository, string repositoryLocation)
+        {
+            if(repository == null)
+            {
+                throw new ArgumentNullException(nameof(repository));
+            }
+
+            repository.SetLocation(repositoryLocation);
         }
 
         public DaSimpleWorkflowResult Execute(string name, Dictionary<string, object> parameters)
