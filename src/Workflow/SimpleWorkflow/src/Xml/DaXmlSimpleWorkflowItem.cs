@@ -16,15 +16,13 @@ using System.Xml.Serialization;
 namespace Ejyle.DevAccelerate.SimpleWorkflow.Xml
 {
     [SerializableAttribute()]
-    [DesignerCategoryAttribute("code")]
-    [XmlTypeAttribute(TypeName = "workflowItem", AnonymousType = true, Namespace = "https://devaccelerate.github.io/schema/simple-workflow-v10.html")]
+    [XmlType(AnonymousType =true, Namespace = "https://devaccelerate.github.io/schema/simple-workflow-v10.html")]
     public class DaXmlSimpleWorkflowItem : DaXmlSimpleWorkflowItem<DaXmlSimpleWorkflowItemSetting, DaXmlSimpleWorkflowItemParameterDefinition>
     {
     }
 
     [SerializableAttribute()]
-    [DesignerCategoryAttribute("code")]
-    [XmlTypeAttribute(TypeName="workflowItem", AnonymousType = true, Namespace = "https://devaccelerate.github.io/schema/simple-workflow-v10.html")]
+    [XmlType(AnonymousType =true, Namespace = "https://devaccelerate.github.io/schema/simple-workflow-v10.html")]
     public class DaXmlSimpleWorkflowItem<TSimpleWorkflowItemSetting, TSimpleWorkflowItemParameterDefinition> : IDaSimpleWorkflowItem<TSimpleWorkflowItemSetting, TSimpleWorkflowItemParameterDefinition>
         where TSimpleWorkflowItemSetting : IDaSimpleWorkflowItemSetting
         where TSimpleWorkflowItemParameterDefinition : IDaSimpleWorkflowParameterDefinition
@@ -35,7 +33,8 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow.Xml
         private TSimpleWorkflowItemSetting[] _settings;
         private TSimpleWorkflowItemParameterDefinition[] _expectedParameters;
 
-        [XmlElementAttribute(ElementName = "settings")]
+        [XmlArray(ElementName = "settings")]
+        [XmlArrayItem(ElementName = "setting")]
         public TSimpleWorkflowItemSetting[] Settings
         {
             get
@@ -48,7 +47,8 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow.Xml
             }
         }
 
-        [XmlElementAttribute(ElementName = "expectedParameters")]
+        [XmlArray(ElementName = "expectedParameters")]
+        [XmlArrayItem(ElementName = "expectedParameter")]
         public TSimpleWorkflowItemParameterDefinition[] ExpectedParameters
         {
             get

@@ -9,8 +9,7 @@ using System.Xml.Serialization;
 namespace Ejyle.DevAccelerate.SimpleWorkflow.Xml
 {
     [SerializableAttribute()]
-    [DesignerCategoryAttribute("code")]
-    [XmlTypeAttribute(TypeName = "expectedParameter", AnonymousType = true, Namespace = "https://devaccelerate.github.io/schema/simple-workflow-v10.html")]
+    [XmlTypeAttribute(AnonymousType = true, Namespace = "https://devaccelerate.github.io/schema/simple-workflow-v10.html")]
     public class DaXmlSimpleWorkflowItemParameterDefinition : IDaSimpleWorkflowParameterDefinition
     {
         [XmlAttributeAttribute(AttributeName = "name")]

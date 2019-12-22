@@ -16,14 +16,12 @@ using System.Xml.Serialization;
 namespace Ejyle.DevAccelerate.SimpleWorkflow.Xml
 {
     [SerializableAttribute()]
-    [DesignerCategoryAttribute("code")]
     [XmlTypeAttribute(AnonymousType = true, Namespace = "https://devaccelerate.github.io/schema/simple-workflow-v10.html")]
     [XmlRootAttribute(ElementName = "simpleWorkflow", Namespace = "https://devaccelerate.github.io/schema/simple-workflow-v10.html", IsNullable = false)]
     public class DaXmlSimpleWorkflow : DaXmlSimpleWorkflow<DaXmlSimpleWorkflowItem, DaXmlSimpleWorkflowItemSetting, DaXmlSimpleWorkflowItemParameterDefinition>
     { }
 
     [SerializableAttribute()]
-    [DesignerCategoryAttribute("code")]
     [XmlTypeAttribute(AnonymousType = true, Namespace = "https://devaccelerate.github.io/schema/simple-workflow-v10.html")]
     [XmlRootAttribute(ElementName= "simpleWorkflow", Namespace = "https://devaccelerate.github.io/schema/simple-workflow-v10.html", IsNullable = false)]
     public class DaXmlSimpleWorkflow<TSimpleWorkflowItem, TSimpleWorkflowItemSetting, TSimpleWorkflowItemParameterDefinition> : IDaSimpleWorkflow<TSimpleWorkflowItem, TSimpleWorkflowItemSetting, TSimpleWorkflowItemParameterDefinition>
@@ -35,7 +33,8 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow.Xml
         private string _name;
         private bool _abortOnError;
 
-        [XmlElementAttribute(ElementName="workflowItems")]
+        [XmlArray(ElementName="workflowItems")]
+        [XmlArrayItem(ElementName="workflowItem")]
         public TSimpleWorkflowItem[] WorkflowItems
         {
             get

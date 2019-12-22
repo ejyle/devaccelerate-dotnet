@@ -16,8 +16,7 @@ using System.Xml.Serialization;
 namespace Ejyle.DevAccelerate.SimpleWorkflow.Xml
 {
     [SerializableAttribute()]
-    [DesignerCategoryAttribute("code")]
-    [XmlTypeAttribute(TypeName = "setting", AnonymousType = true, Namespace = "https://devaccelerate.github.io/schema/simple-workflow-v10.html")]
+    [XmlTypeAttribute(AnonymousType = true, Namespace = "https://devaccelerate.github.io/schema/simple-workflow-v10.html")]
     public class DaXmlSimpleWorkflowItemSetting : IDaSimpleWorkflowItemSetting
     {
         private string _name;
