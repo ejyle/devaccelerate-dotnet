@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>DevAccelerateSimpleWorkflow</id>
+    <version>6.0.0-preview1</version>
+    <title>DevAccelerate Simple Workflow</title>
+    <authors>ejyle,tanveery</authors>
+    <owners>ejyle,tanveery</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <licenseUrl>https://raw.githubusercontent.com/devaccelerate/DevAccelerateNet/master/LICENSE</licenseUrl>
+    <projectUrl>https://devaccelerate.github.io/</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/devaccelerate/devaccelerate.github.io/master/img/logo.png</iconUrl>
+    <description>Provides interfaces and base classes for the simple workflow framework in DevAccelerate.</description>
+    <summary>Provides interfaces and base classes for the simple workflow framework in DevAccelerate.</summary>
+    <releaseNotes>This release contains the following primary features:
+
+1) Simple workflow service.
+2) Simple workflow interfaces.
+3) Default XML-based simple workflow repository.
+4) Simple workflow configuration.</releaseNotes>
+    <copyright>© Ejyle Technologies (P) Ltd. All rights reserved.</copyright>
+    <language>en-US</language>
+    <tags>DevAccelerate Simple-Workflow Workflow</tags>
+    <repository type="git" url="https://github.com/devaccelerate/DevAccelerateNet" commit="ea0459c69126a21588e2e745d151d17025a5551a" />
+    <dependencies>
+      <dependency id="DevAccelerateCore" version="6.0.0-preview4" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="lib\Ejyle.DevAccelerate.SimpleWorkflow.dll" target="lib\Ejyle.DevAccelerate.SimpleWorkflow.dll" />
+  </files>
+</package>
