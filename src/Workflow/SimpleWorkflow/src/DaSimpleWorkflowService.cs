@@ -110,19 +110,25 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow
 
                     var itemResult = await simpleWorkflowItemAction.ExecuteAsync(workflowItemParams);
 
-                    foreach(var parameter in itemResult.Parameters)
+                    if (itemResult != null && itemResult.Parameters != null)
                     {
-                        if (!parameters.ContainsKey(parameter.Key))
+                        foreach (var parameter in itemResult.Parameters)
                         {
-                            parameters.Add(parameter.Key, parameter.Value);
-                        }
-                        else
-                        {
-                            parameters[parameter.Key] = parameter.Value;
+                            if (!parameters.ContainsKey(parameter.Key))
+                            {
+                                parameters.Add(parameter.Key, parameter.Value);
+                            }
+                            else
+                            {
+                                parameters[parameter.Key] = parameter.Value;
+                            }
                         }
                     }
 
-                    result.WorkflowItemResults.Add(itemResult);
+                    if (itemResult != null)
+                    {
+                        result.WorkflowItemResults.Add(itemResult);
+                    }
                 }
                 else if (workflowItem.WorkflowItemType == DaSimpleWorkflowItemType.Condition)
                 {
@@ -137,7 +143,7 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow
 
                     var boolResult = await simpleWorkflowItemCondition.ExecuteAsync(workflowItemParams);
                     
-                    var itemResult = new DaSimpleWorkflowItemResult(boolResult);
+                    var itemResult = new DaSimpleWorkflowItemResult(boolResult);                                   
                     result.WorkflowItemResults.Add(itemResult);
 
                     if (boolResult == false)
