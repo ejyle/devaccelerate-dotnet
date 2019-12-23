@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>DevAccelerateSimpleWorkflow</id>
-    <version>6.0.0-preview1</version>
+    <version>6.0.0-preview2</version>
     <title>DevAccelerate Simple Workflow</title>
     <authors>ejyle,tanveery</authors>
     <owners>ejyle,tanveery</owners>
@@ -21,7 +21,7 @@
     <copyright>© Ejyle Technologies (P) Ltd. All rights reserved.</copyright>
     <language>en-US</language>
     <tags>DevAccelerate Simple-Workflow Workflow</tags>
-    <repository type="git" url="https://github.com/devaccelerate/DevAccelerateNet" commit="ea0459c69126a21588e2e745d151d17025a5551a" />
+    <repository type="git" url="https://github.com/devaccelerate/DevAccelerateNet" commit="f0156ae873ac5a135b4bc1f18d94aa23524f8b1a" />
     <dependencies>
       <dependency id="DevAccelerateCore" version="6.0.0-preview4" />
     </dependencies>
