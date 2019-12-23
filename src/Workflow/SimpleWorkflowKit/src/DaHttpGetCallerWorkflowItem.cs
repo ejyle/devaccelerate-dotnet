@@ -27,6 +27,7 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow.WorkflowKit
             }
 
             string url = "", mediaType = "application/json";
+            string[] headerParameters = null;
 
             foreach (var setting in _settings)
             {
@@ -37,6 +38,10 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow.WorkflowKit
                 else if (setting.Name == "mediaType")
                 {
                     mediaType = setting.Value;
+                }
+                else if(setting.Name == "headerParameters")
+                {
+                    headerParameters = setting.Value.Split(',');
                 }
             }
 
@@ -55,7 +60,24 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow.WorkflowKit
 
             foreach (var key in parameters.Keys)
             {
-                sbParams.Append($"{key}={parameters[key]}&");
+                bool isHeader = false;
+
+                if (headerParameters != null && headerParameters.Length > 0)
+                {
+                    foreach (var headerParam in headerParameters)
+                    {
+                        if (key == headerParam.Trim())
+                        {
+                            client.DefaultRequestHeaders.Add(headerParam.Trim(), parameters[key] as string);
+                            isHeader = true;
+                        }
+                    }
+                }
+
+                if (!isHeader)
+                {
+                    sbParams.Append($"{key}={parameters[key]}&");
+                }
             }
 
             string urlParams = sbParams.ToString();
