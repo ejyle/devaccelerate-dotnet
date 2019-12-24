@@ -5,11 +5,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AE4FC653-026E-4EE2-87B1-4047F355B911}</ProjectGuid>
+    <ProjectGuid>{DAE4E50E-B0CD-4827-BC6F-A69E82AA407D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ejyle.DevAccelerate.Facades.Security</RootNamespace>
-    <AssemblyName>Ejyle.DevAccelerate.Facades.Security</AssemblyName>
+    <RootNamespace>Ejyle.DevAccelerate.Workflow.Security</RootNamespace>
+    <AssemblyName>Ejyle.DevAccelerate.Workflow.Security</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -42,7 +42,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Ejyle.DevAccelerate.Facades.Security.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>Ejyle.DevAccelerate.Workflow.Security.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -92,26 +92,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Authorization\DaAuthorizationFacade.cs" />
-    <Compile Include="Authorization\DaAuthorizationInfo.cs" />
-    <Compile Include="Authorization\DaAuthorizedFeatureInfo.cs" />
-    <Compile Include="Authorization\IDaAuthorizationInfo.cs" />
-    <Compile Include="Authorization\IDaAuthorizedFeatureInfo.cs" />
+    <Compile Include="Authentication\DaSignInWorkflowItem.cs" />
+    <Compile Include="Authentication\DaSignOutWorkflowItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs" />
-    <Compile Include="Subscriptions\DaSubscriptionFacade.cs" />
-    <Compile Include="Subscriptions\DaSubscriptionInfo.cs" />
-    <Compile Include="Subscriptions\DaSubscriptionPlanFacade.cs" />
-    <Compile Include="Subscriptions\DaSubscriptionPlanInfo.cs" />
-    <Compile Include="Subscriptions\IDaSubscriptionInfo.cs" />
-    <Compile Include="Subscriptions\IDaSubscriptionPlanInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="da.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Ejyle.DevAccelerate.Facades.Security.snk" />
+    <None Include="Ejyle.DevAccelerate.Workflow.Security.snk" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -153,6 +144,10 @@
     <ProjectReference Include="..\..\..\Profiles\Profiles\src\Ejyle.DevAccelerate.Profiles.csproj">
       <Project>{c130cb42-5993-4a61-af0c-30c06a6854fc}</Project>
       <Name>Ejyle.DevAccelerate.Profiles</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SimpleWorkflow\src\Ejyle.DevAccelerate.Workflow.SimpleWorkflow.csproj">
+      <Project>{f6848746-5ad7-43bd-90a4-36ff8aec00f5}</Project>
+      <Name>Ejyle.DevAccelerate.Workflow.SimpleWorkflow</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

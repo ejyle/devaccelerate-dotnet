@@ -2,11 +2,11 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Ejyle.DevAccelerate.SimpleWorkflow.WorkflowKit.Tests")]
-[assembly: AssemblyDescription("Ejyle.DevAccelerate.SimpleWorkflow.WorkflowKit.Tests")]
+[assembly: AssemblyTitle("Ejyle.DevAccelerate.Workflow.SimpleWorkflow.Common.Tests")]
+[assembly: AssemblyDescription("Ejyle.DevAccelerate.Workflow.SimpleWorkflow.Common.Tests")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ejyle Technologies (P) Ltd")]
-[assembly: AssemblyProduct("Ejyle.DevAccelerate.SimpleWorkflow.WorkflowKit.Tests")]
+[assembly: AssemblyProduct("Ejyle.DevAccelerate.Workflow.SimpleWorkflow.Common.Tests")]
 [assembly: AssemblyCopyright("Copyright © Ejyle Technologies (P) Ltd. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans;
 
-namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
+namespace Ejyle.DevAccelerate.Workflow.Security.Subscriptions
 {
     public interface IDaSubscriptionPlanInfo<TKey, TBillingCycle, TApp, TAppFeature, TAppFeatureAttributeInfo>
         where TKey : IEquatable<TKey>

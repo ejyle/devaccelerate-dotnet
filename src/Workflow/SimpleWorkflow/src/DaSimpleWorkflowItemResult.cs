@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ejyle.DevAccelerate.SimpleWorkflow
+namespace Ejyle.DevAccelerate.Workflow.SimpleWorkflow
 {
     public class DaSimpleWorkflowItemResult
     {

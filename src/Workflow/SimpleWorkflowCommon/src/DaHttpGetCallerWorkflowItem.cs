@@ -13,9 +13,9 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ejyle.DevAccelerate.SimpleWorkflow.WorkflowKit
+namespace Ejyle.DevAccelerate.Workflow.SimpleWorkflow.Common
 {
-    public class DaHttpPostCallerWorkflowItem : IDaSimpleWorkflowItemAction
+    public class DaHttpGetCallerWorkflowItem : IDaSimpleWorkflowItemAction
     {
         private IDaSimpleWorkflowItemSetting[] _settings = null;
 
@@ -55,7 +55,8 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow.WorkflowKit
 
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(mediaType));
 
-            Dictionary<string, string> postParams = new Dictionary<string, string>();
+            StringBuilder sbParams = new StringBuilder();
+            sbParams.Append("?");
 
             foreach (var key in parameters.Keys)
             {
@@ -75,13 +76,14 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow.WorkflowKit
 
                 if (!isHeader)
                 {
-                    postParams.Add(key, parameters[key] as string);
+                    sbParams.Append($"{key}={parameters[key]}&");
                 }
             }
 
-            var encodedContent = new FormUrlEncodedContent(postParams);
+            string urlParams = sbParams.ToString();
+            urlParams = urlParams.Remove(urlParams.Length - 1, 1);
 
-            var response = client.PostAsync(url, encodedContent).Result;
+            HttpResponseMessage response = client.GetAsync(urlParams).Result;
 
             DaSimpleWorkflowItemResult result = null;
 

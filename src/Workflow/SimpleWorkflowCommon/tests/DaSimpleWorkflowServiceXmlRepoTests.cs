@@ -9,10 +9,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
-using Ejyle.DevAccelerate.SimpleWorkflow.Xml;
+using Ejyle.DevAccelerate.Workflow.SimpleWorkflow.Xml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Ejyle.DevAccelerate.SimpleWorkflow.WorkflowKit.Tests
+namespace Ejyle.DevAccelerate.Workflow.SimpleWorkflow.Common.Tests
 {
     [TestClass]
     public class DaSimpleWorkflowServiceXmlRepoTests

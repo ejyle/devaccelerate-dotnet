@@ -8,7 +8,7 @@
 using Ejyle.DevAccelerate.Core;
 using Ejyle.DevAccelerate.Core.Configuration;
 
-namespace Ejyle.DevAccelerate.SimpleWorkflow.Configuration
+namespace Ejyle.DevAccelerate.Workflow.SimpleWorkflow.Configuration
 {
     /// <summary>
     /// A static class that sets or gets simple workflow configuration section.

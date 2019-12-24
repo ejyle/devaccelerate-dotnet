@@ -13,7 +13,6 @@ using Ejyle.DevAccelerate.Identity.EF;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
-using Ejyle.DevAccelerate.Facades.Security.Properties;
 using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Tenants;
 using Ejyle.DevAccelerate.EnterpriseSecurity.Tenants;
 using Ejyle.DevAccelerate.EnterpriseSecurity.EF.SubscriptionPlans;
@@ -37,8 +36,9 @@ using Ejyle.DevAccelerate.Profiles.Organizations;
 using Ejyle.DevAccelerate.Profiles.EF;
 using Ejyle.DevAccelerate.Profiles.Addresses;
 using Ejyle.DevAccelerate.Profiles.EF.Addresses;
+using Ejyle.DevAccelerate.Facades.Security.Properties;
 
-namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
+namespace Ejyle.DevAccelerate.Workflow.Security.Subscriptions
 {
     public class DaSubscriptionFacade : DaSubscriptionFacade<DaSubscriptionInfo, DaUserManager, DaUser, DaUserLogin, DaUserRole, DaUserClaim, DaUserProfileManager, DaUserProfile, DaUserProfileAttribute, DaOrganizationProfileManager, DaOrganizationProfile, DaOrganizationProfileAttribute, DaTenantManager, DaTenant, DaTenantUser, DaAddressProfileManager, DaAddressProfile, DaUserAddress, DaUserAgreementManager, DaUserAgreement, DaUserAgreementVersion, DaUserAgreementVersionAction, DaAppManager, DaApp, DaFeatureManager, DaFeature, DaAppFeature, DaFeatureAction, DaSubscriptionPlanManager, DaSubscriptionPlan, DaSubscriptionPlanAttribute, DaBillingCycle, DaSubscriptionPlanApp, DaSubscriptionPlanFeature, DaSubscriptionPlanFeatureAttribute, DaSubscriptionManager, DaSubscription, DaSubscriptionAttribute, DaSubscriptionApp, DaSubscriptionFeature, DaSubscriptionFeatureAttribute, DaSubscriptionAppRole, DaSubscriptionAppUser, DaSubscriptionFeatureRole, DaSubscriptionFeatureRoleAction, DaSubscriptionFeatureUser, DaSubscriptionFeatureUserAction, DaCurrencyManager, DaCurrency, DaCountryManager, DaCountry, DaCountryRegion, DaTimeZoneManager, DaTimeZone, DaSystemLanguageManager, DaSystemLanguage>
     {

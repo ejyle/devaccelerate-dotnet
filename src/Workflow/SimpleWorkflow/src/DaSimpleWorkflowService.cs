@@ -6,15 +6,15 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using Ejyle.DevAccelerate.Core;
-using Ejyle.DevAccelerate.SimpleWorkflow.Configuration;
-using Ejyle.DevAccelerate.SimpleWorkflow.Xml;
+using Ejyle.DevAccelerate.Workflow.SimpleWorkflow.Configuration;
+using Ejyle.DevAccelerate.Workflow.SimpleWorkflow.Xml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ejyle.DevAccelerate.SimpleWorkflow
+namespace Ejyle.DevAccelerate.Workflow.SimpleWorkflow
 {
     public class DaSimpleWorkflowService : DaSimpleWorkflowService<DaXmlSimpleWorkflow, DaXmlSimpleWorkflowItem, DaXmlSimpleWorkflowItemSetting, DaXmlSimpleWorkflowItemParameterDefinition>
     {

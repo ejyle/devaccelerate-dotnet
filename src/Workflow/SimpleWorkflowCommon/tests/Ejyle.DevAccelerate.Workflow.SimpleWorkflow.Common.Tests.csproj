@@ -8,8 +8,8 @@
     <ProjectGuid>{26D0549F-0EEE-4040-A8E5-D86EC2EE98E5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ejyle.DevAccelerate.SimpleWorkflow.WorkflowKit.Tests</RootNamespace>
-    <AssemblyName>Ejyle.DevAccelerate.SimpleWorkflow.WorkflowKit.Tests</AssemblyName>
+    <RootNamespace>Ejyle.DevAccelerate.Workflow.SimpleWorkflow.Common.Tests</RootNamespace>
+    <AssemblyName>Ejyle.DevAccelerate.Workflow.SimpleWorkflow.Common.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -67,13 +67,9 @@
       <Project>{320bf7cc-b2bb-40de-afa1-62197c369adb}</Project>
       <Name>Ejyle.DevAccelerate.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\SimpleWorkflow\src\Ejyle.DevAccelerate.SimpleWorkflow.csproj">
+    <ProjectReference Include="..\..\SimpleWorkflow\src\Ejyle.DevAccelerate.Workflow.SimpleWorkflow.csproj">
       <Project>{f6848746-5ad7-43bd-90a4-36ff8aec00f5}</Project>
-      <Name>Ejyle.DevAccelerate.SimpleWorkflow</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\src\Ejyle.DevAccelerate.SimpleWorkflow.WorkflowKit.csproj">
-      <Project>{599eaaff-b029-44c1-b2c9-fe0866c73c6a}</Project>
-      <Name>Ejyle.DevAccelerate.SimpleWorkflow.WorkflowKit</Name>
+      <Name>Ejyle.DevAccelerate.Workflow.SimpleWorkflow</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

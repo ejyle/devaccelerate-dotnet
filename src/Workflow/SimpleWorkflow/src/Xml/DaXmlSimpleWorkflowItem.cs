@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace Ejyle.DevAccelerate.SimpleWorkflow.Xml
+namespace Ejyle.DevAccelerate.Workflow.SimpleWorkflow.Xml
 {
     [SerializableAttribute()]
     [XmlType(AnonymousType =true, Namespace = "https://devaccelerate.github.io/schema/simple-workflow-v10.html")]

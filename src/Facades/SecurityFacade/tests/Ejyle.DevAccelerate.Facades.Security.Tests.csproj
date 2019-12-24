@@ -6,7 +6,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{262F6D86-E351-4F2C-84CD-BE580FF8DEA5}</ProjectGuid>
+    <ProjectGuid>{5B4E04FC-BE8B-40EA-B92E-9BF818455053}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Ejyle.DevAccelerate.Facades.Security.Tests</RootNamespace>

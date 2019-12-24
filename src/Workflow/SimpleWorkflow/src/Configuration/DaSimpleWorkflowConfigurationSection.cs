@@ -8,7 +8,7 @@
 using System.Configuration;
 using Ejyle.DevAccelerate.Core.Configuration;
 
-namespace Ejyle.DevAccelerate.SimpleWorkflow.Configuration
+namespace Ejyle.DevAccelerate.Workflow.SimpleWorkflow.Configuration
 {
     /// <summary>
     /// Represents simple workflow configuration.
@@ -37,7 +37,7 @@ namespace Ejyle.DevAccelerate.SimpleWorkflow.Configuration
         /// <summary>
         /// Gets or sets the type of the repository.
         /// </summary>
-        [ConfigurationProperty(REPO_TYPE, IsRequired = false, DefaultValue = "Ejyle.DevAccelerate.SimpleWorkflow.Xml.DaXmlSimpleWorkflowRepository, Ejyle.DevAccelerate.SimpleWorkflow.Xml")]
+        [ConfigurationProperty(REPO_TYPE, IsRequired = false, DefaultValue = "Ejyle.DevAccelerate.Workflow.SimpleWorkflow.Xml.DaXmlSimpleWorkflowRepository, Ejyle.DevAccelerate.Workflow.SimpleWorkflow.Xml")]
         public string RepositoryType
         {
             get

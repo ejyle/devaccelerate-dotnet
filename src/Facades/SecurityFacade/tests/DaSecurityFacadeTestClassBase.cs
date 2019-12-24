@@ -11,7 +11,6 @@ using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Subscriptions;
 using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Tenants;
 using Ejyle.DevAccelerate.EnterpriseSecurity.EF.UserAgreements;
 using Ejyle.DevAccelerate.Facades.Security.Authorization;
-using Ejyle.DevAccelerate.Facades.Security.Subscriptions;
 using Ejyle.DevAccelerate.Identity.EF;
 using Ejyle.DevAccelerate.List.EF.Culture;
 

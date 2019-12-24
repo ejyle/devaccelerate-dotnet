@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{599EAAFF-B029-44C1-B2C9-FE0866C73C6A}</ProjectGuid>
+    <ProjectGuid>{F6848746-5AD7-43BD-90A4-36FF8AEC00F5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ejyle.DevAccelerate.SimpleWorkflow.WorkflowKit</RootNamespace>
-    <AssemblyName>Ejyle.DevAccelerate.SimpleWorkflow.WorkflowKit</AssemblyName>
+    <RootNamespace>Ejyle.DevAccelerate.Workflow.SimpleWorkflow</RootNamespace>
+    <AssemblyName>Ejyle.DevAccelerate.Workflow.SimpleWorkflow</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -37,12 +37,12 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Ejyle.DevAccelerate.SimpleWorkflow.WorkflowKit.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>Ejyle.DevAccelerate.Workflow.SimpleWorkflow.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,9 +51,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DaHttpPostCallerWorkflowItem.cs" />
+    <Compile Include="Configuration\DaSimpleWorkflowConfigurationManager.cs" />
+    <Compile Include="Configuration\DaSimpleWorkflowConfigurationSection.cs" />
+    <Compile Include="Xml\DaXmlSimpleWorkflowItemParameterDefinition.cs" />
+    <Compile Include="IDaSimpleWorkflowItemSetting.cs" />
+    <Compile Include="IDaSimpleWorkflowParameterDefinition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DaHttpGetCallerWorkflowItem.cs" />
+    <Compile Include="DaSimpleWorkflowItemResult.cs" />
+    <Compile Include="DaSimpleWorkflowItemType.cs" />
+    <Compile Include="DaSimpleWorkflowResult.cs" />
+    <Compile Include="DaSimpleWorkflowService.cs" />
+    <Compile Include="IDaSimpleWorkflow.cs" />
+    <Compile Include="IDaSimpleWorkflowItem.cs" />
+    <Compile Include="IDaSimpleWorkflowItemAction.cs" />
+    <Compile Include="IDaSimpleWorkflowItemCondition.cs" />
+    <Compile Include="IDaSimpleWorkflowRepository.cs" />
+    <Compile Include="Xml\DaXmlSimpleWorkflow.cs" />
+    <Compile Include="Xml\DaXmlSimpleWorkflowItem.cs" />
+    <Compile Include="Xml\DaXmlSimpleWorkflowItemSetting.cs" />
+    <Compile Include="Xml\DaXmlSimpleWorkflowRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="da.ico" />
@@ -63,13 +79,9 @@
       <Project>{320bf7cc-b2bb-40de-afa1-62197c369adb}</Project>
       <Name>Ejyle.DevAccelerate.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\SimpleWorkflow\src\Ejyle.DevAccelerate.SimpleWorkflow.csproj">
-      <Project>{f6848746-5ad7-43bd-90a4-36ff8aec00f5}</Project>
-      <Name>Ejyle.DevAccelerate.SimpleWorkflow</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Ejyle.DevAccelerate.SimpleWorkflow.WorkflowKit.snk" />
+    <None Include="Ejyle.DevAccelerate.Workflow.SimpleWorkflow.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,16 +1,15 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Ejyle.DevAccelerate.SimpleWorkflow.WorkflowKit")]
-[assembly: AssemblyDescription("A collection of default simple workflow item type implementations.")]
+[assembly: AssemblyTitle("Ejyle.DevAccelerate.Workflow.Security")]
+[assembly: AssemblyDescription("A library of workflow items that encapsulate DevAccelerate security APIs. It works on top of DeAaccelerate Simple Workflow Framework, Idenitty and Enterprise Security.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ejyle Technologies (P) Ltd")]
-[assembly: AssemblyProduct("Ejyle.DevAccelerate.SimpleWorkflow.WorkflowKit")]
-[assembly: AssemblyCopyright("Copyright © Ejyle Technologies (P) Ltd. All rights reserved.")]
+[assembly: AssemblyProduct("Ejyle.DevAccelerate.Workflow.Security")]
+[assembly: AssemblyCopyright("© Ejyle Technologies (P) Ltd. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("599eaaff-b029-44c1-b2c9-fe0866c73c6a")]
+[assembly: Guid("dae4e50e-b0cd-4827-bc6f-a69e82aa407d")]
 
 // Version information for an assembly consists of the following four values:
 //

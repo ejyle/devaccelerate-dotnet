@@ -11,7 +11,7 @@ using System.Collections.Specialized;
 using Ejyle.DevAccelerate.EnterpriseSecurity.Tenants;
 using Ejyle.DevAccelerate.Profiles.Organizations;
 
-namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
+namespace Ejyle.DevAccelerate.Workflow.Security.Subscriptions
 {
     public class DaSubscriptionInfo : DaSubscriptionInfo<int, int?>
     { }
