@@ -26,7 +26,8 @@ The following is the list of DevAccelerate NuGet packages:
 * [DevAccelerateSmsTextlocal](https://www.nuget.org/packages/DevAccelerateSmsTextlocal/)
 * [DevAccelerateSmsTwilio](https://www.nuget.org/packages/DevAccelerateSmsTwilio/)
 * [DevAccelerateSimpleWorkflow](https://www.nuget.org/packages/DevAccelerateSimpleWorkflow/)
-* [DevAccelerateSimpleWorkflowKit](https://www.nuget.org/packages/DevAccelerateSimpleWorkflowKit/)
+* [DevAccelerateSimpleWorkflowCommon](https://www.nuget.org/packages/DevAccelerateSimpleWorkflowCommon/)
+* [DevAccelerateSecurityWorkflow](https://www.nuget.org/packages/DevAccelerateSecurityWorkflow/)
 
 ### Installation
 
