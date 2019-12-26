@@ -71,6 +71,10 @@
       <Project>{f6848746-5ad7-43bd-90a4-36ff8aec00f5}</Project>
       <Name>Ejyle.DevAccelerate.Workflow.SimpleWorkflow</Name>
     </ProjectReference>
+    <ProjectReference Include="..\src\Ejyle.DevAccelerate.Workflow.SimpleWorkflow.Common.csproj">
+      <Project>{599eaaff-b029-44c1-b2c9-fe0866c73c6a}</Project>
+      <Name>Ejyle.DevAccelerate.Workflow.SimpleWorkflow.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -91,6 +91,11 @@ namespace Ejyle.DevAccelerate.Workflow.SimpleWorkflow
 
                     if(foundParameter != null)
                     {
+                        if(Type.GetType(expectedParameter.ParameterType) != foundParameter.GetType())
+                        {
+                            throw new InvalidOperationException($"The parameter {expectedParameter.Name} type did not match with the expected type.");
+                        }
+
                         workflowItemParams.Add(expectedParameter.Name, foundParameter);
                     }
                 }
