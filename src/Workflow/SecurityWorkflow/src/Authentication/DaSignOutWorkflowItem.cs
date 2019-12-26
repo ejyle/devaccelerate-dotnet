@@ -23,10 +23,11 @@ using System.Collections.Generic;
 
 namespace Ejyle.DevAccelerate.Workflow.Security.Authentication
 {
-    public class DaSignOutWorkflowItem : DaSignOutWorkflowItem<int, int?, DaUserManager, DaUser, DaUserLogin, DaUserRole, DaUserClaim, DaSignInManager, DaUserSession, DaUserSessionManager>
+    public class DaSignOutWorkflowItem : DaSignOutWorkflowItem<int, int?, DaSignOutWorkflowItemInfo, DaUserManager, DaUser, DaUserLogin, DaUserRole, DaUserClaim, DaSignInManager, DaUserSession, DaUserSessionManager>
     { }
 
-    public class DaSignOutWorkflowItem<TUserManager, TUser, TUserLogin, TUserRole, TUserClaim, TSignInManager, TUserSession, TUserSessionManager> : DaSignOutWorkflowItem<int, int?, TUserManager, TUser, TUserLogin, TUserRole, TUserClaim, TSignInManager, TUserSession, TUserSessionManager>
+    public class DaSignOutWorkflowItem<TSignOutWorkflowItemInfo, TUserManager, TUser, TUserLogin, TUserRole, TUserClaim, TSignInManager, TUserSession, TUserSessionManager> : DaSignOutWorkflowItem<int, int?, TSignOutWorkflowItemInfo, TUserManager, TUser, TUserLogin, TUserRole, TUserClaim, TSignInManager, TUserSession, TUserSessionManager>
+        where TSignOutWorkflowItemInfo : DaSignOutWorkflowItemInfo<int, int?, TUserManager, TUser, TUserLogin, TUserRole, TUserClaim, TSignInManager, TUserSession, TUserSessionManager>
         where TUserManager : DaUserManager<int, int?, TUser>
         where TUser : DaUser<int, int?, TUserLogin, TUserRole, TUserClaim>, new()
         where TUserLogin : DaUserLogin<int>
@@ -37,8 +38,9 @@ namespace Ejyle.DevAccelerate.Workflow.Security.Authentication
         where TUserSessionManager : DaUserSessionManager<int, TUserSession>
     { }
 
-    public class DaSignOutWorkflowItem<TKey, TNullableKey, TUserManager, TUser, TUserLogin, TUserRole, TUserClaim, TSignInManager, TUserSession, TUserSessionManager> : IDaSimpleWorkflowItemAction
+    public class DaSignOutWorkflowItem<TKey, TNullableKey, TSignOutWorkflowItemInfo, TUserManager, TUser, TUserLogin, TUserRole, TUserClaim, TSignInManager, TUserSession, TUserSessionManager> : IDaSimpleWorkflowItemAction
         where TKey : IEquatable<TKey>
+        where TSignOutWorkflowItemInfo : DaSignOutWorkflowItemInfo<TKey, TNullableKey, TUserManager, TUser, TUserLogin, TUserRole, TUserClaim, TSignInManager, TUserSession, TUserSessionManager>
         where TUserManager : DaUserManager<TKey, TNullableKey, TUser>
         where TUser : DaUser<TKey, TNullableKey, TUserLogin, TUserRole, TUserClaim>, new()
         where TUserLogin : DaUserLogin<TKey>
@@ -57,9 +59,7 @@ namespace Ejyle.DevAccelerate.Workflow.Security.Authentication
 
         public async Task<DaSimpleWorkflowItemResult> ExecuteAsync(Dictionary<string, object> parameters)
         {
-            var signInManager = parameters["signInManager"] as TSignInManager;
-            var userSessionManager = parameters["userSessionManager"] as TUserSessionManager;
-            var httpSession = parameters["httpSession"] as HttpSessionStateBase;
+            var signOutInfo = parameters["signOutInfo"] as TSignOutWorkflowItemInfo;
 
             TUserSession userSession = default(TUserSession);
             string userSessionKey = null;
@@ -72,12 +72,12 @@ namespace Ejyle.DevAccelerate.Workflow.Security.Authentication
                     if (setting.Name == "httpSessionName")
                     {
                         sessionName = setting.Value;
-                        userSessionKey = httpSession[sessionName] as string;
+                        userSessionKey = signOutInfo.HttpSession[sessionName] as string;
                         userSession = default(TUserSession);
 
                         if (!string.IsNullOrEmpty(userSessionKey))
                         {
-                            userSession = await userSessionManager.FindBySessionKeyAsync(userSessionKey);
+                            userSession = await signOutInfo.UserSessionManager.FindBySessionKeyAsync(userSessionKey);
                         }
 
                         break;
@@ -85,16 +85,16 @@ namespace Ejyle.DevAccelerate.Workflow.Security.Authentication
                 }
             }
 
-            signInManager.AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            signOutInfo.SignInManager.AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
 
             if (userSession != null)
             {
-                await userSessionManager.UpdateStatusAsync(userSession.Id, DaUserSessionStatus.LoggedOff);
+                await signOutInfo.UserSessionManager.UpdateStatusAsync(userSession.Id, DaUserSessionStatus.LoggedOff);
             }
 
             if (!string.IsNullOrEmpty(userSessionKey))
             {
-                httpSession[sessionName] = null;
+                signOutInfo.HttpSession[sessionName] = null;
             }
 
             return new DaSimpleWorkflowItemResult((object)userSessionKey);
