@@ -25,7 +25,7 @@ namespace Ejyle.DevAccelerate.Workflow.SimpleWorkflow.Common.Tests
             var parameters = new Dictionary<string, object>();
             parameters.Add("message", "Hello, World!");
             parameters.Add("X-Auth-ID", "ABCD1234");
-            var result = service.Execute("CallEchoApiWorkflow", parameters);
+            var result = service.Execute("SignInWorkflow", parameters);
 
             Assert.IsNotNull(result, "The workflow's result is null.");
             Assert.IsTrue(result.IsSuccess, "The workflow's success returned false.");
