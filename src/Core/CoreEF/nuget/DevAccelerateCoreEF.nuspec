@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>DevAccelerateCoreEF</id>
-    <version>6.0.0-preview2</version>
+    <version>6.0.0-preview3</version>
     <title>DevAccelerate Core EF</title>
     <authors>ejyle,tanveery</authors>
     <owners>ejyle,tanveery</owners>
@@ -14,15 +14,14 @@
     <summary>Provides common classes for using Microsoft Entity Framework in DevAccelerate libraries.</summary>
     <releaseNotes>This release contains the following primary changes:
 
-1) Added log and exception handling methods to the DaEntityRepositoryBase class.
-2) Upgraded NuGet packages.</releaseNotes>
+1) Upgraded NuGet packages.</releaseNotes>
     <copyright>© Ejyle Technologies (P) Ltd. All rights reserved.</copyright>
     <language>en-US</language>
     <tags>DevAccelerate, Entity, Repository, DbContext, EntityFramework, EF</tags>
-    <repository type="git" url="https://github.com/devaccelerate/DevAccelerateNet" commit="582cc188c8986acc1d48626fe0c218d5d4e9f268" />
+    <repository type="git" url="https://github.com/devaccelerate/DevAccelerateNet" commit="7d6568c9aa2c8933fe9dd250a9f09438b4fb9925" />
     <dependencies>
-      <dependency id="EntityFramework" version="6.2.0" />
       <dependency id="DevAccelerateCore" version="6.0.0-preview4" />
+      <dependency id="EntityFramework" version="6.4.0" />
     </dependencies>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System.ComponentModel.DataAnnotations" targetFramework=".NETFramework4.0" />

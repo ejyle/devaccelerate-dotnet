@@ -1,25 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
-    <id>DevAccelerateSecurityFacade</id>
-    <version>6.0.0-preview20</version>
-    <title>DevAccelerate Security Facade</title>
+    <id>DevAccelerateSecurityWorkflow</id>
+    <version>6.0.0-preview1</version>
+    <title>DevAccelerate-Security-Workflow Workflow</title>
     <authors>ejyle,tanveery</authors>
     <owners>ejyle,tanveery</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <licenseUrl>https://raw.githubusercontent.com/devaccelerate/DevAccelerateNet/master/LICENSE</licenseUrl>
     <projectUrl>https://devaccelerate.github.io/</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/devaccelerate/devaccelerate.github.io/master/img/logo.png</iconUrl>
-    <description>A facade library that simplifies security APIs. It works on top of DeAaccelerate Idenitty and DevAccelerate Enterprise Security.</description>
-    <summary>A facade library that simplifies security APIs. It works on top of DeAaccelerate Idenitty and DevAccelerate Enterprise Security.</summary>
-    <releaseNotes>This release contains the following primary changes:
+    <description>A collection of security workflow items.</description>
+    <summary>A collection of security workflow items.</summary>
+    <releaseNotes>This release contains the following primary features:
 
-1) Removed authentication facade.</releaseNotes>
+1) Implemented the DaSignInWorkflowItem class.
+2) Implemented the DaSignOutWorkflowItem class.</releaseNotes>
     <copyright>© Ejyle Technologies (P) Ltd. All rights reserved.</copyright>
     <language>en-US</language>
-    <tags>DevAccelerate Subscriptions Identity Security Facades</tags>
-    <repository type="git" url="https://github.com/devaccelerate/DevAccelerateNet" commit="1f80a5e42c8b79882d05a8ec3e9e292ea7912acd" />
+    <tags>DevAccelerate Simple-Workflow Workflow</tags>
+    <repository type="git" url="https://github.com/devaccelerate/DevAccelerateNet" commit="cc5284642c426d13c838502b415c146340a60254" />
     <dependencies>
+      <dependency id="DevAccelerateSimpleWorkflow" version="6.0.0-preview3" />
       <dependency id="DevAccelerateListsEF" version="6.0.0-preview3" />
       <dependency id="DevAccelerateIdentityEF" version="6.0.0-preview3" />
       <dependency id="DevAccelerateProfilesEF" version="6.0.0-preview3" />
@@ -27,6 +29,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="lib\Ejyle.DevAccelerate.Facades.Security.dll" target="lib\Ejyle.DevAccelerate.Facades.Security.dll" />
+    <file src="lib\Ejyle.DevAccelerate.Workflow.Security.dll" target="lib\Ejyle.DevAccelerate.Workflow.Security.dll" />
   </files>
 </package>

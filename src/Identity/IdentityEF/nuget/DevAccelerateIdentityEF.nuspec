@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>DevAccelerateIdentityEF</id>
-    <version>6.0.0-preview2</version>
+    <version>6.0.0-preview3</version>
     <title>DevAccelerate Identity EF</title>
     <authors>ejyle,tanveery</authors>
     <owners>ejyle,tanveery</owners>
@@ -14,23 +14,15 @@
     <summary>Provides Microsoft Entity Framework implementation for DevAccelerate Identity.</summary>
     <releaseNotes>This release contains the following primary changes:
 
-1) Transformed the library from genericto specific ASP.NET implementation.
-2) Upgraded NuGet packages.</releaseNotes>
+1) Upgraded NuGet packages.</releaseNotes>
     <copyright>© Ejyle Technologies (P) Ltd. All rights reserved.</copyright>
     <language>en-US</language>
     <tags>DevAccelerate Identity Identity-Management User Role AspNet-Identity Owin EF</tags>
-    <repository type="git" url="https://github.com/devaccelerate/DevAccelerateNet" commit="12f241bcdd706913cbd452de838a84e5449caaaa" />
+    <repository type="git" url="https://github.com/devaccelerate/DevAccelerateNet" commit="7d6568c9aa2c8933fe9dd250a9f09438b4fb9925" />
     <dependencies>
-      <dependency id="Microsoft.AspNet.Identity.Core" version="2.2.2" />
-      <dependency id="Microsoft.AspNet.Identity.Owin" version="2.2.2" />
-      <dependency id="Microsoft.Owin" version="4.0.1" />
-      <dependency id="Microsoft.Owin.Security" version="4.0.1" />
-      <dependency id="Microsoft.Owin.Security.Cookies" version="4.0.1" />
-      <dependency id="Microsoft.Owin.Security.OAuth" version="4.0.1" />
-      <dependency id="Newtonsoft.Json" version="12.0.2" />
-      <dependency id="DevAccelerateIdentity" version="6.0.0-preview1" />
-      <dependency id="DevAccelerateCoreEF" version="6.0.0-preview2" />
-      <dependency id="Microsoft.AspNet.Identity.EntityFramework" version="2.2.2" />
+      <dependency id="DevAccelerateCoreEF" version="6.0.0-preview3" />
+      <dependency id="DevAccelerateIdentity" version="6.0.0-preview2" />
+      <dependency id="Microsoft.AspNet.Identity.EntityFramework" version="2.2.3" />
     </dependencies>
   </metadata>
   <files>
