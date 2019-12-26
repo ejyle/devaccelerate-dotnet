@@ -23,10 +23,11 @@ using System.Collections.Generic;
 
 namespace Ejyle.DevAccelerate.Workflow.Security.Authentication
 {
-    public class DaSignInWorkflowItem : DaSignInWorkflowItem<int, int?, DaUserManager, DaUser, DaUserLogin, DaUserRole, DaUserClaim, DaSignInManager, DaUserSession, DaUserSessionManager>
+    public class DaSignInWorkflowItem : DaSignInWorkflowItem<int, int?, DaSignInWorkflowItemInfo, DaUserManager, DaUser, DaUserLogin, DaUserRole, DaUserClaim, DaSignInManager, DaUserSession, DaUserSessionManager>
     { }
 
-    public class DaSignInWorkflowItem<TUserManager, TUser, TUserLogin, TUserRole, TUserClaim, TSignInManager, TUserSession, TUserSessionManager> : DaSignInWorkflowItem<int, int?, TUserManager, TUser, TUserLogin, TUserRole, TUserClaim, TSignInManager, TUserSession, TUserSessionManager>
+    public class DaSignInWorkflowItem<TSignInWorkflowItemInfo, TUserManager, TUser, TUserLogin, TUserRole, TUserClaim, TSignInManager, TUserSession, TUserSessionManager> : DaSignInWorkflowItem<int, int?, TSignInWorkflowItemInfo, TUserManager, TUser, TUserLogin, TUserRole, TUserClaim, TSignInManager, TUserSession, TUserSessionManager>
+        where TSignInWorkflowItemInfo : DaSignInWorkflowItemInfo<TUserManager, TUser, TUserLogin, TUserRole, TUserClaim, TSignInManager, TUserSession, TUserSessionManager>
         where TUserManager : DaUserManager<int, int?, TUser>
         where TUser : DaUser<int, int?, TUserLogin, TUserRole, TUserClaim>, new()
         where TUserLogin : DaUserLogin<int>
@@ -37,9 +38,10 @@ namespace Ejyle.DevAccelerate.Workflow.Security.Authentication
         where TSignInManager : DaSignInManager<int, int?, TUserManager, TUser>, new()
     { }
 
-    public class DaSignInWorkflowItem<TKey, TNullableKey, TUserManager, TUser, TUserLogin, TUserRole, TUserClaim, TSignInManager, TUserSession, TUserSessionManager> : IDaSimpleWorkflowItemAction
+    public class DaSignInWorkflowItem<TKey, TNullableKey, TSignInWorkflowItemInfo, TUserManager, TUser, TUserLogin, TUserRole, TUserClaim, TSignInManager, TUserSession, TUserSessionManager> : IDaSimpleWorkflowItemAction
         where TKey : IEquatable<TKey>
         where TUserManager : DaUserManager<TKey, TNullableKey, TUser>
+        where TSignInWorkflowItemInfo : DaSignInWorkflowItemInfo<TKey, TNullableKey, TUserManager, TUser, TUserLogin, TUserRole, TUserClaim, TSignInManager, TUserSession, TUserSessionManager>
         where TUser : DaUser<TKey, TNullableKey, TUserLogin, TUserRole, TUserClaim>, new()
         where TUserLogin : DaUserLogin<TKey>
         where TUserRole : DaUserRole<TKey>
@@ -57,17 +59,10 @@ namespace Ejyle.DevAccelerate.Workflow.Security.Authentication
 
         public async Task<DaSimpleWorkflowItemResult> ExecuteAsync(Dictionary<string, object> parameters)
         {
-            var userManager = parameters["userManager"] as TUserManager;
-            var signInManager = parameters["signInManager"] as TSignInManager;
-            string userName = parameters["userName"] as string;
-            string password = parameters["password"] as string;
-            bool rememberMe = Convert.ToBoolean(parameters["rememberMe"]);
-            var userSessionManager = parameters["userSessionManager"] as TUserSessionManager;
-            var httpRequest = parameters["httpRequest"] as HttpRequest;
-            var httpSession = parameters["httpSession"] as HttpSessionStateBase;
-
-            var user = await userManager.FindByNameAsync(userName);
-            var result = await signInManager.PasswordSignInAsync(userName, password, rememberMe, shouldLockout: false);
+            var signInInfo = parameters["signInInfo"] as TSignInWorkflowItemInfo;
+            
+            var user = await signInInfo.SignInManager.UserManager.FindByNameAsync(signInInfo.UserName);
+            var result = await signInInfo.SignInManager.PasswordSignInAsync(signInInfo.UserName, signInInfo.Password, signInInfo.RememberMe, shouldLockout: false);
 
             if (result == SignInStatus.Success)
             {
@@ -76,16 +71,16 @@ namespace Ejyle.DevAccelerate.Workflow.Security.Authentication
                 string deviceAgent = null;
                 int expiryTime = 30;
 
-                if (httpRequest != null)
+                if (signInInfo.HttpRequest != null)
                 {
-                    ipAddress = httpRequest.UserHostAddress;
-                    deviceAgent = httpRequest.UserAgent;
+                    ipAddress = signInInfo.HttpRequest.UserHostAddress;
+                    deviceAgent = signInInfo.HttpRequest.UserAgent;
                 }
 
-                if (httpSession != null)
+                if (signInInfo.HttpSession != null)
                 {
-                    sessionId = httpSession.SessionID;
-                    expiryTime = httpSession.Timeout;
+                    sessionId = signInInfo.HttpSession.SessionID;
+                    expiryTime = signInInfo.HttpSession.Timeout;
                 }
 
                 var userSession = new TUserSession()
@@ -100,7 +95,7 @@ namespace Ejyle.DevAccelerate.Workflow.Security.Authentication
                     ExpiredDateUtc = null
                 };
 
-                await userSessionManager.CreateAsync(userSession);
+                await signInInfo.UserSessionManager.CreateAsync(userSession);
 
                 if (_settings != null)
                 {
@@ -108,7 +103,7 @@ namespace Ejyle.DevAccelerate.Workflow.Security.Authentication
                     {
                         if (setting.Name == "httpSessionName")
                         {
-                            httpSession.Add(setting.Value, userSession.SessionKey);
+                            signInInfo.HttpSession.Add(setting.Value, userSession.SessionKey);
                             break;
                         }
                     }
