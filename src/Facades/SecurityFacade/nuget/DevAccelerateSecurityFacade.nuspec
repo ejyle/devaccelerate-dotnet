@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>DevAccelerateSecurityFacade</id>
-    <version>6.0.0-preview20</version>
+    <version>6.0.0-preview92</version>
     <title>DevAccelerate Security Facade</title>
     <authors>ejyle,tanveery</authors>
     <owners>ejyle,tanveery</owners>
@@ -14,7 +14,8 @@
     <summary>A facade library that simplifies security APIs. It works on top of DeAaccelerate Idenitty and DevAccelerate Enterprise Security.</summary>
     <releaseNotes>This release contains the following primary changes:
 
-1) Removed authentication facade.</releaseNotes>
+1) Removed authentication facade.
+2) Corrected namespace for subscription facades.</releaseNotes>
     <copyright>© Ejyle Technologies (P) Ltd. All rights reserved.</copyright>
     <language>en-US</language>
     <tags>DevAccelerate Subscriptions Identity Security Facades</tags>

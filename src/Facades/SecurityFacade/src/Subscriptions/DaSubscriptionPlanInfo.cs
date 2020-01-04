@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans;
 
-namespace Ejyle.DevAccelerate.Workflow.Security.Subscriptions
+namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
 {
     public class DaSubscriptionPlanInfo : DaSubscriptionPlanInfo<int, DaBillingCycleInfo, DaAppInfo, DaAppFeatureInfo, DaAppFeatureAttributeInfo>
     { }

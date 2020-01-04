@@ -11,7 +11,7 @@ using System.Collections.Specialized;
 using Ejyle.DevAccelerate.EnterpriseSecurity.Tenants;
 using Ejyle.DevAccelerate.Profiles.Organizations;
 
-namespace Ejyle.DevAccelerate.Workflow.Security.Subscriptions
+namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
 {
     public interface IDaSubscriptionInfo<TKey, TNullableKey>
         where TKey : IEquatable<TKey>
