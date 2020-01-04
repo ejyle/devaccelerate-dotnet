@@ -21,7 +21,7 @@ namespace Ejyle.DevAccelerate.Workflow.Security.Authentication
     public class DaSignOutWorkflowItemInfo
         : DaSignOutWorkflowItemInfo<DaUserManager, DaUser, DaUserLogin, DaUserRole, DaUserClaim, DaSignInManager, DaUserSession, DaUserSessionManager>
     {
-        public DaSignOutWorkflowItemInfo(DaSignInManager signInManager, DaUserSessionManager userSessionManager, HttpRequest httpRequest, HttpSessionStateBase httpSession)
+        public DaSignOutWorkflowItemInfo(DaSignInManager signInManager, DaUserSessionManager userSessionManager, HttpRequestBase httpRequest, HttpSessionStateBase httpSession)
             : base(signInManager, userSessionManager, httpRequest, httpSession)
         {
         }
@@ -38,7 +38,7 @@ namespace Ejyle.DevAccelerate.Workflow.Security.Authentication
         where TUserSessionManager : DaUserSessionManager<int, TUserSession>
         where TSignInManager : DaSignInManager<int, int?, TUserManager, TUser>
     {
-        public DaSignOutWorkflowItemInfo(TSignInManager signInManager, TUserSessionManager userSessionManager, HttpRequest httpRequest, HttpSessionStateBase httpSession)
+        public DaSignOutWorkflowItemInfo(TSignInManager signInManager, TUserSessionManager userSessionManager, HttpRequestBase httpRequest, HttpSessionStateBase httpSession)
             : base(signInManager, userSessionManager, httpRequest, httpSession)
         {
         }
@@ -55,7 +55,7 @@ namespace Ejyle.DevAccelerate.Workflow.Security.Authentication
         where TUserSessionManager : DaUserSessionManager<TKey, TUserSession>
         where TSignInManager : DaSignInManager<TKey, TNullableKey, TUserManager, TUser>
     {
-        public DaSignOutWorkflowItemInfo(TSignInManager signInManager, TUserSessionManager userSessionManager, HttpRequest httpRequest, HttpSessionStateBase httpSession)
+        public DaSignOutWorkflowItemInfo(TSignInManager signInManager, TUserSessionManager userSessionManager, HttpRequestBase httpRequest, HttpSessionStateBase httpSession)
         {
             if (signInManager == null)
             {
@@ -101,7 +101,7 @@ namespace Ejyle.DevAccelerate.Workflow.Security.Authentication
             set;
         }
 
-        public HttpRequest HttpRequest
+        public HttpRequestBase HttpRequest
         {
             get;
             set;
