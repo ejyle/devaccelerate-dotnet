@@ -8,21 +8,15 @@
 using System;
 using Ejyle.DevAccelerate.Core;
 
-namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
+namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
 {
-    public interface IDaSubscriptionPlan<TKey, TNullableKey> : IDaEntity<TKey>
+    public interface IDaAppAttribute<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {
-        string Name { get; set; }
-        string Description { get; set; }
-        string Code { get; set; }
-        bool IsAutoRenewUntilCanceled { get; set; }
-        int? NumberOfBillingCyclesUntilExpiry { get; set; }
-        bool IsFeatured { get; set; }
-        double? SetupFee { get; set; }
-        TKey CurrencyId { get; set; }
-        DaEntityWorkflowStatus Status { get; set; }
-        TNullableKey UserAgreementVersionId { get; set; }
-        DateTime? PublishedDateUtc { get; set; }
+        TKey AppId { get; set; }
+        string AttributeName { get; set; }
+        string AttributeValue { get; set; }
+        DateTime CreatedDateUtc { get; set; }
+        DateTime LastUpdatedDateUtc { get; set; }
     }
 }

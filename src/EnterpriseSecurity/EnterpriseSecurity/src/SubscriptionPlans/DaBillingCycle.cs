@@ -32,8 +32,6 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
 
         public decimal Amount { get; set; }
 
-        public TKey CurrencyId { get; set; }
-
         public TKey SubscriptionPlanId { get; set; }
 
         public string Name { get; set; }
@@ -46,8 +44,6 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
 
         public bool StartOnlyWithTrial { get; set; }
 
-        public int? TrialDuration { get; set; }
-
-        public DaBillingCycleType? TrialDurationType { get; set; }
+        public int? TrialDays { get; set; }
     }
 }

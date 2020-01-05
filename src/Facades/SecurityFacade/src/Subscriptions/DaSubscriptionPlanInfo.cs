@@ -28,9 +28,12 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
         public string Name { get; set; }
         public string Description { get; set; }
         public string Code { get; set; }
-        public bool IsAutoRenew { get; set; }
+        public TKey CurrencyId { get; set; }
+        public bool IsAutoRenewUntilCanceled { get; set; }
         public bool IsFeatured { get; set; }
+        public int? NumberOfBillingCyclesUntilExpiry { get; set; }
         public List<TBillingCycleInfo> BillingCycles { get; set; }
+        public decimal? SetupFee { get; set; }
         public List<TAppInfo> Apps { get; set; }
     }
 
@@ -46,10 +49,9 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
         public DaBillingCycleType BillingCycleType { get; set; }
         public int BillingCycleDuration { get; set; }
         public decimal Amount { get; set; }
-        public TKey CurrencyId { get; set; }
         public bool AllowTrial { get; set; }
         public bool StartOnlyWithTrial { get; set; }
-        public int? TrialDuration { get; set; }
+        public int? TrialDays { get; set; }
     }
 
     public class DaAppInfo : DaAppInfo<int, DaAppFeatureInfo, DaAppFeatureAttributeInfo>

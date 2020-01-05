@@ -18,10 +18,8 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
         DaBillingCycleType BillingCycleType { get; set; }
         int BillingCycleDuration { get; set; }
         decimal Amount { get; set; }
-        TKey CurrencyId { get; set; }
         bool AllowTrial { get; set; }
         bool StartOnlyWithTrial { get; set; }
-        int? TrialDuration { get; set; }
-        DaBillingCycleType? TrialDurationType { get; set; }
+        int? TrialDays { get; set; }
     }
 }

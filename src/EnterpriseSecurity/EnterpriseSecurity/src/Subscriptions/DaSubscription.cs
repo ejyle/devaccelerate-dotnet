@@ -58,13 +58,17 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 
         public TKey OwnerUserId { get; set; }
 
-        public TNullableKey PaymentMethodId { get; set; }
+        public TNullableKey LastTransactionId { get; set; }
+
+        public TNullableKey LastPaymentMethodId { get; set; }
 
         public TKey SubscriptionPlanId { get; set; }
 
         public bool IsCurrentlyInTrial { get; set; }
 
         public DateTime CreatedDateUtc { get; set; }
+
+        public DateTime LastUpdatedDateUtc { get; set; }
 
         public virtual ICollection<TSubscriptionAttribute> Attributes { get; set; }
 
@@ -86,6 +90,6 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 
         public DateTime? NextBillingDateUtc { get; set; }
 
-        public DateTime StartDateAfterTrialUtc { get; set; }
+        public DateTime? TrialStartDateUtc { get; set; }
     }
 }

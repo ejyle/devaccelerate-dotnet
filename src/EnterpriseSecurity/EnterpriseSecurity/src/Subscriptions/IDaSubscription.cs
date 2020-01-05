@@ -31,11 +31,13 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
         TKey TenantId { get; set; }
         TNullableKey UserAgreementVersionId { get; set; }
         TKey OwnerUserId { get; set; }
-        TNullableKey PaymentMethodId { get; set; }
+        TNullableKey LastTransactionId { get; set; }
+        TNullableKey LastPaymentMethodId { get; set; }
         string ReferenceNumber { get; set; }
         DateTime? NextBillingDateUtc { get; set; }
-        DateTime StartDateAfterTrialUtc { get; set; }
+        DateTime? TrialStartDateUtc { get; set; }
         DateTime? ExpiryDateUtc { get; set; }
         DateTime CreatedDateUtc { get; set; }
+        DateTime LastUpdatedDateUtc { get; set; }
     }
 }

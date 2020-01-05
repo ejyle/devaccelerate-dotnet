@@ -51,7 +51,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
 
         public DaEntityWorkflowStatus Status { get; set; }
 
-        public int? FreeTrialDays { get; set; }
+        public TKey CurrencyId { get; set; }
 
         public double? SetupFee { get; set; }
 

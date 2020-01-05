@@ -16,14 +16,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
 {
-    public class DaApp : DaApp<int, int?, DaFeature, DaAppFeature, DaSubscriptionApp, DaSubscriptionPlanApp, DaUserAgreement>
+    public class DaApp : DaApp<int, int?, DaAppAttribute, DaFeature, DaAppFeature, DaSubscriptionApp, DaSubscriptionPlanApp, DaUserAgreement>
     {
         public DaApp() : base()
         { }
     }
 
-    public class DaApp<TKey, TNullableKey, TFeature, TAppFeature, TSubscriptionApp, TSubscriptionPlanApp, TUserAgreement> : DaEntityBase<TKey>, IDaApp<TKey>
+    public class DaApp<TKey, TNullableKey, TAppAttribute, TFeature, TAppFeature, TSubscriptionApp, TSubscriptionPlanApp, TUserAgreement> : DaEntityBase<TKey>, IDaApp<TKey>
         where TKey : IEquatable<TKey>
+        where TAppAttribute : IDaAppAttribute<TKey>
         where TFeature : IDaFeature<TKey, TNullableKey>
         where TAppFeature : IDaAppFeature<TKey>
         where TSubscriptionApp : IDaSubscriptionApp<TKey>
@@ -31,6 +32,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
     {
         public DaApp()
         {
+            Attributes = new HashSet<TAppAttribute>();
             AppFeatures = new HashSet<TAppFeature>();
             Features = new HashSet<TFeature>();
             SubscriptionApps = new HashSet<TSubscriptionApp>();
@@ -51,6 +53,8 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
         public DaEntityWorkflowStatus Status { get; set; }
 
         public DateTime LastUpdatedDateUtc { get; set; }
+
+        public virtual ICollection<TAppAttribute> Attributes { get; set; }
 
         public virtual ICollection<TAppFeature> AppFeatures { get; set; }
 

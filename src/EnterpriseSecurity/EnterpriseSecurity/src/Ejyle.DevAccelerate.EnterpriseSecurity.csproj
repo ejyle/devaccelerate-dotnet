@@ -59,11 +59,13 @@
     <Compile Include="Apps\Configuration\DaAppsConfigurationManager.cs" />
     <Compile Include="Apps\Configuration\DaAppsConfigurationSection.cs" />
     <Compile Include="Apps\DaApp.cs" />
+    <Compile Include="Apps\DaAppAttribute.cs" />
     <Compile Include="Apps\DaAppFeature.cs" />
     <Compile Include="Apps\DaAppManager.cs" />
     <Compile Include="Apps\DaDefaultAppsInitializer.cs" />
     <Compile Include="Apps\DaFeatureManager.cs" />
     <Compile Include="Apps\IDaApp.cs" />
+    <Compile Include="Apps\IDaAppAttribute.cs" />
     <Compile Include="Apps\IDaAppFeature.cs" />
     <Compile Include="Apps\IDaAppRepository.cs" />
     <Compile Include="Apps\IDaFeature.cs" />

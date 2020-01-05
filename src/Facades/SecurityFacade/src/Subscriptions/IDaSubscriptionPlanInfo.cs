@@ -14,21 +14,24 @@ using Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
 {
-    public interface IDaSubscriptionPlanInfo<TKey, TBillingCycle, TApp, TAppFeature, TAppFeatureAttributeInfo>
+    public interface IDaSubscriptionPlanInfo<TKey, TBillingCycleInfo, TAppInfo, TAppFeatureInfo, TAppFeatureAttributeInfo>
         where TKey : IEquatable<TKey>
-        where TBillingCycle : IDaBillingCycleInfo<TKey>
-        where TApp : IDaAppInfo<TKey, TAppFeature, TAppFeatureAttributeInfo>
-        where TAppFeature : IDaAppFeatureInfo<TKey, TAppFeatureAttributeInfo>
+        where TBillingCycleInfo : IDaBillingCycleInfo<TKey>
+        where TAppInfo : IDaAppInfo<TKey, TAppFeatureInfo, TAppFeatureAttributeInfo>
+        where TAppFeatureInfo : IDaAppFeatureInfo<TKey, TAppFeatureAttributeInfo>
         where TAppFeatureAttributeInfo : IDaAppFeatureAttributeInfo<TKey>
     {
         TKey Id { get; set; }
         string Name { get; set; }
         string Description { get; set; }
         string Code { get; set; }
-        bool IsAutoRenew { get; set; }
+        TKey CurrencyId { get; set; }
+        bool IsAutoRenewUntilCanceled { get; set; }
         bool IsFeatured { get; set; }
-        List<TBillingCycle> BillingCycles { get; set; }
-        List<TApp> Apps { get; set; }
+        int? NumberOfBillingCyclesUntilExpiry { get; set; }
+        List<TBillingCycleInfo> BillingCycles { get; set; }
+        decimal? SetupFee { get; set; }
+        List<TAppInfo> Apps { get; set; }
     }
 
     public interface IDaBillingCycleInfo<TKey>
@@ -40,10 +43,9 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
         DaBillingCycleType BillingCycleType { get; set; }
         int BillingCycleDuration { get; set; }
         decimal Amount { get; set; }
-        TKey CurrencyId { get; set; }
         bool AllowTrial { get; set; }
         bool StartOnlyWithTrial { get; set; }
-        int? TrialDuration { get; set; }
+        int? TrialDays { get; set; }
     }
 
     public interface IDaAppInfo<TKey, TAppFeature, TAppFeatureAttributeInfo>
