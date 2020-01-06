@@ -14,7 +14,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
 {
-    public class DaSubscriptionPlan : DaSubscriptionPlan<int, int?, DaSubscriptionPlanAttribute, DaBillingCycle, DaSubscriptionPlanApp, DaSubscriptionPlanFeature, DaSubscription>
+    public class DaSubscriptionPlan : DaSubscriptionPlan<int, int?, DaSubscriptionPlanAttribute, DaBillingCycleOption, DaSubscriptionPlanApp, DaSubscriptionPlanFeature, DaSubscription>
     {
         public DaSubscriptionPlan() : base()
         { }
@@ -23,7 +23,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
     public class DaSubscriptionPlan<TKey, TNullableKey, TSubscriptionPlanAttribute, TBillingCycle, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscription> : DaEntityBase<TKey>, IDaSubscriptionPlan<TKey, TNullableKey>        
         where TKey : IEquatable<TKey>
         where TSubscriptionPlanAttribute : IDaSubscriptionPlanAttribute<TKey>
-        where TBillingCycle : IDaBillingCycle<TKey>
+        where TBillingCycle : IDaBillingCycleOption<TKey>
         where TSubscriptionPlanFeature : IDaSubscriptionPlanFeature<TKey>
         where TSubscriptionPlanApp : IDaSubscriptionPlanApp<TKey>
         where TSubscription : IDaSubscription<TKey, TNullableKey>
@@ -44,8 +44,10 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
         public string Code { get; set; }
 
         public bool IsAutoRenewUntilCanceled { get; set; }
+        
+        public DaSubscriptionPeriodType SubscriptionPeriodType { get; set; }
 
-        public int? NumberOfBillingCyclesUntilExpiry { get; set; }
+        public int? SubscriptionPeriodDuration { get; set; }
 
         public bool IsFeatured { get; set; }
 
@@ -55,9 +57,17 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
 
         public double? SetupFee { get; set; }
 
+        public bool AllowTrial { get; set; }
+
+        public bool StartOnlyWithTrial { get; set; }
+
+        public int? TrialDays { get; set; }
+
         public TNullableKey UserAgreementVersionId { get; set; }
 
         public DateTime? PublishedDateUtc { get; set; }
+
+        public TNullableKey DefaultBillingCycleId { get; set; }
 
         public virtual ICollection<TSubscriptionPlanAttribute> Attributes { get; set; }
 

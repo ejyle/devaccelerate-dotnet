@@ -10,11 +10,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ejyle.DevAccelerate.EnterpriseSecurity;
 using Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
 {
-    public interface IDaSubscriptionPlanInfo<TKey, TBillingCycleInfo, TAppInfo, TAppFeatureInfo, TAppFeatureAttributeInfo>
+    public interface IDaSubscriptionPlanInfo<TKey, TNullableKey, TBillingCycleInfo, TAppInfo, TAppFeatureInfo, TAppFeatureAttributeInfo>
         where TKey : IEquatable<TKey>
         where TBillingCycleInfo : IDaBillingCycleInfo<TKey>
         where TAppInfo : IDaAppInfo<TKey, TAppFeatureInfo, TAppFeatureAttributeInfo>
@@ -30,7 +31,11 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
         bool IsFeatured { get; set; }
         int? NumberOfBillingCyclesUntilExpiry { get; set; }
         List<TBillingCycleInfo> BillingCycles { get; set; }
+        bool AllowTrial { get; set; }
+        bool StartOnlyWithTrial { get; set; }
+        int? TrialDays { get; set; }
         decimal? SetupFee { get; set; }
+        TNullableKey DefaultBillingCycleId { get; set; }
         List<TAppInfo> Apps { get; set; }
     }
 
@@ -43,9 +48,6 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
         DaBillingCycleType BillingCycleType { get; set; }
         int BillingCycleDuration { get; set; }
         decimal Amount { get; set; }
-        bool AllowTrial { get; set; }
-        bool StartOnlyWithTrial { get; set; }
-        int? TrialDays { get; set; }
     }
 
     public interface IDaAppInfo<TKey, TAppFeature, TAppFeatureAttributeInfo>

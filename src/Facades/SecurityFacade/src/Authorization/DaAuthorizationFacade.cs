@@ -33,7 +33,7 @@ using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Authorization
 {
-    public class DaAuthorizationFacade : DaAuthorizationFacade<DaAuthorizedFeatureInfo, DaAuthorizationInfo, DaAuthorizedActionInfo, DaUserManager, DaUser, DaUserLogin, DaUserRole, DaUserClaim, DaTenantManager, DaTenant, DaTenantUser, DaUserAgreementManager, DaUserAgreement, DaUserAgreementVersion, DaUserAgreementVersionAction, DaAppManager, DaApp, DaAppAttribute, DaFeatureManager, DaFeature, DaAppFeature, DaFeatureAction, DaSubscriptionPlanManager, DaSubscriptionPlan, DaSubscriptionPlanAttribute, DaBillingCycle, DaSubscriptionPlanApp, DaSubscriptionPlanFeature, DaSubscriptionPlanFeatureAttribute, DaSubscriptionManager, DaSubscription, DaSubscriptionAttribute, DaSubscriptionApp, DaSubscriptionFeature, DaSubscriptionFeatureAttribute, DaSubscriptionAppRole, DaSubscriptionAppUser, DaSubscriptionFeatureRole, DaSubscriptionFeatureRoleAction, DaSubscriptionFeatureUser, DaSubscriptionFeatureUserAction, DaCurrencyManager, DaCurrency, DaCountryManager, DaCountry, DaCountryRegion, DaTimeZoneManager, DaTimeZone, DaSystemLanguageManager, DaSystemLanguage>
+    public class DaAuthorizationFacade : DaAuthorizationFacade<DaAuthorizedFeatureInfo, DaAuthorizationInfo, DaAuthorizedActionInfo, DaUserManager, DaUser, DaUserLogin, DaUserRole, DaUserClaim, DaTenantManager, DaTenant, DaTenantUser, DaUserAgreementManager, DaUserAgreement, DaUserAgreementVersion, DaUserAgreementVersionAction, DaAppManager, DaApp, DaAppAttribute, DaFeatureManager, DaFeature, DaAppFeature, DaFeatureAction, DaSubscriptionPlanManager, DaSubscriptionPlan, DaSubscriptionPlanAttribute, DaBillingCycleOption, DaSubscriptionPlanApp, DaSubscriptionPlanFeature, DaSubscriptionPlanFeatureAttribute, DaSubscriptionManager, DaSubscription, DaSubscriptionAttribute, DaSubscriptionApp, DaSubscriptionFeature, DaSubscriptionFeatureAttribute, DaSubscriptionAppRole, DaSubscriptionAppUser, DaSubscriptionFeatureRole, DaSubscriptionFeatureRoleAction, DaSubscriptionFeatureUser, DaSubscriptionFeatureUserAction, DaCurrencyManager, DaCurrency, DaCountryManager, DaCountry, DaCountryRegion, DaTimeZoneManager, DaTimeZone, DaSystemLanguageManager, DaSystemLanguage>
     {
         public DaAuthorizationFacade(IOwinContext owinContext)
             : base(owinContext.Get<DaUserManager>(),
@@ -70,7 +70,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authorization
         where TApp : DaApp<int, int?, TAppAttribute, TFeature, TAppFeature, TSubscriptionApp, TSubscriptionPlanApp, TUserAgreement>
         where TAppAttribute : DaAppAttribute<int, TApp>
         where TAppFeature : DaAppFeature<int, TApp, TFeature>
-        where TBillingCycle : DaBillingCycle<int, int?, TSubscriptionPlan>
+        where TBillingCycle : DaBillingCycleOption<int, int?, TSubscriptionPlan>
         where TFeatureAction : DaFeatureAction<int, int?, TFeature>
         where TFeatureManager : DaFeatureManager<int, int?, TFeature>
         where TFeature : DaFeature<int, int?, TApp, TAppFeature, TFeatureAction, TSubscriptionFeature, TSubscriptionPlanFeature>
@@ -129,7 +129,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authorization
         where TApp : DaApp<TKey, TNullableKey, TAppAttribute, TFeature, TAppFeature, TSubscriptionApp, TSubscriptionPlanApp, TUserAgreement>
         where TAppAttribute : DaAppAttribute<TKey, TApp>
         where TAppFeature : DaAppFeature<TKey, TApp, TFeature>
-        where TBillingCycle : DaBillingCycle<TKey, TNullableKey, TSubscriptionPlan>
+        where TBillingCycle : DaBillingCycleOption<TKey, TNullableKey, TSubscriptionPlan>
         where TFeatureAction : DaFeatureAction<TKey, TNullableKey, TFeature>
         where TFeatureManager : DaFeatureManager<TKey, TNullableKey, TFeature>
         where TFeature : DaFeature<TKey, TNullableKey, TApp, TAppFeature, TFeatureAction, TSubscriptionFeature, TSubscriptionPlanFeature>

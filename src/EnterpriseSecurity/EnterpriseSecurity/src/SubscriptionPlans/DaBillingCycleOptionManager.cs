@@ -14,11 +14,11 @@ using Ejyle.DevAccelerate.Core.Utils;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
 {
-    public class DaBillingCycleManager<TKey, TNullableKey, TBillingCycle> : DaEntityManagerBase<TKey, TBillingCycle>
+    public class DaBillingCycleOptionManager<TKey, TNullableKey, TBillingCycle> : DaEntityManagerBase<TKey, TBillingCycle>
         where TKey : IEquatable<TKey>
-        where TBillingCycle : IDaBillingCycle<TKey>
+        where TBillingCycle : IDaBillingCycleOption<TKey>
     {
-        public DaBillingCycleManager(IDaBillingCycleRepository<TKey, TBillingCycle> repository)
+        public DaBillingCycleOptionManager(IDaBillingCycleRepository<TKey, TBillingCycle> repository)
             : base(repository)
         {
         }

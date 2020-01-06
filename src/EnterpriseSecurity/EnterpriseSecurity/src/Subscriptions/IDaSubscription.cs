@@ -27,7 +27,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
         int? BillingCycleStartDay { get; set; }
         int? BillingCycleEndDay { get; set; }
         DateTime StartDateUtc { get; set; }
-        bool IsAutoRenew { get; set; }
+        bool IsAutoRenewUntilCanceled { get; set; }
         TKey TenantId { get; set; }
         TNullableKey UserAgreementVersionId { get; set; }
         TKey OwnerUserId { get; set; }

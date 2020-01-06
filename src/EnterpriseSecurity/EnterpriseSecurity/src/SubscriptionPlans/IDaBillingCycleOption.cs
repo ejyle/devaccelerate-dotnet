@@ -6,21 +6,18 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
 {
-    public interface IDaBillingCycleRepository<TKey, TBillingCycle>
-        : IDaEntityRepository<TKey, TBillingCycle>
+    public interface IDaBillingCycleOption<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
-        where TBillingCycle : IDaBillingCycleOption<TKey>
     {
-        Task CreateAsync(TBillingCycle billingCycle);
-        Task UpdateAsync(TBillingCycle billingCycle);
-        Task DeleteAsync(TBillingCycle billingCycle);
-        Task<List<TBillingCycle>> FindAllAsync();
-        Task<TBillingCycle> FindByIdAsync(TKey id);
+        string Name { get; set; }
+        string Description { get; set; }
+        TKey SubscriptionPlanId { get; set; }
+        DaBillingCycleType BillingCycleType { get; set; }
+        int BillingCycleDuration { get; set; }
+        decimal Amount { get; set; }
     }
 }

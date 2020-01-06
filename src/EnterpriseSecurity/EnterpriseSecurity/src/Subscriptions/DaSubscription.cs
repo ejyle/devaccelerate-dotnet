@@ -84,7 +84,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 
         public DateTime StartDateUtc { get; set; }
 
-        public bool IsAutoRenew { get; set; }
+        public bool IsAutoRenewUntilCanceled { get; set; }
 
         public string ReferenceNumber { get; set; }
 

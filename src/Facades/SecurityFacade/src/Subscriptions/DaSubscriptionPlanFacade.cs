@@ -35,7 +35,7 @@ using Ejyle.DevAccelerate.Core;
 namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
 {
     public class DaSubscriptionPlanFacade 
-        : DaSubscriptionPlanFacade<DaSubscriptionPlanInfo, DaBillingCycleInfo, DaAppInfo, DaAppFeatureInfo, DaAppFeatureAttributeInfo, DaUserAgreementManager, DaUserAgreement, DaUserAgreementVersion, DaUserAgreementVersionAction, DaAppManager, DaApp, DaAppAttribute, DaFeatureManager, DaFeature, DaAppFeature, DaFeatureAction, DaSubscriptionPlanManager, DaSubscriptionPlan, DaSubscriptionPlanAttribute, DaBillingCycle, DaSubscriptionPlanApp, DaSubscriptionPlanFeature, DaSubscriptionPlanFeatureAttribute, DaSubscription, DaSubscriptionAttribute, DaSubscriptionApp, DaSubscriptionFeature, DaSubscriptionFeatureAttribute, DaSubscriptionAppRole, DaSubscriptionAppUser, DaSubscriptionFeatureRole, DaSubscriptionFeatureRoleAction, DaSubscriptionFeatureUser, DaSubscriptionFeatureUserAction, DaCurrencyManager, DaCurrency, DaCountryManager, DaCountry, DaCountryRegion, DaTimeZoneManager, DaTimeZone, DaSystemLanguageManager, DaSystemLanguage>
+        : DaSubscriptionPlanFacade<DaSubscriptionPlanInfo, DaBillingCycleInfo, DaAppInfo, DaAppFeatureInfo, DaAppFeatureAttributeInfo, DaUserAgreementManager, DaUserAgreement, DaUserAgreementVersion, DaUserAgreementVersionAction, DaAppManager, DaApp, DaAppAttribute, DaFeatureManager, DaFeature, DaAppFeature, DaFeatureAction, DaSubscriptionPlanManager, DaSubscriptionPlan, DaSubscriptionPlanAttribute, DaBillingCycleOption, DaSubscriptionPlanApp, DaSubscriptionPlanFeature, DaSubscriptionPlanFeatureAttribute, DaSubscription, DaSubscriptionAttribute, DaSubscriptionApp, DaSubscriptionFeature, DaSubscriptionFeatureAttribute, DaSubscriptionAppRole, DaSubscriptionAppUser, DaSubscriptionFeatureRole, DaSubscriptionFeatureRoleAction, DaSubscriptionFeatureUser, DaSubscriptionFeatureUserAction, DaCurrencyManager, DaCurrency, DaCountryManager, DaCountry, DaCountryRegion, DaTimeZoneManager, DaTimeZone, DaSystemLanguageManager, DaSystemLanguage>
     {
         public DaSubscriptionPlanFacade(IOwinContext owinContext)
             : base(new DaAppManager(new DaAppRepository(owinContext.Get<DaEnterpriseSecurityDbContext>())),
@@ -57,7 +57,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
 
     public class DaSubscriptionPlanFacade<TSubscriptionPlanInfo, TBillingCycleInfo, TAppInfo, TAppFeatureInfo, TDaAppFeatureAttributeInfo, TUserAgreementManager, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction, TAppManager, TApp, TAppAttribute, TFeatureManager, TFeature, TAppFeature, TFeatureAction, TSubscriptionPlanManager, TSubscriptionPlan, TSubscriptionPlanAttribute, TBillingCycle, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscriptionPlanFeatureAttribute, TSubscription, TSubscriptionAttribute, TSubscriptionApp, TSubscriptionFeature, TSubscriptionFeatureAttribute, TSubscriptionAppRole, TSubscriptionAppUser, TSubscriptionFeatureRole, TSubscriptionFeatureRoleAction, TSubscriptionFeatureUser, TSubscriptionFeatureUserAction, TCurrencyManager, TCurrency, TCountryManager, TCountry, TCountryRegion, TTimeZoneManager, TTimeZone, TSystemLanguageManager, TSystemLanguage>
         : DaSubscriptionPlanFacade<int, int?, TSubscriptionPlanInfo, TBillingCycleInfo, TAppInfo, TAppFeatureInfo, TDaAppFeatureAttributeInfo, TUserAgreementManager, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction, TAppManager, TApp, TAppAttribute, TFeatureManager, TFeature, TAppFeature, TFeatureAction, TSubscriptionPlanManager, TSubscriptionPlan, TSubscriptionPlanAttribute, TBillingCycle, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscriptionPlanFeatureAttribute, TSubscription, TSubscriptionAttribute, TSubscriptionApp, TSubscriptionFeature, TSubscriptionFeatureAttribute, TSubscriptionAppRole, TSubscriptionAppUser, TSubscriptionFeatureRole, TSubscriptionFeatureRoleAction, TSubscriptionFeatureUser, TSubscriptionFeatureUserAction, TCurrencyManager, TCurrency, TCountryManager, TCountry, TCountryRegion, TTimeZoneManager, TTimeZone, TSystemLanguageManager, TSystemLanguage>
-        where TSubscriptionPlanInfo : DaSubscriptionPlanInfo<int, TBillingCycleInfo, TAppInfo, TAppFeatureInfo, TDaAppFeatureAttributeInfo>, new()
+        where TSubscriptionPlanInfo : DaSubscriptionPlanInfo<int,int?, TBillingCycleInfo, TAppInfo, TAppFeatureInfo, TDaAppFeatureAttributeInfo>, new()
         where TBillingCycleInfo : DaBillingCycleInfo<int>, new()
         where TAppInfo : DaAppInfo<int, TAppFeatureInfo, TDaAppFeatureAttributeInfo>, new()
         where TAppFeatureInfo : DaAppFeatureInfo<int, TDaAppFeatureAttributeInfo>, new()
@@ -66,7 +66,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
         where TApp : DaApp<int, int?, TAppAttribute, TFeature, TAppFeature, TSubscriptionApp, TSubscriptionPlanApp, TUserAgreement>
         where TAppAttribute : DaAppAttribute<int, TApp>
         where TAppFeature : DaAppFeature<int, TApp, TFeature>
-        where TBillingCycle : DaBillingCycle<int, int?, TSubscriptionPlan>
+        where TBillingCycle : DaBillingCycleOption<int, int?, TSubscriptionPlan>
         where TFeatureAction : DaFeatureAction<int, int?, TFeature>
         where TFeatureManager : DaFeatureManager<int, int?, TFeature>
         where TFeature : DaFeature<int, int?, TApp, TAppFeature, TFeatureAction, TSubscriptionFeature, TSubscriptionPlanFeature>
@@ -109,7 +109,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
 
     public class DaSubscriptionPlanFacade<TKey, TNullableKey, TSubscriptionPlanInfo, TBillingCycleInfo, TAppInfo, TAppFeatureInfo, TDaAppFeatureAttributeInfo, TUserAgreementManager, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction, TAppManager, TApp, TAppAttribute, TFeatureManager, TFeature, TAppFeature, TFeatureAction, TSubscriptionPlanManager, TSubscriptionPlan, TSubscriptionPlanAttribute, TBillingCycle, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscriptionPlanFeatureAttribute, TSubscription, TSubscriptionAttribute, TSubscriptionApp, TSubscriptionFeature, TSubscriptionFeatureAttribute, TSubscriptionAppRole, TSubscriptionAppUser, TSubscriptionFeatureRole, TSubscriptionFeatureRoleAction, TSubscriptionFeatureUser, TSubscriptionFeatureUserAction, TCurrencyManager, TCurrency, TCountryManager, TCountry, TCountryRegion, TTimeZoneManager, TTimeZone, TSystemLanguageManager, TSystemLanguage>
         where TKey : IEquatable<TKey>
-        where TSubscriptionPlanInfo : DaSubscriptionPlanInfo<TKey, TBillingCycleInfo, TAppInfo, TAppFeatureInfo, TDaAppFeatureAttributeInfo>, new()
+        where TSubscriptionPlanInfo : DaSubscriptionPlanInfo<TKey, TNullableKey, TBillingCycleInfo, TAppInfo, TAppFeatureInfo, TDaAppFeatureAttributeInfo>, new()
         where TBillingCycleInfo : DaBillingCycleInfo<TKey>, new()
         where TAppInfo : DaAppInfo<TKey, TAppFeatureInfo, TDaAppFeatureAttributeInfo>, new()
         where TAppFeatureInfo : DaAppFeatureInfo<TKey, TDaAppFeatureAttributeInfo>, new()
@@ -118,7 +118,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
         where TApp : DaApp<TKey, TNullableKey, TAppAttribute, TFeature, TAppFeature, TSubscriptionApp, TSubscriptionPlanApp, TUserAgreement>
         where TAppAttribute : DaAppAttribute<TKey, TApp>
         where TAppFeature : DaAppFeature<TKey, TApp, TFeature>
-        where TBillingCycle : DaBillingCycle<TKey, TNullableKey, TSubscriptionPlan>
+        where TBillingCycle : DaBillingCycleOption<TKey, TNullableKey, TSubscriptionPlan>
         where TFeatureAction : DaFeatureAction<TKey, TNullableKey, TFeature>
         where TFeatureManager : DaFeatureManager<TKey, TNullableKey, TFeature>
         where TFeature : DaFeature<TKey, TNullableKey, TApp, TAppFeature, TFeatureAction, TSubscriptionFeature, TSubscriptionPlanFeature>
@@ -199,6 +199,10 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                 subscriptionPlanInfo.Description = subscriptionPlan.Description;
                 subscriptionPlanInfo.Name = subscriptionPlan.Name;
                 subscriptionPlanInfo.CurrencyId = subscriptionPlan.CurrencyId;
+                subscriptionPlanInfo.AllowTrial = subscriptionPlan.AllowTrial;
+                subscriptionPlanInfo.StartOnlyWithTrial = subscriptionPlan.StartOnlyWithTrial;
+                subscriptionPlanInfo.TrialDays = subscriptionPlan.TrialDays;
+                subscriptionPlanInfo.DefaultBillingCycleId = subscriptionPlan.DefaultBillingCycleId;
 
                 var billingCycles = subscriptionPlan.BillingCycles.ToList();
 
@@ -212,12 +216,9 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                         billingCycleInfo.Name = billingCycle.Name;
                         billingCycleInfo.Description = billingCycle.Description;
                         billingCycleInfo.Id = billingCycle.Id;
-                        billingCycleInfo.AllowTrial = billingCycle.AllowTrial;
                         billingCycleInfo.Amount = billingCycle.Amount;
                         billingCycleInfo.BillingCycleDuration = billingCycle.BillingCycleDuration;
                         billingCycleInfo.BillingCycleType = billingCycle.BillingCycleType;
-                        billingCycleInfo.StartOnlyWithTrial = billingCycle.StartOnlyWithTrial;
-                        billingCycleInfo.TrialDays = billingCycle.TrialDays;
                         subscriptionPlanInfo.BillingCycles.Add(billingCycleInfo);
                     }
                 }

@@ -37,10 +37,11 @@ using Ejyle.DevAccelerate.Profiles.EF;
 using Ejyle.DevAccelerate.Profiles.Addresses;
 using Ejyle.DevAccelerate.Profiles.EF.Addresses;
 using Ejyle.DevAccelerate.Facades.Security.Properties;
+using Ejyle.DevAccelerate.EnterpriseSecurity;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
 {
-    public class DaSubscriptionFacade : DaSubscriptionFacade<DaSubscriptionInfo, DaUserManager, DaUser, DaUserLogin, DaUserRole, DaUserClaim, DaUserProfileManager, DaUserProfile, DaUserProfileAttribute, DaOrganizationProfileManager, DaOrganizationProfile, DaOrganizationProfileAttribute, DaTenantManager, DaTenant, DaTenantUser, DaAddressProfileManager, DaAddressProfile, DaUserAddress, DaUserAgreementManager, DaUserAgreement, DaUserAgreementVersion, DaUserAgreementVersionAction, DaAppManager, DaApp, DaAppAttribute, DaFeatureManager, DaFeature, DaAppFeature, DaFeatureAction, DaSubscriptionPlanManager, DaSubscriptionPlan, DaSubscriptionPlanAttribute, DaBillingCycle, DaSubscriptionPlanApp, DaSubscriptionPlanFeature, DaSubscriptionPlanFeatureAttribute, DaSubscriptionManager, DaSubscription, DaSubscriptionAttribute, DaSubscriptionApp, DaSubscriptionFeature, DaSubscriptionFeatureAttribute, DaSubscriptionAppRole, DaSubscriptionAppUser, DaSubscriptionFeatureRole, DaSubscriptionFeatureRoleAction, DaSubscriptionFeatureUser, DaSubscriptionFeatureUserAction, DaCurrencyManager, DaCurrency, DaCountryManager, DaCountry, DaCountryRegion, DaTimeZoneManager, DaTimeZone, DaSystemLanguageManager, DaSystemLanguage>
+    public class DaSubscriptionFacade : DaSubscriptionFacade<DaSubscriptionInfo, DaUserManager, DaUser, DaUserLogin, DaUserRole, DaUserClaim, DaUserProfileManager, DaUserProfile, DaUserProfileAttribute, DaOrganizationProfileManager, DaOrganizationProfile, DaOrganizationProfileAttribute, DaTenantManager, DaTenant, DaTenantUser, DaAddressProfileManager, DaAddressProfile, DaUserAddress, DaUserAgreementManager, DaUserAgreement, DaUserAgreementVersion, DaUserAgreementVersionAction, DaAppManager, DaApp, DaAppAttribute, DaFeatureManager, DaFeature, DaAppFeature, DaFeatureAction, DaSubscriptionPlanManager, DaSubscriptionPlan, DaSubscriptionPlanAttribute, DaBillingCycleOption, DaSubscriptionPlanApp, DaSubscriptionPlanFeature, DaSubscriptionPlanFeatureAttribute, DaSubscriptionManager, DaSubscription, DaSubscriptionAttribute, DaSubscriptionApp, DaSubscriptionFeature, DaSubscriptionFeatureAttribute, DaSubscriptionAppRole, DaSubscriptionAppUser, DaSubscriptionFeatureRole, DaSubscriptionFeatureRoleAction, DaSubscriptionFeatureUser, DaSubscriptionFeatureUserAction, DaCurrencyManager, DaCurrency, DaCountryManager, DaCountry, DaCountryRegion, DaTimeZoneManager, DaTimeZone, DaSystemLanguageManager, DaSystemLanguage>
     {
         public DaSubscriptionFacade(IOwinContext owinContext)
             : base(owinContext.Get<DaUserManager>(),
@@ -87,7 +88,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
         where TApp : DaApp<int, int?, TAppAttribute, TFeature, TAppFeature, TSubscriptionApp, TSubscriptionPlanApp, TUserAgreement>
         where TAppAttribute : DaAppAttribute<int, TApp>
         where TAppFeature : DaAppFeature<int, TApp, TFeature>
-        where TBillingCycle : DaBillingCycle<int, int?, TSubscriptionPlan>
+        where TBillingCycle : DaBillingCycleOption<int, int?, TSubscriptionPlan>
         where TFeatureAction : DaFeatureAction<int, int?, TFeature>
         where TFeatureManager : DaFeatureManager<int, int?, TFeature>
         where TFeature : DaFeature<int, int?, TApp, TAppFeature, TFeatureAction, TSubscriptionFeature, TSubscriptionPlanFeature>
@@ -153,7 +154,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
         where TApp : DaApp<TKey, TNullableKey, TAppAttribute, TFeature, TAppFeature, TSubscriptionApp, TSubscriptionPlanApp, TUserAgreement>
         where TAppAttribute : DaAppAttribute<TKey, TApp>
         where TAppFeature : DaAppFeature<TKey, TApp, TFeature>
-        where TBillingCycle : DaBillingCycle<TKey, TNullableKey, TSubscriptionPlan>
+        where TBillingCycle : DaBillingCycleOption<TKey, TNullableKey, TSubscriptionPlan>
         where TFeatureAction : DaFeatureAction<TKey, TNullableKey, TFeature>
         where TFeatureManager : DaFeatureManager<TKey, TNullableKey, TFeature>
         where TFeature : DaFeature<TKey, TNullableKey, TApp, TAppFeature, TFeatureAction, TSubscriptionFeature, TSubscriptionPlanFeature>
@@ -419,6 +420,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                 ExpiryDateUtc = DateTime.UtcNow.AddDays(30),
                 CountryId = default(TKey),
                 TenantId = tenant.Id,
+                IsAutoRenewUntilCanceled = subscriptionPlan.IsAutoRenewUntilCanceled,
                 UserAgreementVersionId = default(TNullableKey),
                 CurrencyId = default(TKey),
                 CreatedDateUtc = DateTime.UtcNow,
@@ -432,27 +434,27 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                 TrialStartDateUtc = null
             };
 
+            DateTime subscriptionDate = DateTime.UtcNow;
+
+            if ((subscriptionPlan.AllowTrial && subscriptionPlan.StartOnlyWithTrial) || (subscriptionPlan.AllowTrial && subscriptionInfo.StartWithTrial))
+            {
+                subscriptionDate.AddDays((double)subscriptionPlan.TrialDays);
+                subscription.StartDateUtc = DateTime.UtcNow.AddDays((double)subscriptionPlan.TrialDays);
+                subscription.TrialStartDateUtc = DateTime.UtcNow;
+            }
+
             var billingCycle = subscriptionPlan.BillingCycles.Where(m => m.Id.Equals(subscriptionInfo.BillingCycleId)).SingleOrDefault();
 
             if (billingCycle != null)
             {
-                DateTime dt = DateTime.UtcNow;
-
-                if ((billingCycle.AllowTrial && billingCycle.StartOnlyWithTrial) || (billingCycle.AllowTrial && subscriptionInfo.StartWithTrial))
-                {
-                    dt.AddDays((double)billingCycle.TrialDays);
-                    subscription.StartDateUtc = DateTime.UtcNow.AddDays((double)billingCycle.TrialDays);
-                    subscription.TrialStartDateUtc = DateTime.UtcNow;
-                }
-
                 subscription.BillingAmount = billingCycle.Amount;
                 subscription.BillingCycleType = billingCycle.BillingCycleType;
 
                 if (billingCycle.BillingCycleType == DaBillingCycleType.Monthly)
                 {
-                    subscription.BillingCycleStartDay = dt.Day;
+                    subscription.BillingCycleStartDay = subscriptionDate.Day;
 
-                    if (dt.Month != 1)
+                    if (subscriptionDate.Month != 1)
                     {
                         subscription.BillingCycleEndDay = subscription.BillingCycleStartDay = 1;
                     }
@@ -463,17 +465,17 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                 }
                 else if (billingCycle.BillingCycleType == DaBillingCycleType.Yearly)
                 {
-                    subscription.BillingCycleStartDay = dt.DayOfYear;
-                    subscription.BillingCycleEndDay = dt.AddYears(1).DayOfYear;
+                    subscription.BillingCycleStartDay = subscriptionDate.DayOfYear;
+                    subscription.BillingCycleEndDay = subscriptionDate.AddYears(1).DayOfYear;
                 }
                 else if (billingCycle.BillingCycleType == DaBillingCycleType.Quarterly)
                 {
-                    subscription.BillingCycleStartDay = dt.DayOfYear;
-                    subscription.BillingCycleEndDay = dt.AddMonths(3).DayOfYear;
+                    subscription.BillingCycleStartDay = subscriptionDate.DayOfYear;
+                    subscription.BillingCycleEndDay = subscriptionDate.AddMonths(3).DayOfYear;
                 }
                 else if (billingCycle.BillingCycleType == DaBillingCycleType.Weekly)
                 {
-                    switch (dt.DayOfWeek)
+                    switch (subscriptionDate.DayOfWeek)
                     {
                         case DayOfWeek.Sunday:
                             subscription.BillingCycleStartDay = 1;
@@ -499,7 +501,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                             break;
                     }
 
-                    if (dt.DayOfWeek == DayOfWeek.Saturday)
+                    if (subscriptionDate.DayOfWeek == DayOfWeek.Saturday)
                     {
                         subscription.BillingCycleEndDay = 7;
                     }

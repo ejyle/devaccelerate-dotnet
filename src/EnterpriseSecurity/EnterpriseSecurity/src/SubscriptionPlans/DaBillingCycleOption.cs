@@ -13,17 +13,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
 {
-    public class DaBillingCycle : DaBillingCycle<int, int?, DaSubscriptionPlan>
+    public class DaBillingCycleOption : DaBillingCycleOption<int, int?, DaSubscriptionPlan>
     {
-        public DaBillingCycle() : base()
+        public DaBillingCycleOption() : base()
         { }
     }
 
-    public class DaBillingCycle<TKey, TNullableKey, TSubscriptionPlan> : DaEntityBase<TKey>, IDaBillingCycle<TKey>
+    public class DaBillingCycleOption<TKey, TNullableKey, TSubscriptionPlan> : DaEntityBase<TKey>, IDaBillingCycleOption<TKey>
         where TKey : IEquatable<TKey>
         where TSubscriptionPlan : IDaSubscriptionPlan<TKey, TNullableKey>
     {
-        public DaBillingCycle() : base()
+        public DaBillingCycleOption() : base()
         { }
 
         public DaBillingCycleType BillingCycleType { get; set; }
@@ -39,11 +39,5 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
         public string Description { get; set; }
 
         public virtual TSubscriptionPlan SubscriptionPlan { get; set; }
-
-        public bool AllowTrial { get; set; }
-
-        public bool StartOnlyWithTrial { get; set; }
-
-        public int? TrialDays { get; set; }
     }
 }

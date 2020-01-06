@@ -17,12 +17,17 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
         string Description { get; set; }
         string Code { get; set; }
         bool IsAutoRenewUntilCanceled { get; set; }
-        int? NumberOfBillingCyclesUntilExpiry { get; set; }
+        DaSubscriptionPeriodType SubscriptionPeriodType { get; set; }
+        int? SubscriptionPeriodDuration { get; set; }
         bool IsFeatured { get; set; }
         double? SetupFee { get; set; }
         TKey CurrencyId { get; set; }
+        bool AllowTrial { get; set; }
+        bool StartOnlyWithTrial { get; set; }
+        int? TrialDays { get; set; }
         DaEntityWorkflowStatus Status { get; set; }
         TNullableKey UserAgreementVersionId { get; set; }
+        TNullableKey DefaultBillingCycleId { get; set; }
         DateTime? PublishedDateUtc { get; set; }
     }
 }

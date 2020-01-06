@@ -8,18 +8,18 @@
 using System;
 using Ejyle.DevAccelerate.Core;
 
-namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
+namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 {
-    public interface IDaBillingCycle<TKey> : IDaEntity<TKey>
+    public interface IDaBillingCycle<TKey, TNullableKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {
-        string Name { get; set; }
-        string Description { get; set; }
-        DaBillingCycleType BillingCycleType { get; set; }
-        int BillingCycleDuration { get; set; }
+        TKey SubscriptionId { get; set; }
+        DateTime FromDateUtc { get; set; }
+        DateTime? ToDateUtc { get; set; }
         decimal Amount { get; set; }
-        bool AllowTrial { get; set; }
-        bool StartOnlyWithTrial { get; set; }
-        int? TrialDays { get; set; }
+        TKey CurrencyId { get; set; }
+        TNullableKey InvoiceId { get; set; }
+        bool IsPaid { get; set; }
+        TNullableKey TransactionId { get; set; }
     }
 }

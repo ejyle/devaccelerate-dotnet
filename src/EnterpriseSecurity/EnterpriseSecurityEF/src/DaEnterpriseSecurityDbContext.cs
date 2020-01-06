@@ -16,7 +16,7 @@ using Ejyle.DevAccelerate.Core.Data;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF
 {
-    public class DaEnterpriseSecurityDbContext : DaEnterpriseSecurityDbContext<int, int?, DaTenant, DaTenantUser, DaUserAgreement, DaUserAgreementVersion, DaUserAgreementVersionAction, DaApp, DaAppAttribute, DaFeature, DaAppFeature, DaFeatureAction, DaSubscriptionPlan, DaSubscriptionPlanAttribute, DaBillingCycle, DaSubscriptionPlanApp, DaSubscriptionPlanFeature, DaSubscriptionPlanFeatureAttribute, DaSubscription, DaSubscriptionAttribute, DaSubscriptionApp, DaSubscriptionFeature, DaSubscriptionFeatureAttribute, DaSubscriptionAppRole, DaSubscriptionAppUser, DaSubscriptionFeatureRole, DaSubscriptionFeatureRoleAction, DaSubscriptionFeatureUser, DaSubscriptionFeatureUserAction>
+    public class DaEnterpriseSecurityDbContext : DaEnterpriseSecurityDbContext<int, int?, DaTenant, DaTenantUser, DaUserAgreement, DaUserAgreementVersion, DaUserAgreementVersionAction, DaApp, DaAppAttribute, DaFeature, DaAppFeature, DaFeatureAction, DaSubscriptionPlan, DaSubscriptionPlanAttribute, DaBillingCycleOption, DaSubscriptionPlanApp, DaSubscriptionPlanFeature, DaSubscriptionPlanFeatureAttribute, DaSubscription, DaSubscriptionAttribute, DaSubscriptionApp, DaSubscriptionFeature, DaSubscriptionFeatureAttribute, DaSubscriptionAppRole, DaSubscriptionAppUser, DaSubscriptionFeatureRole, DaSubscriptionFeatureRoleAction, DaSubscriptionFeatureUser, DaSubscriptionFeatureUserAction>
     {
         public DaEnterpriseSecurityDbContext() : base()
         { }
@@ -34,7 +34,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF
         where TApp : DaApp<TKey, TNullableKey, TAppAttribute, TFeature, TAppFeature, TSubscriptionApp, TSubscriptionPlanApp, TUserAgreement>
         where TAppAttribute : DaAppAttribute<TKey, TApp>
         where TAppFeature : DaAppFeature<TKey, TApp, TFeature>
-        where TBillingCycle : DaBillingCycle<TKey, TNullableKey, TSubscriptionPlan>
+        where TBillingCycle : DaBillingCycleOption<TKey, TNullableKey, TSubscriptionPlan>
         where TFeatureAction : DaFeatureAction<TKey, TNullableKey, TFeature>
         where TFeature : DaFeature<TKey, TNullableKey, TApp, TAppFeature, TFeatureAction, TSubscriptionFeature, TSubscriptionPlanFeature>
         where TSubscriptionAppRole : DaSubscriptionAppRole<TKey, TSubscriptionApp>
