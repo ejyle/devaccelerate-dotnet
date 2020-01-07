@@ -20,10 +20,10 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
         { }
     }
 
-    public class DaSubscriptionPlan<TKey, TNullableKey, TSubscriptionPlanAttribute, TBillingCycle, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscription> : DaEntityBase<TKey>, IDaSubscriptionPlan<TKey, TNullableKey>        
+    public class DaSubscriptionPlan<TKey, TNullableKey, TSubscriptionPlanAttribute, TBillingCycleOptions, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscription> : DaEntityBase<TKey>, IDaSubscriptionPlan<TKey, TNullableKey>        
         where TKey : IEquatable<TKey>
         where TSubscriptionPlanAttribute : IDaSubscriptionPlanAttribute<TKey>
-        where TBillingCycle : IDaBillingCycleOption<TKey>
+        where TBillingCycleOptions : IDaBillingCycleOption<TKey>
         where TSubscriptionPlanFeature : IDaSubscriptionPlanFeature<TKey>
         where TSubscriptionPlanApp : IDaSubscriptionPlanApp<TKey>
         where TSubscription : IDaSubscription<TKey, TNullableKey>
@@ -31,7 +31,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
         public DaSubscriptionPlan()
         {
             Attributes = new HashSet<TSubscriptionPlanAttribute>();
-            BillingCycles = new HashSet<TBillingCycle>();
+            BillingCycleOptions = new HashSet<TBillingCycleOptions>();
             SubscriptionPlanApps = new HashSet<TSubscriptionPlanApp>();
             SubscriptionPlanFeatures = new HashSet<TSubscriptionPlanFeature>();
             Subscriptions = new HashSet<TSubscription>();
@@ -71,7 +71,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
 
         public virtual ICollection<TSubscriptionPlanAttribute> Attributes { get; set; }
 
-        public virtual ICollection<TBillingCycle> BillingCycles { get; set; }
+        public virtual ICollection<TBillingCycleOptions> BillingCycleOptions { get; set; }
 
         public virtual ICollection<TSubscriptionPlanApp> SubscriptionPlanApps { get; set; }
 

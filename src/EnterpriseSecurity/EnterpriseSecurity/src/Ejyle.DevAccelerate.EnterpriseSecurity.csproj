@@ -94,6 +94,7 @@
     <Compile Include="SubscriptionPlans\IDaSubscriptionPlanFeatureAttribute.cs" />
     <Compile Include="SubscriptionPlans\IDaSubscriptionPlanRepository.cs" />
     <Compile Include="Subscriptions\DaBillingCycle.cs" />
+    <Compile Include="Subscriptions\DaBillingCycleAttribute.cs" />
     <Compile Include="Subscriptions\DaSubscription.cs" />
     <Compile Include="Subscriptions\DaSubscriptionApp.cs" />
     <Compile Include="Subscriptions\DaSubscriptionAppRole.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Subscriptions\DaSubscriptionFeatureUserAction.cs" />
     <Compile Include="Subscriptions\DaSubscriptionManager.cs" />
     <Compile Include="Subscriptions\IDaBillingCycle.cs" />
+    <Compile Include="Subscriptions\IDaBillingCycleAttribute.cs" />
     <Compile Include="Subscriptions\IDaSubscription.cs" />
     <Compile Include="Subscriptions\IDaSubscriptionApp.cs" />
     <Compile Include="Subscriptions\IDaSubscriptionAppRole.cs" />
