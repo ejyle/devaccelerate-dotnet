@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>DevAccelerateEnterpriseSecurity</id>
-    <version>6.0.0-preview3</version>
+    <version>6.0.0-preview4</version>
     <title>DevAccelerate Enterprise Security</title>
     <authors>ejyle,tanveery</authors>
     <owners>ejyle,tanveery</owners>
@@ -18,7 +18,7 @@
     <copyright>© Ejyle Technologies (P) Ltd. All rights reserved.</copyright>
     <language>en-US</language>
     <tags>DevAccelerate EnterpriseSecurity Tenants Subscriptions Multi-Tenancy</tags>
-    <repository type="git" url="https://github.com/devaccelerate/DevAccelerateNet" commit="51b221759f7ffdbfb8a00587ffbc8eb9b955fd12" />
+    <repository type="git" url="https://github.com/devaccelerate/DevAccelerateNet" commit="4b6dffd49490c2e045fbb8fe965383c078b99e79" />
     <dependencies>
       <dependency id="DevAccelerateCore" version="6.0.0-preview4" />
     </dependencies>

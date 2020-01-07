@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>DevAccelerateSecurityFacade</id>
-    <version>6.0.0-preview92</version>
+    <version>6.0.0-preview93</version>
     <title>DevAccelerate Security Facade</title>
     <authors>ejyle,tanveery</authors>
     <owners>ejyle,tanveery</owners>
@@ -24,7 +24,7 @@
       <dependency id="DevAccelerateListsEF" version="6.0.0-preview3" />
       <dependency id="DevAccelerateIdentityEF" version="6.0.0-preview3" />
       <dependency id="DevAccelerateProfilesEF" version="6.0.0-preview3" />
-      <dependency id="DevAccelerateEnterpriseSecurityEF" version="6.0.0-preview5" />
+      <dependency id="DevAccelerateEnterpriseSecurityEF" version="6.0.0-preview6" />
     </dependencies>
   </metadata>
   <files>
