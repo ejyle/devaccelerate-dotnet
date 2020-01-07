@@ -15,9 +15,9 @@ using Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
 {
-    public interface IDaSubscriptionPlanInfo<TKey, TNullableKey, TBillingCycleCycleInfo, TAppInfo, TAppFeatureInfo, TAppFeatureAttributeInfo>
+    public interface IDaSubscriptionPlanInfo<TKey, TNullableKey, TBillingCycleCycleOptionInfo, TAppInfo, TAppFeatureInfo, TAppFeatureAttributeInfo>
         where TKey : IEquatable<TKey>
-        where TBillingCycleCycleInfo : IDaBillingCycleInfo<TKey>
+        where TBillingCycleCycleOptionInfo : IDaBillingCycleOptionInfo<TKey>
         where TAppInfo : IDaAppInfo<TKey, TAppFeatureInfo, TAppFeatureAttributeInfo>
         where TAppFeatureInfo : IDaAppFeatureInfo<TKey, TAppFeatureAttributeInfo>
         where TAppFeatureAttributeInfo : IDaAppFeatureAttributeInfo<TKey>
@@ -30,16 +30,16 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
         bool IsAutoRenewUntilCanceled { get; set; }
         bool IsFeatured { get; set; }
         int? NumberOfBillingCyclesUntilExpiry { get; set; }
-        List<TBillingCycleCycleInfo> BillingCycles { get; set; }
+        List<TBillingCycleCycleOptionInfo> BillingCycleOptions { get; set; }
         bool AllowTrial { get; set; }
         bool StartOnlyWithTrial { get; set; }
         int? TrialDays { get; set; }
         decimal? SetupFee { get; set; }
-        TNullableKey DefaulTBillingCycleCycleId { get; set; }
+        TNullableKey DefaulBillingCycleCycleId { get; set; }
         List<TAppInfo> Apps { get; set; }
     }
 
-    public interface IDaBillingCycleInfo<TKey>
+    public interface IDaBillingCycleOptionInfo<TKey>
         where TKey : IEquatable<TKey>
     {
         TKey Id { get; set; }

@@ -9,9 +9,9 @@ using System;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
 {
-    public class DaDuplicateSubscriptionPlanCode : ApplicationException
+    public class DaDuplicateSubscriptionPlanCodeException : ApplicationException
     {
-        public DaDuplicateSubscriptionPlanCode(string message)
+        public DaDuplicateSubscriptionPlanCodeException(string message)
             : base(message)
         { }
     }

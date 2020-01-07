@@ -77,8 +77,7 @@
     <Compile Include="SubscriptionPlans\DaBillingCycleOption.cs" />
     <Compile Include="SubscriptionPlans\DaBillingCycleOptionManager.cs" />
     <Compile Include="SubscriptionPlans\DaBillingCycleType.cs" />
-    <Compile Include="SubscriptionPlans\DaDuplicateSubscriptionPlanCode.cs" />
-    <Compile Include="SubscriptionPlans\DaSubscriptionPeriodType.cs" />
+    <Compile Include="SubscriptionPlans\DaDuplicateSubscriptionPlanCodeException.cs" />
     <Compile Include="SubscriptionPlans\DaSubscriptionPlan.cs" />
     <Compile Include="SubscriptionPlans\DaSubscriptionPlanApp.cs" />
     <Compile Include="SubscriptionPlans\DaSubscriptionPlanAttribute.cs" />

@@ -206,13 +206,13 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                 subscriptionPlanInfo.AllowTrial = subscriptionPlan.AllowTrial;
                 subscriptionPlanInfo.StartOnlyWithTrial = subscriptionPlan.StartOnlyWithTrial;
                 subscriptionPlanInfo.TrialDays = subscriptionPlan.TrialDays;
-                subscriptionPlanInfo.DefaulTBillingCycleCycleId = subscriptionPlan.DefaultBillingCycleId;
+                subscriptionPlanInfo.DefaulBillingCycleCycleId = subscriptionPlan.DefaultBillingCycleId;
 
                 var billingCycles = subscriptionPlan.BillingCycleOptions.ToList();
 
                 if(billingCycles != null & billingCycles.Count > 0)
                 {
-                    subscriptionPlanInfo.BillingCycles = new List<TBillingCycleCycleInfo>();
+                    subscriptionPlanInfo.BillingCycleOptions = new List<TBillingCycleCycleInfo>();
 
                     foreach (var billingCycle in billingCycles)
                     {
@@ -223,7 +223,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                         billingCycleInfo.Amount = billingCycle.Amount;
                         billingCycleInfo.BillingCycleDuration = billingCycle.BillingCycleDuration;
                         billingCycleInfo.BillingCycleType = billingCycle.BillingCycleType;
-                        subscriptionPlanInfo.BillingCycles.Add(billingCycleInfo);
+                        subscriptionPlanInfo.BillingCycleOptions.Add(billingCycleInfo);
                     }
                 }
 

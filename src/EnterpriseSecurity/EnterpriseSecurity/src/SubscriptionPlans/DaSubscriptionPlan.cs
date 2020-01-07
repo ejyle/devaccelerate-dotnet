@@ -44,10 +44,8 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
         public string Code { get; set; }
 
         public bool IsAutoRenewUntilCanceled { get; set; }
-        
-        public DaSubscriptionPeriodType SubscriptionPeriodType { get; set; }
 
-        public int? SubscriptionPeriodDuration { get; set; }
+        public int? ValidityInMonths { get; set; }
 
         public bool IsFeatured { get; set; }
 

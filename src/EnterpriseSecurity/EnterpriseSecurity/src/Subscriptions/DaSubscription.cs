@@ -50,10 +50,6 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 
         public DaBillingCycleType? BillingCycleType { get; set; }
 
-        public int? BillingCycleStartDay { get; set; }
-
-        public int? BillingCycleEndDay { get; set; }
-
         public TKey TenantId { get; set; }
 
         public TNullableKey UserAgreementVersionId { get; set; }

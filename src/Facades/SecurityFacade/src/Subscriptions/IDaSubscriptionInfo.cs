@@ -21,7 +21,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
         string LastName { get; set; }
         string Email { get; set; }
         TKey SubscriptionPlanId { get; set; }
-        TKey BillingCycleId { get; set; }
+        TNullableKey BillingCycleOptionId { get; set; }
         bool StartWithTrial { get; set; }
         string OrganizationName { get; set; }
         DaOrganizationType OrganizationType { get; set; }

@@ -109,7 +109,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
         where TSubscriptionPlan : DaSubscriptionPlan<int, int?, TSubscriptionPlanAttribute, TBillingCycleOption, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscription>
         where TSubscriptionPlanAttribute : DaSubscriptionPlanAttribute<int, int?, TSubscriptionPlan>
         where TSubscription : DaSubscription<int, int?, TSubscriptionAttribute, TSubscriptionApp, TSubscriptionFeature, TSubscriptionPlan, TBillingCycle>, new()
-        where TBillingCycle : DaBillingCycle<int, int?, TBillingCycleAttribute, TSubscription>
+        where TBillingCycle : DaBillingCycle<int, int?, TBillingCycleAttribute, TSubscription>, new()
         where TBillingCycleAttribute : DaBillingCycleAttribute<int, int?, TBillingCycle>
         where TSubscriptionAttribute : DaSubscriptionAttribute<int, int?, TSubscription>, new()
         where TTenantManager : DaTenantManager<int, int?, TTenant>
@@ -177,7 +177,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
         where TSubscriptionPlan : DaSubscriptionPlan<TKey, TNullableKey, TSubscriptionPlanAttribute, TBillingCycleOption, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscription>
         where TSubscriptionPlanAttribute : DaSubscriptionPlanAttribute<TKey, TNullableKey, TSubscriptionPlan>
         where TSubscription : DaSubscription<TKey, TNullableKey, TSubscriptionAttribute, TSubscriptionApp, TSubscriptionFeature, TSubscriptionPlan, TBillingCycle>, new()
-        where TBillingCycle : DaBillingCycle<TKey, TNullableKey, TBillingCycleAttribute, TSubscription>
+        where TBillingCycle : DaBillingCycle<TKey, TNullableKey, TBillingCycleAttribute, TSubscription>, new()
         where TBillingCycleAttribute : DaBillingCycleAttribute<TKey, TNullableKey, TBillingCycle>
         where TSubscriptionAttribute : DaSubscriptionAttribute<TKey, TNullableKey, TSubscription>, new()
         where TTenantManager : DaTenantManager<TKey, TNullableKey, TTenant>
@@ -431,8 +431,6 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                 LastTransactionId = default(TNullableKey),
                 LastUpdatedDateUtc = DateTime.UtcNow,
                 BillingAmount = 0,
-                BillingCycleEndDay = 10,
-                BillingCycleStartDay = 10,
                 BillingCycleType = DaBillingCycleType.Monthly,
                 StartDateUtc = DateTime.UtcNow,
                 TrialStartDateUtc = null
@@ -447,73 +445,60 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                 subscription.TrialStartDateUtc = DateTime.UtcNow;
             }
 
-            var billingCycle = subscriptionPlan.BillingCycleOptions.Where(m => m.Id.Equals(subscriptionInfo.BillingCycleId)).SingleOrDefault();
-
-            if (billingCycle != null)
+            if (subscriptionPlan.ValidityInMonths == null)
             {
-                subscription.BillingAmount = billingCycle.Amount;
-                subscription.BillingCycleType = billingCycle.BillingCycleType;
+                subscription.ExpiryDateUtc = null;
+            }
+            else
+            {
+                subscription.ExpiryDateUtc = subscription.StartDateUtc.AddMonths((int)subscriptionPlan.ValidityInMonths);
+            }
 
-                if (billingCycle.BillingCycleType == DaBillingCycleType.Monthly)
-                {
-                    subscription.BillingCycleStartDay = subscriptionDate.Day;
+            TBillingCycleOption billingCycleOption = null;
+            
+            if(subscriptionInfo.BillingCycleOptionId != null)
+            {
+                billingCycleOption = subscriptionPlan.BillingCycleOptions.Where(m => m.Id.Equals(subscriptionInfo.BillingCycleOptionId)).SingleOrDefault();
+            }
+            else
+            {
+                billingCycleOption = subscriptionPlan.BillingCycleOptions.Where(m => m.Id.Equals(subscriptionPlan.DefaultBillingCycleId)).SingleOrDefault();
+            }
 
-                    if (subscriptionDate.Month != 1)
-                    {
-                        subscription.BillingCycleEndDay = subscription.BillingCycleStartDay = 1;
-                    }
-                    else
-                    {
-                        subscription.BillingCycleEndDay = 1;
-                    }
-                }
-                else if (billingCycle.BillingCycleType == DaBillingCycleType.Yearly)
+            if (billingCycleOption != null)
+            {
+                var billingCycle = new TBillingCycle()
                 {
-                    subscription.BillingCycleStartDay = subscriptionDate.DayOfYear;
-                    subscription.BillingCycleEndDay = subscriptionDate.AddYears(1).DayOfYear;
-                }
-                else if (billingCycle.BillingCycleType == DaBillingCycleType.Quarterly)
-                {
-                    subscription.BillingCycleStartDay = subscriptionDate.DayOfYear;
-                    subscription.BillingCycleEndDay = subscriptionDate.AddMonths(3).DayOfYear;
-                }
-                else if (billingCycle.BillingCycleType == DaBillingCycleType.Weekly)
-                {
-                    switch (subscriptionDate.DayOfWeek)
-                    {
-                        case DayOfWeek.Sunday:
-                            subscription.BillingCycleStartDay = 1;
-                            subscription.BillingCycleEndDay = 7;
-                            break;
-                        case DayOfWeek.Monday:
-                            subscription.BillingCycleStartDay = 2;
-                            break;
-                        case DayOfWeek.Tuesday:
-                            subscription.BillingCycleStartDay = 3;
-                            break;
-                        case DayOfWeek.Wednesday:
-                            subscription.BillingCycleStartDay = 6;
-                            break;
-                        case DayOfWeek.Thursday:
-                            subscription.BillingCycleStartDay = 5;
-                            break;
-                        case DayOfWeek.Friday:
-                            subscription.BillingCycleStartDay = 6;
-                            break;
-                        case DayOfWeek.Saturday:
-                            subscription.BillingCycleStartDay = 7;
-                            break;
-                    }
+                    Amount = billingCycleOption.Amount,
+                    FromDateUtc = subscription.StartDateUtc,
+                    CurrencyId = default(TKey),
+                    IsPaid = false,
+                    Subscription = subscription,
+                    InvoiceId = default(TNullableKey),
+                    TransactionId = default(TNullableKey)
+                };
 
-                    if (subscriptionDate.DayOfWeek == DayOfWeek.Saturday)
-                    {
-                        subscription.BillingCycleEndDay = 7;
-                    }
-                    else
-                    {
-                        subscription.BillingCycleEndDay = subscription.BillingCycleStartDay - 1;
-                    }
+                subscription.BillingAmount = billingCycleOption.Amount;
+                subscription.BillingCycleType = billingCycleOption.BillingCycleType;
+
+                if (billingCycleOption.BillingCycleType == DaBillingCycleType.Monthly)
+                {
+                    billingCycle.ToDateUtc = billingCycle.FromDateUtc.AddMonths(1);
                 }
+                else if (billingCycleOption.BillingCycleType == DaBillingCycleType.Yearly)
+                {
+                    billingCycle.ToDateUtc = billingCycle.FromDateUtc.AddYears(1);
+                }
+                else if (billingCycleOption.BillingCycleType == DaBillingCycleType.Weekly)
+                {
+                    billingCycle.ToDateUtc = billingCycle.FromDateUtc.AddDays(7);
+                }
+                else if (billingCycleOption.BillingCycleType == DaBillingCycleType.Quarterly)
+                {
+                    billingCycle.ToDateUtc = billingCycle.FromDateUtc.AddMonths(3);
+                }
+
+                subscription.BillingCycles.Add(billingCycle);
             }
 
             if (subscriptionPlan.SubscriptionPlanApps != null && subscriptionPlan.SubscriptionPlanApps.Count > 0)

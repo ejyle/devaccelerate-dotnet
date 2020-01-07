@@ -17,8 +17,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
         string Description { get; set; }
         string Code { get; set; }
         bool IsAutoRenewUntilCanceled { get; set; }
-        DaSubscriptionPeriodType SubscriptionPeriodType { get; set; }
-        int? SubscriptionPeriodDuration { get; set; }
+        int? ValidityInMonths { get; set; }
         bool IsFeatured { get; set; }
         double? SetupFee { get; set; }
         TKey CurrencyId { get; set; }
