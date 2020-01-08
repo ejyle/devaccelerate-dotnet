@@ -5,23 +5,15 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-using Ejyle.DevAccelerate.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
+namespace Ejyle.DevAccelerate.Facades.Security.Authentication
 {
-    public interface IDaSubscriptionPlanAttribute<TKey> : IDaEntity<TKey>
-        where TKey : IEquatable<TKey>
+    public interface IDaCredentials
     {
-        TKey SubscriptionPlanId { get; set; }
-        string AttributeName { get; set; }
-        string AttributeValue { get; set; }
-        DaSubscriptionPlanAttributeTarget Target { get; set; }
-        DateTime CreatedDateUtc { get; set; }
-        DateTime LastUpdatedDateUtc { get; set; }
     }
 }

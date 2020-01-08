@@ -81,6 +81,7 @@
     <Compile Include="SubscriptionPlans\DaSubscriptionPlan.cs" />
     <Compile Include="SubscriptionPlans\DaSubscriptionPlanApp.cs" />
     <Compile Include="SubscriptionPlans\DaSubscriptionPlanAttribute.cs" />
+    <Compile Include="SubscriptionPlans\DaSubscriptionPlanAttributeTarget.cs" />
     <Compile Include="SubscriptionPlans\DaSubscriptionPlanFeature.cs" />
     <Compile Include="SubscriptionPlans\DaSubscriptionPlanFeatureAttribute.cs" />
     <Compile Include="SubscriptionPlans\DaSubscriptionPlanManager.cs" />

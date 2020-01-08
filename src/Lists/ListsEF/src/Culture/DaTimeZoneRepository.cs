@@ -69,5 +69,10 @@ namespace Ejyle.DevAccelerate.List.EF.Culture
             DbContext.TimeZones.Remove(timeZone);
             return DbContext.SaveChangesAsync();
         }
+
+        public Task<TTimeZone> FindByNameAsync(string name)
+        {
+            return DbContext.TimeZones.Where(m => m.Name == name).SingleOrDefaultAsync();
+        }
     }
 }

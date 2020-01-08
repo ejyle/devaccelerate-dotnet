@@ -29,7 +29,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
         [StringLength(256)]
         public string AttributeName { get; set; }
         public string AttributeValue { get; set; }
-        public bool CopyToSubscription { get; set; }
+        public DaSubscriptionPlanAttributeTarget Target { get; set; }
         public DateTime CreatedDateUtc { get; set; }
         public DateTime LastUpdatedDateUtc { get; set; }
 

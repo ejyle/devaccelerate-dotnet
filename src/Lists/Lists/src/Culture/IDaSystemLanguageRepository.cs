@@ -23,5 +23,6 @@ namespace Ejyle.DevAccelerate.List.Culture
         Task<TSystemLanguage> FindByIdAsync(TKey id);
         Task<List<TSystemLanguage>> FindAllAsync();
         Task<List<TSystemLanguage>> FindByCountryIdAsync(TKey countryId);
+        Task<TSystemLanguage> FindByNameAsync(string name);
     }
 }

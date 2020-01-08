@@ -59,7 +59,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 
         public virtual Task<List<TSubscription>> FindByTenantIdAsync(TKey tenantId)
         {
-            ThrowIfDisposed();        
+            ThrowIfDisposed();
             return Repository.FindByTenantIdAsync(tenantId);
         }
 
@@ -88,6 +88,12 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
         public virtual List<TSubscription> FindAll()
         {
             return DaAsyncHelper.RunSync<List<TSubscription>>(() => FindAllAsync());
+        }
+
+        public Task UpdateBillingCycleAttributeAsync(TKey billingCycleAttributeId, string value)
+        {
+            ThrowIfDisposed();
+            return Repository.UpdateBillingCycleAttributeAsync(billingCycleAttributeId, value);
         }
     }
 }

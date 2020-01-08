@@ -58,7 +58,7 @@ namespace Ejyle.DevAccelerate.Identity.EF.UserSessions
         public virtual Task<TUserSession> FindByIdAsync(TKey id)
         {
             ThrowIfDisposed();
-            return UserSessions.Where(m => m.Equals(id)).SingleOrDefaultAsync();
+            return UserSessions.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
         }
 
         public Task<TUserSession> FindBySessionKeyAsync(string sessionKey)

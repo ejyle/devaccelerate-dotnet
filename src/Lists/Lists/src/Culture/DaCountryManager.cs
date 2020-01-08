@@ -6,6 +6,7 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using Ejyle.DevAccelerate.Core;
+using Ejyle.DevAccelerate.Lists.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -113,6 +114,17 @@ namespace Ejyle.DevAccelerate.List.Culture
             ThrowIfArgumentIsNull(name, nameof(name));
 
             return Repository.FindByNameAsync(name);
+        }
+
+        public Task<TCountry> FindAsync()
+        {
+            ThrowIfDisposed();
+            return Repository.FindByNameAsync(DaListsConfigurationManager.GetConfiguration().DefaultCountry);
+        }
+
+        public TCountry Find()
+        {
+            return DaAsyncHelper.RunSync<TCountry>(() => FindAsync());
         }
 
         public TCountry FindByTwoLetterCode(string twoLetterCode)

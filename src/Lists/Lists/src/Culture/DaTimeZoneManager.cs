@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
+using Ejyle.DevAccelerate.Lists.Configuration;
 
 namespace Ejyle.DevAccelerate.List.Culture
 {
@@ -99,6 +100,30 @@ namespace Ejyle.DevAccelerate.List.Culture
         {
             ThrowIfDisposed();
             return Repository.FindByCountryIdAsync(countryId);
+        }
+
+        public TTimeZone FindByName(string name)
+        {
+            return DaAsyncHelper.RunSync<TTimeZone>(() => FindByNameAsync(name));
+        }
+
+        public Task<TTimeZone> FindByNameAsync(string name)
+        {
+            ThrowIfDisposed();
+            ThrowIfArgumentIsNull(name, nameof(name));
+
+            return Repository.FindByNameAsync(name);
+        }
+
+        public Task<TTimeZone> FindAsync()
+        {
+            ThrowIfDisposed();
+            return Repository.FindByNameAsync(DaListsConfigurationManager.GetConfiguration().DefaultTimeZone);
+        }
+
+        public TTimeZone Find()
+        {
+            return DaAsyncHelper.RunSync<TTimeZone>(() => FindAsync());
         }
     }
 }

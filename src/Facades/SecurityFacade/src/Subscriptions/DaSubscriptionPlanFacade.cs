@@ -157,25 +157,64 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
         where TSystemLanguageManager : DaSystemLanguageManager<TKey, TSystemLanguage>
         where TSystemLanguage : DaSystemLanguage<TKey, TNullableKey, TCountry>
     {
-        private TUserAgreementManager _userAgreementManager;
-        private TAppManager _appManager;
-        private TFeatureManager _featureManager;
-        private TSubscriptionPlanManager _subscriptionPlanManager;
-        private TCurrencyManager _currencyManager;
-        private TCountryManager _countryManager;
-        private TTimeZoneManager _timeZoneManager;
-        private TSystemLanguageManager _systemLanguageManager;
-
         public DaSubscriptionPlanFacade(TAppManager appManager, TFeatureManager featureManager, TUserAgreementManager userAgreementManager, TSubscriptionPlanManager subscriptionPlanManager, TCurrencyManager currencyManager, TCountryManager countryManager, TTimeZoneManager timeZoneManager, TSystemLanguageManager systemLanguageManager)
         {
-            _appManager = appManager ?? throw new ArgumentNullException(nameof(appManager));
-            _featureManager = featureManager ?? throw new ArgumentNullException(nameof(featureManager));
-            _userAgreementManager = userAgreementManager ?? throw new ArgumentNullException(nameof(userAgreementManager));
-            _subscriptionPlanManager = subscriptionPlanManager ?? throw new ArgumentNullException(nameof(subscriptionPlanManager));
-            _currencyManager = currencyManager ?? throw new ArgumentNullException(nameof(currencyManager));
-            _countryManager = countryManager ?? throw new ArgumentNullException(nameof(countryManager));
-            _timeZoneManager = timeZoneManager ?? throw new ArgumentNullException(nameof(timeZoneManager));
-            _systemLanguageManager = systemLanguageManager ?? throw new ArgumentNullException(nameof(systemLanguageManager));
+            AppManager = appManager ?? throw new ArgumentNullException(nameof(appManager));
+            FeatureManager = featureManager ?? throw new ArgumentNullException(nameof(featureManager));
+            UserAgreementManager = userAgreementManager ?? throw new ArgumentNullException(nameof(userAgreementManager));
+            SubscriptionPlanManager = subscriptionPlanManager ?? throw new ArgumentNullException(nameof(subscriptionPlanManager));
+            CurrencyManager = currencyManager ?? throw new ArgumentNullException(nameof(currencyManager));
+            CountryManager = countryManager ?? throw new ArgumentNullException(nameof(countryManager));
+            TimeZoneManager = timeZoneManager ?? throw new ArgumentNullException(nameof(timeZoneManager));
+            SystemLanguageManager = systemLanguageManager ?? throw new ArgumentNullException(nameof(systemLanguageManager));
+        }
+
+        public TAppManager AppManager
+        {
+            get;
+            private set;
+        }
+
+        public TFeatureManager FeatureManager
+        {
+            get;
+            private set;
+        }
+
+        public TUserAgreementManager UserAgreementManager
+        {
+            get;
+            private set;
+        }
+
+        public TSubscriptionPlanManager SubscriptionPlanManager
+        {
+            get;
+            private set;
+        }
+
+       public TCurrencyManager CurrencyManager
+        {
+            get;
+            private set;
+        }
+
+        public TCountryManager CountryManager
+        {
+            get;
+            private set;
+        }
+
+        public TTimeZoneManager TimeZoneManager
+        {
+            get;
+            private set;
+        }
+
+        public TSystemLanguageManager SystemLanguageManager
+        {
+            get;
+            private set;
         }
 
         public List<TSubscriptionPlanInfo> GetSubscriptionPlans()
@@ -185,7 +224,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
 
         public virtual async Task<List<TSubscriptionPlanInfo>> GetSubscriptionPlansAsync()
         {
-            var subscriptionPlans = await _subscriptionPlanManager.FindAllAsync();
+            var subscriptionPlans = await SubscriptionPlanManager.FindAllAsync();
 
             if (subscriptionPlans == null || subscriptionPlans.Count <= 0)
             {
@@ -233,7 +272,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
 
                     foreach (var spApp in subscriptionPlan.SubscriptionPlanApps)
                     {
-                        var app = await _appManager.FindByIdAsync(spApp.AppId);
+                        var app = await AppManager.FindByIdAsync(spApp.AppId);
 
                         var appInfo = new TAppInfo();
                         appInfo.Id = app.Id;

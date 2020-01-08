@@ -5,23 +5,21 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
+using Ejyle.DevAccelerate.Lists.Configuration;
 using Ejyle.DevAccelerate.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Ejyle.DevAccelerate.Core.Configuration;
 
-namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
+namespace Ejyle.DevAccelerate.Lists
 {
-    public interface IDaSubscriptionPlanAttribute<TKey> : IDaEntity<TKey>
-        where TKey : IEquatable<TKey>
+    public class DaDefaultListsInitializer : DaInitializerBase
     {
-        TKey SubscriptionPlanId { get; set; }
-        string AttributeName { get; set; }
-        string AttributeValue { get; set; }
-        DaSubscriptionPlanAttributeTarget Target { get; set; }
-        DateTime CreatedDateUtc { get; set; }
-        DateTime LastUpdatedDateUtc { get; set; }
+        public DaDefaultListsInitializer(IDaConfigurationSource configurationSource)
+            : base(configurationSource)
+        { }
+
+        public override void Initialize()
+        {
+            DaListsConfigurationManager.InitConfiguration(ConfigurationSource);
+        }
     }
 }

@@ -22,5 +22,6 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
         Task<TSubscription> FindByIdAsync(TKey id);
         Task<List<TSubscription>> FindByTenantIdAsync(TKey tenantId);
         Task<List<TSubscription>> FindAllAsync();
+        Task UpdateBillingCycleAttributeAsync(TKey billingCycleAttributeId, string value);
     }
 }

@@ -52,11 +52,11 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
         [Required]
         public DaTenantStatus Status { get; set; }
 
-        public TNullableKey CountryId { get; set; }
+        public TKey CountryId { get; set; }
 
-        public TNullableKey CurrencyId { get; set; }
+        public TKey CurrencyId { get; set; }
 
-        public TNullableKey TimeZoneId { get; set; }
+        public TKey TimeZoneId { get; set; }
 
         public TNullableKey DateFormatId { get; set; }
 
@@ -64,7 +64,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
 
         public TNullableKey DateFormatWithTimeOnlyId { get; set; }
 
-        public TNullableKey SystemLanguageId { get; set; }
+        public TKey SystemLanguageId { get; set; }
 
         [Required]
         public TKey CreatedBy { get; set; }

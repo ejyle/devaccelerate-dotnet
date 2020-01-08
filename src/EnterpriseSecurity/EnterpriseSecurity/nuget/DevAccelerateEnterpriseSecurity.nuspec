@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>DevAccelerateEnterpriseSecurity</id>
-    <version>6.0.0-preview4</version>
+    <version>6.0.0-preview5</version>
     <title>DevAccelerate Enterprise Security</title>
     <authors>ejyle,tanveery</authors>
     <owners>ejyle,tanveery</owners>
@@ -14,11 +14,12 @@
     <summary>Provides additional enterprise-level security such as multi-tenancy, subscription management, etc.</summary>
     <releaseNotes>The library comes with the following features:
 
-1) Updated the subscription and subscription plan entities.</releaseNotes>
+1) Added billing cycles for subscriptions.
+2) Added billing cycle attributes.</releaseNotes>
     <copyright>© Ejyle Technologies (P) Ltd. All rights reserved.</copyright>
     <language>en-US</language>
     <tags>DevAccelerate EnterpriseSecurity Tenants Subscriptions Multi-Tenancy</tags>
-    <repository type="git" url="https://github.com/devaccelerate/DevAccelerateNet" commit="4b6dffd49490c2e045fbb8fe965383c078b99e79" />
+    <repository type="git" url="https://github.com/devaccelerate/DevAccelerateNet" commit="81897ef69c26fc7b62aad10e2c89eedec54be93f" />
     <dependencies>
       <dependency id="DevAccelerateCore" version="6.0.0-preview4" />
     </dependencies>

@@ -6,6 +6,7 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using Ejyle.DevAccelerate.Core;
+using Ejyle.DevAccelerate.Lists.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -87,6 +88,30 @@ namespace Ejyle.DevAccelerate.List.Culture
         {
             ThrowIfDisposed();
             return Repository.FindByIdAsync(id);
+        }
+
+        public TCurrency FindByName(string name)
+        {
+            return DaAsyncHelper.RunSync<TCurrency>(() => FindByNameAsync(name));
+        }
+
+        public Task<TCurrency> FindByNameAsync(string name)
+        {
+            ThrowIfDisposed();
+            ThrowIfArgumentIsNull(name, nameof(name));
+
+            return Repository.FindByNameAsync(name);
+        }
+
+        public Task<TCurrency> FindAsync()
+        {
+            ThrowIfDisposed();
+            return Repository.FindByNameAsync(DaListsConfigurationManager.GetConfiguration().DefaultCurrency);
+        }
+
+        public TCurrency Find()
+        {
+            return DaAsyncHelper.RunSync<TCurrency>(() => FindAsync());
         }
     }
 }

@@ -92,8 +92,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentication\DaAuthenticationFacade.cs" />
+    <Compile Include="Authentication\DaUserAccountCredentialsInfo.cs" />
+    <Compile Include="Authentication\IDaCredentials.cs" />
     <Compile Include="Authorization\DaAuthorizationFacade.cs" />
     <Compile Include="Authorization\DaAuthorizationInfo.cs" />
+    <Compile Include="Authorization\DaAuthorizationResult.cs" />
+    <Compile Include="Authorization\DaAuthorizationStatus.cs" />
     <Compile Include="Authorization\DaAuthorizedFeatureInfo.cs" />
     <Compile Include="Authorization\IDaAuthorizationInfo.cs" />
     <Compile Include="Authorization\IDaAuthorizedFeatureInfo.cs" />

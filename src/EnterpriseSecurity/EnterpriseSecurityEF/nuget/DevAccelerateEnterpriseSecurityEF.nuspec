@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>DevAccelerateEnterpriseSecurityEF</id>
-    <version>6.0.0-preview6</version>
+    <version>6.0.0-preview7</version>
     <title>DevAccelerate Enterprise Security EF</title>
     <authors>ejyle,tanveery</authors>
     <owners>ejyle,tanveery</owners>
@@ -12,17 +12,14 @@
     <iconUrl>https://raw.githubusercontent.com/devaccelerate/devaccelerate.github.io/master/img/logo.png</iconUrl>
     <description>Entity Framework implementation of DevAccelerate EnterpriseSecurity library.</description>
     <summary>Entity Framework implementation of DevAccelerate EnterpriseSecurity library.</summary>
-    <releaseNotes>Updated the NuGet packages.</releaseNotes>
+    <releaseNotes>Added billing cycles to subscriptions and billing cycle attributes.</releaseNotes>
     <copyright>© Ejyle Technologies (P) Ltd. All rights reserved.</copyright>
     <language>en-US</language>
     <tags>DevAccelerate EnterpriseSecurity Tenants Subscriptions Multi-Tenancy</tags>
-    <repository type="git" url="https://github.com/devaccelerate/DevAccelerateNet" commit="4b6dffd49490c2e045fbb8fe965383c078b99e79" />
+    <repository type="git" url="https://github.com/devaccelerate/DevAccelerateNet" commit="81897ef69c26fc7b62aad10e2c89eedec54be93f" />
     <dependencies>
       <dependency id="DevAccelerateCoreEF" version="6.0.0-preview3" />
-      <dependency id="DevAccelerateEnterpriseSecurity" version="6.0.0-preview4" />
+      <dependency id="DevAccelerateEnterpriseSecurity" version="6.0.0-preview5" />
     </dependencies>
   </metadata>
-  <files>
-    <file src="lib\Ejyle.DevAccelerate.EnterpriseSecurity.EF.dll" target="lib\Ejyle.DevAccelerate.EnterpriseSecurity.EF.dll" />
-  </files>
 </package>

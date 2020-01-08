@@ -59,6 +59,11 @@ namespace Ejyle.DevAccelerate.List.EF.Culture
             return DbContext.Currencies.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
         }
 
+        public Task<TCurrency> FindByNameAsync(string name)
+        {
+            return DbContext.Currencies.Where(m => m.Name == name).SingleOrDefaultAsync();
+        }
+
         public Task UpdateAsync(TCurrency currency)
         {
             DbContext.Entry(currency).State = EntityState.Modified;

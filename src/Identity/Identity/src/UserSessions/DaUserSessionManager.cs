@@ -48,7 +48,7 @@ namespace Ejyle.DevAccelerate.Identity.UserSessions
 
         public async Task UpdateStatusAsync(TKey userSessionId, DaUserSessionStatus status)
         {
-            var userSession = await FindByIdAsync(userSessionId);
+            var userSession = await GetRepository().FindByIdAsync(userSessionId);
 
             if(userSession == null)
             {

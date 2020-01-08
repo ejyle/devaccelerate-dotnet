@@ -23,5 +23,6 @@ namespace Ejyle.DevAccelerate.List.Culture
         Task<TTimeZone> FindByIdAsync(TKey id);
         Task<List<TTimeZone>> FindAllAsync();
         Task<List<TTimeZone>> FindByCountryIdAsync(TKey countryId);
+        Task<TTimeZone> FindByNameAsync(string name);
     }
 }

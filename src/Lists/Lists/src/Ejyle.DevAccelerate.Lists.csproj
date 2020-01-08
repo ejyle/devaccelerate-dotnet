@@ -53,6 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\DaListsConfigurationManager.cs" />
+    <Compile Include="Configuration\DaListsConfigurationSection.cs" />
     <Compile Include="Culture\DaCountry.cs" />
     <Compile Include="Culture\DaCountryManager.cs" />
     <Compile Include="Culture\DaCountryRegion.cs" />
@@ -77,6 +79,7 @@
     <Compile Include="Culture\IDaTimeZone.cs" />
     <Compile Include="Culture\IDaTimeZoneRepository.cs" />
     <Compile Include="DaListBase.cs" />
+    <Compile Include="DaListsInitializer.cs" />
     <Compile Include="IDaList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

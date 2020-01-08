@@ -63,6 +63,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Subscriptions
         { }
 
         private DbSet<TSubscription> Subscriptions { get { return DbContext.Set<TSubscription>(); } }
+        private DbSet<TBillingCycleAttribute> BillingCycleAttributes { get { return DbContext.Set<TBillingCycleAttribute>(); } }
 
         public Task CreateAsync(TSubscription subscription)
         {
@@ -88,6 +89,17 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Subscriptions
         public Task UpdateAsync(TSubscription subscription)
         {
             DbContext.Entry<TSubscription>(subscription).State = EntityState.Modified;
+            return SaveChangesAsync();
+        }
+
+        public Task UpdateBillingCycleAttributeAsync(TKey billingCycleAttributeId, string value)
+        {
+            var billingCycleAttribute = BillingCycleAttributes.Where(m => m.Id.Equals(billingCycleAttributeId)).SingleOrDefault();
+            billingCycleAttribute.AttributeValue = value;
+            billingCycleAttribute.LastUpdatedDateUtc = DateTime.UtcNow;
+
+            DbContext.Entry<TBillingCycleAttribute>(billingCycleAttribute).State = EntityState.Modified;
+            
             return SaveChangesAsync();
         }
     }

@@ -15,21 +15,21 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps.Configuration
     /// </summary>
     public class DaAppsConfigurationSection : DaConfigurationSection
     {
-        private const string APP_NAME = "appName";
+        private const string APP_KEY = "appKey";
 
         /// <summary>
-        /// Gets or sets the name of the app.
+        /// Gets or sets the app key.
         /// </summary>
-        [ConfigurationProperty(APP_NAME, IsRequired = false, DefaultValue = "DevAccelerateApp")]
+        [ConfigurationProperty(APP_KEY, IsRequired = false, DefaultValue = "DevAccelerateApp")]
         public string AppName
         {
             get
             {
-                return this[APP_NAME] as string;
+                return this[APP_KEY] as string;
             }
             set
             {
-                this[APP_NAME] = value;
+                this[APP_KEY] = value;
             }
         }
 

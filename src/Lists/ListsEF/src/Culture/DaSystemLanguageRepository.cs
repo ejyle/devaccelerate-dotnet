@@ -69,5 +69,10 @@ namespace Ejyle.DevAccelerate.List.EF.Culture
             DbContext.SystemLanguages.Remove(systemLanguage);
             return DbContext.SaveChangesAsync();
         }
+
+        public Task<TSystemLanguage> FindByNameAsync(string name)
+        {
+            return DbContext.SystemLanguages.Where(m => m.Name == name).SingleOrDefaultAsync();
+        }
     }
 }

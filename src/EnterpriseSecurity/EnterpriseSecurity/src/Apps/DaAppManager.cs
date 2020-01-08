@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using Ejyle.DevAccelerate.Core;
 using Ejyle.DevAccelerate.Core.Utils;
+using Ejyle.DevAccelerate.EnterpriseSecurity.Apps.Configuration;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
 { 
@@ -35,7 +36,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
             ThrowIfDisposed();
             ThrowIfArgumentIsNull(app, nameof(app));
 
-            app.Key = await CreateValidAppProfileKeyAsync(app);
+            app.Key = await CreateValidAppKeyAsync(app);
             app.Status = DaEntityWorkflowStatus.Draft;
             app.LastUpdatedDateUtc = DateTime.UtcNow;
 
@@ -60,15 +61,15 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
             DaAsyncHelper.RunSync(() => UpdateAsync(app));
         }
 
-        public virtual async Task RemoveAppProfileFeatureByIdAsync(TKey appProfileFeatureId)
+        public virtual async Task RemoveAppFeatureByIdAsync(TKey appProfileFeatureId)
         {
             ThrowIfDisposed();
             await Repository.RemoveAppFeatureByIdAsync(appProfileFeatureId);
         }
 
-        public virtual void RemoveAppProfileFeatureById(TKey appProfileFeatureId)
+        public virtual void RemoveAppFeatureById(TKey appProfileFeatureId)
         {
-            DaAsyncHelper.RunSync(() => RemoveAppProfileFeatureByIdAsync(appProfileFeatureId));
+            DaAsyncHelper.RunSync(() => RemoveAppFeatureByIdAsync(appProfileFeatureId));
         }
 
         public virtual async Task DeleteAsync(TApp app)
@@ -95,6 +96,17 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
             return Repository.FindByIdAsync(id);
         }
 
+        public virtual Task<TApp> FindAsync()
+        {
+            ThrowIfDisposed();
+            return Repository.FindByKeyAsync(DaAppsConfigurationManager.GetConfiguration().AppName);
+        }
+
+        public virtual TApp Find()
+        {
+            return DaAsyncHelper.RunSync<TApp>(() => FindAsync());
+        }
+
         public virtual List<TApp> FindAll()
         {
             return DaAsyncHelper.RunSync<List<TApp>>(() => FindAllAsync());
@@ -119,17 +131,17 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
             return Repository.FindByKeyAsync(key);
         }
 
-        public virtual string CreateValidAppProfileKey(TApp app)
+        public virtual string CreateValidAppKey(TApp app)
         {
-            return DaAsyncHelper.RunSync<string>(() => CreateValidAppProfileKeyAsync(app));
+            return DaAsyncHelper.RunSync<string>(() => CreateValidAppKeyAsync(app));
         }
 
-        public virtual async Task<string> CreateValidAppProfileKeyAsync(TApp app)
+        public virtual async Task<string> CreateValidAppKeyAsync(TApp app)
         {
             var appName = app.Name.Replace(" ", "-");
             appName = appName.ToLower();
 
-            var duplicateFeatureName = await IsAppProfileKeyExistsAsync(appName);
+            var duplicateFeatureName = await IsAppKeyExistsAsync(appName);
 
             if (duplicateFeatureName)
             {
@@ -139,9 +151,9 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
             return appName;
         }
 
-        private async Task<bool> IsAppProfileKeyExistsAsync(string appProfileName)
+        private async Task<bool> IsAppKeyExistsAsync(string appName)
         {
-            var app = await FindByKeyAsync(appProfileName);
+            var app = await FindByKeyAsync(appName);
             return (app != null);
         }
     }

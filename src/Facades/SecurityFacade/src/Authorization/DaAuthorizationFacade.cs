@@ -172,32 +172,87 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authorization
         where TSystemLanguageManager : DaSystemLanguageManager<TKey, TSystemLanguage>
         where TSystemLanguage : DaSystemLanguage<TKey, TNullableKey, TCountry>
     {
-        private TUserAgreementManager _userAgreementManager;
-        private TAppManager _appManager;
-        private TFeatureManager _featureManager;
-        private TUserManager _userManager;
-        private TTenantManager _tenantManager;
-        private TSubscriptionManager _subscriptionManager;
-        private TSubscriptionPlanManager _subscriptionPlanManager;
-        private TCurrencyManager _currencyManager;
-        private TCountryManager _countryManager;
-        private TTimeZoneManager _timeZoneManager;
-        private TSystemLanguageManager _systemLanguageManager;
-
         public DaAuthorizationFacade(TUserManager userManager, TTenantManager tenantManager, TAppManager appManager, TFeatureManager featureManager, TUserAgreementManager userAgreementManager, TSubscriptionPlanManager subscriptionPlanManager, TSubscriptionManager subscriptionManager, TCurrencyManager currencyManager, TCountryManager countryManager, TTimeZoneManager timeZoneManager, TSystemLanguageManager systemLanguageManager)
         {
-            _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
-            _tenantManager = tenantManager ?? throw new ArgumentNullException(nameof(tenantManager));
-            _appManager = appManager ?? throw new ArgumentNullException(nameof(appManager));
-            _featureManager = featureManager ?? throw new ArgumentNullException(nameof(featureManager));
-            _userAgreementManager = userAgreementManager ?? throw new ArgumentNullException(nameof(userAgreementManager));
-            _subscriptionManager = subscriptionManager ?? throw new ArgumentNullException(nameof(subscriptionManager));
-            _subscriptionPlanManager = subscriptionPlanManager ?? throw new ArgumentNullException(nameof(subscriptionPlanManager));
-            _currencyManager = currencyManager ?? throw new ArgumentNullException(nameof(currencyManager));
-            _countryManager = countryManager ?? throw new ArgumentNullException(nameof(countryManager));
-            _timeZoneManager = timeZoneManager ?? throw new ArgumentNullException(nameof(timeZoneManager));
-            _systemLanguageManager = systemLanguageManager ?? throw new ArgumentNullException(nameof(systemLanguageManager));
+            UserManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
+            TenantManager = tenantManager ?? throw new ArgumentNullException(nameof(tenantManager));
+            AppManager = appManager ?? throw new ArgumentNullException(nameof(appManager));
+            FeatureManager = featureManager ?? throw new ArgumentNullException(nameof(featureManager));
+            UserAgreementManager = userAgreementManager ?? throw new ArgumentNullException(nameof(userAgreementManager));
+            SubscriptionManager = subscriptionManager ?? throw new ArgumentNullException(nameof(subscriptionManager));
+            SubscriptionPlanManager = subscriptionPlanManager ?? throw new ArgumentNullException(nameof(subscriptionPlanManager));
+            CurrencyManager = currencyManager ?? throw new ArgumentNullException(nameof(currencyManager));
+            CountryManager = countryManager ?? throw new ArgumentNullException(nameof(countryManager));
+            TimeZoneManager = timeZoneManager ?? throw new ArgumentNullException(nameof(timeZoneManager));
+            SystemLanguageManager = systemLanguageManager ?? throw new ArgumentNullException(nameof(systemLanguageManager));
         }
+
+        public TUserManager UserManager
+        {
+            get;
+            private set;
+        }
+
+        public TTenantManager TenantManager
+        {
+            get;
+            private set;
+        }
+
+        public TSubscriptionManager SubscriptionManager
+        {
+            get;
+            private set;
+        }
+
+        public TAppManager AppManager
+        {
+            get;
+            private set;
+        }
+
+        public TFeatureManager FeatureManager
+        {
+            get;
+            private set;
+        }
+
+        public TUserAgreementManager UserAgreementManager
+        {
+            get;
+            private set;
+        }
+
+        public TSubscriptionPlanManager SubscriptionPlanManager
+        {
+            get;
+            private set;
+        }
+
+        public TCurrencyManager CurrencyManager
+        {
+            get;
+            private set;
+        }
+
+        public TCountryManager CountryManager
+        {
+            get;
+            private set;
+        }
+
+        public TTimeZoneManager TimeZoneManager
+        {
+            get;
+            private set;
+        }
+
+        public TSystemLanguageManager SystemLanguageManager
+        {
+            get;
+            private set;
+        }
+
 
         public List<TAuthorizedFeatureInfo> GetAuthorizedFeatures(TKey userId, TKey subscriptionId)
         {
@@ -206,7 +261,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authorization
 
         public virtual async Task<List<TAuthorizedFeatureInfo>> GetAuthorizedFeaturesAsync(TKey userId, TKey subscriptionId)
         {
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await UserManager.FindByIdAsync(userId);
 
             if (user == null)
             {
@@ -218,7 +273,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authorization
                 return null;
             }
 
-            var subscription = await _subscriptionManager.FindByIdAsync(subscriptionId);
+            var subscription = await SubscriptionManager.FindByIdAsync(subscriptionId);
 
             if (subscription == null)
             {
@@ -230,7 +285,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authorization
                 return null;
             }
 
-            var tenants = await _tenantManager.FindByUserIdAsync(userId);
+            var tenants = await TenantManager.FindByUserIdAsync(userId);
             TTenant tenant = null;
 
             for (var i = 0; i < tenants.Count; i++)
@@ -272,38 +327,38 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authorization
             return result;
         }
 
-        public TAuthorizationInfo Authorize(TKey userId, TKey subscriptionId, string featureKey)
+        public DaAuthorizationResult<TKey, TAuthorizationInfo, TAuthorizedActionInfo> Authorize(TKey userId, TKey subscriptionId, string featureKey)
         {
-            return DaAsyncHelper.RunSync<TAuthorizationInfo>(() => AuthorizeAsync(userId, subscriptionId, featureKey));
+            return DaAsyncHelper.RunSync<DaAuthorizationResult<TKey, TAuthorizationInfo, TAuthorizedActionInfo>>(() => AuthorizeAsync(userId, subscriptionId, featureKey));
         }
 
-        public virtual async Task<TAuthorizationInfo> AuthorizeAsync(TKey userId, TKey subscriptionId, string featureKey)
+        public virtual async Task<DaAuthorizationResult<TKey, TAuthorizationInfo, TAuthorizedActionInfo>> AuthorizeAsync(TKey userId, TKey subscriptionId, string featureKey)
         {
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await UserManager.FindByIdAsync(userId);
 
             if (user == null)
             {
-                return null;
+                throw new ArgumentException("Invalid user ID.");
             }
 
             if (user.Status != DaAccountStatus.Active)
             {
-                return null;
+                return new DaAuthorizationResult<TKey, TAuthorizationInfo, TAuthorizedActionInfo>(DaAuthorizationStatus.UserAccountNotActive);
             }
 
-            var subscription = await _subscriptionManager.FindByIdAsync(subscriptionId);
+            var subscription = await SubscriptionManager.FindByIdAsync(subscriptionId);
 
             if (subscription == null)
             {
-                return null;
+                throw new ArgumentException("Invalid subscription ID.");
             }
 
             if (!subscription.IsActive)
             {
-                return null;
+                return new DaAuthorizationResult<TKey, TAuthorizationInfo, TAuthorizedActionInfo>(DaAuthorizationStatus.SubscriptionNotActive);
             }
 
-            var tenants = await _tenantManager.FindByUserIdAsync(userId);
+            var tenants = await TenantManager.FindByUserIdAsync(userId);
             TTenant tenant = null;
 
             for (var i = 0; i < tenants.Count; i++)
@@ -321,14 +376,14 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authorization
 
             if (tenant == null)
             {
-                return null;
+                return new DaAuthorizationResult<TKey, TAuthorizationInfo, TAuthorizedActionInfo>(DaAuthorizationStatus.NotAssociatedWithAnActiveTenant);
             }
 
             var feature = subscription.SubscriptionFeatures.Where(m => m.Feature.Key == featureKey).SingleOrDefault();
 
             if (feature == null)
             {
-                return null;
+                return new DaAuthorizationResult<TKey, TAuthorizationInfo, TAuthorizedActionInfo>(DaAuthorizationStatus.FeatureNotFoundInSubscription);
             }
 
             var subscriptionFeatureUser = feature.SubscriptionFeatureUsers.Where(m => m.UserId.Equals(userId)).SingleOrDefault();
@@ -337,7 +392,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authorization
             {
                 if (!subscriptionFeatureUser.IsEnabled)
                 {
-                    return null;
+                    return new DaAuthorizationResult<TKey, TAuthorizationInfo, TAuthorizedActionInfo>(DaAuthorizationStatus.FeatureDenidToUser);
                 }
             }
 
@@ -426,9 +481,11 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authorization
                         }
                     }
                 }
+
+                authorizationInfo.Actions = authorizedActions;
             }
 
-            return authorizationInfo;
+            return new DaAuthorizationResult<TKey, TAuthorizationInfo, TAuthorizedActionInfo>(authorizationInfo); ;
         }
     }
 }
