@@ -84,5 +84,27 @@ namespace Ejyle.DevAccelerate.Profiles.Addresses
             ThrowIfDisposed();
             return Repository.FindByIdAsync(id);
         }
+
+        public virtual List<TAddressProfile> FindByUserId(TKey userId)
+        {
+            return DaAsyncHelper.RunSync<List<TAddressProfile>>(() => FindByUserIdAsync(userId));
+        }
+
+        public virtual Task<List<TAddressProfile>> FindByUserIdAsync(TKey userId)
+        {
+            ThrowIfDisposed();
+            return Repository.FindByUserIdAsync(userId);
+        }
+
+        public virtual List<TAddressProfile> FindByTenantId(TKey tenantId)
+        {
+            return DaAsyncHelper.RunSync<List<TAddressProfile>>(() => FindByTenantIdAsync(tenantId));
+        }
+
+        public virtual Task<List<TAddressProfile>> FindByTenantIdAsync(TKey tenantId)
+        {
+            ThrowIfDisposed();
+            return Repository.FindByTenantIdAsync(tenantId);
+        }
     }
 }

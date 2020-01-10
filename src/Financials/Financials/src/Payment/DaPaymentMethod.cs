@@ -34,6 +34,7 @@ namespace Ejyle.DevAccelerate.Financials.Payment
         public PaymentMethodType PaymentMethodType { get; set; }
         public bool IsActive { get; set; }
         public string Name { get; set; }
+        public string NativePaymentMethodId { get; set; }
         public TKey OwnerUserId { get; set; }
         public DateTime CreatedDateUtc { get; set; }
         public DateTime LastUpdatedDateUtc { get; set; }

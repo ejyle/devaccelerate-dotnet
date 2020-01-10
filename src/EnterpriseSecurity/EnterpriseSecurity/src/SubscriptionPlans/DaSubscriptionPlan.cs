@@ -55,11 +55,15 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
 
         public double? SetupFee { get; set; }
 
+        public int Level { get; set; }
+
         public bool AllowTrial { get; set; }
 
         public bool StartOnlyWithTrial { get; set; }
 
         public int? TrialDays { get; set; }
+
+        public bool IsFree { get; set; }
 
         public TNullableKey UserAgreementVersionId { get; set; }
 

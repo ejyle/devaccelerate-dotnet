@@ -40,6 +40,8 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 
         public bool IsActive { get; set; }
 
+        public bool IsFree { get; set; }
+
         public DateTime? ExpiryDateUtc { get; set; }
 
         public TKey CurrencyId { get; set; }
@@ -51,6 +53,8 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
         public DaBillingCycleType? BillingCycleType { get; set; }
 
         public TKey TenantId { get; set; }
+
+        public int Level { get; set; }
 
         public TNullableKey UserAgreementVersionId { get; set; }
 

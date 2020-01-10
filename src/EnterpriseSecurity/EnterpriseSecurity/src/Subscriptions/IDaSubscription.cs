@@ -24,6 +24,8 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
         DateTime? TrialPeriodEndDateUtc { get; set; }
         bool IsCurrentlyInTrial { get; set; }
         DaBillingCycleType? BillingCycleType { get; set; }
+        int Level { get; set; }
+        bool IsFree { get; set; }
         DateTime StartDateUtc { get; set; }
         bool IsAutoRenewUntilCanceled { get; set; }
         TKey TenantId { get; set; }

@@ -43,7 +43,7 @@ namespace Ejyle.DevAccelerate.Profiles.Addresses
         public string Address2 { get; set; }
         public string ZipCode { get; set; }
         public string State { get; set; }
-        public TNullableKey CountryId { get; set; }
+        public TKey CountryId { get; set; }
         public TKey OwnerUserId { get; set; }
         public string PhoneNumber { get; set; }
         public string AreaCode { get; set; }
@@ -54,5 +54,6 @@ namespace Ejyle.DevAccelerate.Profiles.Addresses
         public DateTime CreatedDateUtc { get; set; }
         public DateTime LastUpdatedDateUtc { get; set; }
         public virtual ICollection<TUserAddress> UserAddresses { get; set; }
+        public string City { get; set; }
     }
 }

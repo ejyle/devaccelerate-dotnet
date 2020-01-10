@@ -19,9 +19,10 @@ namespace Ejyle.DevAccelerate.Profiles.Addresses
     {
         string Address1 { get; set; }
         string Address2 { get; set; }
+        string City { get; set; }
         string ZipCode { get; set; }
         string State { get; set; }
-        TNullableKey CountryId { get; set; }
+        TKey CountryId { get; set; }
         TKey OwnerUserId { get; set; }
         string PhoneNumber { get; set; }
         string AreaCode { get; set; }

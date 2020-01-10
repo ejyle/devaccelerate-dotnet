@@ -20,7 +20,8 @@ namespace Ejyle.DevAccelerate.Profiles.Addresses
     {
         Task CreateAsync(TAddressProfile addressProfile);
         Task<TAddressProfile> FindByIdAsync(TKey id);
-        Task<List<TAddressProfile>> FindByUserIdAsync(TKey ownerUserId);
+        Task<List<TAddressProfile>> FindByUserIdAsync(TKey userId);
+        Task<List<TAddressProfile>> FindByTenantIdAsync(TKey tenantId);
         Task UpdateAsync(TAddressProfile addressProfile);
         Task DeleteAsync(TAddressProfile addressProfile);
     }

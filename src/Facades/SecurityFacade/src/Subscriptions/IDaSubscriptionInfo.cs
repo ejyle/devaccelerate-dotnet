@@ -30,7 +30,8 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
         string Address2 { get; set; }
         string ZipCode { get; set; }
         string State { get; set; }
-        TNullableKey CountryId { get; set; }
+        string City { get; set; }
+        TKey CountryId { get; set; }
         string PhoneNumber { get; set; }
         string AreaCode { get; set; }
         string Extension { get; set; }

@@ -32,8 +32,8 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
         public TKey SubscriptionId { get; set; }
         public DateTime FromDateUtc { get; set; }
         public DateTime? ToDateUtc { get; set; }
-        public decimal Amount { get; set; }
-        public TKey CurrencyId { get; set; }
+        public decimal? Amount { get; set; }
+        public TNullableKey CurrencyId { get; set; }
         public TNullableKey InvoiceId { get; set; }
         public bool IsPaid { get; set; }
         public TNullableKey TransactionId { get; set; }

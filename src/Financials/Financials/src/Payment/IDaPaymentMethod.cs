@@ -18,6 +18,7 @@ namespace Ejyle.DevAccelerate.Financials.Payment
         where TKey : IEquatable<TKey>
     {
         string Name { get; set; }
+        string NativePaymentMethodId { get; set; }
         string PaymentGateway { get; set; }
         PaymentMethodType PaymentMethodType { get; set; }
         bool IsActive { get; set; }

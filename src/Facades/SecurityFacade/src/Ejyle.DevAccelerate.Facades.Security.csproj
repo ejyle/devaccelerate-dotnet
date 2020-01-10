@@ -104,6 +104,10 @@
     <Compile Include="Authorization\IDaAuthorizedFeatureInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs" />
+    <Compile Include="Subscriptions\DaRegistrationResult.cs" />
+    <Compile Include="Subscriptions\DaRegistrationStatus.cs" />
+    <Compile Include="Subscriptions\DaSubscriptionCreationResult.cs" />
+    <Compile Include="Subscriptions\DaSubscriptionCreationStatus.cs" />
     <Compile Include="Subscriptions\DaSubscriptionFacade.cs" />
     <Compile Include="Subscriptions\DaSubscriptionInfo.cs" />
     <Compile Include="Subscriptions\DaSubscriptionPlanFacade.cs" />

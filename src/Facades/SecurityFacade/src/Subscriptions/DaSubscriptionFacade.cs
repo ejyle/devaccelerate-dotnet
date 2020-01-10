@@ -331,13 +331,18 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
             return await SubscriptionManager.FindByTenantIdAsync(tenantId);
         }
 
-        public IdentityResult Subscribe(TSubscriptionInfo subscriptionInfo, string password)
+        public DaRegistrationResult<TKey> Subscribe(TSubscriptionInfo subscriptionInfo, string password)
         {
-            return DaAsyncHelper.RunSync<IdentityResult>(() => SubscribeAsync(subscriptionInfo, password));
+            return DaAsyncHelper.RunSync<DaRegistrationResult<TKey>>(() => SubscribeAsync(subscriptionInfo, password));
         }
 
-        public virtual async Task<IdentityResult> SubscribeAsync(TSubscriptionInfo subscriptionInfo, string password)
+        public virtual async Task<DaRegistrationResult<TKey>> SubscribeAsync(TSubscriptionInfo subscriptionInfo, string password)
         {
+            if(subscriptionInfo == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionInfo));
+            }
+
             var subscriptionPlan = await SubscriptionPlanManager.FindByIdAsync(subscriptionInfo.SubscriptionPlanId);
 
             if (subscriptionPlan == null)
@@ -345,7 +350,31 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                 throw new InvalidOperationException(Resources.InvalidSubscriptionPlan);
             }
 
-            var user = new TUser
+            if (string.IsNullOrEmpty(subscriptionInfo.UserName))
+            {
+                return new DaRegistrationResult<TKey>(DaRegistrationStatus.InvalidUserName, null);
+            }
+
+            if (string.IsNullOrEmpty(subscriptionInfo.Email))
+            {
+                return new DaRegistrationResult<TKey>(DaRegistrationStatus.InvalidEmail, null);
+            }
+
+            var user = await UserManager.FindByNameAsync(subscriptionInfo.UserName);
+
+            if(user != null)
+            {
+                return new DaRegistrationResult<TKey>(DaRegistrationStatus.DuplicateUserName, null);
+            }
+
+            user = await UserManager.FindByEmailAsync(subscriptionInfo.Email);
+
+            if (user != null)
+            {
+                return new DaRegistrationResult<TKey>(DaRegistrationStatus.DuplicateEmail, null);
+            }
+
+            user = new TUser
             {
                 UserName = subscriptionInfo.UserName,
                 Email = subscriptionInfo.Email,
@@ -355,6 +384,11 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
             };
 
             var result = await UserManager.CreateAsync(user, password);
+            
+            if(!result.Succeeded)
+            {
+                return new DaRegistrationResult<TKey>(DaRegistrationStatus.UnknownError, result.Errors);
+            }
 
             var userProfile = new TUserProfile()
             {
@@ -465,6 +499,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                 State = subscriptionInfo.State,
                 FaxNumber = subscriptionInfo.FaxNumber,
                 AreaCode = subscriptionInfo.AreaCode,
+                City = subscriptionInfo.City,
                 CountryId = subscriptionInfo.CountryId,
                 OwnerUserId = user.Id,
                 CreatedDateUtc = DateTime.UtcNow,
@@ -494,7 +529,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                 OwnerUserId = user.Id,
                 SubscriptionPlanId = subscriptionPlan.Id,
                 ExpiryDateUtc = DateTime.UtcNow.AddDays(30),
-                CountryId = default(TKey),
+                CountryId = subscriptionInfo.CountryId,
                 TenantId = tenant.Id,
                 IsAutoRenewUntilCanceled = subscriptionPlan.IsAutoRenewUntilCanceled,
                 UserAgreementVersionId = default(TNullableKey),
@@ -503,6 +538,8 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                 LastTransactionId = default(TNullableKey),
                 LastUpdatedDateUtc = DateTime.UtcNow,
                 BillingAmount = 0,
+                IsFree = subscriptionPlan.IsFree,
+                Level = subscriptionPlan.Level,
                 BillingCycleType = DaBillingCycleType.Monthly,
                 StartDateUtc = DateTime.UtcNow,
                 TrialStartDateUtc = null
@@ -543,7 +580,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                 {
                     Amount = billingCycleOption.Amount,
                     FromDateUtc = subscription.StartDateUtc,
-                    CurrencyId = default(TKey),
+                    CurrencyId = default(TNullableKey),
                     IsPaid = false,
                     Subscription = subscription,
                     InvoiceId = default(TNullableKey),
@@ -680,15 +717,15 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
             }
 
             await SubscriptionManager.CreateAsync(subscription);
-            return result;
+            return new DaRegistrationResult<TKey>(subscription.Id);
         }
 
-        public virtual void Subscribe(TKey subscriptionPlanId, TKey tenantId, TKey userId, TKey billingCycleOptionId, bool startWithTrial, Dictionary<string, string> subscriptionAttributes, bool deactivateAndExpireExistingSubscriptions = true)
+        public virtual DaSubscriptionCreationResult<TKey> Subscribe(TKey subscriptionPlanId, TKey tenantId, TKey userId, TKey billingCycleOptionId, bool startWithTrial, Dictionary<string, string> subscriptionAttributes, bool deactivateAndExpireExistingSubscriptions = true)
         {
-            DaAsyncHelper.RunSync(() => SubscribeAsync(subscriptionPlanId, tenantId, userId, billingCycleOptionId, startWithTrial, subscriptionAttributes, deactivateAndExpireExistingSubscriptions));
+            return DaAsyncHelper.RunSync<DaSubscriptionCreationResult<TKey>>(() => SubscribeAsync(subscriptionPlanId, tenantId, userId, billingCycleOptionId, startWithTrial, subscriptionAttributes, deactivateAndExpireExistingSubscriptions));
         }
 
-        public virtual async Task SubscribeAsync(TKey subscriptionPlanId, TKey tenantId, TKey userId, TKey billingCycleOptionId, bool startWithTrial, Dictionary<string, string> subscriptionAttributes, bool deactivateAndExpireExistingSubscriptions = true)
+        public virtual async Task<DaSubscriptionCreationResult<TKey>> SubscribeAsync(TKey subscriptionPlanId, TKey tenantId, TKey userId, TKey billingCycleOptionId, bool startWithTrial, Dictionary<string, string> subscriptionAttributes, bool deactivateAndExpireExistingSubscriptions = true)
         {
             var subscriptionPlan = await SubscriptionPlanManager.FindByIdAsync(subscriptionPlanId);
 
@@ -765,6 +802,8 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                 LastTransactionId = default(TNullableKey),
                 LastUpdatedDateUtc = DateTime.UtcNow,
                 BillingAmount = 0,
+                IsFree = subscriptionPlan.IsFree,
+                Level = subscriptionPlan.Level,
                 BillingCycleType = DaBillingCycleType.Monthly,
                 StartDateUtc = DateTime.UtcNow,
                 TrialStartDateUtc = null
@@ -797,7 +836,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                 {
                     Amount = billingCycleOption.Amount,
                     FromDateUtc = subscription.StartDateUtc,
-                    CurrencyId = default(TKey),
+                    CurrencyId = default(TNullableKey),
                     IsPaid = false,
                     Subscription = subscription,
                     InvoiceId = default(TNullableKey),
@@ -935,6 +974,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
             }
 
             await SubscriptionManager.CreateAsync(subscription);
+            return new DaSubscriptionCreationResult<TKey>(subscription.Id);
         }
 
 

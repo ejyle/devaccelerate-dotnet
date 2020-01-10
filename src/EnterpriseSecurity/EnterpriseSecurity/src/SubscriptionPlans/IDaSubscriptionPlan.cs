@@ -24,6 +24,8 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
         bool AllowTrial { get; set; }
         bool StartOnlyWithTrial { get; set; }
         int? TrialDays { get; set; }
+        int Level { get; set; }
+        bool IsFree { get; set; }
         DaEntityWorkflowStatus Status { get; set; }
         TNullableKey UserAgreementVersionId { get; set; }
         TNullableKey DefaultBillingCycleId { get; set; }
