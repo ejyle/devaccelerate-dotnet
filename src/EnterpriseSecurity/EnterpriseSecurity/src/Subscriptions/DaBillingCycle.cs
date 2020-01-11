@@ -13,20 +13,22 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 {
-    public class DaBillingCycle : DaBillingCycle<int, int?,  DaBillingCycleAttribute, DaSubscription>
+    public class DaBillingCycle : DaBillingCycle<int, int?,  DaBillingCycleAttribute, DaSubscription, DaBillingCycleFeatureUsage>
     {
         public DaBillingCycle() : base()
         { }
     }
 
-    public class DaBillingCycle<TKey, TNullableKey, TAttribute, TSubscription> : DaEntityBase<TKey>, IDaBillingCycle<TKey, TNullableKey>
+    public class DaBillingCycle<TKey, TNullableKey, TAttribute, TSubscription, TBillingCycleFeatureUsage> : DaEntityBase<TKey>, IDaBillingCycle<TKey, TNullableKey>
         where TKey : IEquatable<TKey>
         where TAttribute : IDaBillingCycleAttribute<TKey>
         where TSubscription : IDaSubscription<TKey, TNullableKey>
+        where TBillingCycleFeatureUsage : IDaBillingCycleFeatureUsage<TKey>
     {
         public DaBillingCycle() : base()
         {
             Attributes = new HashSet<TAttribute>();
+            FeatureUsage = new HashSet<TBillingCycleFeatureUsage>();
         }
 
         public TKey SubscriptionId { get; set; }
@@ -39,5 +41,6 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
         public TNullableKey TransactionId { get; set; }
         public virtual TSubscription Subscription { get; set; }
         public virtual ICollection<TAttribute> Attributes { get; set; }
+        public virtual ICollection<TBillingCycleFeatureUsage> FeatureUsage { get; set; }
     }
 }

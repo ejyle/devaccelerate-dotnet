@@ -69,5 +69,15 @@
     <None Include="Ejyle.DevAccelerate.Financials.Payment.Stripe.snk" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Core\Core\src\Ejyle.DevAccelerate.Core.csproj">
+      <Project>{320bf7cc-b2bb-40de-afa1-62197c369adb}</Project>
+      <Name>Ejyle.DevAccelerate.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Financials\src\Ejyle.DevAccelerate.Financials.csproj">
+      <Project>{d5645e40-a187-43fa-88ec-abdd14a3ee75}</Project>
+      <Name>Ejyle.DevAccelerate.Financials</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

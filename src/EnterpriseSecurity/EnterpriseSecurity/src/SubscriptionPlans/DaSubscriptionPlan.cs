@@ -80,5 +80,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
         public virtual ICollection<TSubscriptionPlanFeature> SubscriptionPlanFeatures { get; set; }
 
         public virtual ICollection<TSubscription> Subscriptions { get; set; }
+        
+        public DaBillingType BillingType { get; set; }
     }
 }

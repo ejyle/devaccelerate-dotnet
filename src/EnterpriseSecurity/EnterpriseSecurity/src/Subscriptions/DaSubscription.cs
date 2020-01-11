@@ -50,7 +50,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 
         public decimal BillingAmount { get; set; }
 
-        public DaBillingCycleType? BillingCycleType { get; set; }
+        public DaBillingInterval? BillingInterval { get; set; }
 
         public TKey TenantId { get; set; }
 
@@ -95,5 +95,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
         public DateTime? NextBillingDateUtc { get; set; }
 
         public DateTime? TrialStartDateUtc { get; set; }
+        
+        public DaBillingType BillingType { get; set; }
     }
 }

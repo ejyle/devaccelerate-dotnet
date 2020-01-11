@@ -23,7 +23,8 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
         DateTime? TrialPeriodStartDateUtc { get; set; }
         DateTime? TrialPeriodEndDateUtc { get; set; }
         bool IsCurrentlyInTrial { get; set; }
-        DaBillingCycleType? BillingCycleType { get; set; }
+        DaBillingInterval? BillingInterval { get; set; }
+        DaBillingType BillingType { get; set; }
         int Level { get; set; }
         bool IsFree { get; set; }
         DateTime StartDateUtc { get; set; }

@@ -45,7 +45,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
         TKey Id { get; set; }
         string Name { get; set; }
         string Description { get; set; }
-        DaBillingCycleType BillingCycleType { get; set; }
+        DaBillingInterval BillingCycleType { get; set; }
         int BillingCycleDuration { get; set; }
         decimal Amount { get; set; }
     }

@@ -26,9 +26,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
         public DaBillingCycleOption() : base()
         { }
 
-        public DaBillingCycleType BillingCycleType { get; set; }
-
-        public int BillingCycleDuration { get; set; }
+        public DaBillingInterval BillingInterval { get; set; }
 
         public decimal Amount { get; set; }
 

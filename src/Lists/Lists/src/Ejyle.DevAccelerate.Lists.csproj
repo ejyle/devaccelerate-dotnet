@@ -80,6 +80,16 @@
     <Compile Include="Culture\IDaTimeZoneRepository.cs" />
     <Compile Include="DaListBase.cs" />
     <Compile Include="DaListsInitializer.cs" />
+    <Compile Include="Generic\DaGenericList.cs" />
+    <Compile Include="Generic\DaGenericListItem.cs" />
+    <Compile Include="Generic\DaGenericListManager.cs" />
+    <Compile Include="Generic\IDaGenericList.cs" />
+    <Compile Include="Generic\IDaGenericListItem.cs" />
+    <Compile Include="Generic\IDaGenericListRepository.cs" />
+    <Compile Include="Measurements\DaUom.cs" />
+    <Compile Include="Measurements\DaUomManager.cs" />
+    <Compile Include="Measurements\IDaUom.cs" />
+    <Compile Include="Measurements\IDaUomRepository.cs" />
     <Compile Include="IDaList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

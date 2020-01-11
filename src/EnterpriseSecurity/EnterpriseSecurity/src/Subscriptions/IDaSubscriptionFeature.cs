@@ -6,6 +6,7 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using Ejyle.DevAccelerate.Core;
+using Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +19,13 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
         where TKey : IEquatable<TKey>
     {
         TKey SubscriptionId { get; set; }
-
         TKey FeatureId { get; set; }
-
-        bool IsEnabled { get; set; }
-
+        bool IsActive { get; set; }
+        bool IsPremium { get; set; }
+        double? MaximumQuantity { get; set; }
+        double? Quantity { get; set; }
+        DaSubscriptionPlanFeatureType SubscriptionPlanFeatureType { get; set; }
+        DateTime CreatedDateUtc { get; set; }
         DateTime LastUpdatedDateUtc { get; set; }
     }
 }

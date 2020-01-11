@@ -5,13 +5,17 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
 {
-    public enum DaBillingCycleType
+    public enum DaSubscriptionPlanFeatureType
     {
-        Weekly = 0,
-        Monthly = 1,
-        Quarterly = 2,
-        Yearly = 3
+        Licensed = 0,
+        MeteredUsage = 1
     }
 }

@@ -32,15 +32,15 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
         }
 
         public TKey SubscriptionPlanId { get; set; }
-
         public TKey FeatureId { get; set; }
-
-        public DateTime CreatedDateUtc { get; set; }
-
         public virtual TFeature Feature { get; set; }
-
+        public bool IsPremium { get; set; }
+        public double? MaximumQuantity { get; set; }
+        public DaSubscriptionPlanFeatureType SubscriptionPlanFeatureType { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime CreatedDateUtc { get; set; }
+        public DateTime LastUpdatedDateUtc { get; set; }
         public virtual ICollection<TSubscriptionPlanFeatureAttribute> SubscriptionPlanFeatureAttributes { get; set; }
-
         public virtual TSubscriptionPlan SubscriptionPlan { get; set; }
     }
 }

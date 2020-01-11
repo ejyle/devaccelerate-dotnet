@@ -5,18 +5,13 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-using System;
-using Ejyle.DevAccelerate.Core;
-
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
 {
-    public interface IDaBillingCycleOption<TKey> : IDaEntity<TKey>
-        where TKey : IEquatable<TKey>
+    public enum DaBillingInterval
     {
-        string Name { get; set; }
-        string Description { get; set; }
-        TKey SubscriptionPlanId { get; set; }
-        DaBillingInterval BillingInterval { get; set; }
-        decimal Amount { get; set; }
+        Weekly = 0,
+        Monthly = 1,
+        Quarterly = 2,
+        Yearly = 3
     }
 }

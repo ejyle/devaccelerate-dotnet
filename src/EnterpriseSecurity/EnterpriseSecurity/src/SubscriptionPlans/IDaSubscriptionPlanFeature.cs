@@ -19,6 +19,11 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
     {
         TKey SubscriptionPlanId { get; set; }
         TKey FeatureId { get; set; }
+        bool IsPremium { get; set; }
+        double? MaximumQuantity { get; set;}
+        DaSubscriptionPlanFeatureType SubscriptionPlanFeatureType { get; set; }
+        bool IsActive { get; set; }
         DateTime CreatedDateUtc { get; set; }
+        DateTime LastUpdatedDateUtc { get; set; }
     }
 }

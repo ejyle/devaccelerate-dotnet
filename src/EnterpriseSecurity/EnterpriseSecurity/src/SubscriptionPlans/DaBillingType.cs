@@ -6,17 +6,16 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using System;
-using Ejyle.DevAccelerate.Core;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
 {
-    public interface IDaBillingCycleOption<TKey> : IDaEntity<TKey>
-        where TKey : IEquatable<TKey>
+    public enum DaBillingType
     {
-        string Name { get; set; }
-        string Description { get; set; }
-        TKey SubscriptionPlanId { get; set; }
-        DaBillingInterval BillingInterval { get; set; }
-        decimal Amount { get; set; }
+        UpfrontBilling = 0,
+        ConsumptionBilling = 1
     }
 }

@@ -76,8 +76,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubscriptionPlans\DaBillingCycleOption.cs" />
     <Compile Include="SubscriptionPlans\DaBillingCycleOptionManager.cs" />
-    <Compile Include="SubscriptionPlans\DaBillingCycleType.cs" />
+    <Compile Include="SubscriptionPlans\DaBillingInterval.cs" />
     <Compile Include="SubscriptionPlans\DaDuplicateSubscriptionPlanCodeException.cs" />
+    <Compile Include="SubscriptionPlans\DaBillingType.cs" />
     <Compile Include="SubscriptionPlans\DaSubscriptionPlan.cs" />
     <Compile Include="SubscriptionPlans\DaSubscriptionPlanApp.cs" />
     <Compile Include="SubscriptionPlans\DaSubscriptionPlanAttribute.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="SubscriptionPlans\DaSubscriptionPlanFeature.cs" />
     <Compile Include="SubscriptionPlans\DaSubscriptionPlanFeatureAttribute.cs" />
     <Compile Include="SubscriptionPlans\DaSubscriptionPlanManager.cs" />
+    <Compile Include="SubscriptionPlans\DaSubscriptionPlanFeatureType.cs" />
     <Compile Include="SubscriptionPlans\IDaBillingCycleOption.cs" />
     <Compile Include="SubscriptionPlans\IDaBillingCycleRepository.cs" />
     <Compile Include="SubscriptionPlans\IDaSubscriptionPlan.cs" />
@@ -95,6 +97,7 @@
     <Compile Include="SubscriptionPlans\IDaSubscriptionPlanRepository.cs" />
     <Compile Include="Subscriptions\DaBillingCycle.cs" />
     <Compile Include="Subscriptions\DaBillingCycleAttribute.cs" />
+    <Compile Include="Subscriptions\DaBillingCycleFeatureUsage.cs" />
     <Compile Include="Subscriptions\DaSubscription.cs" />
     <Compile Include="Subscriptions\DaSubscriptionApp.cs" />
     <Compile Include="Subscriptions\DaSubscriptionAppRole.cs" />
@@ -109,6 +112,7 @@
     <Compile Include="Subscriptions\DaSubscriptionManager.cs" />
     <Compile Include="Subscriptions\IDaBillingCycle.cs" />
     <Compile Include="Subscriptions\IDaBillingCycleAttribute.cs" />
+    <Compile Include="Subscriptions\IDaBillingCycleFeatureUsage.cs" />
     <Compile Include="Subscriptions\IDaSubscription.cs" />
     <Compile Include="Subscriptions\IDaSubscriptionApp.cs" />
     <Compile Include="Subscriptions\IDaSubscriptionAppRole.cs" />

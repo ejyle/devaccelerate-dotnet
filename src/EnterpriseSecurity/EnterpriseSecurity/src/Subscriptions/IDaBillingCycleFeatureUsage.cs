@@ -5,23 +5,23 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
+using Ejyle.DevAccelerate.Core;
+using Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 {
-    public interface IDaSubscriptionRepository<TKey, TNullableKey, TSubscription>
-        : IDaEntityRepository<TKey, TSubscription>
+    public interface IDaBillingCycleFeatureUsage<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
-        where TSubscription : IDaSubscription<TKey, TNullableKey>
     {
-        Task CreateAsync(TSubscription subscription);
-        Task UpdateAsync(TSubscription subscription);
-        Task<TSubscription> FindByIdAsync(TKey id);
-        Task<List<TSubscription>> FindByTenantIdAsync(TKey tenantId);
-        Task<List<TSubscription>> FindAllAsync();
-        Task SetBillingCycleFeatureUsageQuantityAsync(TKey billingCycleFeatureUsageId, double value);
+        TKey BillingCycleId { get; set; }
+        TKey SubscriptionFeatureId { get; set; }
+        double Quantity { get; set; }
+        DateTime CreatedDateUtc { get; set; }
+        DateTime LastUpdatedDateUtc { get; set; }
     }
 }

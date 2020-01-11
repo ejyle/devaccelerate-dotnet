@@ -90,10 +90,15 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
             return DaAsyncHelper.RunSync<List<TSubscription>>(() => FindAllAsync());
         }
 
-        public Task UpdateBillingCycleAttributeAsync(TKey billingCycleAttributeId, string value)
+        public virtual void SetBillingCycleFeatureUsageQuantity(TKey billingCycleFeatureUsageId, double value)
+        {
+            DaAsyncHelper.RunSync(() => SetBillingCycleFeatureUsageQuantityAsync(billingCycleFeatureUsageId, value));
+        }
+
+        public Task SetBillingCycleFeatureUsageQuantityAsync(TKey billingCycleFeatureUsageId, double value)
         {
             ThrowIfDisposed();
-            return Repository.UpdateBillingCycleAttributeAsync(billingCycleAttributeId, value);
+            return Repository.SetBillingCycleFeatureUsageQuantityAsync(billingCycleFeatureUsageId, value);
         }
     }
 }

@@ -16,7 +16,6 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
         TNullableKey AppId { get; set; }
         string Name { get; set; }
         string Key { get; set; }
-        string Location { get; set; }
         DaEntityWorkflowStatus Status { get; set; }
         DateTime LastUpdatedDateUtc { get; set; }
     }

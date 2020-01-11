@@ -47,9 +47,6 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
         [StringLength(128)]
         public string Key { get; set; }
 
-        [StringLength(500)]
-        public string Location { get; set; }
-
         public TnullableKey AppId { get; set; }
 
         public DaEntityWorkflowStatus Status { get; set; }
