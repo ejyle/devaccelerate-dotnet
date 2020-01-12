@@ -29,6 +29,9 @@ The following is the list of DevAccelerate NuGet packages:
 * [DevAccelerateFinancialsEF](https://www.nuget.org/packages/DevAccelerateFinancialsEF/)
 * [DevAccelerateFinancialsPaymentStripe](https://www.nuget.org/packages/DevAccelerateFinancialsPaymentStripe/)
 * [DevAccelerateFinancialsPaymentStripeEF](https://www.nuget.org/packages/DevAccelerateFinancialsPaymentStripeEF/)
+#### Notifications
+* [DevAccelerateNotifications](https://www.nuget.org/packages/DevAccelerateNotifications/)
+* [DevAccelerateNotificationsEF](https://www.nuget.org/packages/DevAccelerateNotificationsEF/)
 #### Mail and SMS
 * [DevAccelerateMail](https://www.nuget.org/packages/DevAccelerateMail/)
 * [DevAccelerateMailSendGrid](https://www.nuget.org/packages/DevAccelerateMailSendGrid/)
