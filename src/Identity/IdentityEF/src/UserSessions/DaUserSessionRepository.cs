@@ -89,5 +89,11 @@ namespace Ejyle.DevAccelerate.Identity.EF.UserSessions
             DbContext.Entry<TUserSession>(userSession).State = EntityState.Modified;
             return SaveChangesAsync();
         }
+
+        public Task<TUserSession> FindLatestByUserIdAsync(TKey userId)
+        {
+            ThrowIfDisposed();
+            return UserSessions.Where(m => m.UserId.Equals(userId)).OrderByDescending(m => m.CreatedDateUtc).FirstOrDefaultAsync();
+        }
     }
 }

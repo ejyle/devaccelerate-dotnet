@@ -55,6 +55,17 @@ namespace Ejyle.DevAccelerate.Financials.Payment
             return Repository.FindByIdAsync(id);
         }
 
+        public virtual TPaymentMethod FindByNativeId(string nativePaymentMethodId)
+        {
+            return DaAsyncHelper.RunSync<TPaymentMethod>(() => FindByNativeIdAsync(nativePaymentMethodId));
+        }
+
+        public virtual Task<TPaymentMethod> FindByNativeIdAsync(string nativePaymentMethodId)
+        {
+            ThrowIfDisposed();
+            return Repository.FindByNativeIdAsync(nativePaymentMethodId);
+        }
+
         public virtual List<TPaymentMethod> FindByOwnerUserId(TKey ownerUserId)
         {
             return DaAsyncHelper.RunSync<List<TPaymentMethod>>(() => FindByOwnerUserIdAsync(ownerUserId));

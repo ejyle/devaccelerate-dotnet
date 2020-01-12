@@ -50,12 +50,12 @@ namespace Ejyle.DevAccelerate.Identity.UserSessions
         {
             var userSession = await GetRepository().FindByIdAsync(userSessionId);
 
-            if(userSession == null)
+            if (userSession == null)
             {
                 throw new InvalidOperationException("Invalid user session ID.");
             }
 
-            if(status == DaUserSessionStatus.LoggedOff || status == DaUserSessionStatus.Unknown)
+            if (status == DaUserSessionStatus.LoggedOff || status == DaUserSessionStatus.Unknown)
             {
                 userSession.ExpiredDateUtc = DateTime.UtcNow;
             }
@@ -106,6 +106,16 @@ namespace Ejyle.DevAccelerate.Identity.UserSessions
         public DaPaginatedEntityList<TKey, TUserSession> FindByUserId(DaDataPaginationCriteria paginationCriteria, TKey userId)
         {
             return DaAsyncHelper.RunSync<DaPaginatedEntityList<TKey, TUserSession>>(() => FindByUserIdAsync(paginationCriteria, userId));
+        }
+
+        public Task<TUserSession> FindLatestByUserIdAsync(TKey userId)
+        {
+            return GetRepository().FindLatestByUserIdAsync(userId);
+        }
+
+        public TUserSession FindLatestByUserId(TKey userId)
+        {
+            return DaAsyncHelper.RunSync<TUserSession>(() => FindLatestByUserIdAsync(userId));
         }
     }
 }

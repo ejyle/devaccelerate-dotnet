@@ -79,6 +79,11 @@ namespace Ejyle.DevAccelerate.Financials.EF.Payment
             return PaymentMethods.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
         }
 
+        public Task<TPaymentMethod> FindByNativeIdAsync(string nativePaymentMethodId)
+        {
+            return PaymentMethods.Where(m => m.NativePaymentMethodId == nativePaymentMethodId).SingleOrDefaultAsync();
+        }
+
         public Task<List<TPaymentMethod>> FindByOwnerUserIdAsync(TKey ownerUserId)
         {
             return PaymentMethods.Where(m => m.OwnerUserId.Equals(ownerUserId)).ToListAsync();

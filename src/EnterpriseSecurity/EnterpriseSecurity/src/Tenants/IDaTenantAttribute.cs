@@ -5,22 +5,22 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
+using Ejyle.DevAccelerate.Core;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using Ejyle.DevAccelerate.Core;
 
-namespace Ejyle.DevAccelerate.Financials.Payment
+namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
 {
-    public interface IDaPaymentMethodRepository<TKey, TPaymentMethod> : IDaEntityRepository<TKey, TPaymentMethod>
+    public interface IDaTenantAttribute<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
-        where TPaymentMethod : IDaPaymentMethod<TKey>
     {
-        Task CreateAsync(TPaymentMethod paymentMethod);
-        Task<TPaymentMethod> FindByIdAsync(TKey id);
-        Task<TPaymentMethod> FindByNativeIdAsync(string nativePaymentMethodId);
-        Task<List<TPaymentMethod>> FindByOwnerUserIdAsync(TKey ownerUserId);
-        Task ActivateAsync(TKey paymentMethodId);
-        Task DeactivateAsync(TKey paymentMethodId);
+        TKey TenantId { get; set; }
+        string AttributeName { get; set; }
+        string AttributeValue { get; set; }
+        DateTime CreatedDateUtc { get; set; }
+        DateTime LastUpdatedDateUtc { get; set; }
     }
 }

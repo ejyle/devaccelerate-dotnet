@@ -21,7 +21,7 @@ using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Authentication
 {
-    public class DaAuthenticationFacade : DaAuthenticationFacade<int, int?, DaUserManager, DaUser, DaUserLogin, DaUserRole, DaUserClaim, DaTenantManager, DaTenant, DaTenantUser, DaSignInManager, DaUserSession, DaUserSessionManager>
+    public class DaAuthenticationFacade : DaAuthenticationFacade<int, int?, DaUserManager, DaUser, DaUserLogin, DaUserRole, DaUserClaim, DaTenantManager, DaTenant, DaTenantUser, DaTenantAttribute, DaSignInManager, DaUserSession, DaUserSessionManager>
     {
         public DaAuthenticationFacade(IOwinContext owinContext)
             : base(owinContext.Get<DaUserManager>(),
@@ -36,14 +36,15 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
         }
     }
 
-    public class DaAuthenticationFacade<TUserManager, TUser, TUserLogin, TUserRole, TUserClaim, TTenantManager, TTenant, TTenantUser, TSignInManager, TUserSession, TUserSessionManager> : DaAuthenticationFacade<int, int?, TUserManager, TUser, TUserLogin, TUserRole, TUserClaim, TTenantManager, TTenant, TTenantUser, TSignInManager, TUserSession, TUserSessionManager>
+    public class DaAuthenticationFacade<TUserManager, TUser, TUserLogin, TUserRole, TUserClaim, TTenantManager, TTenant, TTenantUser, TTenantAttribute, TSignInManager, TUserSession, TUserSessionManager> : DaAuthenticationFacade<int, int?, TUserManager, TUser, TUserLogin, TUserRole, TUserClaim, TTenantManager, TTenant, TTenantUser, TTenantAttribute, TSignInManager, TUserSession, TUserSessionManager>
         where TUserManager : DaUserManager<int, int?, TUser>
         where TUser : DaUser<int, int?, TUserLogin, TUserRole, TUserClaim>, new()
         where TUserLogin : DaUserLogin<int>
         where TUserRole : DaUserRole<int>
         where TUserClaim : DaUserClaim<int>
         where TTenantManager : DaTenantManager<int, int?, TTenant>
-        where TTenant : DaTenant<int, int?, TTenantUser>, new()
+        where TTenant : DaTenant<int, int?, TTenantUser, TTenantAttribute>, new()
+        where TTenantAttribute : DaTenantAttribute<int, int?, TTenant>
         where TTenantUser : DaTenantUser<int, int?, TTenant>, new()
         where TUserSession : DaUserSession<int>, new()
         where TSignInManager : DaSignInManager<int, int?, TUserManager, TUser>, new()
@@ -55,7 +56,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
         }
     }
 
-    public class DaAuthenticationFacade<TKey, TNullableKey, TUserManager, TUser, TUserLogin, TUserRole, TUserClaim, TTenantManager, TTenant, TTenantUser, TSignInManager, TUserSession, TUserSessionManager>
+    public class DaAuthenticationFacade<TKey, TNullableKey, TUserManager, TUser, TUserLogin, TUserRole, TUserClaim, TTenantManager, TTenant, TTenantUser, TTenantAttribute, TSignInManager, TUserSession, TUserSessionManager>
         where TKey : IEquatable<TKey>
         where TUserManager : DaUserManager<TKey, TNullableKey, TUser>
         where TUser : DaUser<TKey, TNullableKey, TUserLogin, TUserRole, TUserClaim>, new()
@@ -63,7 +64,8 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
         where TUserRole : DaUserRole<TKey>
         where TUserClaim : DaUserClaim<TKey>
         where TTenantManager : DaTenantManager<TKey, TNullableKey, TTenant>
-        where TTenant : DaTenant<TKey, TNullableKey, TTenantUser>, new()
+        where TTenant : DaTenant<TKey, TNullableKey, TTenantUser, TTenantAttribute>, new()
+        where TTenantAttribute : DaTenantAttribute<TKey, TNullableKey, TTenant>
         where TTenantUser : DaTenantUser<TKey, TNullableKey, TTenant>, new()
         where TUserSession : DaUserSession<TKey>, new()
         where TSignInManager : DaSignInManager<TKey, TNullableKey, TUserManager, TUser>, new()

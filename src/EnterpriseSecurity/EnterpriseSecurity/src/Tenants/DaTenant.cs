@@ -13,15 +13,16 @@ using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
 {
-    public class DaTenant : DaTenant<int, int?, DaTenantUser>
+    public class DaTenant : DaTenant<int, int?, DaTenantUser, DaTenantAttribute>
     {
         public DaTenant() : base()
         { }
     }
 
-    public class DaTenant<TKey, TNullableKey, TTenantUser> : DaEntityBase<TKey>, IDaTenant<TKey, TNullableKey>
+    public class DaTenant<TKey, TNullableKey, TTenantUser, TTenantAttribute> : DaEntityBase<TKey>, IDaTenant<TKey, TNullableKey>
         where TKey : IEquatable<TKey>
         where TTenantUser : IDaTenantUser<TKey>
+        where TTenantAttribute : IDaTenantAttribute<TKey>
     {
         public DaTenant()
         {
@@ -29,6 +30,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
         }
 
         public virtual ICollection<TTenantUser> TenantUsers { get; set; }
+        public virtual ICollection<TTenantAttribute> Attributes { get; set; }
 
         [Required]
         public DaTenantType TenantType { get; set; }
@@ -57,6 +59,8 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
         public TKey CurrencyId { get; set; }
 
         public TKey TimeZoneId { get; set; }
+
+        public string BillingEmail { get; set; }
 
         public TNullableKey DateFormatId { get; set; }
 

@@ -16,7 +16,7 @@ using Ejyle.DevAccelerate.Core.Data;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF
 {
-    public class DaEnterpriseSecurityDbContext : DaEnterpriseSecurityDbContext<int, int?, DaUserAgreement, DaUserAgreementVersion, DaUserAgreementVersionAction, DaApp, DaAppAttribute, DaFeature, DaAppFeature, DaFeatureAction, DaTenant, DaTenantUser, DaSubscriptionPlan, DaSubscriptionPlanAttribute, DaBillingCycleOption, DaSubscriptionPlanApp, DaSubscriptionPlanFeature, DaSubscriptionPlanFeatureAttribute, DaSubscription, DaSubscriptionAttribute, DaSubscriptionApp, DaSubscriptionFeature, DaSubscriptionFeatureAttribute, DaSubscriptionAppRole, DaSubscriptionAppUser, DaSubscriptionFeatureRole, DaSubscriptionFeatureRoleAction, DaSubscriptionFeatureUser, DaSubscriptionFeatureUserAction, DaBillingCycle, DaBillingCycleAttribute, DaBillingCycleFeatureUsage>
+    public class DaEnterpriseSecurityDbContext : DaEnterpriseSecurityDbContext<int, int?, DaUserAgreement, DaUserAgreementVersion, DaUserAgreementVersionAction, DaApp, DaAppAttribute, DaFeature, DaAppFeature, DaFeatureAction, DaTenant, DaTenantUser, DaTenantAttribute, DaSubscriptionPlan, DaSubscriptionPlanAttribute, DaBillingCycleOption, DaSubscriptionPlanApp, DaSubscriptionPlanFeature, DaSubscriptionPlanFeatureAttribute, DaSubscription, DaSubscriptionAttribute, DaSubscriptionApp, DaSubscriptionFeature, DaSubscriptionFeatureAttribute, DaSubscriptionAppRole, DaSubscriptionAppUser, DaSubscriptionFeatureRole, DaSubscriptionFeatureRoleAction, DaSubscriptionFeatureUser, DaSubscriptionFeatureUserAction, DaBillingCycle, DaBillingCycleAttribute, DaBillingCycleFeatureUsage>
     {
         public DaEnterpriseSecurityDbContext() : base()
         { }
@@ -27,7 +27,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF
         }
     }
 
-    public class DaEnterpriseSecurityDbContext<TKey, TNullableKey, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction, TApp, TAppAttribute, TFeature, TAppFeature, TFeatureAction, TTenant, TTenantUser, TSubscriptionPlan, TSubscriptionPlanAttribute, TBillingCycleOption, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscriptionPlanFeatureAttribute, TSubscription, TSubscriptionAttribute, TSubscriptionApp, TSubscriptionFeature, TSubscriptionFeatureAttribute, TSubscriptionAppRole, TSubscriptionAppUser, TSubscriptionFeatureRole, TSubscriptionFeatureRoleAction, TSubscriptionFeatureUser, TSubscriptionFeatureUserAction, TBillingCycle, TBillingCycleAttribute, TBillingCycleFeatureUsage> : DbContext
+    public class DaEnterpriseSecurityDbContext<TKey, TNullableKey, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction, TApp, TAppAttribute, TFeature, TAppFeature, TFeatureAction, TTenant, TTenantUser, TTenantAttribute, TSubscriptionPlan, TSubscriptionPlanAttribute, TBillingCycleOption, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscriptionPlanFeatureAttribute, TSubscription, TSubscriptionAttribute, TSubscriptionApp, TSubscriptionFeature, TSubscriptionFeatureAttribute, TSubscriptionAppRole, TSubscriptionAppUser, TSubscriptionFeatureRole, TSubscriptionFeatureRoleAction, TSubscriptionFeatureUser, TSubscriptionFeatureUserAction, TBillingCycle, TBillingCycleAttribute, TBillingCycleFeatureUsage> : DbContext
         where TKey : IEquatable<TKey>
         where TApp : DaApp<TKey, TNullableKey, TAppAttribute, TFeature, TAppFeature, TSubscriptionApp, TSubscriptionPlanApp, TUserAgreement>
         where TAppAttribute : DaAppAttribute<TKey, TApp>
@@ -35,7 +35,8 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF
         where TBillingCycleOption : DaBillingCycleOption<TKey, TNullableKey, TSubscriptionPlan>
         where TFeatureAction : DaFeatureAction<TKey, TNullableKey, TFeature>
         where TFeature : DaFeature<TKey, TNullableKey, TApp, TAppFeature, TFeatureAction, TSubscriptionFeature, TSubscriptionPlanFeature>
-        where TTenant : DaTenant<TKey, TNullableKey, TTenantUser>
+        where TTenant : DaTenant<TKey, TNullableKey, TTenantUser, TTenantAttribute>
+        where TTenantAttribute : DaTenantAttribute<TKey, TNullableKey, TTenant>
         where TTenantUser : DaTenantUser<TKey, TNullableKey, TTenant>
         where TSubscriptionAppRole : DaSubscriptionAppRole<TKey, TSubscriptionApp>
         where TSubscriptionApp : DaSubscriptionApp<TKey, TNullableKey, TApp, TSubscriptionAppRole, TSubscription, TSubscriptionAppUser>
@@ -98,6 +99,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF
         public virtual DbSet<TBillingCycleAttribute> BillingCycleAttributes { get; set; }
         public virtual DbSet<TTenant> Tenants { get; set; }
         public virtual DbSet<TTenantUser> TenantUsers { get; set; }
+        public virtual DbSet<TTenantAttribute> TenantAttributes { get; set; }
         public virtual DbSet<TUserAgreement> UserAgreements { get; set; }
         public virtual DbSet<TUserAgreementVersion> UserAgreementVersions { get; set; }
         public virtual DbSet<TUserAgreementVersionAction> UserAgreementVersionActions { get; set; }
@@ -312,8 +314,15 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF
                 .WithRequired(e => e.Tenant)
                 .WillCascadeOnDelete(false);
 
+            tenants.HasMany(e => e.Attributes)
+                .WithRequired(e => e.Tenant)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<TTenantUser>()
                 .ToTable("TenantUsers", SCHEMA_NAME);
+
+            modelBuilder.Entity<TTenantAttribute>()
+                .ToTable("TenantAttributes", SCHEMA_NAME);
 
             #endregion Tenants
 

@@ -125,11 +125,13 @@
     <Compile Include="Subscriptions\IDaSubscriptionFeatureUser.cs" />
     <Compile Include="Subscriptions\IDaSubscriptionFeatureUserAction.cs" />
     <Compile Include="Subscriptions\IDaSubscriptionRepository.cs" />
+    <Compile Include="Tenants\DaTenantAttribute.cs" />
     <Compile Include="Tenants\DaTenantStatus.cs" />
     <Compile Include="Tenants\DaTenant.cs" />
     <Compile Include="Tenants\DaTenantManager.cs" />
     <Compile Include="Tenants\DaTenantType.cs" />
     <Compile Include="Tenants\DaTenantUser.cs" />
+    <Compile Include="Tenants\IDaTenantAttribute.cs" />
     <Compile Include="Tenants\IDaTenant.cs" />
     <Compile Include="Tenants\IDaTenantRepository.cs" />
     <Compile Include="Tenants\IDaTenantUser.cs" />
@@ -152,6 +154,10 @@
     <ProjectReference Include="..\..\..\Core\Core\src\Ejyle.DevAccelerate.Core.csproj">
       <Project>{320bf7cc-b2bb-40de-afa1-62197c369adb}</Project>
       <Name>Ejyle.DevAccelerate.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Profiles\Profiles\src\Ejyle.DevAccelerate.Profiles.csproj">
+      <Project>{c130cb42-5993-4a61-af0c-30c06a6854fc}</Project>
+      <Name>Ejyle.DevAccelerate.Profiles</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

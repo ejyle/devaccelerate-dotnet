@@ -92,5 +92,10 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
         /// Gets or sets the date and time when the tenant was created.
         /// </summary>
         DateTime CreatedDateUtc { get; set; }
+
+        /// <summary>
+        /// Gets or sets the billing email of the tenant.
+        /// </summary>
+        string BillingEmail { get; set; }
     }
 }

@@ -15,18 +15,19 @@ using Ejyle.DevAccelerate.EnterpriseSecurity.Tenants;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Tenants
 {
-    public class DaTenantRepository : DaTenantRepository<int, int?, DaTenant, DaTenantUser, DbContext>
+    public class DaTenantRepository : DaTenantRepository<int, int?, DaTenant, DaTenantUser, DaTenantAttribute, DbContext>
     {
         public DaTenantRepository(DbContext dbContext)
             : base(dbContext)
         { }
     }
 
-    public class DaTenantRepository<TKey, TNullableKey, TTenant, TTenantUser, TDbContext>
+    public class DaTenantRepository<TKey, TNullableKey, TTenant, TTenantUser, TTenantAttribute, TDbContext>
          : DaEntityRepositoryBase<TKey, TTenant, DbContext>, IDaTenantRepository<TKey, TNullableKey, TTenant>
          where TKey : IEquatable<TKey>
-         where TTenant : DaTenant<TKey, TNullableKey, TTenantUser>
+         where TTenant : DaTenant<TKey, TNullableKey, TTenantUser, TTenantAttribute>
          where TTenantUser : DaTenantUser<TKey, TNullableKey, TTenant>
+        where TTenantAttribute : DaTenantAttribute<TKey, TNullableKey, TTenant>
     {
         public DaTenantRepository(DbContext dbContext)
             : base(dbContext)
@@ -72,7 +73,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Tenants
         {
             var tenantUser = await TenantUsers.Where(m => m.TenantId.Equals(tenantId) && m.UserId.Equals(userId)).SingleOrDefaultAsync();
 
-            if(!tenantUser.IsActive)
+            if (!tenantUser.IsActive)
             {
                 return false;
             }
