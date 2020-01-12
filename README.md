@@ -41,7 +41,6 @@ The following is the list of DevAccelerate NuGet packages:
 #### Workflow
 * [DevAccelerateSimpleWorkflow](https://www.nuget.org/packages/DevAccelerateSimpleWorkflow/)
 * [DevAccelerateSimpleWorkflowCommon](https://www.nuget.org/packages/DevAccelerateSimpleWorkflowCommon/)
-* [DevAccelerateSecurityWorkflow](https://www.nuget.org/packages/DevAccelerateSecurityWorkflow/)
 
 ### Installation
 
