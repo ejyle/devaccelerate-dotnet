@@ -21,6 +21,8 @@ The following is the list of DevAccelerate NuGet packages:
 * [DevAccelerateEnterpriseSecurityEF](https://www.nuget.org/packages/DevAccelerateEnterpriseSecurityEF/)
 * [DevAccelerateSecurityFacade](https://www.nuget.org/packages/DevAccelerateSecurityFacade/)
 * [DevAccelerateFinancials](https://www.nuget.org/packages/DevAccelerateFinancials/)
+* [DevAccelerateFinancialsPaymentStripe](https://www.nuget.org/packages/DevAccelerateFinancialsPaymentStripe/)
+* [DevAccelerateFinancialsPaymentStripeEF](https://www.nuget.org/packages/DevAccelerateFinancialsPaymentStripeEF/)
 * [DevAccelerateFinancialsEF](https://www.nuget.org/packages/DevAccelerateFinancialsEF/)
 * [DevAccelerateMail](https://www.nuget.org/packages/DevAccelerateMail/)
 * [DevAccelerateMailSendGrid](https://www.nuget.org/packages/DevAccelerateMailSendGrid/)
