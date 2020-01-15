@@ -15,7 +15,7 @@ using Ejyle.DevAccelerate.Financials.Payment;
 
 namespace Ejyle.DevAccelerate.Financials.EF.Payment
 {
-    public class DaAccountRepository : DaAccountRepository<int, int?, DaPaymentMethod, DaPaymentMethodAttribute, DaAccount, DaTransaction, DbContext>
+    public class DaAccountRepository : DaAccountRepository<int, int?, DaAccount, DaPaymentMethod, DaPaymentMethodAttribute, DaTransaction, DbContext>
     {
         public DaAccountRepository(DbContext dbContext)
             : base(dbContext)
@@ -23,7 +23,7 @@ namespace Ejyle.DevAccelerate.Financials.EF.Payment
     }
 
 
-    public class DaAccountRepository<TKey, TNullableKey, TPaymentMethod, TPaymentMethodAttribute, TAccount, TTransaction, TDbContext>
+    public class DaAccountRepository<TKey, TNullableKey, TAccount, TPaymentMethod, TPaymentMethodAttribute, TTransaction, TDbContext>
         : DaEntityRepositoryBase<TKey, TAccount, TDbContext>, IDaAccountRepository<TKey, TNullableKey, TAccount, TTransaction>
         where TKey : IEquatable<TKey>
         where TPaymentMethod : DaPaymentMethod<TKey, TNullableKey, TPaymentMethodAttribute, TTransaction>
