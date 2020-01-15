@@ -8,6 +8,7 @@
 using Ejyle.DevAccelerate.Core;
 using Ejyle.DevAccelerate.Core.Configuration;
 using Ejyle.DevAccelerate.Core.Data;
+using Ejyle.DevAccelerate.EnterpriseSecurity;
 using Ejyle.DevAccelerate.EnterpriseSecurity.Apps;
 using Ejyle.DevAccelerate.EnterpriseSecurity.EF;
 using Ejyle.DevAccelerate.Facades.Security.Tests.Properties;
@@ -43,7 +44,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Tests
             var configSource = new DaDefaultConfigurationSource();
 
             DaInitializationManager.AddModuleInitializer(new DaDefaultDataInitializer(configSource));
-            DaInitializationManager.AddModuleInitializer(new DaDefaultAppsInitializer(configSource));
+            DaInitializationManager.AddModuleInitializer(new DaDefaultEnterpriseSecurityInitializer(configSource));
             DaInitializationManager.AddModuleInitializer(new DaDefaultIdentityInitializer(configSource));
             DaInitializationManager.AddModuleInitializer(new DaDefaultMailInitializer(configSource));
             DaInitializationManager.AddModuleInitializer(new DaDefaultSmsInitializer(configSource));

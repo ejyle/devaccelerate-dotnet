@@ -56,13 +56,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Apps\Configuration\DaAppsConfigurationManager.cs" />
-    <Compile Include="Apps\Configuration\DaAppsConfigurationSection.cs" />
     <Compile Include="Apps\DaApp.cs" />
     <Compile Include="Apps\DaAppAttribute.cs" />
     <Compile Include="Apps\DaAppFeature.cs" />
     <Compile Include="Apps\DaAppManager.cs" />
-    <Compile Include="Apps\DaDefaultAppsInitializer.cs" />
+    <Compile Include="DaDefaultEnterpriseSecurityInitializer.cs" />
     <Compile Include="Apps\DaFeatureManager.cs" />
     <Compile Include="Apps\IDaApp.cs" />
     <Compile Include="Apps\IDaAppAttribute.cs" />
@@ -73,6 +71,8 @@
     <Compile Include="Apps\IDaFeatureRepository.cs" />
     <Compile Include="Apps\DaFeature.cs" />
     <Compile Include="Apps\DaFeatureAction.cs" />
+    <Compile Include="Configuration\DaEnterpriseSecurityConfigurationManager.cs" />
+    <Compile Include="Configuration\DaEnterpriseSecurityConfigurationSection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubscriptionPlans\DaBillingCycleOption.cs" />
     <Compile Include="SubscriptionPlans\DaBillingCycleOptionManager.cs" />

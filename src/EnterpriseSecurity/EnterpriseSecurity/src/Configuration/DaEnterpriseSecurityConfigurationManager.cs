@@ -8,14 +8,14 @@
 using Ejyle.DevAccelerate.Core;
 using Ejyle.DevAccelerate.Core.Configuration;
 
-namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps.Configuration
+namespace Ejyle.DevAccelerate.EnterpriseSecurity.Configuration
 {
     /// <summary>
-    /// A static class that sets or gets apps configuration section.
+    /// A static class that sets or gets enterprise security configuration section.
     /// </summary>
-    public static class DaAppsConfigurationManager
+    public static class DaEnterpriseSecurityConfigurationManager
     {
-        private const string CONFIG_NAME = "daAppsConfiguration";
+        private const string CONFIG_NAME = "daEnterpriseSecurityConfiguration";
 
         public static void InitConfiguration(IDaConfigurationSource configurationSource)
         {
@@ -24,17 +24,17 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps.Configuration
 
         public static void InitConfiguration(string configurationName, IDaConfigurationSource configurationSource)
         {
-            DaGlobalApplicationContext.LoadConfiguration<DaAppsConfigurationSection>(configurationName, configurationSource);
+            DaGlobalApplicationContext.LoadConfiguration<DaEnterpriseSecurityConfigurationSection>(configurationName, configurationSource);
         }
 
-        public static DaAppsConfigurationSection GetConfiguration()
+        public static DaEnterpriseSecurityConfigurationSection GetConfiguration()
         {
             return GetConfiguration(CONFIG_NAME);
         }
 
-        public static DaAppsConfigurationSection GetConfiguration(string configurationName)
+        public static DaEnterpriseSecurityConfigurationSection GetConfiguration(string configurationName)
         {
-            return DaGlobalApplicationContext.GetConfiguration<DaAppsConfigurationSection>(configurationName);
+            return DaGlobalApplicationContext.GetConfiguration<DaEnterpriseSecurityConfigurationSection>(configurationName);
         }
     }
 }

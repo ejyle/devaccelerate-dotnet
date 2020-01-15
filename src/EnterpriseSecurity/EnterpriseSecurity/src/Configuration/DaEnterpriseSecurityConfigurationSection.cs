@@ -8,20 +8,20 @@
 using System.Configuration;
 using Ejyle.DevAccelerate.Core.Configuration;
 
-namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps.Configuration
+namespace Ejyle.DevAccelerate.EnterpriseSecurity.Configuration
 {
     /// <summary>
-    /// Represents apps configuration.
+    /// Represents enterprise security configuration.
     /// </summary>
-    public class DaAppsConfigurationSection : DaConfigurationSection
+    public class DaEnterpriseSecurityConfigurationSection : DaConfigurationSection
     {
         private const string APP_KEY = "appKey";
 
         /// <summary>
         /// Gets or sets the app key.
         /// </summary>
-        [ConfigurationProperty(APP_KEY, IsRequired = false, DefaultValue = "DevAccelerateApp")]
-        public string AppName
+        [ConfigurationProperty(APP_KEY, IsRequired = true)]
+        public string AppKey
         {
             get
             {
@@ -34,12 +34,12 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps.Configuration
         }
 
         /// <summary>
-        /// Gets the name of the apps configuration section.
+        /// Gets the name of the enterprise security configuration section.
         /// </summary>
-        /// <returns>Returns daAppsConfiguration as the name of the configuration section.</returns>
+        /// <returns>Returns daEnterpriseSecurityConfiguration as the name of the configuration section.</returns>
         public override string GetConfigurationSectionName()
         {
-            return "daAppsConfiguration";
+            return "daEnterpriseSecurityConfiguration";
         }
     }
 }

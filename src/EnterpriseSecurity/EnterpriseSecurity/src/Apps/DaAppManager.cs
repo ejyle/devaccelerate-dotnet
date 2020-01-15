@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using Ejyle.DevAccelerate.Core;
 using Ejyle.DevAccelerate.Core.Utils;
-using Ejyle.DevAccelerate.EnterpriseSecurity.Apps.Configuration;
+using Ejyle.DevAccelerate.EnterpriseSecurity.Configuration;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
 { 
@@ -99,7 +99,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
         public virtual Task<TApp> FindAsync()
         {
             ThrowIfDisposed();
-            return Repository.FindByKeyAsync(DaAppsConfigurationManager.GetConfiguration().AppName);
+            return Repository.FindByKeyAsync(DaEnterpriseSecurityConfigurationManager.GetConfiguration().AppKey);
         }
 
         public virtual TApp Find()
