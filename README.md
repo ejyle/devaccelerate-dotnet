@@ -3,9 +3,9 @@
 **DevAccelerate for .NET** is a comprehensive and well-designed development accelerator for Microsoft .NET Framework. It is free and open source. It contains common components and functionalities that allow developers to build real-world .NET apps rapidly. It is broken up into individual modules and therefore allows developers to use only what is needed. The usage of the framework is governed by the terms and conditions of its [License](https://github.com/devaccelerate/DevAccelerateNet/blob/master/LICENSE).
 
 ## Migrated to the Latest .NET Version (.NET 6)
-The current code base is now fully migrated to .NET 6 and the code also support .NET 5 and .NET Core 3.1. However, the support for .NET Framework has been temporarily discontinued. The support for .NET Framework 4.5.1 above will be restored in near future.
+The current code base is now fully migrated to .NET 6 and it includes the support for .NET 5 and .NET Core 3.1. However, the support for .NET Framework has been temporarily discontinued. The support for .NET Framework 4.5.1+ will be restored soon. There is no plan to support .NET Core 1.x and .NET Core 2.x though.
 
-### NuGet Packages
+## NuGet Packages
 
 DevAccelerate is broken down into modules and each module has one ore more NuGet package. A DevAccelerate NuGet package automatically installs required dependencies.
 
@@ -34,7 +34,7 @@ The following is the list of DevAccelerate NuGet packages:
 #### Facades
 * [DevAccelerateSecurityFacade](https://www.nuget.org/packages/DevAccelerateSecurityFacade/)
 
-### Installation
+## Installation
 
 The best way to install DevAccelerate libraries in your .NET project is through NuGet's **Install-Package** command. For example, if you want to install **DevAccelerateCoreEF** library:
 ```
