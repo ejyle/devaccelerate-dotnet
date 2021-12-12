@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
+    <RootNamespace>Ejyle.DevAccelerate.EnterpriseSecurity</RootNamespace>
+    <AssemblyName>Ejyle.DevAccelerate.EnterpriseSecurity</AssemblyName>
+    <ApplicationIcon>da.ico</ApplicationIcon>
+    <Company>Ejyle Technologies (P) Ltd</Company>
+    <Authors>ejyle, tanveery</Authors>
+    <Copyright>Copyright © Ejyle Technologies (P) Ltd. All rights reserved.</Copyright>
+    <PackageProjectUrl>https://devaccelerate.github.io</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/devaccelerate/DevAccelerateNet.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>DevAccelerateEnterpriseSecurity</PackageId>
+    <Product>DevAccelerateEnterpriseSecurity</Product>
+    <Description>Provides additional enterprise-level security such as multi-tenancy, subscription management, etc.</Description>
+    <PackageTags>DevAccelerate;EnterpriseSecurity;Tenants;Subscriptions;Multi-Tenancy</PackageTags>
+    <Version>6.0.0</Version>
+    <Nullable>disable</Nullable>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Ejyle.DevAccelerate.Core\Ejyle.DevAccelerate.Core.csproj" />
+  </ItemGroup>
+
+</Project>

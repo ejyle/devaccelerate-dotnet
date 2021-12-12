@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
+    <RootNamespace>Ejyle.DevAccelerate.Core</RootNamespace>
+    <AssemblyName>Ejyle.DevAccelerate.Core</AssemblyName>
+    <ApplicationIcon>da.ico</ApplicationIcon>
+    <Company>Ejyle Technologies (P) Ltd</Company>
+    <Authors>ejyle, tanveery</Authors>
+    <Copyright>Copyright © Ejyle Technologies (P) Ltd. All rights reserved.</Copyright>
+    <PackageProjectUrl>https://devaccelerate.github.io</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/devaccelerate/DevAccelerateNet.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>DevAccelerateCore</PackageId>
+    <Product>DevAccelerateCore</Product>
+    <Description>Provides all the basic interfaces for the most common cross-cutting concerns such as entity management, caching, logging, exception handling, and so on.</Description>
+    <PackageTags>DevAccelerate;Entity;Repository;Logging;Exception;Caching</PackageTags>
+    <Version>6.0.0</Version>
+    <Nullable>disable</Nullable>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0|AnyCPU'">
+    <WarningLevel>5</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0|AnyCPU'">
+    <WarningLevel>5</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Runtime.Caching" Version="6.0.0" />
+  </ItemGroup>
+</Project>

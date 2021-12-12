@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
+    <RootNamespace>Ejyle.DevAccelerate.Identity.EF</RootNamespace>
+    <AssemblyName>Ejyle.DevAccelerate.Identity.EF</AssemblyName>
+    <ApplicationIcon>da.ico</ApplicationIcon>
+    <Company>Ejyle Technologies (P) Ltd</Company>
+    <Authors>ejyle, tanveery</Authors>
+    <Copyright>Copyright © Ejyle Technologies (P) Ltd. All rights reserved.</Copyright>
+    <PackageProjectUrl>https://devaccelerate.github.io</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/devaccelerate/DevAccelerateNet.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>DevAccelerateIdentityEF</PackageId>
+    <Product>DevAccelerateIdentityEF</Product>
+    <Description>Provides ASP.NET Identity and EntityFrameworkCore implementation for DevAccelerate Identity.</Description>
+    <PackageTags>DevAccelerate;Identity;Identity-Management;User-Activities;User-Sessions;User-Settings;AspNet-Identity;EntityFrameworkCore;EF</PackageTags>
+    <Version>6.0.0</Version>
+    <Nullable>disable</Nullable>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
+   
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
+
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Ejyle.DevAccelerate.Core.EF\Ejyle.DevAccelerate.Core.EF.csproj" />
+    <ProjectReference Include="..\..\Core\Ejyle.DevAccelerate.Core\Ejyle.DevAccelerate.Core.csproj" />
+    <ProjectReference Include="..\Ejyle.DevAccelerate.Identity\Ejyle.DevAccelerate.Identity.csproj" />
+  </ItemGroup>
+
+</Project>

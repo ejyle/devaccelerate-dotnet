@@ -1,0 +1,70 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
+    <RootNamespace>Ejyle.DevAccelerate.Facades.Security</RootNamespace>
+    <AssemblyName>Ejyle.DevAccelerate.Facades.Security</AssemblyName>
+    <ApplicationIcon>da.ico</ApplicationIcon>
+    <Company>Ejyle Technologies (P) Ltd</Company>
+    <Authors>ejyle, tanveery</Authors>
+    <Copyright>Copyright © Ejyle Technologies (P) Ltd. All rights reserved.</Copyright>
+    <PackageProjectUrl>https://devaccelerate.github.io</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/devaccelerate/DevAccelerateNet.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>DevAccelerateSecurityFacade</PackageId>
+    <Product>DevAccelerateSecurityFacade</Product>
+    <Description>A facade library that simplifies security APIs. It works on top of DeAaccelerateIdenitty and DevAccelerateEnterpriseSecurity.</Description>
+    <PackageTags>DevAccelerate;Subscriptions;Identity;Security;Facades</PackageTags>
+    <Version>6.0.0</Version>
+    <Nullable>disable</Nullable>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
+
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
+
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
+
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />    
+  </ItemGroup>  
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Ejyle.DevAccelerate.Core.EF\Ejyle.DevAccelerate.Core.EF.csproj" />
+    <ProjectReference Include="..\..\Core\Ejyle.DevAccelerate.Core\Ejyle.DevAccelerate.Core.csproj" />
+    <ProjectReference Include="..\..\EnterpriseSecurity\Ejyle.DevAccelerate.EnterpriseSecurity.EF\Ejyle.DevAccelerate.EnterpriseSecurity.EF.csproj" />
+    <ProjectReference Include="..\..\EnterpriseSecurity\Ejyle.DevAccelerate.EnterpriseSecurity\Ejyle.DevAccelerate.EnterpriseSecurity.csproj" />
+    <ProjectReference Include="..\..\Identity\Ejyle.DevAccelerate.Identity.EF\Ejyle.DevAccelerate.Identity.EF.csproj" />
+    <ProjectReference Include="..\..\Identity\Ejyle.DevAccelerate.Identity\Ejyle.DevAccelerate.Identity.csproj" />
+    <ProjectReference Include="..\..\Lists\Ejyle.DevAccelerate.Lists.EF\Ejyle.DevAccelerate.Lists.EF.csproj" />
+    <ProjectReference Include="..\..\Lists\Ejyle.DevAccelerate.Lists\Ejyle.DevAccelerate.Lists.csproj" />
+    <ProjectReference Include="..\..\Profiles\Ejyle.DevAccelerate.Profiles.EF\Ejyle.DevAccelerate.Profiles.EF.csproj" />
+    <ProjectReference Include="..\..\Profiles\Ejyle.DevAccelerate.Profiles\Ejyle.DevAccelerate.Profiles.csproj" />
+  </ItemGroup>  
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>  
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
