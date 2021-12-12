@@ -2,8 +2,11 @@
 
 **DevAccelerate for .NET** is a comprehensive and well-designed development accelerator for Microsoft .NET Framework. It is free and open source. It contains common components and functionalities that allow developers to build real-world .NET apps rapidly. It is broken up into individual modules and therefore allows developers to use only what is needed. The usage of the framework is governed by the terms and conditions of its [License](https://github.com/devaccelerate/DevAccelerateNet/blob/master/LICENSE).
 
-## Migrated to the Latest .NET Version (.NET 6)
-The current code base is now fully migrated to .NET 6 and it includes the support for .NET 5 and .NET Core 3.1. However, the support for .NET Framework has been temporarily discontinued. The support for .NET Framework 4.5.1+ will be restored soon. There is no plan to support .NET Core 1.x and .NET Core 2.x though.
+## Major Updates to the Code Base
+The code base has been updated in a significant way to provide better and more optimised functionality. The following are the highlights:
+* The current code base is now fully migrated to .NET 6 and it includes the support for .NET 5 and .NET Core 3.1. However, the support for .NET Framework has been temporarily discontinued. The support for .NET Framework 4.5.1+ will be restored soon. There is no plan to support .NET Core 1.x and .NET Core 2.x though.
+* Support for Microsoft Enterprise Library (MSEL) has been removed. The development of MSEL was discontinued by Microsoft long time ago and therefore it was reasonable to discontinue its inclusion in DevAccelerate.
+* The use of application configurations (app.config / web.config) in DevAccelerate libraries has been discontinued.
 
 ## NuGet Packages
 
