@@ -10,8 +10,6 @@ The following is the list of DevAccelerate NuGet packages:
 #### Core
 * [DevAccelerateCore](https://www.nuget.org/packages/DevAccelerateCore)
 * [DevAccelerateCoreEF](https://www.nuget.org/packages/DevAccelerateCoreEF)
-* [DevAccelerateCoreExceptionHandlingMsel](https://www.nuget.org/packages/DevAccelerateCoreExceptionHandlingMsel)
-* [DevAccelerateCoreLoggingMsel](https://www.nuget.org/packages/DevAccelerateCoreLoggingMsel)
 #### Lists
 * [DevAccelerateLists](https://www.nuget.org/packages/DevAccelerateLists/)
 * [DevAccelerateListsEF](https://www.nuget.org/packages/DevAccelerateListsEF/)
@@ -24,14 +22,6 @@ The following is the list of DevAccelerate NuGet packages:
 #### Enterprise Security
 * [DevAccelerateEnterpriseSecurity](https://www.nuget.org/packages/DevAccelerateEnterpriseSecurity/)
 * [DevAccelerateEnterpriseSecurityEF](https://www.nuget.org/packages/DevAccelerateEnterpriseSecurityEF/)
-#### Financials
-* [DevAccelerateFinancials](https://www.nuget.org/packages/DevAccelerateFinancials/)
-* [DevAccelerateFinancialsEF](https://www.nuget.org/packages/DevAccelerateFinancialsEF/)
-* [DevAccelerateFinancialsPaymentStripe](https://www.nuget.org/packages/DevAccelerateFinancialsPaymentStripe/)
-* [DevAccelerateFinancialsPaymentStripeEF](https://www.nuget.org/packages/DevAccelerateFinancialsPaymentStripeEF/)
-#### Notifications
-* [DevAccelerateNotifications](https://www.nuget.org/packages/DevAccelerateNotifications/)
-* [DevAccelerateNotificationsEF](https://www.nuget.org/packages/DevAccelerateNotificationsEF/)
 #### Mail and SMS
 * [DevAccelerateMail](https://www.nuget.org/packages/DevAccelerateMail/)
 * [DevAccelerateMailSendGrid](https://www.nuget.org/packages/DevAccelerateMailSendGrid/)
@@ -40,10 +30,6 @@ The following is the list of DevAccelerate NuGet packages:
 * [DevAccelerateSmsTwilio](https://www.nuget.org/packages/DevAccelerateSmsTwilio/)
 #### Facades
 * [DevAccelerateSecurityFacade](https://www.nuget.org/packages/DevAccelerateSecurityFacade/)
-* [DevAccelerateSecurityFacadeEF](https://www.nuget.org/packages/DevAccelerateSecurityFacadeEF/)
-#### Workflow
-* [DevAccelerateSimpleWorkflow](https://www.nuget.org/packages/DevAccelerateSimpleWorkflow/)
-* [DevAccelerateSimpleWorkflowCommon](https://www.nuget.org/packages/DevAccelerateSimpleWorkflowCommon/)
 
 ### Installation
 
