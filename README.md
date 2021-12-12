@@ -40,7 +40,7 @@ Install-Package DevAccelerateCoreEF
 
 You can also install a specific version of a DevAccelerate NuGet package with the **-Version** option. The following is an example of installing specific version **v6.0.0 Preview 2** of **DevAccelerateCoreEF**:
 ```
-Install-Package DevAccelerateCoreEF -Version 6.0.0-preview2
+Install-Package DevAccelerateCoreEF -Version 6.0.0
 ```
 
 If you need all or most of the DevAccelerate libraries in your .NET project, **DevAccelerateAll** can be very handy. It is a metapackage that installs all the DevAccelerate libraries:
