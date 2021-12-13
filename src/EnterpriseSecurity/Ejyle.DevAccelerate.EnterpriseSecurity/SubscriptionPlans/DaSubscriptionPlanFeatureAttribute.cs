@@ -19,7 +19,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
         { }
     }
 
-    public class DaSubscriptionPlanFeatureAttribute<TKey, TSubscriptionPlanFeature> : DaAuditedEntityBase<TKey>, IDaSubscriptionPlanFeatureAttribute<TKey>
+    public class DaSubscriptionPlanFeatureAttribute<TKey, TSubscriptionPlanFeature> : DaEntityBase<TKey>, IDaSubscriptionPlanFeatureAttribute<TKey>
         where TKey : IEquatable<TKey>
         where TSubscriptionPlanFeature : IDaSubscriptionPlanFeature<TKey>
     {

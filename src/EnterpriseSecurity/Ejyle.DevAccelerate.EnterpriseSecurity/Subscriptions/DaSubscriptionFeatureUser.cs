@@ -19,7 +19,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
         { }
     }
 
-    public class DaSubscriptionFeatureUser<TKey, TNullableKey, TSubscriptionFeature, TSubscriptionFeatureUserAction> : DaAuditedEntityBase<TKey>, IDaSubscriptionFeatureUser<TKey>
+    public class DaSubscriptionFeatureUser<TKey, TNullableKey, TSubscriptionFeature, TSubscriptionFeatureUserAction> : DaEntityBase<TKey>, IDaSubscriptionFeatureUser<TKey>
         where TKey : IEquatable<TKey>
         where TSubscriptionFeature : IDaSubscriptionFeature<TKey>
         where TSubscriptionFeatureUserAction : IDaSubscriptionFeatureUserAction<TKey>

@@ -14,7 +14,7 @@ namespace Ejyle.DevAccelerate.Identity.UserSessions
     /// Represents an interface for a user session.
     /// </summary>
     /// <typeparam name="TKey">The type of a non-nullable key of an entity.</typeparam>
-    public interface IDaUserSession<TKey> : IDaAuditedEntity<TKey>
+    public interface IDaUserSession<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         /// <summary>
@@ -51,6 +51,11 @@ namespace Ejyle.DevAccelerate.Identity.UserSessions
         /// Gets or sets the date and time of when the user session actually got expired.
         /// </summary>
         DateTime? ExpiredDateUtc { get; set; }
+
+        /// <summary>
+        /// Gets or sets the created date of the user session.
+        /// </summary>
+        DateTime CreatedDateUtc { get; set; }
 
         /// <summary>
         /// Gets or sets the status of the user session.

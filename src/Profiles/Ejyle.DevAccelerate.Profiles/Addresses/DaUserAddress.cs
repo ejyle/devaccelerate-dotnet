@@ -28,7 +28,7 @@ namespace Ejyle.DevAccelerate.Profiles.Addresses
         { }
     }
 
-    public class DaUserAddress<TKey, TNullableKey, TAddressProfile> : DaEntityBase<TKey>, IDaUserAddress<TKey>
+    public class DaUserAddress<TKey, TNullableKey, TAddressProfile> : DaAuditedEntityBase<TKey>, IDaUserAddress<TKey>
         where TKey : IEquatable<TKey>
         where TAddressProfile : IDaAddressProfile<TKey, TNullableKey>
     {
@@ -41,8 +41,6 @@ namespace Ejyle.DevAccelerate.Profiles.Addresses
         public string Name { get; set; }
         public TKey TenantId { get; set; }
         public DaAddressType AddressType { get; set; }
-        public DateTime CreatedDateUtc { get; set; }
-        public DateTime LastUpdatedDateUtc { get; set; }
         public TKey AddressProfileId { get; set; }
         public virtual TAddressProfile AddressProfile { get; set; }
     }

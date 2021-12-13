@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Profiles.Addresses
 {
-    public interface IDaAddressProfile<TKey, TNullableKey> : IDaEntity<TKey>
+    public interface IDaAddressProfile<TKey, TNullableKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         string Address1 { get; set; }
@@ -30,7 +30,5 @@ namespace Ejyle.DevAccelerate.Profiles.Addresses
         string FaxNumber { get; set; }
         double? Longitude { get; set; }
         double? Latitude { get; set; }
-        DateTime CreatedDateUtc { get; set; }
-        DateTime LastUpdatedDateUtc { get; set; }
     }
 }

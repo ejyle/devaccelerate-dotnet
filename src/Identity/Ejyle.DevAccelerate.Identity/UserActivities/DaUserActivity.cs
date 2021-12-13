@@ -20,7 +20,7 @@ namespace Ejyle.DevAccelerate.Identity.UserActivities
         { }
     }
 
-    public class DaUserActivity<TKey, TNullableKey, TUserActivityCategory> : DaAuditedEntityBase<TKey>, IDaUserActivity<TKey, TNullableKey>
+    public class DaUserActivity<TKey, TNullableKey, TUserActivityCategory> : DaEntityBase<TKey>, IDaUserActivity<TKey, TNullableKey>
         where TKey : IEquatable<TKey>
         where TUserActivityCategory : IDaUserActivityCategory<TKey, TNullableKey>
     {

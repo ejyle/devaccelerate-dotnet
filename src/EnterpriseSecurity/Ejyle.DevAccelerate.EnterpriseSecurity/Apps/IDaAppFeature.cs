@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
 {
-    public interface IDaAppFeature<TKey> : IDaAuditedEntity<TKey>
+    public interface IDaAppFeature<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         TKey AppId { get; set; }

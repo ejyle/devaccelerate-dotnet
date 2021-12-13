@@ -24,7 +24,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
         where TSubscriptionFeatue : IDaSubscriptionFeature<int>
     { }
 
-    public class DaBillingCycleFeatureUsage<TKey, TNullableKey, TBillingCycle, TSubscriptionFeature> : DaAuditedEntityBase<TKey>, IDaBillingCycleFeatureUsage<TKey>
+    public class DaBillingCycleFeatureUsage<TKey, TNullableKey, TBillingCycle, TSubscriptionFeature> : DaEntityBase<TKey>, IDaBillingCycleFeatureUsage<TKey>
         where TKey : IEquatable<TKey>
         where TBillingCycle : IDaBillingCycle<TKey, TNullableKey>
         where TSubscriptionFeature : IDaSubscriptionFeature<TKey>

@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
 {
-    public interface IDaTenantAttribute<TKey> : IDaAuditedEntity<TKey>
+    public interface IDaTenantAttribute<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         TKey TenantId { get; set; }

@@ -42,8 +42,6 @@ namespace Ejyle.DevAccelerate.Profiles.UserProfiles
         [StringLength(256)]
         public string AttributeName { get; set; }
         public string AttributeValue { get; set; }
-        public DateTime CreatedDateUtc { get; set; }
-        public DateTime LastUpdatedDateUtc { get; set; }
         public virtual TUserProfile UserProfile { get; set; }
     }
 }

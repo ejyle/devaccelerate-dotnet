@@ -318,7 +318,9 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                 FirstName = subscriptionInfo.FirstName,
                 LastName = subscriptionInfo.LastName,
                 UserId = user.Id,
+                CreatedBy = user.Id,
                 CreatedDateUtc = DateTime.UtcNow,
+                LastUpdatedBy = user.Id,
                 LastUpdatedDateUtc = DateTime.UtcNow
             };
 
@@ -331,9 +333,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                         AttributeName = key,
                         AttributeValue = subscriptionInfo.UserProfileAttributes[key],
                         UserProfileId = userProfile.Id,
-                        UserProfile = userProfile,
-                        CreatedDateUtc = DateTime.UtcNow,
-                        LastUpdatedDateUtc = DateTime.UtcNow
+                        UserProfile = userProfile
                     };
 
                     userProfile.Attributes.Add(attribute);
@@ -366,12 +366,15 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
             tenant.BillingEmail = subscriptionInfo.Email;
             tenant.CreatedDateUtc = DateTime.UtcNow;
             tenant.CreatedBy = user.Id;
+            tenant.LastUpdatedBy = user.Id;
+            tenant.LastUpdatedDateUtc = DateTime.UtcNow;
 
             var tenantUser = new TTenantUser
             {
                 Tenant = tenant,
                 IsActive = true,
-                UserId = user.Id
+                UserId = user.Id,
+                TenantId = tenant.Id
             };
 
             tenant.TenantUsers.Add(tenantUser);
@@ -385,7 +388,9 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                     OrganizationName = subscriptionInfo.OrganizationName,
                     OrganizationType = subscriptionInfo.OrganizationType,
                     TenantId = tenant.Id,
+                    CreatedBy = user.Id,
                     CreatedDateUtc = DateTime.UtcNow,
+                    LastUpdatedBy = user.Id,
                     LastUpdatedDateUtc = DateTime.UtcNow
                 };
 
@@ -398,9 +403,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                             AttributeName = key,
                             AttributeValue = subscriptionInfo.OrganizationProfileAttributes[key],
                             OrganizationProfile = organizationProfile,
-                            OrganizationProfileId = organizationProfile.Id,
-                            CreatedDateUtc = DateTime.UtcNow,
-                            LastUpdatedDateUtc = DateTime.UtcNow
+                            OrganizationProfileId = organizationProfile.Id
                         };
 
                         organizationProfile.Attributes.Add(attribute);
@@ -423,7 +426,9 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                 City = subscriptionInfo.City,
                 CountryId = subscriptionInfo.CountryId,
                 OwnerUserId = user.Id,
+                CreatedBy = user.Id,
                 CreatedDateUtc = DateTime.UtcNow,
+                LastUpdatedBy = user.Id,
                 LastUpdatedDateUtc = DateTime.UtcNow
             };
 
@@ -434,7 +439,9 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                 UserId = user.Id,
                 AddressType = DaAddressType.Billing,
                 TenantId = tenant.Id,
+                CreatedBy = user.Id,
                 CreatedDateUtc = DateTime.UtcNow,
+                LastUpdatedBy = user.Id,
                 LastUpdatedDateUtc = DateTime.UtcNow,
                 AddressProfileId = addressProfile.Id
             };
@@ -463,7 +470,9 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                 Level = subscriptionPlan.Level,
                 BillingInterval = DaBillingInterval.Monthly,
                 StartDateUtc = DateTime.UtcNow,
-                TrialStartDateUtc = null
+                TrialStartDateUtc = null,
+                CreatedBy = user.Id,
+                LastUpdatedBy = user.Id
             };
 
             DateTime subscriptionDate = DateTime.UtcNow;
@@ -505,7 +514,11 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                     IsPaid = false,
                     Subscription = subscription,
                     InvoiceId = default(TNullableKey),
-                    TransactionId = default(TNullableKey)
+                    TransactionId = default(TNullableKey),
+                    CreatedBy = user.Id,
+                    CreatedDateUtc = DateTime.UtcNow,
+                    LastUpdatedBy = user.Id,
+                    LastUpdatedDateUtc = DateTime.UtcNow
                 };
 
                 subscription.BillingAmount = billingCycleOption.Amount;
@@ -540,7 +553,6 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                     var subscriptionApp = new TSubscriptionApp();
                     subscriptionApp.AppId = subscriptionPlanApp.AppId;
                     subscriptionApp.Subscription = subscription;
-                    subscriptionApp.CreatedDateUtc = DateTime.UtcNow;
 
                     subscription.SubscriptionApps.Add(subscriptionApp);
                 }
@@ -559,8 +571,6 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                     subscriptionFeature.IsPremium = subscriptionPlanFeature.IsPremium;
                     subscriptionFeature.SubscriptionPlanFeatureType = subscriptionPlanFeature.SubscriptionPlanFeatureType;
                     subscriptionFeature.IsActive = true;
-                    subscriptionFeature.CreatedDateUtc = DateTime.UtcNow;
-                    subscriptionFeature.LastUpdatedDateUtc = DateTime.UtcNow;
 
                     if(subscriptionFeature.SubscriptionPlanFeatureType == DaSubscriptionPlanFeatureType.MeteredUsage)
                     {
@@ -572,8 +582,6 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                                 BillingCycleId = billingCycle.Id,
                                 Quantity = 0,
                                 SubscriptionFeature = subscriptionFeature,
-                                CreatedDateUtc = DateTime.UtcNow,
-                                LastUpdatedDateUtc = DateTime.UtcNow
                             };
 
                             subscriptionFeature.FeatureUsage.Add(billingCycleFeatureUsage);
@@ -591,8 +599,6 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                             subscriptionFeatureAttribute.AttributeName = subscriptionPlanFeatureAttribute.AttributeName;
                             subscriptionFeatureAttribute.AttributeValue = subscriptionPlanFeatureAttribute.AttributeValue;
                             subscriptionFeatureAttribute.SubscriptionFeature = subscriptionFeature;
-                            subscriptionFeatureAttribute.CreatedDateUtc = DateTime.UtcNow;
-                            subscriptionFeatureAttribute.LastUpdatedDateUtc = DateTime.UtcNow;
 
                             subscriptionFeature.SubscriptionFeatureAttributes.Add(subscriptionFeatureAttribute);
                         }
@@ -620,8 +626,6 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                         attribute.AttributeName = subscriptionPlanAttribute.AttributeName;
                         attribute.AttributeValue = subscriptionPlanAttribute.AttributeValue;
                         attribute.Subscription = subscription;
-                        attribute.CreatedDateUtc = DateTime.UtcNow;
-                        attribute.LastUpdatedDateUtc = DateTime.UtcNow;
 
                         subscription.Attributes.Add(attribute);
                     }
@@ -633,8 +637,6 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                             bcAttribute.AttributeName = subscriptionPlanAttribute.AttributeName;
                             bcAttribute.AttributeValue = subscriptionPlanAttribute.AttributeValue;
                             bcAttribute.BillingCycle = billingCycle;
-                            bcAttribute.CreatedDateUtc = DateTime.UtcNow;
-                            bcAttribute.LastUpdatedDateUtc = DateTime.UtcNow;
 
                             billingCycle.Attributes.Add(bcAttribute);
                         }
@@ -650,9 +652,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                     {
                         AttributeName = key,
                         AttributeValue = subscriptionInfo.SubscriptionAttributes[key],
-                        Subscription = subscription,
-                        CreatedDateUtc = DateTime.UtcNow,
-                        LastUpdatedDateUtc = DateTime.UtcNow
+                        Subscription = subscription
                     };
 
                     subscription.Attributes.Add(attribute);
@@ -749,7 +749,9 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                 Level = subscriptionPlan.Level,
                 BillingInterval = DaBillingInterval.Monthly,
                 StartDateUtc = DateTime.UtcNow,
-                TrialStartDateUtc = null
+                TrialStartDateUtc = null,
+                LastUpdatedBy = user.Id,
+                CreatedBy = user.Id
             };
 
             DateTime subscriptionDate = DateTime.UtcNow;
@@ -783,7 +785,11 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                     IsPaid = false,
                     Subscription = subscription,
                     InvoiceId = default(TNullableKey),
-                    TransactionId = default(TNullableKey)
+                    TransactionId = default(TNullableKey),
+                    CreatedBy = user.Id,
+                    CreatedDateUtc = DateTime.UtcNow,
+                    LastUpdatedBy = user.Id,
+                    LastUpdatedDateUtc = DateTime.UtcNow
                 };
 
                 subscription.BillingAmount = billingCycleOption.Amount;
@@ -818,7 +824,6 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                     var subscriptionApp = new TSubscriptionApp();
                     subscriptionApp.AppId = subscriptionPlanApp.AppId;
                     subscriptionApp.Subscription = subscription;
-                    subscriptionApp.CreatedDateUtc = DateTime.UtcNow;
 
                     subscription.SubscriptionApps.Add(subscriptionApp);
                 }
@@ -833,7 +838,6 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                     var subscriptionFeature = new TSubscriptionFeature();
                     subscriptionFeature.FeatureId = subscriptionPlanFeature.FeatureId;
                     subscriptionFeature.Subscription = subscription;
-                    subscriptionFeature.LastUpdatedDateUtc = DateTime.UtcNow;
                     subscriptionFeature.IsActive = true;
 
                     if (subscriptionPlanFeature.SubscriptionPlanFeatureAttributes != null && subscriptionPlanFeature.SubscriptionPlanFeatureAttributes.Count > 0)
@@ -847,8 +851,6 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                             subscriptionFeatureAttribute.AttributeName = subscriptionPlanFeatureAttribute.AttributeName;
                             subscriptionFeatureAttribute.AttributeValue = subscriptionPlanFeatureAttribute.AttributeValue;
                             subscriptionFeatureAttribute.SubscriptionFeature = subscriptionFeature;
-                            subscriptionFeatureAttribute.CreatedDateUtc = DateTime.UtcNow;
-                            subscriptionFeatureAttribute.LastUpdatedDateUtc = DateTime.UtcNow;
 
                             subscriptionFeature.SubscriptionFeatureAttributes.Add(subscriptionFeatureAttribute);
                         }
@@ -877,8 +879,6 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                         attribute.AttributeName = subscriptionPlanAttribute.AttributeName;
                         attribute.AttributeValue = subscriptionPlanAttribute.AttributeValue;
                         attribute.Subscription = subscription;
-                        attribute.CreatedDateUtc = DateTime.UtcNow;
-                        attribute.LastUpdatedDateUtc = DateTime.UtcNow;
 
                         subscription.Attributes.Add(attribute);
                     }
@@ -890,8 +890,6 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                             bcAttribute.AttributeName = subscriptionPlanAttribute.AttributeName;
                             bcAttribute.AttributeValue = subscriptionPlanAttribute.AttributeValue;
                             bcAttribute.BillingCycle = billingCycle;
-                            bcAttribute.CreatedDateUtc = DateTime.UtcNow;
-                            bcAttribute.LastUpdatedDateUtc = DateTime.UtcNow;
 
                             billingCycle.Attributes.Add(bcAttribute);
                         }
@@ -908,8 +906,6 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                         AttributeName = key,
                         AttributeValue = subscriptionAttributes[key],
                         Subscription = subscription,
-                        CreatedDateUtc = DateTime.UtcNow,
-                        LastUpdatedDateUtc = DateTime.UtcNow
                     };
 
                     subscription.Attributes.Add(attribute);

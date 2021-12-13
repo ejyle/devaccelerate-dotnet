@@ -20,7 +20,5 @@ namespace Ejyle.DevAccelerate.Profiles.Organizations
         TKey OrganizationProfileId { get; set; }
         string AttributeName { get; set; }
         string AttributeValue { get; set; }
-        DateTime CreatedDateUtc { get; set; }
-        DateTime LastUpdatedDateUtc { get; set; }
     }
 }

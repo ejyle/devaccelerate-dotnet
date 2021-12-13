@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 {
-    public interface IDaSubscriptionFeatureAttribute<TKey> : IDaAuditedEntity<TKey>
+    public interface IDaSubscriptionFeatureAttribute<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         TKey SubscriptionFeatureId { get; set; }

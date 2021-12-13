@@ -20,7 +20,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
         { }
     }
 
-    public class DaTenantAttribute<TKey, TNullableKey, TTenant> : DaAuditedEntityBase<TKey>, IDaTenantAttribute<TKey>
+    public class DaTenantAttribute<TKey, TNullableKey, TTenant> : DaEntityBase<TKey>, IDaTenantAttribute<TKey>
         where TKey : IEquatable<TKey>
         where TTenant : IDaTenant<TKey, TNullableKey>
     {

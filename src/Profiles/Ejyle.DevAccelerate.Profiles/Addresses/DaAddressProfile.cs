@@ -29,7 +29,7 @@ namespace Ejyle.DevAccelerate.Profiles.Addresses
         { }
     }
 
-    public class DaAddressProfile<TKey, TNullableKey, TUserAddress> : DaEntityBase<TKey>, IDaAddressProfile<TKey, TNullableKey>
+    public class DaAddressProfile<TKey, TNullableKey, TUserAddress> : DaAuditedEntityBase<TKey>, IDaAddressProfile<TKey, TNullableKey>
         where TKey : IEquatable<TKey>
         where TUserAddress : IDaUserAddress<TKey>
     {
@@ -51,8 +51,6 @@ namespace Ejyle.DevAccelerate.Profiles.Addresses
         public string FaxNumber { get; set; }
         public double? Longitude { get; set; }
         public double? Latitude { get; set; }
-        public DateTime CreatedDateUtc { get; set; }
-        public DateTime LastUpdatedDateUtc { get; set; }
         public virtual ICollection<TUserAddress> UserAddresses { get; set; }
         public string City { get; set; }
     }

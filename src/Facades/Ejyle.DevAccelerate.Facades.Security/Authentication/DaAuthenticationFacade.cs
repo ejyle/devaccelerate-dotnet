@@ -109,6 +109,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
                     SystemSessionId = sessionId,
                     IpAddress = ipAddress,
                     DeviceAgent = deviceAgent,
+                    Status = DaUserSessionStatus.New,
                     CreatedDateUtc = DateTime.UtcNow,
                     ExpiryDateUtc = DateTime.UtcNow.AddMinutes(expiryTimeInMinutes),
                     ExpiredDateUtc = null

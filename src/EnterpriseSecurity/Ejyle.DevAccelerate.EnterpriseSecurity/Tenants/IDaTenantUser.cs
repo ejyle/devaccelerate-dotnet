@@ -14,7 +14,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
     /// Represents the association of a user with a tenant.
     /// </summary>
     /// <typeparam name="TKey">The type of a non-nullable key of an entity.</typeparam>
-    public interface IDaTenantUser<TKey> : IDaAuditedEntity<TKey>
+    public interface IDaTenantUser<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         /// <summary>

@@ -91,7 +91,6 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Subscriptions
         {
             var billingCycleFeatureUsage = FeatureUsage.Where(m => m.Id.Equals(billingCycleFeatureUsageId)).SingleOrDefault();
             billingCycleFeatureUsage.Quantity = value;
-            billingCycleFeatureUsage.LastUpdatedDateUtc = DateTime.UtcNow;
 
             DbContext.Entry<TBillingCycleFeatureUsage>(billingCycleFeatureUsage).State = EntityState.Modified;
 

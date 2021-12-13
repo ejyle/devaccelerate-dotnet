@@ -40,8 +40,6 @@ namespace Ejyle.DevAccelerate.Profiles.Organizations
         [StringLength(256)]
         public string AttributeName { get; set; }
         public string AttributeValue { get; set; }
-        public DateTime CreatedDateUtc { get; set; }
-        public DateTime LastUpdatedDateUtc { get; set; }
         public virtual TOrganizationProfile OrganizationProfile { get; set; }
     }
 }

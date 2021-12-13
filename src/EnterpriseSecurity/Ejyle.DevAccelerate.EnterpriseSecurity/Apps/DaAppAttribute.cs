@@ -19,7 +19,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
         { }
     }
 
-    public class DaAppAttribute<TKey, TApp> : DaAuditedEntityBase<TKey>, IDaAppAttribute<TKey>
+    public class DaAppAttribute<TKey, TApp> : DaEntityBase<TKey>, IDaAppAttribute<TKey>
         where TKey : IEquatable<TKey>
     {
         [Required]

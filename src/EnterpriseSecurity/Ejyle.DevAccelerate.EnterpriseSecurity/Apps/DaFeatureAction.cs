@@ -19,7 +19,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
         { }
     }
 
-    public class DaFeatureAction<TKey, TNullableKey, TFeature> : DaAuditedEntityBase<TKey>, IDaFeatureAction<TKey>
+    public class DaFeatureAction<TKey, TNullableKey, TFeature> : DaEntityBase<TKey>, IDaFeatureAction<TKey>
         where TKey : IEquatable<TKey>
         where TFeature : IDaFeature<TKey, TNullableKey>
     {

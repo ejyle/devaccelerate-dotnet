@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Profiles.Addresses
 {
-    public interface IDaUserAddress<TKey> : IDaEntity<TKey>
+    public interface IDaUserAddress<TKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         TKey AddressProfileId { get; set; }
@@ -22,7 +22,5 @@ namespace Ejyle.DevAccelerate.Profiles.Addresses
         string Name { get; set; }
         TKey TenantId { get; set; }
         DaAddressType AddressType { get; set; }
-        DateTime CreatedDateUtc { get; set; }
-        DateTime LastUpdatedDateUtc { get; set; }
     }
 }

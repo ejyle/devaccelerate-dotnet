@@ -20,7 +20,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
         { }
     }
 
-    public class DaSubscriptionApp<TKey, TNullableKey, TApp, TSubscriptionAppRole, TSubscription, TSubscriptionAppUser> : DaAuditedEntityBase<TKey>, IDaSubscriptionApp<TKey>
+    public class DaSubscriptionApp<TKey, TNullableKey, TApp, TSubscriptionAppRole, TSubscription, TSubscriptionAppUser> : DaEntityBase<TKey>, IDaSubscriptionApp<TKey>
         where TKey : IEquatable<TKey>
         where TApp : IDaApp<TKey>
         where TSubscriptionAppRole : IDaSubscriptionAppRole<TKey>
