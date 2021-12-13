@@ -16,7 +16,7 @@ namespace Ejyle.DevAccelerate.Identity.UserSessions
     public class DaUserSession : DaUserSession<int>
     { }
 
-    public class DaUserSession<TKey> : DaEntityBase<TKey>, IDaUserSession<TKey>
+    public class DaUserSession<TKey> : DaAuditedEntityBase<TKey>, IDaUserSession<TKey>
         where TKey : IEquatable<TKey>
     {
         [Required]

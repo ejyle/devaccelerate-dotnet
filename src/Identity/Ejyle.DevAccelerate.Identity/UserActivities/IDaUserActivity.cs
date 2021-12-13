@@ -10,7 +10,7 @@ using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.Identity.UserActivities
 {
-    public interface IDaUserActivity<TKey, TNullableKey> : IDaEntity<TKey>
+    public interface IDaUserActivity<TKey, TNullableKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         TKey UserId { get; set; }
@@ -23,6 +23,5 @@ namespace Ejyle.DevAccelerate.Identity.UserActivities
         DaUserActivityType UserActivityType { get; set; }
         string ActualObject { get; set; }
         string UpdatedObject { get; set; }
-        DateTime CreatedDateUtc { get; set; }
     }
 }

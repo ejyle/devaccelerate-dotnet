@@ -10,13 +10,11 @@ using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.Identity.UserSettings
 {
-    public interface IDaUserSetting<TKey> : IDaEntity<TKey>
+    public interface IDaUserSetting<TKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         TKey UserId { get; set; }
         string Name { get; set; }
         string Value { get; set; }
-        DateTime CreatedDateUtc { get; set; }
-        DateTime LastUpdatedDateUtc { get; set; }
     }
 }

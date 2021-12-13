@@ -14,7 +14,7 @@ namespace Ejyle.DevAccelerate.Identity.UserSessions
     /// Represents an interface for a user session.
     /// </summary>
     /// <typeparam name="TKey">The type of a non-nullable key of an entity.</typeparam>
-    public interface IDaUserSession<TKey> : IDaEntity<TKey>
+    public interface IDaUserSession<TKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         /// <summary>
@@ -41,11 +41,6 @@ namespace Ejyle.DevAccelerate.Identity.UserSessions
         /// Gets or sets the device agent name.
         /// </summary>
         string DeviceAgent { get; set; }
-
-        /// <summary>
-        /// Gets or sets the date and time when the user session is created.
-        /// </summary>
-        DateTime CreatedDateUtc { get; set; }
 
         /// <summary>
         /// Gets or sets the date and time of when the user session is expired.

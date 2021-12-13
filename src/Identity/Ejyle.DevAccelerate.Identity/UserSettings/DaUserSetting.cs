@@ -15,13 +15,11 @@ namespace Ejyle.DevAccelerate.Identity.UserSettings
     public class DaUserSetting : DaUserSetting<int>
     { }
 
-    public class DaUserSetting<TKey> : DaEntityBase<TKey>, IDaUserSetting<TKey>
+    public class DaUserSetting<TKey> : DaAuditedEntityBase<TKey>, IDaUserSetting<TKey>
         where TKey : IEquatable<TKey>
     {
         public TKey UserId { get; set; }
         public string Name { get; set; }
         public string Value { get; set; }
-        public DateTime CreatedDateUtc { get; set; }
-        public DateTime LastUpdatedDateUtc { get; set; }
     }
 }
