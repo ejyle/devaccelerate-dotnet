@@ -18,6 +18,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>DevAccelerate;Entity;Repository;DbContext;EntityFrameworkCore;EF</PackageTags>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageReleaseNotes>Migrated code to .NET Core</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

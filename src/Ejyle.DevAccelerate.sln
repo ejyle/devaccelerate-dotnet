@@ -39,17 +39,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ejyle.DevAccelerate.Facades
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mail", "Mail", "{CC90F300-6FAD-4C0D-93B5-989C31770C08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejyle.DevAccelerate.Mail", "Mail\Ejyle.DevAccelerate.Mail\Ejyle.DevAccelerate.Mail.csproj", "{EA0519DA-1CAF-486D-A0F3-367161917D9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ejyle.DevAccelerate.Mail", "Mail\Ejyle.DevAccelerate.Mail\Ejyle.DevAccelerate.Mail.csproj", "{EA0519DA-1CAF-486D-A0F3-367161917D9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejyle.DevAccelerate.Mail.SendGrid", "Mail\Ejyle.DevAccelerate.Mail.SendGrid\Ejyle.DevAccelerate.Mail.SendGrid.csproj", "{1D392B75-EC59-411D-93E7-D1A973B583B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ejyle.DevAccelerate.Mail.SendGrid", "Mail\Ejyle.DevAccelerate.Mail.SendGrid\Ejyle.DevAccelerate.Mail.SendGrid.csproj", "{1D392B75-EC59-411D-93E7-D1A973B583B2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sms", "Sms", "{C09963BA-EAE9-4A98-A7A7-A909F664CB80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejyle.DevAccelerate.Sms", "Sms\Ejyle.DevAccelerate.Sms\Ejyle.DevAccelerate.Sms.csproj", "{F853A721-D5A1-4BB0-ABF4-7F6C56BFAA0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ejyle.DevAccelerate.Sms", "Sms\Ejyle.DevAccelerate.Sms\Ejyle.DevAccelerate.Sms.csproj", "{F853A721-D5A1-4BB0-ABF4-7F6C56BFAA0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejyle.DevAccelerate.Sms.Twilio", "Sms\Ejyle.DevAccelerate.Sms.Twilio\Ejyle.DevAccelerate.Sms.Twilio.csproj", "{728B61A3-64F6-432D-8794-8A881E109B9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ejyle.DevAccelerate.Sms.Twilio", "Sms\Ejyle.DevAccelerate.Sms.Twilio\Ejyle.DevAccelerate.Sms.Twilio.csproj", "{728B61A3-64F6-432D-8794-8A881E109B9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejyle.DevAccelerate.Sms.Textlocal", "Sms\Ejyle.DevAccelerate.Sms.Textlocal\Ejyle.DevAccelerate.Sms.Textlocal.csproj", "{F37B5CA4-A090-4BE3-BCD1-16D11DF1FE84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ejyle.DevAccelerate.Sms.Textlocal", "Sms\Ejyle.DevAccelerate.Sms.Textlocal\Ejyle.DevAccelerate.Sms.Textlocal.csproj", "{F37B5CA4-A090-4BE3-BCD1-16D11DF1FE84}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -144,7 +144,7 @@ Global
 		{F37B5CA4-A090-4BE3-BCD1-16D11DF1FE84} = {C09963BA-EAE9-4A98-A7A7-A909F664CB80}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.ExceptionHandling.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45
 		SolutionGuid = {831BB8D2-2AA2-4B38-BD2F-1C679795682C}
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.ExceptionHandling.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45
 	EndGlobalSection
 EndGlobal
