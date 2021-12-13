@@ -16,6 +16,11 @@ namespace Ejyle.DevAccelerate.Mail
     public interface IDaMailProvider
     {
         /// <summary>
+        /// Gets the mail settings.
+        /// </summary>
+        DaMailSettings Settings { get; }
+
+        /// <summary>
         /// Sends a mail.
         /// </summary>
         /// <param name="to">The recipient of the mail.</param>

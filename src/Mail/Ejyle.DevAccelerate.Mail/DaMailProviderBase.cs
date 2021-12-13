@@ -21,36 +21,16 @@ namespace Ejyle.DevAccelerate.Mail
         /// <summary>
         /// Creates an instance of <see cref="DaMailProviderBase"/>.
         /// </summary>
-        public DaMailProviderBase(IOptions<DaMailSettings> settings)
+        public DaMailProviderBase(IOptions<DaMailSettings> options)
         {
-            if(settings == null) { throw new ArgumentNullException(nameof(settings)); }
-
-            DefaultFromName = settings.Value.DefaultSenderName;
-            DefaultFromEmail = settings.Value.DefaultSenderEmail;          
+            if(options == null) { throw new ArgumentNullException(nameof(options)); }            
+            Settings = options.Value;
         }
 
         /// <summary>
         /// Gets the mail settings.
         /// </summary>
-        public IOptions<DaMailSettings> Settings { get; private set; }
-
-        /// <summary>
-        /// Gets or sets the default name for the sender.
-        /// </summary>
-        protected string DefaultFromName
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets the default email for the sender
-        /// </summary>
-        protected string DefaultFromEmail
-        {
-            get;
-            set;
-        }
+        public DaMailSettings Settings { get; private set; }
 
         /// <summary>
         /// Sends a mail.

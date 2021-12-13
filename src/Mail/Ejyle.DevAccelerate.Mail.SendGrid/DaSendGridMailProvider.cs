@@ -17,8 +17,8 @@ namespace Ejyle.DevAccelerate.Mail.SendGrid
 {
     public class DaSendGridMailProvider : DaMailProviderBase
     {
-        public DaSendGridMailProvider(IOptions<DaMailSettings> settings)
-            : base(settings)
+        public DaSendGridMailProvider(IOptions<DaMailSettings> options)
+            : base(options)
         { }
 
         public override void Send(string to, string from, string subject, string body)
@@ -46,7 +46,7 @@ namespace Ejyle.DevAccelerate.Mail.SendGrid
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var oclient = new SG.SendGridClient(Settings.Value.SmtpSettings.ApiKey);
+            var oclient = new SG.SendGridClient(Settings.SmtpSettings.ApiKey);
 
             var sgMessage = new SG.Helpers.Mail.SendGridMessage();
 
@@ -61,7 +61,7 @@ namespace Ejyle.DevAccelerate.Mail.SendGrid
             }
             else
             {
-                sgMessage.From = new SG.Helpers.Mail.EmailAddress(DefaultFromEmail, DefaultFromName);
+                sgMessage.From = new SG.Helpers.Mail.EmailAddress(Settings.DefaultSenderEmail, Settings.DefaultSenderName);
             }
 
             if (message.Attachments != null & message.Attachments.Count > 0)

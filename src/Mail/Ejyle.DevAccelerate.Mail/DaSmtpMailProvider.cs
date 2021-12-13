@@ -28,11 +28,11 @@ namespace Ejyle.DevAccelerate.Mail
         /// <param name="message">The mail message object.</param>
         public override void Send(MailMessage mail)
         {
-            var smtpClient = new SmtpClient(Settings.Value.SmtpSettings.HostName);
+            var smtpClient = new SmtpClient(Settings.SmtpSettings.HostName);
 
-            smtpClient.Port = Settings.Value.SmtpSettings.Port;
-            smtpClient.Credentials = new System.Net.NetworkCredential(Settings.Value.SmtpSettings.UserId, Settings.Value.SmtpSettings.Password);
-            smtpClient.EnableSsl = Settings.Value.SmtpSettings.UseSsl;
+            smtpClient.Port = Settings.SmtpSettings.Port;
+            smtpClient.Credentials = new System.Net.NetworkCredential(Settings.SmtpSettings.UserId, Settings.SmtpSettings.Password);
+            smtpClient.EnableSsl = Settings.SmtpSettings.UseSsl;
 
             smtpClient.Send(mail);
         }
@@ -63,11 +63,11 @@ namespace Ejyle.DevAccelerate.Mail
         /// <returns>A task that represents the asynchronous save operation.</returns>
         public override Task SendAsync(MailMessage message)
         {
-            var smtpClient = new SmtpClient(Settings.Value.SmtpSettings.HostName);
+            var smtpClient = new SmtpClient(Settings.SmtpSettings.HostName);
 
-            smtpClient.Port = (int)Settings.Value.SmtpSettings.Port;
-            smtpClient.Credentials = new System.Net.NetworkCredential(Settings.Value.SmtpSettings.UserId, Settings.Value.SmtpSettings.Password);
-            smtpClient.EnableSsl = Settings.Value.SmtpSettings.UseSsl;
+            smtpClient.Port = (int)Settings.SmtpSettings.Port;
+            smtpClient.Credentials = new System.Net.NetworkCredential(Settings.SmtpSettings.UserId, Settings.SmtpSettings.Password);
+            smtpClient.EnableSsl = Settings.SmtpSettings.UseSsl;
 
             return smtpClient.SendMailAsync(message);
         }

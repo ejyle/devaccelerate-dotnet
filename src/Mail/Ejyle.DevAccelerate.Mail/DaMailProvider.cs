@@ -20,7 +20,7 @@ namespace Ejyle.DevAccelerate.Mail
         /// <summary>
         /// Creates an instance of the <see cref="DaMailProvider"/> class.
         /// </summary>
-        public DaMailProvider(IOptions<DaMailSettings> settings) : base(settings)
+        public DaMailProvider(IOptions<DaMailSettings> options) : base(options)
         { }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace Ejyle.DevAccelerate.Mail
 
             if (message.From == null)
             {
-                message.From = new MailAddress(Settings.Value.DefaultSenderEmail);
+                message.From = new MailAddress(Settings.DefaultSenderEmail);
             }
 
             var smtpClient = new SmtpClient();
