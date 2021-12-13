@@ -37,6 +37,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Facades", "Facades", "{7675
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ejyle.DevAccelerate.Facades.Security", "Facades\Ejyle.DevAccelerate.Facades.Security\Ejyle.DevAccelerate.Facades.Security.csproj", "{AE20E5DF-39C0-4E89-832E-90E7D9812571}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mail", "Mail", "{CC90F300-6FAD-4C0D-93B5-989C31770C08}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejyle.DevAccelerate.Mail", "Mail\Ejyle.DevAccelerate.Mail\Ejyle.DevAccelerate.Mail.csproj", "{EA0519DA-1CAF-486D-A0F3-367161917D9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejyle.DevAccelerate.Mail.SendGrid", "Mail\Ejyle.DevAccelerate.Mail.SendGrid\Ejyle.DevAccelerate.Mail.SendGrid.csproj", "{1D392B75-EC59-411D-93E7-D1A973B583B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +93,14 @@ Global
 		{AE20E5DF-39C0-4E89-832E-90E7D9812571}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE20E5DF-39C0-4E89-832E-90E7D9812571}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE20E5DF-39C0-4E89-832E-90E7D9812571}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA0519DA-1CAF-486D-A0F3-367161917D9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA0519DA-1CAF-486D-A0F3-367161917D9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA0519DA-1CAF-486D-A0F3-367161917D9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA0519DA-1CAF-486D-A0F3-367161917D9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D392B75-EC59-411D-93E7-D1A973B583B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D392B75-EC59-411D-93E7-D1A973B583B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D392B75-EC59-411D-93E7-D1A973B583B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D392B75-EC59-411D-93E7-D1A973B583B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,9 +117,11 @@ Global
 		{15C83A0D-ABC8-4DE3-AA23-B0BF53A3BE4F} = {4D90E98F-5B1C-4EE2-9550-14BDCF75D474}
 		{BB9545AF-12D9-42C7-BE0A-D91940A1C6DA} = {4D90E98F-5B1C-4EE2-9550-14BDCF75D474}
 		{AE20E5DF-39C0-4E89-832E-90E7D9812571} = {767578DE-48DF-47B9-8122-7272E6DD0B13}
+		{EA0519DA-1CAF-486D-A0F3-367161917D9A} = {CC90F300-6FAD-4C0D-93B5-989C31770C08}
+		{1D392B75-EC59-411D-93E7-D1A973B583B2} = {CC90F300-6FAD-4C0D-93B5-989C31770C08}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {831BB8D2-2AA2-4B38-BD2F-1C679795682C}
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.ExceptionHandling.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45
+		SolutionGuid = {831BB8D2-2AA2-4B38-BD2F-1C679795682C}
 	EndGlobalSection
 EndGlobal
