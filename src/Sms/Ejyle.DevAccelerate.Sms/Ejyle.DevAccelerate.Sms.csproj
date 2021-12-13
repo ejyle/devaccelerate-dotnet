@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
+    <RootNamespace>Ejyle.DevAccelerate.Sms</RootNamespace>
+    <AssemblyName>Ejyle.DevAccelerate.Sms</AssemblyName>
+    <ApplicationIcon>da.ico</ApplicationIcon>
+    <Company>Ejyle Technologies (P) Ltd</Company>
+    <Authors>ejyle, tanveery</Authors>
+    <Copyright>Copyright © Ejyle Technologies (P) Ltd. All rights reserved.</Copyright>
+    <PackageProjectUrl>https://devaccelerate.github.io</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/devaccelerate/DevAccelerateNet.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>DevAccelerateSms</PackageId>
+    <Product>DevAccelerateSms</Product>
+    <Description>Provides interfaces for sending SMS messages.</Description>
+    <PackageTags>DevAccelerate;SMS;SMS-Messages</PackageTags>
+    <Version>6.0.0</Version>
+    <Nullable>disable</Nullable>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
+  </ItemGroup>  
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Ejyle.DevAccelerate.Core\Ejyle.DevAccelerate.Core.csproj" />
+  </ItemGroup>
+
+</Project>

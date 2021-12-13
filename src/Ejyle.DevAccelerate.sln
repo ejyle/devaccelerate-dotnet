@@ -43,6 +43,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejyle.DevAccelerate.Mail", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejyle.DevAccelerate.Mail.SendGrid", "Mail\Ejyle.DevAccelerate.Mail.SendGrid\Ejyle.DevAccelerate.Mail.SendGrid.csproj", "{1D392B75-EC59-411D-93E7-D1A973B583B2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sms", "Sms", "{C09963BA-EAE9-4A98-A7A7-A909F664CB80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejyle.DevAccelerate.Sms", "Sms\Ejyle.DevAccelerate.Sms\Ejyle.DevAccelerate.Sms.csproj", "{F853A721-D5A1-4BB0-ABF4-7F6C56BFAA0C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejyle.DevAccelerate.Sms.Twilio", "Sms\Ejyle.DevAccelerate.Sms.Twilio\Ejyle.DevAccelerate.Sms.Twilio.csproj", "{728B61A3-64F6-432D-8794-8A881E109B9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejyle.DevAccelerate.Sms.Textlocal", "Sms\Ejyle.DevAccelerate.Sms.Textlocal\Ejyle.DevAccelerate.Sms.Textlocal.csproj", "{F37B5CA4-A090-4BE3-BCD1-16D11DF1FE84}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +109,18 @@ Global
 		{1D392B75-EC59-411D-93E7-D1A973B583B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D392B75-EC59-411D-93E7-D1A973B583B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D392B75-EC59-411D-93E7-D1A973B583B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F853A721-D5A1-4BB0-ABF4-7F6C56BFAA0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F853A721-D5A1-4BB0-ABF4-7F6C56BFAA0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F853A721-D5A1-4BB0-ABF4-7F6C56BFAA0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F853A721-D5A1-4BB0-ABF4-7F6C56BFAA0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{728B61A3-64F6-432D-8794-8A881E109B9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{728B61A3-64F6-432D-8794-8A881E109B9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{728B61A3-64F6-432D-8794-8A881E109B9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{728B61A3-64F6-432D-8794-8A881E109B9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F37B5CA4-A090-4BE3-BCD1-16D11DF1FE84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F37B5CA4-A090-4BE3-BCD1-16D11DF1FE84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F37B5CA4-A090-4BE3-BCD1-16D11DF1FE84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F37B5CA4-A090-4BE3-BCD1-16D11DF1FE84}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -119,6 +139,9 @@ Global
 		{AE20E5DF-39C0-4E89-832E-90E7D9812571} = {767578DE-48DF-47B9-8122-7272E6DD0B13}
 		{EA0519DA-1CAF-486D-A0F3-367161917D9A} = {CC90F300-6FAD-4C0D-93B5-989C31770C08}
 		{1D392B75-EC59-411D-93E7-D1A973B583B2} = {CC90F300-6FAD-4C0D-93B5-989C31770C08}
+		{F853A721-D5A1-4BB0-ABF4-7F6C56BFAA0C} = {C09963BA-EAE9-4A98-A7A7-A909F664CB80}
+		{728B61A3-64F6-432D-8794-8A881E109B9A} = {C09963BA-EAE9-4A98-A7A7-A909F664CB80}
+		{F37B5CA4-A090-4BE3-BCD1-16D11DF1FE84} = {C09963BA-EAE9-4A98-A7A7-A909F664CB80}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.ExceptionHandling.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45
