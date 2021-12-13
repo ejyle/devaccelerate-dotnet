@@ -49,12 +49,6 @@ You can also install a specific version of a DevAccelerate NuGet package with th
 ```
 Install-Package DevAccelerateCoreEF -Version 6.0.0
 ```
-
-If you need all or most of the DevAccelerate libraries in your .NET project, **DevAccelerateAll** can be very handy. It is a metapackage that installs all the DevAccelerate libraries:
-```
-Install-Package DevAccelerateAll
-```
-
 **Note:** You always need to install only top-level NuGet package. Dependencies, whether DevAccelerate libraries or any other, would automatically get installed.
 
 ## Issues
