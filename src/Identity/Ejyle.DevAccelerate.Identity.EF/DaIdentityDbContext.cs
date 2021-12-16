@@ -6,7 +6,6 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.ComponentModel.DataAnnotations.Schema;
 using Ejyle.DevAccelerate.Identity.UserActivities;
 using Ejyle.DevAccelerate.Identity.UserSessions;
 using Ejyle.DevAccelerate.Identity.UserSettings;
@@ -16,19 +15,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ejyle.DevAccelerate.Identity.EF
 {
-    public class DaAspNetIdentityDbContext
-    : DaAspNetIdentityDbContext<int, int?, DaUser, DaRole, DaUserSession, DaUserActivityCategory, DaUserActivity, DaUserSetting>
+    public class DaIdentityDbContext
+    : DaIdentityDbContext<int, int?, DaUser, DaRole, DaUserSession, DaUserActivityCategory, DaUserActivity, DaUserSetting>
     {
-        public DaAspNetIdentityDbContext(DbContextOptions<DaAspNetIdentityDbContext> options)
+        public DaIdentityDbContext(DbContextOptions<DaIdentityDbContext> options)
             : base(options)
         { }
 
-        public DaAspNetIdentityDbContext()
+        public DaIdentityDbContext()
             : base()
         { }
     }
 
-    public class DaAspNetIdentityDbContext<TKey, TNullableKey, TUser, TRole, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting>
+    public class DaIdentityDbContext<TKey, TNullableKey, TUser, TRole, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting>
         : IdentityDbContext<TUser, TRole, TKey>
         where TKey : IEquatable<TKey>
         where TUser: IdentityUser<TKey>
@@ -40,15 +39,15 @@ namespace Ejyle.DevAccelerate.Identity.EF
     {
         private const string SCHEMA_NAME = "Identity";
 
-        public DaAspNetIdentityDbContext(DbContextOptions<DaAspNetIdentityDbContext<TKey, TNullableKey, TUser, TRole, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting>> options)
+        public DaIdentityDbContext(DbContextOptions<DaIdentityDbContext<TKey, TNullableKey, TUser, TRole, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting>> options)
             : base(options)
         { }
 
-        public DaAspNetIdentityDbContext(DbContextOptions options)
+        public DaIdentityDbContext(DbContextOptions options)
             : base(options)
         { }
 
-        public DaAspNetIdentityDbContext()
+        public DaIdentityDbContext()
             : base()
         { }
 
@@ -69,16 +68,37 @@ namespace Ejyle.DevAccelerate.Identity.EF
             modelBuilder.Entity<IdentityRoleClaim<TKey>>().ToTable("RoleClaims", SCHEMA_NAME);
             modelBuilder.Entity<IdentityUserToken<TKey>>().ToTable("UserTokens", SCHEMA_NAME);
 
-            modelBuilder.Entity<TUserSession>().ToTable("UserSessions", SCHEMA_NAME);
-            modelBuilder.Entity<TUserActivityCategory>().ToTable("UserActivityCategories", SCHEMA_NAME);
-            modelBuilder.Entity<TUserActivity>().ToTable("UserActivities", SCHEMA_NAME);
-            modelBuilder.Entity<TUserSetting>().ToTable("UserSettings", SCHEMA_NAME);
+            modelBuilder.Entity<TUserActivity>(entity =>
+            {
+                entity.ToTable("UserActivities", SCHEMA_NAME);
 
-            modelBuilder.Entity<TUserActivity>()
-                .HasOne(p => p.UserActivityCategory)
-                .WithMany(b => b.UserActivities)
-                .HasForeignKey(p => p.UserActivityCategoryId)
-                .HasPrincipalKey(b => b.Id);
+                entity.HasOne(d => d.UserActivityCategory)
+                    .WithMany(p => p.UserActivities)
+                    .HasForeignKey(d => d.UserActivityCategoryId);
+            });
+
+            modelBuilder.Entity<TUserActivityCategory>(entity =>
+            {
+                entity.ToTable("UserActivityCategories", SCHEMA_NAME);
+            });
+
+            modelBuilder.Entity<TUserSession>(entity =>
+            {
+                entity.ToTable("UserSessions", SCHEMA_NAME);
+
+                entity.Property(e => e.DeviceAgent).HasMaxLength(500);
+
+                entity.Property(e => e.IpAddress).HasMaxLength(15);
+
+                entity.Property(e => e.SessionKey).HasMaxLength(128);
+
+                entity.Property(e => e.SystemSessionId).HasMaxLength(128);
+            });
+
+            modelBuilder.Entity<TUserSetting>(entity =>
+            {
+                entity.ToTable("UserSettings", SCHEMA_NAME);
+            });
         }
     }
 }
