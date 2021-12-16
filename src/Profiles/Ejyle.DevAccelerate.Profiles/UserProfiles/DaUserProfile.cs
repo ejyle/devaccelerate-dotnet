@@ -31,7 +31,7 @@ namespace Ejyle.DevAccelerate.Profiles.UserProfiles
         }
 
         [Required]
-        public TKey UserId { get; set; }
+        public TKey OwnerUserId { get; set; }
 
         [StringLength(50)]
         public string? Salutation { get; set; }
@@ -52,6 +52,8 @@ namespace Ejyle.DevAccelerate.Profiles.UserProfiles
 
         [StringLength(256)]
         public string? OrganizationName { get; set; }
+
+        public DaUserProfileType UserProfileType { get; set; }
 
         public virtual ICollection<TUserProfileAttribute> Attributes { get; set; }
     }

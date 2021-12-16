@@ -55,7 +55,7 @@ namespace Ejyle.DevAccelerate.Profiles.EF.UserProfiles
 
         public Task<List<TUserProfile>> FindByUserIdAsync(TKey userId)
         {
-            return UserProfiles.Where(m => m.UserId.Equals(userId)).ToListAsync();
+            return UserProfiles.Where(m => m.OwnerUserId.Equals(userId)).ToListAsync();
         }
 
         public Task UpdateAsync(TUserProfile userProfile)

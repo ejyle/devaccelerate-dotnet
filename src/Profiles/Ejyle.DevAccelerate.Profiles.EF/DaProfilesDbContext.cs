@@ -57,56 +57,79 @@ namespace Ejyle.DevAccelerate.Profiles.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            #region User Profiles
+            base.OnModelCreating(modelBuilder);
 
-            var userProfiles = modelBuilder.Entity<TUserProfile>()
-                .ToTable("UserProfiles", SCHEMA_NAME);
+            modelBuilder.Entity<TAddressProfile>(entity =>
+            {
+                entity.ToTable("AddressProfiles", SCHEMA_NAME);
+            });
 
-            userProfiles.Property(m => m.Dob)
-                        .HasColumnType("date");
+            modelBuilder.Entity<TOrganizationProfileAttribute>(entity =>
+            {
+                entity.ToTable("OrganizationProfileAttributes", SCHEMA_NAME);
 
-            modelBuilder.Entity<TUserProfileAttribute>()
-                .HasOne(p => p.UserProfile)
-                .WithMany(b => b.Attributes)
-                .HasForeignKey(p => p.UserProfileId)
-                .HasPrincipalKey(b => b.Id);
+                entity.Property(e => e.AttributeName)
+                    .IsRequired()
+                    .HasMaxLength(256);
 
-            modelBuilder.Entity<TUserProfileAttribute>()
-                .ToTable("UserProfileAttributes", SCHEMA_NAME);
+                entity.HasOne(d => d.OrganizationProfile)
+                    .WithMany(p => p.Attributes)
+                    .HasForeignKey(d => d.OrganizationProfileId);
+            });
 
-            #endregion User Profiles
+            modelBuilder.Entity<TOrganizationProfile>(entity =>
+            {
+                entity.ToTable("OrganizationProfiles", SCHEMA_NAME);
 
-            #region Organization Profiles
+                entity.Property(e => e.OrganizationName)
+                    .IsRequired()
+                    .HasMaxLength(256);
+            });
 
-            var organizationProfiles = modelBuilder.Entity<TOrganizationProfile>()
-                .ToTable("OrganizationProfiles", SCHEMA_NAME);
+            modelBuilder.Entity<TUserAddress>(entity =>
+            {
+                entity.ToTable("UserAddresses", SCHEMA_NAME);
 
-            modelBuilder.Entity<TOrganizationProfileAttribute>()
-                .HasOne(p => p.OrganizationProfile)
-                .WithMany(b => b.Attributes)
-                .HasForeignKey(p => p.OrganizationProfileId)
-                .HasPrincipalKey(b => b.Id);
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(256);
 
-            modelBuilder.Entity<TOrganizationProfileAttribute>()
-                .ToTable("OrganizationProfileAttributes", SCHEMA_NAME);
+                entity.HasOne(d => d.AddressProfile)
+                    .WithMany(p => p.UserAddresses)
+                    .HasForeignKey(d => d.AddressProfileId);
+            });
 
-            #endregion Organization Profiles
+            modelBuilder.Entity<TUserProfileAttribute>(entity =>
+            {
+                entity.ToTable("UserProfileAttributes", SCHEMA_NAME);
 
-            #region Addresses
+                entity.Property(e => e.AttributeName)
+                    .IsRequired()
+                    .HasMaxLength(256);
 
-            var addressProfiles = modelBuilder.Entity<TAddressProfile>()
-                .ToTable("AddressProfiles", SCHEMA_NAME);
+                entity.HasOne(d => d.UserProfile)
+                    .WithMany(p => p.Attributes)
+                    .HasForeignKey(d => d.UserProfileId);
+            });
 
-            modelBuilder.Entity<TUserAddress>()
-                .HasOne(p => p.AddressProfile)
-                .WithMany(b => b.UserAddresses)
-                .HasForeignKey(p => p.AddressProfileId)
-                .HasPrincipalKey(b => b.Id);
+            modelBuilder.Entity<TUserProfile>(entity =>
+            {
+                entity.ToTable("UserProfiles", SCHEMA_NAME);
 
-            modelBuilder.Entity<TUserAddress>()
-                .ToTable("UserAddresses", SCHEMA_NAME);
+                entity.Property(e => e.Dob).HasColumnType("date");
 
-            #endregion Addresses
+                entity.Property(e => e.FirstName).HasMaxLength(100);
+
+                entity.Property(e => e.JobTitle).HasMaxLength(256);
+
+                entity.Property(e => e.LastName).HasMaxLength(100);
+
+                entity.Property(e => e.MiddleName).HasMaxLength(100);
+
+                entity.Property(e => e.OrganizationName).HasMaxLength(256);
+
+                entity.Property(e => e.Salutation).HasMaxLength(50);
+            });
         }
     }
 }

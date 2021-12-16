@@ -15,7 +15,7 @@ namespace Ejyle.DevAccelerate.Profiles.UserProfiles
         where TKey : IEquatable<TKey>
     {
         [Required]
-        TKey UserId { get; set; }
+        TKey OwnerUserId { get; set; }
         string? Salutation { get; set; }
         string? FirstName { get; set; }
         string? MiddleName { get; set; }
@@ -24,5 +24,6 @@ namespace Ejyle.DevAccelerate.Profiles.UserProfiles
         string? OrganizationName { get; set; }
         DateTime? Dob { get; set; }
         DaGender? Gender { get; set; }
+        DaUserProfileType UserProfileType { get; set; }
     }
 }

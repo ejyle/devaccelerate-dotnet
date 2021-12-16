@@ -15,7 +15,8 @@ namespace Ejyle.DevAccelerate.Profiles.Organizations
         where TKey : IEquatable<TKey>
     {
         [Required]
-        TKey TenantId { get; set; }
+        TNullableKey TenantId { get; set; }
+        TKey OwnerUserId { get; set; }
         [Required]
         string OrganizationName { get; set; }
         [Required]
