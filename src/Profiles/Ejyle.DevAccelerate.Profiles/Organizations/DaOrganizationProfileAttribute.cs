@@ -36,8 +36,6 @@ namespace Ejyle.DevAccelerate.Profiles.Organizations
         { }
 
         public TKey OrganizationProfileId { get; set; }
-        [Required]
-        [StringLength(256)]
         public string AttributeName { get; set; }
         public string AttributeValue { get; set; }
         public virtual TOrganizationProfile OrganizationProfile { get; set; }

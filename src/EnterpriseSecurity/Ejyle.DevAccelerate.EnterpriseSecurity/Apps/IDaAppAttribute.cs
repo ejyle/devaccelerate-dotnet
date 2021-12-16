@@ -15,6 +15,6 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
     {
         TKey AppId { get; set; }
         string AttributeName { get; set; }
-        string? AttributeValue { get; set; }
+        string AttributeValue { get; set; }
     }
 }

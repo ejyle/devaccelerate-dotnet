@@ -37,42 +37,32 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
             Subscriptions = new HashSet<TSubscription>();
         }
 
-        [Required]
-        [StringLength(256)]
         public string Name { get; set; }
 
-        public string? Description { get; set; }
+        public string Description { get; set; }
 
-        public string? Code { get; set; }
+        public string Code { get; set; }
 
-        [Required]
         public bool IsAutoRenewUntilCanceled { get; set; }
 
         public int? ValidityInMonths { get; set; }
 
-        [Required]
         public bool IsFeatured { get; set; }
 
-        [Required]
         public DaSubscriptionPlanStatus Status { get; set; }
 
-        [Required]
         public TKey CurrencyId { get; set; }
 
         public double? SetupFee { get; set; }
 
-        [Required]
         public int Level { get; set; }
 
-        [Required]
         public bool AllowTrial { get; set; }
 
-        [Required]
         public bool StartOnlyWithTrial { get; set; }
 
         public int? TrialDays { get; set; }
 
-        [Required]
         public bool IsFree { get; set; }
 
         public TNullableKey UserAgreementVersionId { get; set; }
@@ -91,7 +81,6 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
 
         public virtual ICollection<TSubscription> Subscriptions { get; set; }
 
-        [Required]
         public DaBillingType BillingType { get; set; }
     }
 }

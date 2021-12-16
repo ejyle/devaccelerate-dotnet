@@ -14,8 +14,8 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
         where TKey : IEquatable<TKey>
     {
         string Name { get; set; }
-        string? Description { get; set; }
-        string? Code { get; set; }
+        string Description { get; set; }
+        string Code { get; set; }
         bool IsAutoRenewUntilCanceled { get; set; }
         int? ValidityInMonths { get; set; }
         bool IsFeatured { get; set; }

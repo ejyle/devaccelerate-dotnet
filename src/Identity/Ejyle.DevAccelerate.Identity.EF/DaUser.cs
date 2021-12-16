@@ -38,13 +38,11 @@ namespace Ejyle.DevAccelerate.Identity.EF
         /// <summary>
         /// Gets or sets the status of the user account.
         /// </summary>
-        [Required]
         public DaAccountStatus Status { get; set; }
 
         /// <summary>
         /// Determines if the user is flagged as deleted. This property is used for soft-deletion mechanism.
         /// </summary>
-        [Required]
         public bool IsDeleted { get; set; }
 
         /// <summary>
@@ -60,13 +58,11 @@ namespace Ejyle.DevAccelerate.Identity.EF
         /// <summary>
         /// Gets or sets the UTC date and time when the user account is created.
         /// </summary>
-        [Required]
         public DateTime CreatedDateUtc { get; set; }
 
         /// <summary>
         /// Gets or sets the UTC date and time when the user account was last modified.
         /// </summary>
-        [Required]
         public DateTime LastUpdatedDateUtc { get; set; }
     }
 }

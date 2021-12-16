@@ -36,48 +36,21 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
             BillingCycles = new HashSet<TBillingCycle>();
         }
 
-        [Required]
-        [StringLength(256)]
         public string Name { get; set; }
-
-        [Required]
         public bool IsActive { get; set; }
-
-        [Required]
         public bool IsFree { get; set; }
-
         public DateTime? ExpiryDateUtc { get; set; }
-
-        [Required]
         public TKey CurrencyId { get; set; }
-
-        [Required]
         public TKey CountryId { get; set; }
-
-        [Required]
         public decimal BillingAmount { get; set; }
-
         public DaBillingInterval? BillingInterval { get; set; }
-
-        [Required]
         public TKey TenantId { get; set; }
-
-        [Required]
         public int Level { get; set; }
-
         public TNullableKey UserAgreementVersionId { get; set; }
-
-        [Required]
         public TKey OwnerUserId { get; set; }
-
         public TNullableKey LastTransactionId { get; set; }
-
         public TNullableKey LastPaymentMethodId { get; set; }
-
-        [Required]
         public TKey SubscriptionPlanId { get; set; }
-
-        [Required]
         public bool IsCurrentlyInTrial { get; set; }
 
         public virtual ICollection<TSubscriptionAttribute> Attributes { get; set; }
@@ -94,19 +67,16 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 
         public DateTime? TrialPeriodEndDateUtc { get; set; }
 
-        [Required]
         public DateTime StartDateUtc { get; set; }
 
-        [Required]
         public bool IsAutoRenewUntilCanceled { get; set; }
 
-        public string? ReferenceNumber { get; set; }
+        public string ReferenceNumber { get; set; }
 
         public DateTime? NextBillingDateUtc { get; set; }
 
         public DateTime? TrialStartDateUtc { get; set; }
 
-        [Required]
         public DaBillingType BillingType { get; set; }
     }
 }

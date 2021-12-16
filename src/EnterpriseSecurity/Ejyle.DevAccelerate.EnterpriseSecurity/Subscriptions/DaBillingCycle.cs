@@ -31,17 +31,12 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
             FeatureUsage = new HashSet<TBillingCycleFeatureUsage>();
         }
 
-        [Required]
         public TKey SubscriptionId { get; set; }
-
-        [Required]
         public DateTime FromDateUtc { get; set; }
         public DateTime? ToDateUtc { get; set; }
         public decimal? Amount { get; set; }
         public TNullableKey CurrencyId { get; set; }
         public TNullableKey InvoiceId { get; set; }
-
-        [Required]
         public bool IsPaid { get; set; }
         public TNullableKey TransactionId { get; set; }
         public virtual TSubscription Subscription { get; set; }

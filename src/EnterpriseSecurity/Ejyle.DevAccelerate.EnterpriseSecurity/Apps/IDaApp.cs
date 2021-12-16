@@ -19,7 +19,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
     {
         string Name { get; set; }
         string Key { get; set; }
-        string? Description { get; set; }
+        string Description { get; set; }
         DaAppStatus Status { get; set; }
     }
 }

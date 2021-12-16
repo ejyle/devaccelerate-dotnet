@@ -14,14 +14,14 @@ namespace Ejyle.DevAccelerate.Profiles.UserProfiles
     public interface IDaUserProfile<TKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
-        [Required]
+
         TKey OwnerUserId { get; set; }
-        string? Salutation { get; set; }
-        string? FirstName { get; set; }
-        string? MiddleName { get; set; }
-        string? LastName { get; set; }
-        string? JobTitle { get; set; }
-        string? OrganizationName { get; set; }
+        string Salutation { get; set; }
+        string FirstName { get; set; }
+        string MiddleName { get; set; }
+        string LastName { get; set; }
+        string JobTitle { get; set; }
+        string OrganizationName { get; set; }
         DateTime? Dob { get; set; }
         DaGender? Gender { get; set; }
         DaUserProfileType UserProfileType { get; set; }

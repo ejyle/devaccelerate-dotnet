@@ -20,8 +20,8 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.UserAgreements
         TKey UserAgreementVersionId { get; set; }
         TKey UserId { get; set; }
         TKey TenantId { get; set; }
-        string? IpAddress { get; set; }
-        string? DeviceAgent { get; set; }
+        string IpAddress { get; set; }
+        string DeviceAgent { get; set; }
         DaUserAgreementVersionActionOwner ActionOwner { get; set; }
         DaUserAgreementVersionActionType ActionType { get; set; }
     }

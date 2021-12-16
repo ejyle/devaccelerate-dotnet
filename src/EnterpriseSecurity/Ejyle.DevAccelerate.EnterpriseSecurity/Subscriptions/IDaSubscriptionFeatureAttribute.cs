@@ -19,6 +19,6 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
     {
         TKey SubscriptionFeatureId { get; set; }
         string AttributeName { get; set; }
-        string? AttributeValue { get; set; }
+        string AttributeValue { get; set; }
     }
 }

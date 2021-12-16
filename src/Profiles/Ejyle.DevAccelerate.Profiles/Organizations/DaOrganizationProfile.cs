@@ -27,16 +27,9 @@ namespace Ejyle.DevAccelerate.Profiles.Organizations
             Attributes = new HashSet<TOrganizationProfileAttribute>();
         }
 
-        [Required]
         public TNullableKey TenantId { get; set; }
-
         public TKey OwnerUserId { get; set; }
-
-        [Required]
-        [StringLength(256)]
         public string OrganizationName { get; set; }
-
-        [Required]
         public DaOrganizationType OrganizationType { get; set; }
         public TNullableKey IndustryId { get; set; }
         public virtual ICollection<TOrganizationProfileAttribute> Attributes { get; set; }

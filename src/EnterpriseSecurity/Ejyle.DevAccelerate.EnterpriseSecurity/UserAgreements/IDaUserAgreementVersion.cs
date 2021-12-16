@@ -30,7 +30,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.UserAgreements
         /// <summary>
         /// Gets or sets the text of the user agreement version.
         /// </summary>
-        string? Text { get; set; }
+        string Text { get; set; }
 
         /// <summary>
         /// Determines if the user agreement version is current.

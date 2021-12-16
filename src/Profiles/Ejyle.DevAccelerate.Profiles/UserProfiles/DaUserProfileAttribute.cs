@@ -37,9 +37,6 @@ namespace Ejyle.DevAccelerate.Profiles.UserProfiles
         { }
 
         public TKey UserProfileId { get; set; }
-
-        [Required]
-        [StringLength(256)]
         public string AttributeName { get; set; }
         public string AttributeValue { get; set; }
         public virtual TUserProfile UserProfile { get; set; }

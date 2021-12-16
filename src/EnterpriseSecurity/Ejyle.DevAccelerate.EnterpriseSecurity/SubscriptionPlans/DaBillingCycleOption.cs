@@ -26,20 +26,15 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
         public DaBillingCycleOption() : base()
         { }
 
-        [Required]
         public DaBillingInterval BillingInterval { get; set; }
 
-        [Required]
         public decimal Amount { get; set; }
 
-        [Required]
         public TKey SubscriptionPlanId { get; set; }
 
-        [Required]
-        [StringLength(256)]
         public string Name { get; set; }
 
-        public string? Description { get; set; }
+        public string Description { get; set; }
 
         public virtual TSubscriptionPlan SubscriptionPlan { get; set; }
     }

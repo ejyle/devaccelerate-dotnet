@@ -16,21 +16,21 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
 {
     public class DaUserAccountCredentialsInfo : IDaCredentials
     {
-        [Required]
+
         public string Username
         {
             get;
             set;
         }
 
-        [Required]
+
         public string Password
         {
             get;
             set;
         }
 
-        [Required]
+
         public bool RememberUser
         {
             get;

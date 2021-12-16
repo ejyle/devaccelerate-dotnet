@@ -44,8 +44,7 @@ namespace Ejyle.DevAccelerate.Lists.Culture
         /// <summary>
         /// Unique identifier of the system language on the OS.
         /// </summary>
-        [StringLength(256)]
-        public string? SystemLanguageId { get; set; }
+        public string SystemLanguageId { get; set; }
 
         /// <summary>
         /// The mapping of applicable countries and system languages.

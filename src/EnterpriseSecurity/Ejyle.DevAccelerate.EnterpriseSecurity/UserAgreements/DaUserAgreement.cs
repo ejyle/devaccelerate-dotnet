@@ -29,20 +29,10 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.UserAgreements
         {
             UserAgreementVersions = new HashSet<TUserAgreementVersion>();
         }
-
-        [Required]
-        [StringLength(256)]
         public string Name { get; set; }
-
-        [Required]
-        [StringLength(256)]
         public string Key { get; set; }
-
-        [Required]
         public TNullableKey AppId { get; set; }
-
         public virtual TApp App { get; set; }
-
         public virtual ICollection<TUserAgreementVersion> UserAgreementVersions { get; set; }
     }
 }

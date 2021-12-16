@@ -31,14 +31,8 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
     {
         public virtual TBillingCycle BillingCycle { get; set; }
         public virtual TSubscriptionFeature SubscriptionFeature { get; set; }
-
-        [Required]
         public TKey BillingCycleId {get; set; }
-
-        [Required]
         public TKey SubscriptionFeatureId {get; set; }
-
-        [Required]
         public double Quantity {get; set; }
     }
 }

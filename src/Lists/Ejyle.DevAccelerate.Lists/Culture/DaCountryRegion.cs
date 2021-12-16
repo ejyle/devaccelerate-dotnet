@@ -47,13 +47,12 @@ namespace Ejyle.DevAccelerate.Lists.Culture
         /// <summary>
         /// The ID of the region's country.
         /// </summary>
-        [Required]
         public TKey CountryId { get; set; }
 
         /// <summary>
         /// The region's code if any.
         /// </summary>        
-        public string? RegionCode { get; set; }
+        public string RegionCode { get; set; }
 
         /// <summary>
         /// The region's country.

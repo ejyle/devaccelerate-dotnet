@@ -14,12 +14,12 @@ namespace Ejyle.DevAccelerate.Profiles.Organizations
     public interface IDaOrganizationProfile<TKey, TNullableKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
-        [Required]
+
         TNullableKey TenantId { get; set; }
         TKey OwnerUserId { get; set; }
-        [Required]
+
         string OrganizationName { get; set; }
-        [Required]
+
         DaOrganizationType OrganizationType { get; set; }
         TNullableKey IndustryId { get; set; }
     }

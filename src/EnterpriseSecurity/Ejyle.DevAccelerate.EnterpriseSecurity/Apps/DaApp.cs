@@ -40,17 +40,12 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
             UserAgreements = new HashSet<TUserAgreement>();
         }
 
-        [Required]
-        [StringLength(256)]
         public string Name { get; set; }
 
-        [Required]
-        [StringLength(128)]
         public string Key { get; set; }
 
-        public string? Description { get; set; }
+        public string Description { get; set; }
 
-        [Required]
         public DaAppStatus Status { get; set; }
 
         public virtual ICollection<TAppAttribute> Attributes { get; set; }

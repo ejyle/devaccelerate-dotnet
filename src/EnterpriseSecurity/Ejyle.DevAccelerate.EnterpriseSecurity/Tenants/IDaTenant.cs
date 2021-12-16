@@ -22,24 +22,21 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
         /// <summary>
         /// Gets or sets the type of a tenant.
         /// </summary>
-        [Required]
         DaTenantType TenantType { get; set; }
 
         /// <summary>
         /// Gets the name of a tenant.
         /// </summary>
-        [Required]
         string Name { get; set; }
 
         /// <summary>
         /// Gets the unique domain of a tenant.
         /// </summary>
-        string? Domain { get; set; }
+        string Domain { get; set; }
 
         /// <summary>
         /// Determines if the domain's ownership is verified or not.
         /// </summary>
-        [Required]
         bool IsDomainOwnershipVerified { get; set; }
 
         /// <summary>
@@ -70,19 +67,16 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
         /// <summary>
         /// Gets or sets the ID of the user who owns the tenant.
         /// </summary>
-        [Required]
         TKey OwnerUserId { get; set; }
 
         /// <summary>
         /// Gets or sets the status of the tenant.
         /// </summary>
-        [Required]
         DaTenantStatus Status { get; set; }
 
         /// <summary>
         /// Gets or sets the billing email of the tenant.
         /// </summary>
-        [StringLength(256)]
-        string? BillingEmail { get; set; }
+        string BillingEmail { get; set; }
     }
 }

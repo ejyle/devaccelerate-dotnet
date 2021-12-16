@@ -36,8 +36,6 @@ namespace Ejyle.DevAccelerate.Profiles.Addresses
         { }
 
         public TKey UserId { get; set; }
-        [Required]
-        [StringLength(256)]
         public string Name { get; set; }
         public TKey TenantId { get; set; }
         public DaAddressType AddressType { get; set; }

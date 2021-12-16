@@ -19,7 +19,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
     {
         TKey SubscriptionPlanId { get; set; }
         string AttributeName { get; set; }
-        string? AttributeValue { get; set; }
+        string AttributeValue { get; set; }
         DaSubscriptionPlanAttributeTarget Target { get; set; }
     }
 }

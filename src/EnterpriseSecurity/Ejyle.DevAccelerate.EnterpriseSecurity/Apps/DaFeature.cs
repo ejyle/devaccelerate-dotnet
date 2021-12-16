@@ -39,17 +39,12 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
             SubscriptionPlanFeatures = new HashSet<TSubscriptionPlanFeature>();
         }
 
-        [Required]
-        [StringLength(256)]
         public string Name { get; set; }
 
-        [Required]
-        [StringLength(128)]
         public string Key { get; set; }
 
         public TnullableKey AppId { get; set; }
 
-        [Required]
         public DaFeatureStatus Status { get; set; }
 
         public virtual TApp App { get; set; }

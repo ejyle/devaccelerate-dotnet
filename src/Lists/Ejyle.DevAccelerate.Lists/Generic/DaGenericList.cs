@@ -39,8 +39,6 @@ namespace Ejyle.DevAccelerate.Lists.Generic
         /// <summary>
         /// The standard name of the generic list.
         /// </summary>
-        [Required]
-        [StringLength(256)]
         public string Name { get; set; }
 
         /// <summary>

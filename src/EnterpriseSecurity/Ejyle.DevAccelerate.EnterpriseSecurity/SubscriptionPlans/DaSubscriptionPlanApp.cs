@@ -26,10 +26,8 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
         where TApp : IDaApp<TKey>
         where TSubscriptionPlan : IDaSubscriptionPlan<TKey, TNullableKey>
     {
-        [Required]
         public TKey SubscriptionPlanId { get; set; }
 
-        [Required]
         public TKey AppId { get; set; }
 
         public virtual TApp App { get; set; }

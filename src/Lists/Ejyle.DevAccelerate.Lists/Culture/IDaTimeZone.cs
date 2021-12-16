@@ -19,7 +19,7 @@ namespace Ejyle.DevAccelerate.Lists.Culture
         /// <summary>
         /// The unique ID of the time zone on the operating system.
         /// </summary>
-        string? SystemTimeZoneId { get; set; }
+        string SystemTimeZoneId { get; set; }
 
         /// <summary>
         /// Determines if the time zone supports day light savings.
@@ -29,6 +29,6 @@ namespace Ejyle.DevAccelerate.Lists.Culture
         /// <summary>
         /// The day light saving name of the time zone if applicable.
         /// </summary>
-        string? DaylightName { get; set; }
+        string DaylightName { get; set; }
     }
 }

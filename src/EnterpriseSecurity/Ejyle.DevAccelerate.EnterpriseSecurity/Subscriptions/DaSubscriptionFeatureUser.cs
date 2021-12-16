@@ -29,17 +29,10 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
             SubscriptionFeatureUserActions = new HashSet<TSubscriptionFeatureUserAction>();
         }
 
-        [Required]
         public TKey SubscriptionFeatureId { get; set; }
-
-        [Required]
         public TKey UserId { get; set; }
-
-        [Required]
         public bool IsEnabled { get; set; }
-
         public virtual TSubscriptionFeature SubscriptionFeature { get; set; }
-
         public virtual ICollection<TSubscriptionFeatureUserAction> SubscriptionFeatureUserActions { get; set; }
     }
 }

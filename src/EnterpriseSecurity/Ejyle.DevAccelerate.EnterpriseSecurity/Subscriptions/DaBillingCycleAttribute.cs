@@ -24,13 +24,9 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
         where TKey : IEquatable<TKey>
         where TBillingCycle : IDaBillingCycle<TKey, TNullableKey>
     {
-        [Required]
         public TKey BillingCycleId { get; set; }
-
-        [Required]
-        [StringLength(256)]
         public string AttributeName { get; set; }
-        public string? AttributeValue { get; set; }
+        public string AttributeValue { get; set; }
         public virtual TBillingCycle BillingCycle { get; set; }
     }
 }

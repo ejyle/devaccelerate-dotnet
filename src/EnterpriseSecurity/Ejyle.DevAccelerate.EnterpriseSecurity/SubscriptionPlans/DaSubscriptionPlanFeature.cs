@@ -31,19 +31,12 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
             SubscriptionPlanFeatureAttributes = new HashSet<TSubscriptionPlanFeatureAttribute>();
         }
 
-        [Required]
         public TKey SubscriptionPlanId { get; set; }
-
-        [Required]
         public TKey FeatureId { get; set; }
         public virtual TFeature Feature { get; set; }
-
-        [Required]
         public bool IsPremium { get; set; }
         public double? MaximumQuantity { get; set; }
         public DaSubscriptionPlanFeatureType SubscriptionPlanFeatureType { get; set; }
-       
-        [Required]
         public bool IsActive { get; set; }
         public virtual ICollection<TSubscriptionPlanFeatureAttribute> SubscriptionPlanFeatureAttributes { get; set; }
         public virtual TSubscriptionPlan SubscriptionPlan { get; set; }

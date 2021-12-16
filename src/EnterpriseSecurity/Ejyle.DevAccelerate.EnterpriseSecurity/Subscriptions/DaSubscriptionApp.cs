@@ -33,19 +33,11 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
             SubscriptionAppUsers = new HashSet<TSubscriptionAppUser>();
         }
 
-        [Required]
         public TKey SubscriptionId { get; set; }
-
-        [Required]
         public TKey AppId { get; set; }
-
-        [Required]
         public virtual TApp App { get; set; }
-
         public virtual ICollection<TSubscriptionAppRole> SubscriptionAppRoles { get; set; }
-
         public virtual TSubscription Subscription { get; set; }
-
         public virtual ICollection<TSubscriptionAppUser> SubscriptionAppUsers { get; set; }
     }
 }

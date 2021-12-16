@@ -18,14 +18,14 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
         where TKey : IEquatable<TKey>
         where TTenant : IDaTenant<TKey, TNullableKey>
     {
-        [Required]
+
         public TKey TenantId
         {
             get;
             set;
         }
 
-        [Required]
+
         public TKey UserId
         {
             get;
@@ -33,8 +33,6 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
         }
 
         public virtual TTenant Tenant { get; set; }
-
-        [Required]
         public bool IsActive { get; set; }
     }
 }

@@ -18,21 +18,12 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.UserAgreements
         where TKey : IEquatable<TKey>
         where TUserAgreementVersion : IDaUserAgreementVersion<TKey>
     {
-        [Required]
         public TKey UserAgreementVersionId { get; set; }
-
-        [Required]
         public TKey UserId { get; set; }
-
-        [Required]
         public TKey TenantId { get; set; }
-        public string? IpAddress { get; set; }
-        public string? DeviceAgent { get; set; }
-
-        [Required]
+        public string IpAddress { get; set; }
+        public string DeviceAgent { get; set; }
         public DaUserAgreementVersionActionOwner ActionOwner { get; set; }
-
-        [Required]
         public DaUserAgreementVersionActionType ActionType { get; set; }
         public virtual TUserAgreementVersion UserAgreementVersion { get; set; }
     }

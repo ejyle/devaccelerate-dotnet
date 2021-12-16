@@ -25,6 +25,6 @@ namespace Ejyle.DevAccelerate.Lists.Generic
         /// <summary>
         /// The description of the generic list.
         /// </summary>
-        string? Description { get; set; }
+        string Description { get; set; }
     }
 }

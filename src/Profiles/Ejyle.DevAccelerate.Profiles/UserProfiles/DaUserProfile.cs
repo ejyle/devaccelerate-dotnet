@@ -30,31 +30,16 @@ namespace Ejyle.DevAccelerate.Profiles.UserProfiles
             Attributes = new HashSet<TUserProfileAttribute>();
         }
 
-        [Required]
         public TKey OwnerUserId { get; set; }
-
-        [StringLength(50)]
-        public string? Salutation { get; set; }
-
-        [StringLength(100)]
-        public string? FirstName { get; set; }
-
-        [StringLength(100)]
-        public string? MiddleName { get; set; }
-
-        [StringLength(100)]
-        public string? LastName { get; set; }
+        public string Salutation { get; set; }
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        public string LastName { get; set; }
         public DateTime? Dob { get; set; }
         public DaGender? Gender { get; set; }
-
-        [StringLength(256)]
-        public string? JobTitle { get; set; }
-
-        [StringLength(256)]
-        public string? OrganizationName { get; set; }
-
+        public string JobTitle { get; set; }
+        public string OrganizationName { get; set; }
         public DaUserProfileType UserProfileType { get; set; }
-
         public virtual ICollection<TUserProfileAttribute> Attributes { get; set; }
     }
 }

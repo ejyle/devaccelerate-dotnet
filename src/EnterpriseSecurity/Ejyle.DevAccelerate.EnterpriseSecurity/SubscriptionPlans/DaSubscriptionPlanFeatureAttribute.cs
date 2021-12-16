@@ -23,13 +23,9 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
         where TKey : IEquatable<TKey>
         where TSubscriptionPlanFeature : IDaSubscriptionPlanFeature<TKey>
     {
-        [Required]
         public TKey SubscriptionPlanFeatureId { get; set; }
-
-        [Required]
-        [StringLength(256)]
         public string AttributeName { get; set; }
-        public string? AttributeValue { get; set; }
+        public string AttributeValue { get; set; }
         public virtual TSubscriptionPlanFeature SubscriptionPlanFeature { get; set; }
     }
 }

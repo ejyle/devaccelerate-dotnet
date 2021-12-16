@@ -28,7 +28,6 @@ namespace Ejyle.DevAccelerate.Lists.Generic
         /// <summary>
         /// The ID of the list to which the list item belongs.
         /// </summary>
-        [Required]
         public TKey ListId { get; set; }
 
         /// <summary>

@@ -19,28 +19,25 @@ namespace Ejyle.DevAccelerate.Identity.UserSessions
     public class DaUserSession<TKey> : DaEntityBase<TKey>, IDaUserSession<TKey>
         where TKey : IEquatable<TKey>
     {
-        [Required]
+
         public TKey UserId
         {
             get;
             set;
         }
 
-        [StringLength(128)]
         public string SessionKey
         {
             get;
             set;
         }
 
-        [StringLength(128)]
         public string SystemSessionId
         {
             get;
             set;
         }
 
-        [Required]
         public DateTime CreatedDateUtc
         {
             get;
@@ -59,21 +56,18 @@ namespace Ejyle.DevAccelerate.Identity.UserSessions
             set;
         }
 
-        [StringLength(15)]
         public string IpAddress
         {
             get;
             set;
         }
 
-        [StringLength(500)]
         public string DeviceAgent
         {
             get;
             set;
         }
 
-        [Required]
         public DaUserSessionStatus Status { get; set; }
     }
 }

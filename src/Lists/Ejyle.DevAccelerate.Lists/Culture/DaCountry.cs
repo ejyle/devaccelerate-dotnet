@@ -57,28 +57,21 @@ namespace Ejyle.DevAccelerate.Lists.Culture
         /// <summary>
         /// The international dialing code used to call a number from outside the country.
         /// </summary>
-        [Required]
-        [StringLength(10)]
         public string DialingCode { get; set; }
 
         /// <summary>
         /// The two-letter (alpha-2) ISO 3166 code of the country.
         /// </summary>
-        [Required]
-        [StringLength(2)]
         public string TwoLetterCode { get; set; }
 
         /// <summary>
         /// The three-letter (alpha-3) ISO 3166 code of the country.
         /// </summary>
-        [Required]
-        [StringLength(3)]
         public string ThreeLetterCode { get; set; }
 
         /// <summary>
         /// The numeric ISO 3166 code of the country.
         /// </summary>
-        [Required]
         public int NumericCode { get; set; }
 
         /// <summary>

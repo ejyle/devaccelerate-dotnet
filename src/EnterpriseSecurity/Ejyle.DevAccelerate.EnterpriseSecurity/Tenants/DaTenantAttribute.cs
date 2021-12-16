@@ -24,13 +24,9 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
         where TKey : IEquatable<TKey>
         where TTenant : IDaTenant<TKey, TNullableKey>
     {
-        [Required]
         public TKey TenantId { get; set; }
         public virtual TTenant Tenant { get; set; }
-
-        [Required]
-        [StringLength(256)]
         public string AttributeName { get; set; }
-        public string? AttributeValue { get; set; }
+        public string AttributeValue { get; set; }
     }
 }

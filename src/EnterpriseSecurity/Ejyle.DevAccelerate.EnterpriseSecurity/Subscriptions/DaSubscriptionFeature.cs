@@ -38,26 +38,15 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
             FeatureUsage = new HashSet<TBillingCycleFeatureUsage>();
         }
 
-        [Required]
         public TKey SubscriptionId { get; set; }
-
-        [Required]
         public TKey FeatureId { get; set; }
-
-        [Required]
         public virtual TFeature Feature { get; set; }
-
-        [Required]
         public bool IsPremium { get; set; }
         public double? MaximumQuantity { get; set; }
         public double? Quantity { get; set; }
-
-        [Required]
         public bool IsActive { get; set; }
 
-        [Required]
         public DaSubscriptionPlanFeatureType SubscriptionPlanFeatureType { get; set; }
-
         public virtual ICollection<TSubscriptionFeatureAttribute> SubscriptionFeatureAttributes { get; set; }
         public virtual ICollection<TSubscriptionFeatureRole> SubscriptionFeatureRoles { get; set; }
         public virtual TSubscription Subscription { get; set; }

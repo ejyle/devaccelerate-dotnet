@@ -19,6 +19,6 @@ namespace Ejyle.DevAccelerate.Lists.Culture
         /// <summary>
         /// Unique identifier of the system language on the OS.
         /// </summary>
-        string? SystemLanguageId { get; set; }
+        string SystemLanguageId { get; set; }
     }
 }

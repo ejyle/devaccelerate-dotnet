@@ -19,6 +19,6 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
     {
         TKey TenantId { get; set; }
         string AttributeName { get; set; }
-        string? AttributeValue { get; set; }
+        string AttributeValue { get; set; }
     }
 }

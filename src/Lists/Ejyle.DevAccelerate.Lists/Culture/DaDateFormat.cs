@@ -29,8 +29,6 @@ namespace Ejyle.DevAccelerate.Lists.Culture
         /// <summary>
         /// The expression used to format a date with a particular pattern.
         /// </summary>
-        [Required]
-        [StringLength(512)]
         public string DateFormatExpression
         {
             get;

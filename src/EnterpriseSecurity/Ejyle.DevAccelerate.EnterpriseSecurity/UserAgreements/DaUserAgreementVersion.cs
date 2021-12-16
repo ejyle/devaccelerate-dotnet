@@ -30,24 +30,13 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.UserAgreements
             Actions = new HashSet<TUserAgreementVersionAction>();
         }
 
-        [Required]
         public TKey UserAgreementId { get; set; }
-
-        [Required]
         public int VersionNumber { get; set; }
-
-        public string? Text { get; set; }
-
-        [Required]
+        public string Text { get; set; }
         public bool IsCurrent { get; set; }
-
-        [Required]
         public bool IsPublished { get; set; }
-
         public DateTime? PublishedDateUtc { get; set; }
-
         public virtual TUserAgreement UserAgreement { get; set; }
-
         public virtual ICollection<TUserAgreementVersionAction> Actions { get; set; }
     }
 }

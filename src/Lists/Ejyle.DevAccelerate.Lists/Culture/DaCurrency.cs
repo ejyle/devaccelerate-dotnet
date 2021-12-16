@@ -39,21 +39,16 @@ namespace Ejyle.DevAccelerate.Lists.Culture
         /// <summary>
         /// The symbol of the currency.
         /// </summary>
-        [Required]
-        [StringLength(10)]
         public string CurrencySymbol { get; set; }
 
         /// <summary>
         /// The three-letter alphabetic ISO 4217 code of the currency.
         /// </summary>
-        [Required]
-        [StringLength(10)]
         public string AlphabeticCode { get; set; }
 
         /// <summary>
         /// The three-digit ISO 4217 code of the currency.
         /// </summary>
-        [Required]
         public int NumericCode { get; set; }
 
         /// <summary>

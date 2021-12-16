@@ -14,7 +14,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
         where TKey : IEquatable<TKey>
     {
         string Name { get; set; }
-        string? Description { get; set; }
+        string Description { get; set; }
         TKey SubscriptionPlanId { get; set; }
         DaBillingInterval BillingInterval { get; set; }
         decimal Amount { get; set; }

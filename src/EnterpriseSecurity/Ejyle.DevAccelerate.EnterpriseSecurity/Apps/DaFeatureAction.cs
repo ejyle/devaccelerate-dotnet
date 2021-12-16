@@ -23,11 +23,8 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
         where TKey : IEquatable<TKey>
         where TFeature : IDaFeature<TKey, TNullableKey>
     {
-        [Required]
         public TKey FeatureId { get; set; }
 
-        [Required]
-        [StringLength(256)]
         public string Name { get; set; }
 
         public virtual TFeature Feature { get; set; }

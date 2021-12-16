@@ -30,6 +30,6 @@ namespace Ejyle.DevAccelerate.Lists.Culture
         /// <summary>
         /// The region's code if any.
         /// </summary>
-        string? RegionCode { get; set; }
+        string RegionCode { get; set; }
     }
 }

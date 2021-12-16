@@ -31,37 +31,17 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
 
         public virtual ICollection<TTenantUser> TenantUsers { get; set; }
         public virtual ICollection<TTenantAttribute> Attributes { get; set; }
-
-        [Required]
         public DaTenantType TenantType { get; set; }
-
-        [Required]
         public TKey OwnerUserId { get; set; }
-
-        [Required]
-        [StringLength(256)]
         public string Name { get; set; }
-
-        [StringLength(256)]
-        public string? Domain { get; set; }
-
-        [Required]
+        public string Domain { get; set; }
         public bool IsDomainOwnershipVerified { get; set; }
-
-        [Required]
         public DaTenantStatus Status { get; set; }
-
         public TNullableKey CountryId { get; set; }
-
         public TNullableKey CurrencyId { get; set; }
-
         public TNullableKey TimeZoneId { get; set; }
-
-        [StringLength(256)]
-        public string? BillingEmail { get; set; }
-
+        public string BillingEmail { get; set; }
         public TNullableKey DateFormatId { get; set; }
-
         public TNullableKey SystemLanguageId { get; set; }
     }
 }

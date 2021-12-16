@@ -32,7 +32,6 @@ namespace Ejyle.DevAccelerate.Lists.Culture
         /// <summary>
         /// Unique identifier of the country.
         /// </summary>
-        [Required]
         public TKey CountryId { get; set; }
 
         /// <summary>
@@ -43,7 +42,6 @@ namespace Ejyle.DevAccelerate.Lists.Culture
         /// <summary>
         /// Unique identifier of the date format.
         /// </summary>
-        [Required]
         public TKey DateFormatId { get; set; }
 
         /// <summary>

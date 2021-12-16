@@ -44,20 +44,17 @@ namespace Ejyle.DevAccelerate.Lists.Culture
         /// <summary>
         /// The unique ID of the time zone on the operating system.
         /// </summary>
-        [StringLength(256)]
-        public string? SystemTimeZoneId { get; set; }
+        public string SystemTimeZoneId { get; set; }
 
         /// <summary>
         /// Determines if the time zone supports day light savings.
         /// </summary>
-        [Required]
         public bool SupportsDaylightSavingTime { get; set; }
 
         /// <summary>
         /// The day light saving name of the time zone if applicable.
         /// </summary>
-        [StringLength(256)]
-        public string? DaylightName { get; set; }
+        public string DaylightName { get; set; }
 
         /// <summary>
         /// The mapping of applicable countries and time zones.

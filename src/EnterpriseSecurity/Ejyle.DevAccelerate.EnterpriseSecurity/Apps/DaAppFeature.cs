@@ -22,10 +22,8 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
     public class DaAppFeature<TKey, TApp, TFeature> : DaEntityBase<TKey>, IDaAppFeature<TKey>
         where TKey : IEquatable<TKey>
     {
-        [Required]
         public TKey AppId { get; set; }
 
-        [Required]
         public TKey FeatureId { get; set; }
 
         public virtual TApp App { get; set; }

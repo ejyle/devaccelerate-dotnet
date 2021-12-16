@@ -21,33 +21,26 @@ namespace Ejyle.DevAccelerate.Lists
         /// <summary>
         /// The standard name of the list item.
         /// </summary>
-        [Required]
-        [StringLength(256)]
         public string Name { get; set; }
 
         /// <summary>
         /// The name of the list item for display purposes.
         /// </summary>
-        [Required]
-        [StringLength(256)]
         public string DisplayName { get; set; }
 
         /// <summary>
         /// Determines if the list is active.
         /// </summary>
-        [Required]
         public bool IsActive { get; set; }
 
         /// <summary>
         /// Determines if the list item information is verified to be valid.
         /// </summary>
-        [Required]
         public bool IsVerified { get; set; }
 
         /// <summary>
         /// Determines if the list item is default.
         /// </summary>
-        [Required]
         public bool IsDefault { get; set; }
     }
 }
