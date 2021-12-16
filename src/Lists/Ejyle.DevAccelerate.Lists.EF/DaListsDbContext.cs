@@ -145,6 +145,9 @@ namespace Ejyle.DevAccelerate.Lists.EF
                 entity.HasOne(d => d.Currency)
                     .WithMany(p => p.Countries)
                     .HasForeignKey(d => d.CurrencyId);
+
+                entity.HasIndex(e => e.Name)
+                    .IsUnique(true);
             });
 
             modelBuilder.Entity<TCountryDateFormat>(entity =>
@@ -226,6 +229,9 @@ namespace Ejyle.DevAccelerate.Lists.EF
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(256);
+
+                entity.HasIndex(e => e.Name)
+                    .IsUnique(true);
             });
 
             modelBuilder.Entity<TDateFormat>(entity =>
@@ -243,6 +249,9 @@ namespace Ejyle.DevAccelerate.Lists.EF
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(256);
+
+                entity.HasIndex(e => e.Name)
+                    .IsUnique(true);
             });
 
             modelBuilder.Entity<TGenericListItem>(entity =>
@@ -269,6 +278,9 @@ namespace Ejyle.DevAccelerate.Lists.EF
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(256);
+
+                entity.HasIndex(e => e.Name)
+                    .IsUnique(true);
             });
 
             modelBuilder.Entity<TSystemLanguage>(entity =>
@@ -284,6 +296,9 @@ namespace Ejyle.DevAccelerate.Lists.EF
                     .HasMaxLength(256);
 
                 entity.Property(e => e.SystemLanguageId).HasMaxLength(256);
+
+                entity.HasIndex(e => e.Name)
+                    .IsUnique(true);
             });
 
             modelBuilder.Entity<TTimeZone>(entity =>
@@ -301,6 +316,9 @@ namespace Ejyle.DevAccelerate.Lists.EF
                     .HasMaxLength(256);
 
                 entity.Property(e => e.SystemTimeZoneId).HasMaxLength(256);
+
+                entity.HasIndex(e => e.Name)
+                    .IsUnique(true);
             });
         }
     }
