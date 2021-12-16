@@ -40,16 +40,17 @@ using Ejyle.DevAccelerate.Facades.Security.Properties;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
 {
-    public class DaSubscriptionFacade : DaSubscriptionFacade<int, int?, DaSubscriptionInfo, UserManager<DaUser>, DaUser, DaUserProfileManager, DaUserProfile, DaUserProfileAttribute, DaOrganizationProfileManager, DaOrganizationProfile, DaOrganizationProfileAttribute, DaTenantManager, DaTenant, DaTenantUser, DaTenantAttribute, DaAddressProfileManager, DaAddressProfile, DaUserAddress, DaUserAgreementManager, DaUserAgreement, DaUserAgreementVersion, DaUserAgreementVersionAction, DaAppManager, DaApp, DaAppAttribute, DaFeatureManager, DaFeature, DaAppFeature, DaFeatureAction, DaSubscriptionPlanManager, DaSubscriptionPlan, DaSubscriptionPlanAttribute, DaBillingCycleOption, DaSubscriptionPlanApp, DaSubscriptionPlanFeature, DaSubscriptionPlanFeatureAttribute, DaSubscriptionManager, DaSubscription, DaSubscriptionAttribute, DaSubscriptionApp, DaSubscriptionFeature, DaSubscriptionFeatureAttribute, DaSubscriptionAppRole, DaSubscriptionAppUser, DaSubscriptionFeatureRole, DaSubscriptionFeatureRoleAction, DaSubscriptionFeatureUser, DaSubscriptionFeatureUserAction, DaBillingCycle, DaBillingCycleAttribute, DaBillingCycleFeatureUsage, DaCurrencyManager, DaCurrency, DaCountryManager, DaCountry, DaCountryRegion, DaCountryDateFormat, DaCountrySystemLanguage, DaCountryTimeZone, DaDateFormatManager, DaDateFormat, DaTimeZoneManager, DaTimeZone, DaSystemLanguageManager, DaSystemLanguage>
+    public class DaSubscriptionFacade : DaSubscriptionFacade<int, int?, DaDefaultEntityKeyConverter, DaSubscriptionInfo, UserManager<DaUser>, DaUser, DaUserProfileManager, DaUserProfile, DaUserProfileAttribute, DaOrganizationProfileManager, DaOrganizationProfile, DaOrganizationProfileAttribute, DaTenantManager, DaTenant, DaTenantUser, DaTenantAttribute, DaAddressProfileManager, DaAddressProfile, DaUserAddress, DaUserAgreementManager, DaUserAgreement, DaUserAgreementVersion, DaUserAgreementVersionAction, DaAppManager, DaApp, DaAppAttribute, DaFeatureManager, DaFeature, DaAppFeature, DaFeatureAction, DaSubscriptionPlanManager, DaSubscriptionPlan, DaSubscriptionPlanAttribute, DaBillingCycleOption, DaSubscriptionPlanApp, DaSubscriptionPlanFeature, DaSubscriptionPlanFeatureAttribute, DaSubscriptionManager, DaSubscription, DaSubscriptionAttribute, DaSubscriptionApp, DaSubscriptionFeature, DaSubscriptionFeatureAttribute, DaSubscriptionAppRole, DaSubscriptionAppUser, DaSubscriptionFeatureRole, DaSubscriptionFeatureRoleAction, DaSubscriptionFeatureUser, DaSubscriptionFeatureUserAction, DaBillingCycle, DaBillingCycleAttribute, DaBillingCycleFeatureUsage, DaCurrencyManager, DaCurrency, DaCountryManager, DaCountry, DaCountryRegion, DaCountryDateFormat, DaCountrySystemLanguage, DaCountryTimeZone, DaDateFormatManager, DaDateFormat, DaTimeZoneManager, DaTimeZone, DaSystemLanguageManager, DaSystemLanguage>
     {        
         public DaSubscriptionFacade(UserManager<DaUser> userManager, DaUserProfileManager userProfileManager, DaOrganizationProfileManager organizationProfileManager,  DaTenantManager tenantManager, DaAddressProfileManager addressProfileManager,  DaAppManager appManager, DaFeatureManager featureManager, DaUserAgreementManager userAgreementManager, DaSubscriptionPlanManager subscriptionPlanManager, DaSubscriptionManager subscriptionManager, DaCurrencyManager currencyManager, DaCountryManager countryManager, DaDateFormatManager dateformatManager, DaTimeZoneManager timeZoneManager, DaSystemLanguageManager systemLanguageManager)
-            : base(userManager, userProfileManager, organizationProfileManager, tenantManager, addressProfileManager, appManager, featureManager, userAgreementManager, subscriptionPlanManager, subscriptionManager, currencyManager, countryManager, dateformatManager, timeZoneManager, systemLanguageManager)
+            : base(new DaDefaultEntityKeyConverter(), userManager, userProfileManager, organizationProfileManager, tenantManager, addressProfileManager, appManager, featureManager, userAgreementManager, subscriptionPlanManager, subscriptionManager, currencyManager, countryManager, dateformatManager, timeZoneManager, systemLanguageManager)
         {
         }
     }
 
-    public class DaSubscriptionFacade<TKey, TNullableKey, TSubscriptionInfo, TUserManager, TUser, TUserProfileManager, TUserProfile, TUserProfileAttribute, TOrganizationProfileManager, TOrganizationProfile, TOrganizationProfileAttribute, TTenantManager, TTenant, TTenantUser, TTenantAttribute, TAddressProfileManager, TAddressProfile, TUserAddress, TUserAgreementManager, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction, TAppManager, TApp, TAppAttribute, TFeatureManager, TFeature, TAppFeature, TFeatureAction, TSubscriptionPlanManager, TSubscriptionPlan, TSubscriptionPlanAttribute, TBillingCycleOption, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscriptionPlanFeatureAttribute, TSubscriptionManager, TSubscription, TSubscriptionAttribute, TSubscriptionApp, TSubscriptionFeature, TSubscriptionFeatureAttribute, TSubscriptionAppRole, TSubscriptionAppUser, TSubscriptionFeatureRole, TSubscriptionFeatureRoleAction, TSubscriptionFeatureUser, TSubscriptionFeatureUserAction, TBillingCycle, TBillingCycleAttribute, TBillingCycleFeatureUsage, TCurrencyManager, TCurrency, TCountryManager, TCountry, TCountryRegion, TCountryDateFormat, TCountrySystemLanguage, TCountryTimeZone, TDateFormatManager, TDateFormat, TTimeZoneManager, TTimeZone, TSystemLanguageManager, TSystemLanguage>
+    public class DaSubscriptionFacade<TKey, TNullableKey, TKeyConverter, TSubscriptionInfo, TUserManager, TUser, TUserProfileManager, TUserProfile, TUserProfileAttribute, TOrganizationProfileManager, TOrganizationProfile, TOrganizationProfileAttribute, TTenantManager, TTenant, TTenantUser, TTenantAttribute, TAddressProfileManager, TAddressProfile, TUserAddress, TUserAgreementManager, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction, TAppManager, TApp, TAppAttribute, TFeatureManager, TFeature, TAppFeature, TFeatureAction, TSubscriptionPlanManager, TSubscriptionPlan, TSubscriptionPlanAttribute, TBillingCycleOption, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscriptionPlanFeatureAttribute, TSubscriptionManager, TSubscription, TSubscriptionAttribute, TSubscriptionApp, TSubscriptionFeature, TSubscriptionFeatureAttribute, TSubscriptionAppRole, TSubscriptionAppUser, TSubscriptionFeatureRole, TSubscriptionFeatureRoleAction, TSubscriptionFeatureUser, TSubscriptionFeatureUserAction, TBillingCycle, TBillingCycleAttribute, TBillingCycleFeatureUsage, TCurrencyManager, TCurrency, TCountryManager, TCountry, TCountryRegion, TCountryDateFormat, TCountrySystemLanguage, TCountryTimeZone, TDateFormatManager, TDateFormat, TTimeZoneManager, TTimeZone, TSystemLanguageManager, TSystemLanguage>
         where TKey : IEquatable<TKey>
+        where TKeyConverter : IDaEntityKeyConverter<TKey, TNullableKey>
         where TSubscriptionInfo : IDaSubscriptionInfo<TKey, TNullableKey>
         where TUserManager : UserManager<TUser>
         where TUser : DaUser<TKey, TNullableKey>, new()
@@ -114,8 +115,9 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
         where TSystemLanguageManager : DaSystemLanguageManager<TKey, TSystemLanguage>
         where TSystemLanguage : DaSystemLanguage<TKey, TCountrySystemLanguage>
     {
-        public DaSubscriptionFacade(TUserManager userManager, TUserProfileManager userProfileManager, TOrganizationProfileManager organizationProfileManager, TTenantManager tenantManager, TAddressProfileManager addressProfileManager, TAppManager appManager, TFeatureManager featureManager, TUserAgreementManager userAgreementManager, TSubscriptionPlanManager subscriptionPlanManager, TSubscriptionManager subscriptionManager, TCurrencyManager currencyManager, TCountryManager countryManager, TDateFormatManager dateformatManager, TTimeZoneManager timeZoneManager, TSystemLanguageManager systemLanguageManager)
+        public DaSubscriptionFacade(TKeyConverter keyConverter, TUserManager userManager, TUserProfileManager userProfileManager, TOrganizationProfileManager organizationProfileManager, TTenantManager tenantManager, TAddressProfileManager addressProfileManager, TAppManager appManager, TFeatureManager featureManager, TUserAgreementManager userAgreementManager, TSubscriptionPlanManager subscriptionPlanManager, TSubscriptionManager subscriptionManager, TCurrencyManager currencyManager, TCountryManager countryManager, TDateFormatManager dateformatManager, TTimeZoneManager timeZoneManager, TSystemLanguageManager systemLanguageManager)
         {
+            KeyConverter = keyConverter ?? throw new ArgumentNullException(nameof(keyConverter));
             UserManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
             UserProfileManager = userProfileManager ?? throw new ArgumentNullException(nameof(userProfileManager));
             OrganizationProfileManager = organizationProfileManager ?? throw new ArgumentNullException(nameof(organizationProfileManager));
@@ -131,6 +133,12 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
             CountryManager = countryManager ?? throw new ArgumentNullException(nameof(countryManager));
             TimeZoneManager = timeZoneManager ?? throw new ArgumentNullException(nameof(timeZoneManager));
             SystemLanguageManager = systemLanguageManager ?? throw new ArgumentNullException(nameof(systemLanguageManager));
+        }
+
+        public TKeyConverter KeyConverter
+        {
+            get;
+            private set;
         }
 
         public TSubscriptionManager SubscriptionManager
@@ -317,7 +325,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
             {
                 FirstName = subscriptionInfo.FirstName,
                 LastName = subscriptionInfo.LastName,
-                UserId = user.Id,
+                OwnerUserId = user.Id,
                 CreatedBy = user.Id,
                 CreatedDateUtc = DateTime.UtcNow,
                 LastUpdatedBy = user.Id,
@@ -353,16 +361,22 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                 tenant.Name = subscriptionInfo.OrganizationName;
             }
 
+            TCountry defaultCountry = await CountryManager.FindAsync();
+            TTimeZone defaultTimeZone = await TimeZoneManager.FindAsync();
+            TSystemLanguage defaultSystemLanguage = await SystemLanguageManager.FindAsync();
+            TDateFormat defaultDateformat = await DateFormatManager.FindAsync();
+            TCurrency defaultCurrency = await CurrencyManager.FindAsync();
+
             tenant.OwnerUserId = user.Id;
             tenant.Status = DaTenantStatus.Active;
             tenant.TenantType = DaTenantType.Organization;
             tenant.Domain = null;
             tenant.IsDomainOwnershipVerified = false;
-            tenant.CountryId = CountryManager.FindAsync().Result.Id;
-            tenant.TimeZoneId = TimeZoneManager.FindAsync().Result.Id;
-            tenant.SystemLanguageId =SystemLanguageManager.FindAsync().Result.Id;
-            tenant.DateFormatId = DateFormatManager.FindAsync().Result.Id;
-            tenant.CurrencyId = CurrencyManager.FindAsync().Result.Id;
+            tenant.CountryId = (defaultCountry == null) ? default(TNullableKey) : KeyConverter.ToNullableKey(defaultCountry.Id);
+            tenant.TimeZoneId = (defaultTimeZone == null) ? default(TNullableKey) : KeyConverter.ToNullableKey(defaultTimeZone.Id);
+            tenant.SystemLanguageId = (defaultSystemLanguage == null) ? default(TNullableKey) : KeyConverter.ToNullableKey(defaultSystemLanguage.Id);
+            tenant.DateFormatId = (defaultDateformat == null) ? default(TNullableKey) : KeyConverter.ToNullableKey(defaultDateformat.Id);
+            tenant.CurrencyId = (defaultCurrency == null) ? default(TNullableKey) : KeyConverter.ToNullableKey(defaultCurrency.Id);
             tenant.BillingEmail = subscriptionInfo.Email;
             tenant.CreatedDateUtc = DateTime.UtcNow;
             tenant.CreatedBy = user.Id;
@@ -387,7 +401,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                 {
                     OrganizationName = subscriptionInfo.OrganizationName,
                     OrganizationType = subscriptionInfo.OrganizationType,
-                    TenantId = tenant.Id,
+                    TenantId = KeyConverter.ToNullableKey(tenant.Id),
                     CreatedBy = user.Id,
                     CreatedDateUtc = DateTime.UtcNow,
                     LastUpdatedBy = user.Id,
