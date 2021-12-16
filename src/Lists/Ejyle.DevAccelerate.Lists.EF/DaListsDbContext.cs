@@ -118,79 +118,190 @@ namespace Ejyle.DevAccelerate.Lists.EF
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<TCurrency>().ToTable("Currencies", SCHEMA_NAME);
-            modelBuilder.Entity<TDateFormat>().ToTable("DateFormats", SCHEMA_NAME);
-            modelBuilder.Entity<TSystemLanguage>().ToTable("SystemLanguages", SCHEMA_NAME);
-            modelBuilder.Entity<TTimeZone>().ToTable("TimeZones", SCHEMA_NAME);
+            modelBuilder.Entity<TCountry>(entity =>
+            {
+                entity.ToTable("Countries", SCHEMA_NAME);
 
-            modelBuilder.Entity<TCountry>().ToTable("Countries", SCHEMA_NAME);
-            modelBuilder.Entity<TCountryRegion>().ToTable("CountryRegions", SCHEMA_NAME);
-            modelBuilder.Entity<TCountryDateFormat>().ToTable("CountryDateFormats", SCHEMA_NAME);
-            modelBuilder.Entity<TCountryTimeZone>().ToTable("CountryTimeZones", SCHEMA_NAME);
-            modelBuilder.Entity<TCountrySystemLanguage>().ToTable("CountrySystemLanguages", SCHEMA_NAME);
+                entity.Property(e => e.DialingCode)
+                    .IsRequired()
+                    .HasMaxLength(10);
 
-            modelBuilder.Entity<TGenericList>().ToTable("GenericLists", SCHEMA_NAME);
-            modelBuilder.Entity<TGenericListItem>().ToTable("GenericListItems", SCHEMA_NAME);
+                entity.Property(e => e.DisplayName)
+                    .IsRequired()
+                    .HasMaxLength(256);
 
-            modelBuilder.Entity<TCountry>()
-                .HasOne(p => p.Currency)
-                .WithMany(b => b.Countries)
-                .HasForeignKey(p => p.CurrencyId)
-                .HasPrincipalKey(b => b.Id);
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(256);
 
-            modelBuilder.Entity<TCountryRegion>()
-                .HasOne(p => p.Country)
-                .WithMany(b => b.Regions)
-                .HasForeignKey(p => p.CountryId)
-                .HasPrincipalKey(b => b.Id);
+                entity.Property(e => e.ThreeLetterCode)
+                    .IsRequired()
+                    .HasMaxLength(3);
 
-            modelBuilder.Entity<TCountryRegion>()
-                .HasOne(p => p.Parent)
-                .WithMany(b => b.Children)
-                .HasForeignKey(p => p.ParentId)
-                .HasPrincipalKey(b => b.Id);
+                entity.Property(e => e.TwoLetterCode)
+                    .IsRequired()
+                    .HasMaxLength(2);
 
-            modelBuilder.Entity<TCountryDateFormat>()
-                .HasOne(p => p.Country)
-                .WithMany(b => b.CountryDateFormats)
-                .HasForeignKey(p => p.CountryId)
-                .HasPrincipalKey(b => b.Id);
+                entity.HasOne(d => d.Currency)
+                    .WithMany(p => p.Countries)
+                    .HasForeignKey(d => d.CurrencyId);
+            });
 
-            modelBuilder.Entity<TCountryDateFormat>()
-                .HasOne(p => p.DateFormat)
-                .WithMany(b => b.CountryDateFormats)
-                .HasForeignKey(p => p.DateFormatId)
-                .HasPrincipalKey(b => b.Id);
+            modelBuilder.Entity<TCountryDateFormat>(entity =>
+            {
+                entity.ToTable("CountryDateFormats", SCHEMA_NAME);
 
-            modelBuilder.Entity<TCountrySystemLanguage>()
-                .HasOne(p => p.Country)
-                .WithMany(b => b.CountrySystemLanguages)
-                .HasForeignKey(p => p.CountryId)
-                .HasPrincipalKey(b => b.Id);
+                entity.HasOne(d => d.Country)
+                    .WithMany(p => p.CountryDateFormats)
+                    .HasForeignKey(d => d.CountryId);
 
-            modelBuilder.Entity<TCountrySystemLanguage>()
-                .HasOne(p => p.SystemLanguage)
-                .WithMany(b => b.CountrySystemLanguages)
-                .HasForeignKey(p => p.SystemLanguageId)
-                .HasPrincipalKey(b => b.Id);
+                entity.HasOne(d => d.DateFormat)
+                    .WithMany(p => p.CountryDateFormats)
+                    .HasForeignKey(d => d.DateFormatId);
+            });
 
-            modelBuilder.Entity<TCountryTimeZone>()
-                .HasOne(p => p.Country)
-                .WithMany(b => b.CountryTimeZones)
-                .HasForeignKey(p => p.CountryId)
-                .HasPrincipalKey(b => b.Id);
+            modelBuilder.Entity<TCountryRegion>(entity =>
+            {
+                entity.ToTable("CountryRegions", SCHEMA_NAME);
 
-            modelBuilder.Entity<TCountryTimeZone>()
-                .HasOne(p => p.TimeZone)
-                .WithMany(b => b.CountryTimeZones)
-                .HasForeignKey(p => p.TimeZoneId)
-                .HasPrincipalKey(b => b.Id);
+                entity.Property(e => e.DisplayName)
+                    .IsRequired()
+                    .HasMaxLength(256);
 
-            modelBuilder.Entity<TGenericListItem>()
-                .HasOne(p => p.List)
-                .WithMany(b => b.ListItems)
-                .HasForeignKey(p => p.ListId)
-                .HasPrincipalKey(b => b.Id);
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.HasOne(d => d.Country)
+                    .WithMany(p => p.Regions)
+                    .HasForeignKey(d => d.CountryId);
+
+                entity.HasOne(d => d.Parent)
+                    .WithMany(p => p.Children)
+                    .HasForeignKey(d => d.ParentId);
+            });
+
+            modelBuilder.Entity<TCountrySystemLanguage>(entity =>
+            {
+                entity.ToTable("CountrySystemLanguages", SCHEMA_NAME);
+
+                entity.HasOne(d => d.Country)
+                    .WithMany(p => p.CountrySystemLanguages)
+                    .HasForeignKey(d => d.CountryId);
+
+                entity.HasOne(d => d.SystemLanguage)
+                    .WithMany(p => p.CountrySystemLanguages)
+                    .HasForeignKey(d => d.SystemLanguageId);
+            });
+
+            modelBuilder.Entity<TCountryTimeZone>(entity =>
+            {
+                entity.ToTable("CountryTimeZones", SCHEMA_NAME);
+
+                entity.HasOne(d => d.Country)
+                    .WithMany(p => p.CountryTimeZones)
+                    .HasForeignKey(d => d.CountryId);
+
+                entity.HasOne(d => d.TimeZone)
+                    .WithMany(p => p.CountryTimeZones)
+                    .HasForeignKey(d => d.TimeZoneId);
+            });
+
+            modelBuilder.Entity<TCurrency>(entity =>
+            {
+                entity.ToTable("Currencies", SCHEMA_NAME);
+
+                entity.Property(e => e.AlphabeticCode)
+                    .IsRequired()
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.CurrencySymbol)
+                    .IsRequired()
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.DisplayName)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(256);
+            });
+
+            modelBuilder.Entity<TDateFormat>(entity =>
+            {
+                entity.ToTable("DateFormats", SCHEMA_NAME);
+
+                entity.Property(e => e.DateFormatExpression)
+                    .IsRequired()
+                    .HasMaxLength(512);
+
+                entity.Property(e => e.DisplayName)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(256);
+            });
+
+            modelBuilder.Entity<TGenericListItem>(entity =>
+            {
+                entity.ToTable("GenericListItems", SCHEMA_NAME);
+
+                entity.Property(e => e.DisplayName)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.HasOne(d => d.List)
+                    .WithMany(p => p.ListItems)
+                    .HasForeignKey(d => d.ListId);
+            });
+
+            modelBuilder.Entity<TGenericList>(entity =>
+            {
+                entity.ToTable("GenericLists", SCHEMA_NAME);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(256);
+            });
+
+            modelBuilder.Entity<TSystemLanguage>(entity =>
+            {
+                entity.ToTable("SystemLanguages", SCHEMA_NAME);
+
+                entity.Property(e => e.DisplayName)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.SystemLanguageId).HasMaxLength(256);
+            });
+
+            modelBuilder.Entity<TTimeZone>(entity =>
+            {
+                entity.ToTable("TimeZones", SCHEMA_NAME);
+
+                entity.Property(e => e.DaylightName).HasMaxLength(256);
+
+                entity.Property(e => e.DisplayName)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.SystemTimeZoneId).HasMaxLength(256);
+            });
         }
     }
 }
