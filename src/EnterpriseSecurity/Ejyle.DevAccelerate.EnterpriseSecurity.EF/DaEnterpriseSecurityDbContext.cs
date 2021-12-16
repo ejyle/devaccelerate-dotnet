@@ -109,311 +109,391 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            #region Apps
-
-            var apps = modelBuilder.Entity<TApp>()
-                .ToTable("Apps", SCHEMA_NAME);
-
-            modelBuilder.Entity<TAppAttribute>()
-                .HasOne(p => p.App)
-                .WithMany(b => b.Attributes)
-                .HasForeignKey(p => p.AppId)
-                .HasPrincipalKey(b => b.Id);
-
-            modelBuilder.Entity<TAppFeature>()
-                .HasOne(p => p.App)
-                .WithMany(b => b.AppFeatures)
-                .HasForeignKey(p => p.AppId)
-                .HasPrincipalKey(b => b.Id);
-
-            modelBuilder.Entity<TSubscriptionApp>()
-                .HasOne(p => p.App)
-                .WithMany(b => b.SubscriptionApps)
-                .HasForeignKey(p => p.AppId)
-                .HasPrincipalKey(b => b.Id);
-
-            modelBuilder.Entity<TSubscriptionPlanApp>()
-                .HasOne(p => p.App)
-                .WithMany(b => b.SubscriptionPlanApps)
-                .HasForeignKey(p => p.AppId)
-                .HasPrincipalKey(b => b.Id);
-
-            modelBuilder.Entity<TAppAttribute>()
-                .ToTable("AppAttributes", SCHEMA_NAME);
-
-            modelBuilder.Entity<TAppFeature>()
-                .ToTable("AppFeatures", SCHEMA_NAME);
-
-            modelBuilder.Entity<TFeatureAction>()
-                .ToTable("FeatureActions", SCHEMA_NAME);
-
-            var features = modelBuilder.Entity<TFeature>()
-                .ToTable("Features", SCHEMA_NAME);
-
-            modelBuilder.Entity<TAppFeature>()
-                .HasOne(p => p.Feature)
-                .WithMany(b => b.AppFeatures)
-                .HasForeignKey(p => p.AppId)
-                .HasPrincipalKey(b => b.Id);
-
-            modelBuilder.Entity<TFeatureAction>()
-                .HasOne(p => p.Feature)
-                .WithMany(b => b.FeatureActions)
-                .HasForeignKey(p => p.FeatureId)
-                .HasPrincipalKey(b => b.Id);
-
-            modelBuilder.Entity<TSubscriptionFeature>()
-                .HasOne(p => p.Feature)
-                .WithMany(b => b.SubscriptionFeatures)
-                .HasForeignKey(p => p.FeatureId)
-                .HasPrincipalKey(b => b.Id);
-
-            modelBuilder.Entity<TSubscriptionPlanFeature>()
-                .HasOne(p => p.Feature)
-                .WithMany(b => b.SubscriptionPlanFeatures)
-                .HasForeignKey(p => p.FeatureId)
-                .HasPrincipalKey(b => b.Id);
-
-            #endregion Apps
-
-            #region Subscription Plans
-
-            modelBuilder.Entity<TBillingCycleOption>()
-                .ToTable("BillingCycleOptions", SCHEMA_NAME);
-
-            modelBuilder.Entity<TSubscriptionPlanApp>()
-                .ToTable("SubscriptionPlanApps", SCHEMA_NAME);
-
-            modelBuilder.Entity<TSubscriptionPlanAttribute>()
-                .ToTable("SubscriptionPlanAttributes", SCHEMA_NAME);
-
-            var subscriptionPlans = modelBuilder.Entity<TSubscriptionPlan>()
-                .ToTable("SubscriptionPlans", SCHEMA_NAME);
-
-            modelBuilder.Entity<TBillingCycleOption>()
-                .HasOne(p => p.SubscriptionPlan)
-                .WithMany(b => b.BillingCycleOptions)
-                .HasForeignKey(p => p.SubscriptionPlanId)
-                .HasPrincipalKey(b => b.Id);
-
-            modelBuilder.Entity<TSubscriptionPlanAttribute>()
-                .HasOne(p => p.SubscriptionPlan)
-                .WithMany(b => b.Attributes)
-                .HasForeignKey(p => p.SubscriptionPlanId)
-                .HasPrincipalKey(b => b.Id);
-
-            modelBuilder.Entity<TSubscriptionPlanApp>()
-                .HasOne(p => p.SubscriptionPlan)
-                .WithMany(b => b.SubscriptionPlanApps)
-                .HasForeignKey(p => p.SubscriptionPlanId)
-                .HasPrincipalKey(b => b.Id);
-
-            modelBuilder.Entity<TSubscriptionPlanFeature>()
-                .HasOne(p => p.SubscriptionPlan)
-                .WithMany(b => b.SubscriptionPlanFeatures)
-                .HasForeignKey(p => p.SubscriptionPlanId)
-                .HasPrincipalKey(b => b.Id);
-
-            modelBuilder.Entity<TSubscription>()
-                .HasOne(p => p.SubscriptionPlan)
-                .WithMany(b => b.Subscriptions)
-                .HasForeignKey(p => p.SubscriptionPlanId)
-                .HasPrincipalKey(b => b.Id);
-
-            modelBuilder.Entity<TSubscriptionPlanFeatureAttribute>()
-                .ToTable("SubscriptionPlanFeatureAttributes", SCHEMA_NAME);
-
-            var subscriptionPlanFeatures = modelBuilder.Entity<TSubscriptionPlanFeature>()
-                .ToTable("SubscriptionPlanFeatures", SCHEMA_NAME);
-
-            modelBuilder.Entity<TSubscriptionFeatureAttribute>()
-                .HasOne(p => p.SubscriptionFeature)
-                .WithMany(b => b.SubscriptionFeatureAttributes)
-                .HasForeignKey(p => p.SubscriptionFeatureId)
-                .HasPrincipalKey(b => b.Id);
-
-            #endregion Subscription Plans
-
-            #region Subscriptions
-
-            var subscriptionApps = modelBuilder.Entity<TSubscriptionApp>()
-                .ToTable("SubscriptionApps", SCHEMA_NAME);
-
-            modelBuilder.Entity<TSubscriptionAppRole>()
-                .HasOne(p => p.SubscriptionApp)
-                .WithMany(b => b.SubscriptionAppRoles)
-                .HasForeignKey(p => p.SubscriptionAppId)
-                .HasPrincipalKey(b => b.Id);
-
-            modelBuilder.Entity<TSubscriptionAppUser>()
-                .HasOne(p => p.SubscriptionApp)
-                .WithMany(b => b.SubscriptionAppUsers)
-                .HasForeignKey(p => p.SubscriptionAppId)
-                .HasPrincipalKey(b => b.Id);
-
-            modelBuilder.Entity<TSubscriptionAppRole>()
-                .ToTable("SubscriptionAppRoles", SCHEMA_NAME);
-
-            modelBuilder.Entity<TSubscriptionAppUser>()
-                .ToTable("SubscriptionAppUsers", SCHEMA_NAME);
-
-            modelBuilder.Entity<TSubscriptionAttribute>()
-                .ToTable("SubscriptionAttributes", SCHEMA_NAME);
-
-            var subscriptions = modelBuilder.Entity<TSubscription>()
-                .ToTable("Subscriptions", SCHEMA_NAME);
-
-            modelBuilder.Entity<TSubscriptionAttribute>()
-                .HasOne(p => p.Subscription)
-                .WithMany(b => b.Attributes)
-                .HasForeignKey(p => p.SubscriptionId)
-                .HasPrincipalKey(b => b.Id);
-
-            modelBuilder.Entity<TSubscriptionApp>()
-             .HasOne(p => p.Subscription)
-             .WithMany(b => b.SubscriptionApps)
-             .HasForeignKey(p => p.SubscriptionId)
-             .HasPrincipalKey(b => b.Id);
-
-            modelBuilder.Entity<TSubscriptionFeature>()
-                .HasOne(p => p.Subscription)
-                .WithMany(b => b.SubscriptionFeatures)
-                .HasForeignKey(p => p.SubscriptionId)
-                .HasPrincipalKey(b => b.Id);
-
-            modelBuilder.Entity<TBillingCycle>()
-                .HasOne(p => p.Subscription)
-                .WithMany(b => b.BillingCycles)
-                .HasForeignKey(p => p.SubscriptionId)
-                .HasPrincipalKey(b => b.Id);
-
-            var billingCycles = modelBuilder.Entity<TBillingCycle>()
-                .ToTable("BilingCycles", SCHEMA_NAME);
-
-            modelBuilder.Entity<TBillingCycleAttribute>()
-                .HasOne(p => p.BillingCycle)
-                .WithMany(b => b.Attributes)
-                .HasForeignKey(p => p.BillingCycleId)
-                .HasPrincipalKey(b => b.Id);
-
-            modelBuilder.Entity<TBillingCycleFeatureUsage>()
-                .HasOne(p => p.BillingCycle)
-                .WithMany(b => b.FeatureUsage)
-                .HasForeignKey(p => p.BillingCycleId)
-                .HasPrincipalKey(b => b.Id)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder.Entity<TBillingCycleAttribute>()
-                .ToTable("BillingCycleAttributes", SCHEMA_NAME);
-
-            modelBuilder.Entity<TBillingCycleFeatureUsage>()
-                .ToTable("BillingCycleFeatureUsage", SCHEMA_NAME);
-
-            modelBuilder.Entity<TSubscriptionFeatureAttribute>()
-                .ToTable("SubscriptionFeatureAttributes", SCHEMA_NAME);
-
-            var subscriptionFeatures = modelBuilder.Entity<TSubscriptionFeature>()
-                .ToTable("SubscriptionFeatures", SCHEMA_NAME);
-
-            modelBuilder.Entity<TSubscriptionFeatureAttribute>()
-                .HasOne(p => p.SubscriptionFeature)
-                .WithMany(b => b.SubscriptionFeatureAttributes)
-                .HasForeignKey(p => p.SubscriptionFeatureId)
-                .HasPrincipalKey(b => b.Id);
-
-            modelBuilder.Entity<TSubscriptionFeatureRole>()
-                .HasOne(p => p.SubscriptionFeature)
-                .WithMany(b => b.SubscriptionFeatureRoles)
-                .HasForeignKey(p => p.SubscriptionFeatureId)
-                .HasPrincipalKey(b => b.Id);
-
-            modelBuilder.Entity<TSubscriptionFeatureUser>()
-                .HasOne(p => p.SubscriptionFeature)
-                .WithMany(b => b.SubscriptionFeatureUsers)
-                .HasForeignKey(p => p.SubscriptionFeatureId)
-                .HasPrincipalKey(b => b.Id);
-
-            modelBuilder.Entity<TBillingCycleFeatureUsage>()
-                .HasOne(p => p.SubscriptionFeature)
-                .WithMany(b => b.FeatureUsage)
-                .HasForeignKey(p => p.SubscriptionFeatureId)
-                .HasPrincipalKey(b => b.Id);
-
-            modelBuilder.Entity<TSubscriptionFeatureRoleAction>()
-                .ToTable("SubscriptionFeatureRoleActions", SCHEMA_NAME);
-
-            var subscriptionFeatureRoles = modelBuilder.Entity<TSubscriptionFeatureRole>()
-                .ToTable("SubscriptionFeatureRole", SCHEMA_NAME);
-
-            modelBuilder.Entity<TSubscriptionFeatureRoleAction>()
-                .HasOne(p => p.SubscriptionFeatureRole)
-                .WithMany(b => b.SubscriptionFeatureRoleActions)
-                .HasForeignKey(p => p.SubscriptionFeatureRoleId)
-                .HasPrincipalKey(b => b.Id);
-
-            modelBuilder.Entity<TSubscriptionFeatureUserAction>()
-                .ToTable("SubscriptionFeatureUserActions", SCHEMA_NAME);
-
-            var subscriptionFeatureUsers = modelBuilder.Entity<TSubscriptionFeatureUser>()
-                .ToTable("SubscriptionFeatureUsers", SCHEMA_NAME);
-
-            modelBuilder.Entity<TSubscriptionFeatureUserAction>()
-                .HasOne(p => p.SubscriptionFeatureUser)
-                .WithMany(b => b.SubscriptionFeatureUserActions)
-                .HasForeignKey(p => p.SubscriptionFeatureUserId)
-                .HasPrincipalKey(b => b.Id);
-
-            #endregion Subscriptions
-
-            #region Tenants
-
-            var tenants = modelBuilder.Entity<TTenant>()
-                .ToTable("Tenants", SCHEMA_NAME);
-
-            modelBuilder.Entity<TTenantUser>()
-                .HasOne(p => p.Tenant)
-                .WithMany(b => b.TenantUsers)
-                .HasForeignKey(p => p.TenantId)
-                .HasPrincipalKey(b => b.Id);
-
-            modelBuilder.Entity<TTenantAttribute>()
-                .HasOne(p => p.Tenant)
-                .WithMany(b => b.Attributes)
-                .HasForeignKey(p => p.TenantId)
-                .HasPrincipalKey(b => b.Id);
-
-            modelBuilder.Entity<TTenantUser>()
-                .ToTable("TenantUsers", SCHEMA_NAME);
-
-            modelBuilder.Entity<TTenantAttribute>()
-                .ToTable("TenantAttributes", SCHEMA_NAME);
-
-            #endregion Tenants
-
-            #region User Agreements
-
-            var userAgreements = modelBuilder.Entity<TUserAgreement>()
-                .ToTable("UserAgreements", SCHEMA_NAME);
-
-            modelBuilder.Entity<TUserAgreementVersion>()
-                .HasOne(p => p.UserAgreement)
-                .WithMany(b => b.UserAgreementVersions)
-                .HasForeignKey(p => p.UserAgreementId)
-                .HasPrincipalKey(b => b.Id);
-
-            var userAgreementVersions = modelBuilder.Entity<TUserAgreementVersion>()
-                .ToTable("UserAgreementVersions", SCHEMA_NAME);
-
-            modelBuilder.Entity<TUserAgreementVersionAction>()
-                .HasOne(p => p.UserAgreementVersion)
-                .WithMany(b => b.Actions)
-                .HasForeignKey(p => p.UserAgreementVersionId)
-                .HasPrincipalKey(b => b.Id);
-
-            modelBuilder.Entity<TUserAgreementVersionAction>()
-                .ToTable("UserAgreementVersionActions", SCHEMA_NAME);
-
-            #endregion User Agreements
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<TAppAttribute>(entity =>
+            {
+                entity.ToTable("AppAttributes", SCHEMA_NAME);
+
+                entity.Property(e => e.AttributeName)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.HasOne(d => d.App)
+                    .WithMany(p => p.Attributes)
+                    .HasForeignKey(d => d.AppId);
+            });
+
+            modelBuilder.Entity<TAppFeature>(entity =>
+            {
+                entity.ToTable("AppFeatures", SCHEMA_NAME);
+
+                entity.HasOne(d => d.App)
+                    .WithMany(p => p.AppFeatures)
+                    .HasForeignKey(d => d.AppId);
+
+                entity.HasOne(d => d.Feature)
+                    .WithMany(p => p.AppFeatures)
+                    .HasForeignKey(d => d.AppId);
+            });
+
+            modelBuilder.Entity<TApp>(entity =>
+            {
+                entity.ToTable("Apps", SCHEMA_NAME);
+
+                entity.Property(e => e.Key)
+                    .IsRequired()
+                    .HasMaxLength(128);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(256);
+            });
+
+            modelBuilder.Entity<TBillingCycle>(entity =>
+            {
+                entity.ToTable("BillingCycles", SCHEMA_NAME);
+
+                entity.Property(e => e.Amount).HasColumnType("decimal(18, 2)");
+
+                entity.HasOne(d => d.Subscription)
+                    .WithMany(p => p.BillingCycles)
+                    .HasForeignKey(d => d.SubscriptionId);
+            });
+
+            modelBuilder.Entity<TBillingCycleAttribute>(entity =>
+            {
+                entity.ToTable("BillingCycleAttributes", SCHEMA_NAME);
+
+                entity.Property(e => e.AttributeName)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.HasOne(d => d.BillingCycle)
+                    .WithMany(p => p.Attributes)
+                    .HasForeignKey(d => d.BillingCycleId);
+            });
+
+            modelBuilder.Entity<TBillingCycleFeatureUsage>(entity =>
+            {
+                entity.ToTable("BillingCycleFeatureUsage", SCHEMA_NAME);
+
+                entity.HasOne(d => d.BillingCycle)
+                    .WithMany(p => p.FeatureUsage)
+                    .HasForeignKey(d => d.BillingCycleId)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+
+                entity.HasOne(d => d.SubscriptionFeature)
+                    .WithMany(p => p.FeatureUsage)
+                    .HasForeignKey(d => d.SubscriptionFeatureId);
+            });
+
+            modelBuilder.Entity<TBillingCycleOption>(entity =>
+            {
+                entity.ToTable("BillingCycleOptions", SCHEMA_NAME);
+
+                entity.Property(e => e.Amount).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.HasOne(d => d.SubscriptionPlan)
+                    .WithMany(p => p.BillingCycleOptions)
+                    .HasForeignKey(d => d.SubscriptionPlanId);
+            });
+
+            modelBuilder.Entity<TFeatureAction>(entity =>
+            {
+                entity.ToTable("FeatureActions", SCHEMA_NAME);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.HasOne(d => d.Feature)
+                    .WithMany(p => p.FeatureActions)
+                    .HasForeignKey(d => d.FeatureId);
+            });
+
+            modelBuilder.Entity<TFeature>(entity =>
+            {
+                entity.ToTable("Features", SCHEMA_NAME);
+
+                entity.Property(e => e.Key)
+                    .IsRequired()
+                    .HasMaxLength(128);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.HasOne(d => d.App)
+                    .WithMany(p => p.Features)
+                    .HasForeignKey(d => d.AppId);
+            });
+
+
+            modelBuilder.Entity<TSubscriptionAppRole>(entity =>
+            {
+                entity.ToTable("SubscriptionAppRoles", SCHEMA_NAME);
+
+                entity.HasOne(d => d.SubscriptionApp)
+                    .WithMany(p => p.SubscriptionAppRoles)
+                    .HasForeignKey(d => d.SubscriptionAppId);
+            });
+
+            modelBuilder.Entity<TSubscriptionAppUser>(entity =>
+            {
+                entity.ToTable("SubscriptionAppUsers", SCHEMA_NAME);
+
+                entity.HasOne(d => d.SubscriptionApp)
+                    .WithMany(p => p.SubscriptionAppUsers)
+                    .HasForeignKey(d => d.SubscriptionAppId);
+            });
+
+            modelBuilder.Entity<TSubscriptionApp>(entity =>
+            {
+                entity.ToTable("SubscriptionApps", SCHEMA_NAME);
+
+                entity.HasOne(d => d.App)
+                    .WithMany(p => p.SubscriptionApps)
+                    .HasForeignKey(d => d.AppId);
+
+                entity.HasOne(d => d.Subscription)
+                    .WithMany(p => p.SubscriptionApps)
+                    .HasForeignKey(d => d.SubscriptionId);
+            });
+
+            modelBuilder.Entity<TSubscriptionAttribute>(entity =>
+            {
+                entity.ToTable("SubscriptionAttributes", SCHEMA_NAME);
+
+                entity.Property(e => e.AttributeName)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.HasOne(d => d.Subscription)
+                    .WithMany(p => p.Attributes)
+                    .HasForeignKey(d => d.SubscriptionId);
+            });
+
+            modelBuilder.Entity<TSubscriptionFeatureAttribute>(entity =>
+            {
+                entity.ToTable("SubscriptionFeatureAttributes", SCHEMA_NAME);
+
+                entity.Property(e => e.AttributeName)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.HasOne(d => d.SubscriptionFeature)
+                    .WithMany(p => p.SubscriptionFeatureAttributes)
+                    .HasForeignKey(d => d.SubscriptionFeatureId);
+            });
+
+            modelBuilder.Entity<TSubscriptionFeatureRole>(entity =>
+            {
+                entity.ToTable("SubscriptionFeatureRole", SCHEMA_NAME);
+
+                entity.HasOne(d => d.SubscriptionFeature)
+                    .WithMany(p => p.SubscriptionFeatureRoles)
+                    .HasForeignKey(d => d.SubscriptionFeatureId);
+            });
+
+            modelBuilder.Entity<TSubscriptionFeatureRoleAction>(entity =>
+            {
+                entity.ToTable("SubscriptionFeatureRoleActions", SCHEMA_NAME);
+
+                entity.Property(e => e.ActionName)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.HasOne(d => d.SubscriptionFeatureRole)
+                    .WithMany(p => p.SubscriptionFeatureRoleActions)
+                    .HasForeignKey(d => d.SubscriptionFeatureRoleId);
+            });
+
+            modelBuilder.Entity<TSubscriptionFeatureUserAction>(entity =>
+            {
+                entity.ToTable("SubscriptionFeatureUserActions", SCHEMA_NAME);
+
+                entity.Property(e => e.ActionName)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.HasOne(d => d.SubscriptionFeatureUser)
+                    .WithMany(p => p.SubscriptionFeatureUserActions)
+                    .HasForeignKey(d => d.SubscriptionFeatureUserId);
+            });
+
+            modelBuilder.Entity<TSubscriptionFeatureUser>(entity =>
+            {
+                entity.ToTable("SubscriptionFeatureUsers", SCHEMA_NAME);
+
+                entity.HasOne(d => d.SubscriptionFeature)
+                    .WithMany(p => p.SubscriptionFeatureUsers)
+                    .HasForeignKey(d => d.SubscriptionFeatureId);
+            });
+
+            modelBuilder.Entity<TSubscriptionFeature>(entity =>
+            {
+                entity.ToTable("SubscriptionFeatures", SCHEMA_NAME);
+
+                entity.HasOne(d => d.Feature)
+                    .WithMany(p => p.SubscriptionFeatures)
+                    .HasForeignKey(d => d.FeatureId);
+
+                entity.HasOne(d => d.Subscription)
+                    .WithMany(p => p.SubscriptionFeatures)
+                    .HasForeignKey(d => d.SubscriptionId);
+            });
+
+            modelBuilder.Entity<TSubscriptionPlanApp>(entity =>
+            {
+                entity.ToTable("SubscriptionPlanApps", SCHEMA_NAME);
+
+                entity.HasOne(d => d.App)
+                    .WithMany(p => p.SubscriptionPlanApps)
+                    .HasForeignKey(d => d.AppId);
+
+                entity.HasOne(d => d.SubscriptionPlan)
+                    .WithMany(p => p.SubscriptionPlanApps)
+                    .HasForeignKey(d => d.SubscriptionPlanId);
+            });
+
+            modelBuilder.Entity<TSubscriptionPlanAttribute>(entity =>
+            {
+                entity.ToTable("SubscriptionPlanAttributes", SCHEMA_NAME);
+
+                entity.Property(e => e.AttributeName)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.HasOne(d => d.SubscriptionPlan)
+                    .WithMany(p => p.Attributes)
+                    .HasForeignKey(d => d.SubscriptionPlanId);
+            });
+
+            modelBuilder.Entity<TSubscriptionPlanFeatureAttribute>(entity =>
+            {
+                entity.ToTable("SubscriptionPlanFeatureAttributes", SCHEMA_NAME);
+
+                entity.Property(e => e.AttributeName)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.HasOne(d => d.SubscriptionPlanFeature)
+                    .WithMany(p => p.SubscriptionPlanFeatureAttributes)
+                    .HasForeignKey(d => d.SubscriptionPlanFeatureId);
+            });
+
+            modelBuilder.Entity<TSubscriptionPlanFeature>(entity =>
+            {
+                entity.ToTable("SubscriptionPlanFeatures", SCHEMA_NAME);
+
+                entity.HasOne(d => d.Feature)
+                    .WithMany(p => p.SubscriptionPlanFeatures)
+                    .HasForeignKey(d => d.FeatureId);
+
+                entity.HasOne(d => d.SubscriptionPlan)
+                    .WithMany(p => p.SubscriptionPlanFeatures)
+                    .HasForeignKey(d => d.SubscriptionPlanId);
+            });
+
+            modelBuilder.Entity<TSubscriptionPlan>(entity =>
+            {
+                entity.ToTable("SubscriptionPlans", SCHEMA_NAME);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(256);
+            });
+
+            modelBuilder.Entity<TSubscription>(entity =>
+            {
+                entity.ToTable("Subscriptions", SCHEMA_NAME);
+
+                entity.Property(e => e.BillingAmount).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.HasOne(d => d.SubscriptionPlan)
+                    .WithMany(p => p.Subscriptions)
+                    .HasForeignKey(d => d.SubscriptionPlanId);
+            });
+
+            modelBuilder.Entity<TTenantAttribute>(entity =>
+            {
+                entity.ToTable("TenantAttributes", SCHEMA_NAME);
+
+                entity.Property(e => e.AttributeName)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.HasOne(d => d.Tenant)
+                    .WithMany(p => p.Attributes)
+                    .HasForeignKey(d => d.TenantId);
+            });
+
+            modelBuilder.Entity<TTenantUser>(entity =>
+            {
+                entity.ToTable("TenantUsers", SCHEMA_NAME);
+
+                entity.HasOne(d => d.Tenant)
+                    .WithMany(p => p.TenantUsers)
+                    .HasForeignKey(d => d.TenantId);
+            });
+
+            modelBuilder.Entity<TTenant>(entity =>
+            {
+                entity.ToTable("Tenants", SCHEMA_NAME);
+
+                entity.Property(e => e.BillingEmail).HasMaxLength(256);
+
+                entity.Property(e => e.Domain).HasMaxLength(256);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(256);
+            });
+
+            modelBuilder.Entity<TUserAgreementVersionAction>(entity =>
+            {
+                entity.ToTable("UserAgreementVersionActions", SCHEMA_NAME);
+
+                entity.HasOne(d => d.UserAgreementVersion)
+                    .WithMany(p => p.Actions)
+                    .HasForeignKey(d => d.UserAgreementVersionId);
+            });
+
+            modelBuilder.Entity<TUserAgreementVersion>(entity =>
+            {
+                entity.ToTable("UserAgreementVersions", SCHEMA_NAME);
+
+                entity.HasOne(d => d.UserAgreement)
+                    .WithMany(p => p.UserAgreementVersions)
+                    .HasForeignKey(d => d.UserAgreementId);
+            });
+
+            modelBuilder.Entity<TUserAgreement>(entity =>
+            {
+                entity.ToTable("UserAgreements", SCHEMA_NAME);
+
+                entity.Property(e => e.Key)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.HasOne(d => d.App)
+                    .WithMany(p => p.UserAgreements)
+                    .HasForeignKey(d => d.AppId);
+            });
+
         }
     }
 }

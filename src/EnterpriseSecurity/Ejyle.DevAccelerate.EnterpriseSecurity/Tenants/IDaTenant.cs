@@ -45,27 +45,27 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
         /// <summary>
         /// Gets or sets the ID of the country of the tenant.
         /// </summary>
-        TKey CountryId { get; set; }
+        TNullableKey CountryId { get; set; }
 
         /// <summary>
         /// Gets or sets the currency ID of the tenant.
         /// </summary>
-        TKey CurrencyId { get; set; }
+        TNullableKey CurrencyId { get; set; }
 
         /// <summary>
         /// Gets or sets the time zone of the tenant.
         /// </summary>
-        TKey TimeZoneId { get; set; }
+        TNullableKey TimeZoneId { get; set; }
 
         /// <summary>
         /// Gets or sets the ID of the date and time format.
         /// </summary>
-        TKey DateFormatId { get; set; }
+        TNullableKey DateFormatId { get; set; }
 
         /// <summary>
         /// Gets or sets the ID of the system language.
         /// </summary>
-        TKey SystemLanguageId { get; set; }
+        TNullableKey SystemLanguageId { get; set; }
 
         /// <summary>
         /// Gets or sets the ID of the user who owns the tenant.

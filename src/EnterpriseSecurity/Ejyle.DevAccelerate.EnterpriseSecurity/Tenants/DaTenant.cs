@@ -51,22 +51,17 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
         [Required]
         public DaTenantStatus Status { get; set; }
 
-        [Required]
-        public TKey CountryId { get; set; }
+        public TNullableKey CountryId { get; set; }
 
-        [Required]
-        public TKey CurrencyId { get; set; }
+        public TNullableKey CurrencyId { get; set; }
 
-        [Required]
-        public TKey TimeZoneId { get; set; }
+        public TNullableKey TimeZoneId { get; set; }
 
         [StringLength(256)]
         public string? BillingEmail { get; set; }
 
-        [Required]
-        public TKey DateFormatId { get; set; }
+        public TNullableKey DateFormatId { get; set; }
 
-        [Required]
-        public TKey SystemLanguageId { get; set; }
+        public TNullableKey SystemLanguageId { get; set; }
     }
 }
