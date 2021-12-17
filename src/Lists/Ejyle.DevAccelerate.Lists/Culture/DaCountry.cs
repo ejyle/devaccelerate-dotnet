@@ -21,6 +21,19 @@ namespace Ejyle.DevAccelerate.Lists.Culture
         public DaCountry()
             : base()
         { }
+
+        /// <summary>
+        /// Creates an instance of the <see cref="DaCountry"/> class.
+        /// </summary>
+        /// <param name="name">The name of the country.</param>
+        /// <param name="twoLetterCode">The two-letter (alpha-2) ISO 3166 code of the country.</param>
+        /// <param name="threeLetterCode">The three-letter (alpha-3) ISO 3166 code of the country.</param>
+        /// <param name="numericCode">The numeric ISO 3166 code of the country.</param>
+        /// <param name="internationalDialingCode">The international dialing code used to call a number from outside the country.</param>
+        /// <param name="isActive">Determines if the record for the country is active.</param>
+        public DaCountry(string name, string twoLetterCode, string threeLetterCode, int numericCode, string internationalDialingCode, bool isActive = true)
+            : base(name, twoLetterCode, threeLetterCode, numericCode, internationalDialingCode, isActive)
+        { }
     }
 
     /// <summary>
