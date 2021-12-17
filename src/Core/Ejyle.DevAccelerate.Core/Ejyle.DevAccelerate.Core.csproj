@@ -15,7 +15,7 @@
     <Product>DevAccelerateCore</Product>
     <Description>Provides all the basic interfaces for the most common cross-cutting concerns such as entity management, caching, logging, exception handling, and so on.</Description>
     <PackageTags>DevAccelerate;Entity;Repository;Logging;Exception;Caching</PackageTags>
-    <Version>6.0.1</Version>
+    <Version>6.0.2</Version>
     <Nullable>disable</Nullable>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <PackageReleaseNotes>Migrated the library to .NET Core</PackageReleaseNotes>
