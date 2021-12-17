@@ -8,9 +8,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq;
 using Ejyle.DevAccelerate.Core;
-using Ejyle.DevAccelerate.Core.Utils;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 {

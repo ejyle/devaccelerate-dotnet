@@ -16,7 +16,7 @@
     <Product>DevAccelerateIdentityEF</Product>
     <Description>Provides ASP.NET Identity and EntityFrameworkCore implementation for DevAccelerate Identity.</Description>
     <PackageTags>DevAccelerate;Identity;Identity-Management;User-Activities;User-Sessions;User-Settings;AspNet-Identity;EntityFrameworkCore;EF</PackageTags>
-    <Version>6.0.1</Version>
+    <Version>6.0.2</Version>
     <Nullable>disable</Nullable>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <PackageReleaseNotes>Migrated the library to .NET Core</PackageReleaseNotes>
@@ -37,6 +37,10 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
+
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
 
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />

@@ -6,10 +6,7 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using Ejyle.DevAccelerate.Core;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
 {

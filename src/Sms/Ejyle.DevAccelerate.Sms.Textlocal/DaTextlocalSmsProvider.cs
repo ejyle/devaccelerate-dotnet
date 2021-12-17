@@ -5,12 +5,10 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
-using Ejyle.DevAccelerate.Sms;
 using Microsoft.Extensions.Options;
 
 namespace Ejyle.DevAccelerate.Sms.Textlocal

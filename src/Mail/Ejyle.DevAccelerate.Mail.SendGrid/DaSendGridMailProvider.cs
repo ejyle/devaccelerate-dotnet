@@ -9,7 +9,6 @@ using System;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
-using Ejyle.DevAccelerate.Mail;
 using Microsoft.Extensions.Options;
 using SG = SendGrid;
 

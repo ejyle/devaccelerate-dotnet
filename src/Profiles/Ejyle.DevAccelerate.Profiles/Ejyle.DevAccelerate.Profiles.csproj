@@ -16,7 +16,7 @@
     <Product>DevAccelerateProfiles</Product>
     <Description>Provides interfaces and base functionality for user and organization profiles.</Description>
     <PackageTags>DevAccelerate;Profiles;User-Profiles;Organization-Profiles</PackageTags>
-    <Version>6.0.1</Version>
+    <Version>6.0.2</Version>
     <Nullable>disable</Nullable>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <PackageReleaseNotes>Migrated the library to .NET Core</PackageReleaseNotes>

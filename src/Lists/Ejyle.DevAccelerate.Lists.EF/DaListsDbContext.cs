@@ -27,6 +27,14 @@ namespace Ejyle.DevAccelerate.Lists.EF
         public DaListsDbContext(DbContextOptions<DaListsDbContext> options)
             : base(options)
         { }
+
+        /// <summary>
+        /// Creates an instance of the <see cref="DaListsDbContext"/> class.
+        /// </summary>
+        /// <param name="connectionString">The connection string for this context.</param>
+        public DaListsDbContext(string connectionString)
+            : base(connectionString)
+        { }
     }
 
     /// <summary>
@@ -76,6 +84,15 @@ namespace Ejyle.DevAccelerate.Lists.EF
             : base(options)
         { }
 
+        public DaListsDbContext(string connectionString)
+            : base(GetOptions(connectionString))
+        { }
+
+        private static DbContextOptions<DaListsDbContext<TKey, TNullableKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TGenericList, TGenericListItem>> GetOptions(string connectionString)
+        {
+            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaListsDbContext<TKey, TNullableKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TGenericList, TGenericListItem>>(), connectionString).Options;
+        }
+
         /// <summary>
         /// Gets or sets the <see cref="DbSet{TTimeZone}"/> of time zones.
         /// </summary>
@@ -122,7 +139,7 @@ namespace Ejyle.DevAccelerate.Lists.EF
             {
                 entity.ToTable("Countries", SCHEMA_NAME);
 
-                entity.Property(e => e.DialingCode)
+                entity.Property(e => e.InternationalDialingCode)
                     .IsRequired()
                     .HasMaxLength(10);
 

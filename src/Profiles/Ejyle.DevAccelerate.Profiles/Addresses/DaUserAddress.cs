@@ -7,11 +7,6 @@
 
 using Ejyle.DevAccelerate.Core;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Profiles.Addresses
 {
@@ -28,7 +23,7 @@ namespace Ejyle.DevAccelerate.Profiles.Addresses
         { }
     }
 
-    public class DaUserAddress<TKey, TNullableKey, TAddressProfile> : DaAuditedEntityBase<TKey>, IDaUserAddress<TKey>
+    public class DaUserAddress<TKey, TNullableKey, TAddressProfile> : DaAuditedEntityBase<TKey>, IDaUserAddress<TKey, TNullableKey>
         where TKey : IEquatable<TKey>
         where TAddressProfile : IDaAddressProfile<TKey, TNullableKey>
     {
@@ -37,7 +32,7 @@ namespace Ejyle.DevAccelerate.Profiles.Addresses
 
         public TKey UserId { get; set; }
         public string Name { get; set; }
-        public TKey TenantId { get; set; }
+        public TNullableKey TenantId { get; set; }
         public DaAddressType AddressType { get; set; }
         public TKey AddressProfileId { get; set; }
         public virtual TAddressProfile AddressProfile { get; set; }

@@ -6,10 +6,7 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Ejyle.DevAccelerate.Core;
-using Ejyle.DevAccelerate.Identity.UserSessions;
 
 namespace Ejyle.DevAccelerate.Identity.UserSessions
 {

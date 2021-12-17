@@ -8,12 +8,11 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq;
 using Ejyle.DevAccelerate.Core;
 using Ejyle.DevAccelerate.Core.Utils;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
-{ 
+{
     public class DaAppManager<TKey, TApp> : DaEntityManagerBase<TKey, TApp>
         where TKey : IEquatable<TKey>
         where TApp : IDaApp<TKey>

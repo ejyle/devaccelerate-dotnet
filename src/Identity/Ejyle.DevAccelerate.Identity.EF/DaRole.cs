@@ -5,7 +5,6 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-using Ejyle.DevAccelerate.Identity;
 using Microsoft.AspNetCore.Identity;
 using System;
 

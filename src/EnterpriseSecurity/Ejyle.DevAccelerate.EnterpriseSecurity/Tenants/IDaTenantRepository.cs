@@ -57,6 +57,20 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
         /// <returns>The Task that represents the asynchronous operation containing the matching tenant.</returns>
         Task<List<TTenant>> FindByUserIdAsync(TKey userId);
 
+        /// <summary>
+        /// Asynchronously finds if a user has an active association with a tenant. 
+        /// </summary>
+        /// <param name="tenantId">The ID of the tenant.</param>
+        /// <param name="userId">The ID of the user.</param>
+        /// <returns>Returns True if the active association exists otherwise it returns False.</returns>
         Task<bool> CheckTenantUserActiveAssociationAsync(TKey tenantId, TKey userId);
+
+        /// <summary>
+        /// Asynchronously finds a list of tenants that are associated with a pair of attribute name and its value.
+        /// </summary>
+        /// <param name="attributeName">The name of the attributte.</param>
+        /// <param name="attributeValue">The value of the attribute.</param>
+        /// <returns>The Task that represents the asynchronous operation containing the matching tenants.</returns>
+        Task<List<TTenant>> FindByAttributeAsync(string attributeName, string attributeValue);
     }
 }

@@ -7,14 +7,10 @@
 
 using Ejyle.DevAccelerate.Core;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 {
-   public interface IDaSubscriptionFeatureUser<TKey> : IDaEntity<TKey>
+    public interface IDaSubscriptionFeatureUser<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         TKey SubscriptionFeatureId { get; set; }

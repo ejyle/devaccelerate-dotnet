@@ -11,8 +11,6 @@ using Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions;
 using Ejyle.DevAccelerate.EnterpriseSecurity.UserAgreements;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
 {

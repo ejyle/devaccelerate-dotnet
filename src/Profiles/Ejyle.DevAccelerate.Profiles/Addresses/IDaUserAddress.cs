@@ -7,20 +7,16 @@
 
 using Ejyle.DevAccelerate.Core;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Profiles.Addresses
 {
-    public interface IDaUserAddress<TKey> : IDaAuditedEntity<TKey>
+    public interface IDaUserAddress<TKey, TNullableKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         TKey AddressProfileId { get; set; }
         TKey UserId { get; set; }
         string Name { get; set; }
-        TKey TenantId { get; set; }
+        TNullableKey TenantId { get; set; }
         DaAddressType AddressType { get; set; }
     }
 }

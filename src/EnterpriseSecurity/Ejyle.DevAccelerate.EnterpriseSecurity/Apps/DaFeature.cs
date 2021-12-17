@@ -10,8 +10,6 @@ using Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans;
 using Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
 {

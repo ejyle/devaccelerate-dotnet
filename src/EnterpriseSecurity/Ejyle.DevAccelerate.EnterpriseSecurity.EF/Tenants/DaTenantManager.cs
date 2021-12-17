@@ -5,10 +5,6 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-using System;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using Ejyle.DevAccelerate.Core;
 using Ejyle.DevAccelerate.EnterpriseSecurity.Tenants;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Tenants

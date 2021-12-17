@@ -18,10 +18,8 @@ using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Subscriptions;
 using Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions;
 using Ejyle.DevAccelerate.EnterpriseSecurity.Apps;
 using Ejyle.DevAccelerate.EnterpriseSecurity.UserAgreements;
-using Ejyle.DevAccelerate.EnterpriseSecurity.EF;
 using Ejyle.DevAccelerate.Lists.EF.Culture;
 using Ejyle.DevAccelerate.Lists.Culture;
-using Ejyle.DevAccelerate.Lists.EF;
 using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Apps;
 using Ejyle.DevAccelerate.EnterpriseSecurity.EF.UserAgreements;
 using System.Collections.Generic;
@@ -30,11 +28,8 @@ using Ejyle.DevAccelerate.Profiles.EF.UserProfiles;
 using Ejyle.DevAccelerate.Profiles.UserProfiles;
 using Ejyle.DevAccelerate.Profiles.EF.Organizations;
 using Ejyle.DevAccelerate.Profiles.Organizations;
-using Ejyle.DevAccelerate.Profiles.EF;
 using Ejyle.DevAccelerate.Profiles.Addresses;
 using Ejyle.DevAccelerate.Profiles.EF.Addresses;
-using Ejyle.DevAccelerate.EnterpriseSecurity;
-using System.Collections.Specialized;
 using Microsoft.AspNetCore.Identity;
 using Ejyle.DevAccelerate.Facades.Security.Properties;
 
@@ -452,7 +447,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                 Name = "Billing",
                 UserId = user.Id,
                 AddressType = DaAddressType.Billing,
-                TenantId = tenant.Id,
+                TenantId = tenant == null ? default(TNullableKey) : KeyConverter.ToNullableKey(tenant.Id),
                 CreatedBy = user.Id,
                 CreatedDateUtc = DateTime.UtcNow,
                 LastUpdatedBy = user.Id,

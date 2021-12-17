@@ -8,9 +8,6 @@
 using Ejyle.DevAccelerate.Core;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Profiles.Addresses
 {
@@ -22,7 +19,7 @@ namespace Ejyle.DevAccelerate.Profiles.Addresses
     }
 
     public class DaAddressProfile<TUserAddress> : DaAddressProfile<int, int?, TUserAddress>
-        where TUserAddress : IDaUserAddress<int>
+        where TUserAddress : IDaUserAddress<int, int?>
     {
         public DaAddressProfile()
             : base()
@@ -31,7 +28,7 @@ namespace Ejyle.DevAccelerate.Profiles.Addresses
 
     public class DaAddressProfile<TKey, TNullableKey, TUserAddress> : DaAuditedEntityBase<TKey>, IDaAddressProfile<TKey, TNullableKey>
         where TKey : IEquatable<TKey>
-        where TUserAddress : IDaUserAddress<TKey>
+        where TUserAddress : IDaUserAddress<TKey, TNullableKey>
     {
         public DaAddressProfile()
             : base()

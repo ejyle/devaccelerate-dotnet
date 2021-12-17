@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Ejyle.DevAccelerate.Facades.Security.Authorization
+﻿namespace Ejyle.DevAccelerate.Facades.Security.Authorization
 {
     public enum DaAuthorizationStatus
     {

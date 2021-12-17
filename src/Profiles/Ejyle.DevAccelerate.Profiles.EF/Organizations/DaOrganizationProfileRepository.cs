@@ -11,7 +11,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Profiles.EF.Organizations
@@ -46,6 +45,11 @@ namespace Ejyle.DevAccelerate.Profiles.EF.Organizations
         {
             OrganizationProfiles.Remove(organizationProfile);
             return SaveChangesAsync();
+        }
+
+        public async Task<List<TOrganizationProfile>> FindByAttributeAsync(string attributeName, string attributeValue)
+        {
+            return await OrganizationProfiles.Where(m => m.Attributes.Any(x => x.AttributeName == attributeName && x.AttributeValue == attributeValue)).ToListAsync();
         }
 
         public Task<TOrganizationProfile> FindByIdAsync(TKey id)

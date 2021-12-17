@@ -6,7 +6,6 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace Ejyle.DevAccelerate.Lists.Generic
 {

@@ -6,7 +6,6 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.Identity

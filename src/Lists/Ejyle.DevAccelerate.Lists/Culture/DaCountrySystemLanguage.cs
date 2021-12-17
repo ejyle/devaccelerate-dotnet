@@ -6,7 +6,6 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.ComponentModel.DataAnnotations;
 using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.Lists.Culture

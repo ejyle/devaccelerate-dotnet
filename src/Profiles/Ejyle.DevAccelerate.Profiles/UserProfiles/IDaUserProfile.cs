@@ -7,7 +7,6 @@
 
 using Ejyle.DevAccelerate.Core;
 using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace Ejyle.DevAccelerate.Profiles.UserProfiles
 {

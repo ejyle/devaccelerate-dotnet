@@ -25,6 +25,10 @@ namespace Ejyle.DevAccelerate.Identity.EF
         public DaIdentityDbContext()
             : base()
         { }
+
+        public DaIdentityDbContext(string connectionString)
+            : base(connectionString)
+        { }
     }
 
     public class DaIdentityDbContext<TKey, TNullableKey, TUser, TRole, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting>
@@ -50,6 +54,15 @@ namespace Ejyle.DevAccelerate.Identity.EF
         public DaIdentityDbContext()
             : base()
         { }
+
+        public DaIdentityDbContext(string connectionString)
+            : base(GetOptions(connectionString))
+        { }
+
+        private static DbContextOptions<DaIdentityDbContext<TKey, TNullableKey, TUser, TRole, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting>> GetOptions(string connectionString)
+        {
+            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaIdentityDbContext<TKey, TNullableKey, TUser, TRole, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting>>(), connectionString).Options;
+        }
 
         public virtual DbSet<TUserSession> UserSessions { get; set; }
         public virtual DbSet<TUserActivityCategory> UserActivityCategories { get; set; }

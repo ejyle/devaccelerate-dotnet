@@ -8,8 +8,6 @@
 using System;
 using System.Collections.Generic;
 using Ejyle.DevAccelerate.Core;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 {

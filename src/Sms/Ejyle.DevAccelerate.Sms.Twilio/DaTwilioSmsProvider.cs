@@ -7,7 +7,6 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Ejyle.DevAccelerate.Sms;
 using Microsoft.Extensions.Options;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;

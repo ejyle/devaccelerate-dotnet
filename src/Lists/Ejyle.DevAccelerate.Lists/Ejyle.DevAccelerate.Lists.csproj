@@ -16,7 +16,7 @@
     <Product>DevAccelerateLists</Product>
     <Description>Provides interfaces and base functionality for lists of common entities such as generic lists, currencies, countries, time zones, etc.</Description>
     <PackageTags>DevAccelerate;Lists;Countries;Currencies;Time Zones;Languages</PackageTags>
-    <Version>6.0.1</Version>
+    <Version>6.0.2</Version>
     <Nullable>disable</Nullable>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <PackageReleaseNotes>Migrated the library to .NET Core</PackageReleaseNotes>

@@ -16,7 +16,7 @@
     <Product>DevAccelerateMailSendGrid</Product>
     <Description>A SendGrid implementation for DevAccelerate Mail for sending email messages.</Description>
     <PackageTags>DevAccelerate;Mail;Email;SendGrid</PackageTags>
-    <Version>6.0.1</Version>
+    <Version>6.0.2</Version>
     <Nullable>disable</Nullable>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <PackageReleaseNotes>Migrated the library to .NET Core</PackageReleaseNotes>

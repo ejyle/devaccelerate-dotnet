@@ -20,7 +20,7 @@ namespace Ejyle.DevAccelerate.Lists.Culture
         /// <summary>
         /// The international dialing code used to call a number from outside the country.
         /// </summary>
-        string DialingCode { get; set; }
+        string InternationalDialingCode { get; set; }
 
         /// <summary>
         /// The two-letter (alpha-2) ISO 3166 code of the country.

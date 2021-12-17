@@ -8,7 +8,6 @@
 using System;
 using System.Net.Mail;
 using System.Threading.Tasks;
-using Ejyle.DevAccelerate.Core;
 using Microsoft.Extensions.Options;
 
 namespace Ejyle.DevAccelerate.Mail

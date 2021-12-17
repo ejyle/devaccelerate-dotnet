@@ -80,5 +80,10 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Tenants
 
             return (tenantUser != null);
         }
+
+        public async Task<List<TTenant>> FindByAttributeAsync(string attributeName, string attributeValue)
+        {
+            return await Tenants.Where(m => m.Attributes.Any(x => x.AttributeName == attributeName && x.AttributeValue == attributeValue)).ToListAsync();
+        }
     }
 }

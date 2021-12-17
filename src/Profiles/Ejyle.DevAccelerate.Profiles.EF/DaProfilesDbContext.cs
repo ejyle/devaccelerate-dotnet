@@ -6,7 +6,6 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using System;
-using Ejyle.DevAccelerate.Core.Data;
 using Ejyle.DevAccelerate.Profiles.Addresses;
 using Ejyle.DevAccelerate.Profiles.Organizations;
 using Ejyle.DevAccelerate.Profiles.UserProfiles;
@@ -47,6 +46,15 @@ namespace Ejyle.DevAccelerate.Profiles.EF
         public DaProfilesDbContext(DbContextOptions<DaProfilesDbContext<TKey, TNullableKey, TUserProfile, TUserProfileAttribute, TOrganizationProfile, TOrganizationProfileAttribute, TAddressProfile, TUserAddress>> options)
             : base(options)
         { }
+
+        public DaProfilesDbContext(string connectionString)
+            : base(GetOptions(connectionString))
+        { }
+
+        private static DbContextOptions<DaProfilesDbContext<TKey, TNullableKey, TUserProfile, TUserProfileAttribute, TOrganizationProfile, TOrganizationProfileAttribute, TAddressProfile, TUserAddress>> GetOptions(string connectionString)
+        {
+            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaProfilesDbContext<TKey, TNullableKey, TUserProfile, TUserProfileAttribute, TOrganizationProfile, TOrganizationProfileAttribute, TAddressProfile, TUserAddress>>(), connectionString).Options;
+        }
 
         public virtual DbSet<TUserProfile> UserProfiles { get; set; }
         public virtual DbSet<TUserProfileAttribute> UserProfileAttributes { get; set; }

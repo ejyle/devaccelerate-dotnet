@@ -9,12 +9,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core.EF;
-using System.Collections.Generic;
 using Ejyle.DevAccelerate.Core.Data;
-using Ejyle.DevAccelerate.Identity.EF.UserSessions;
 using Ejyle.DevAccelerate.Identity.UserActivities;
-using Ejyle.DevAccelerate.Identity.UserSettings;
-using Ejyle.DevAccelerate.Identity.EF;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ejyle.DevAccelerate.Identity.EF.UserActivities

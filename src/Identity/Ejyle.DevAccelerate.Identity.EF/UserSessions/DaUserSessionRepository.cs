@@ -11,9 +11,7 @@ using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core.Data;
 using Ejyle.DevAccelerate.Core.EF;
 using System.Collections.Generic;
-using Ejyle.DevAccelerate.Identity.EF.UserActivities;
 using Ejyle.DevAccelerate.Identity.UserSessions;
-using Ejyle.DevAccelerate.Identity.UserSettings;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ejyle.DevAccelerate.Identity.EF.UserSessions

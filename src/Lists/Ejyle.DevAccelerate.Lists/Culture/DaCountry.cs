@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace Ejyle.DevAccelerate.Lists.Culture
 {
@@ -42,7 +41,6 @@ namespace Ejyle.DevAccelerate.Lists.Culture
         where TCountrySystemLanguage : IDaCountrySystemLanguage<TKey>
         where TCountryDateFormat : IDaCountryDateFormat<TKey>
     {
-
         /// <summary>
         /// Creates an instance of the <see cref="DaCountry{TKey, TNullableKey, TCurrency, TCountryTimeZone, TCountryRegion, TCountrySystemLanguage, TCountryDateFormat}"/> class.
         /// </summary>
@@ -55,9 +53,33 @@ namespace Ejyle.DevAccelerate.Lists.Culture
         }
 
         /// <summary>
+        /// Creates an instance of the <see cref="DaCountry{TKey, TNullableKey, TCurrency, TCountryTimeZone, TCountryRegion, TCountrySystemLanguage, TCountryDateFormat}"/> class.
+        /// </summary>
+        /// <param name="name">The name of the country.</param>
+        /// <param name="twoLetterCode">The two-letter (alpha-2) ISO 3166 code of the country.</param>
+        /// <param name="threeLetterCode">The three-letter (alpha-3) ISO 3166 code of the country.</param>
+        /// <param name="numericCode">The numeric ISO 3166 code of the country.</param>
+        /// <param name="internationalDialingCode">The international dialing code used to call a number from outside the country.</param>
+        /// <param name="isActive">Determines if the record for the country is active.</param>
+        public DaCountry(string name, string twoLetterCode, string threeLetterCode, int numericCode, string internationalDialingCode, bool isActive = true)
+        {
+            CountryTimeZones = new HashSet<TCountryTimeZone>();
+            Regions = new HashSet<TCountryRegion>();
+            CountrySystemLanguages = new HashSet<TCountrySystemLanguage>();
+            CountryDateFormats = new HashSet<TCountryDateFormat>();
+
+            this.Name = name;
+            this.TwoLetterCode = twoLetterCode;
+            this.ThreeLetterCode = threeLetterCode;
+            this.NumericCode = numericCode;
+            this.InternationalDialingCode = internationalDialingCode;
+            this.IsActive = isActive;
+        }
+
+        /// <summary>
         /// The international dialing code used to call a number from outside the country.
         /// </summary>
-        public string DialingCode { get; set; }
+        public string InternationalDialingCode { get; set; }
 
         /// <summary>
         /// The two-letter (alpha-2) ISO 3166 code of the country.
