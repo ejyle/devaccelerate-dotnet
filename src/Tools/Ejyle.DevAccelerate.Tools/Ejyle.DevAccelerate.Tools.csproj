@@ -1,0 +1,76 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
+    <OutputType>Exe</OutputType>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <ApplicationIcon>da.ico</ApplicationIcon>
+    <Company>Ejyle Technologies (P) Ltd</Company>
+    <Authors>ejyle, tanveery</Authors>
+    <Copyright>Copyright © Ejyle Technologies (P) Ltd. All rights reserved.</Copyright>
+    <PackageProjectUrl>https://devaccelerate.github.io</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/devaccelerate/DevAccelerateNet.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>DevAccelerateTools</PackageId>
+    <Product>DevAccelerate Tools</Product>
+    <Description>DevAccelerate Tools provides a list commands for the NuGet Package Manager Console in Visual Studio.</Description>
+    <PackageTags>DevAccelerate;Tools</PackageTags>
+    <Version>6.1.0</Version>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+    <PackageIcon>logo.png</PackageIcon>
+    <PackAsTool>true</PackAsTool>
+    <PackageType>DotnetCliTool</PackageType>
+    <ToolCommandName>devaccelerate</ToolCommandName>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageOutputPath>../../../nupkg</PackageOutputPath>    
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\assets\logo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="da.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.8.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
+
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
+
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
+
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
+
+    <PackageReference Include="NMoneys" Version="6.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Ejyle.DevAccelerate.Core.EF\Ejyle.DevAccelerate.Core.EF.csproj" />
+    <ProjectReference Include="..\..\Core\Ejyle.DevAccelerate.Core\Ejyle.DevAccelerate.Core.csproj" />
+    <ProjectReference Include="..\..\EnterpriseSecurity\Ejyle.DevAccelerate.EnterpriseSecurity.EF\Ejyle.DevAccelerate.EnterpriseSecurity.EF.csproj" />
+    <ProjectReference Include="..\..\EnterpriseSecurity\Ejyle.DevAccelerate.EnterpriseSecurity\Ejyle.DevAccelerate.EnterpriseSecurity.csproj" />
+    <ProjectReference Include="..\..\Facades\Ejyle.DevAccelerate.Facades.Security\Ejyle.DevAccelerate.Facades.Security.csproj" />
+    <ProjectReference Include="..\..\Identity\Ejyle.DevAccelerate.Identity.EF\Ejyle.DevAccelerate.Identity.EF.csproj" />
+    <ProjectReference Include="..\..\Identity\Ejyle.DevAccelerate.Identity\Ejyle.DevAccelerate.Identity.csproj" />
+    <ProjectReference Include="..\..\Lists\Ejyle.DevAccelerate.Lists\Ejyle.DevAccelerate.Lists.csproj" />
+    <ProjectReference Include="..\..\Profiles\Ejyle.DevAccelerate.Profiles.EF\Ejyle.DevAccelerate.Profiles.EF.csproj" />
+    <ProjectReference Include="..\..\Profiles\Ejyle.DevAccelerate.Profiles\Ejyle.DevAccelerate.Profiles.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -51,6 +51,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ejyle.DevAccelerate.Sms.Twi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ejyle.DevAccelerate.Sms.Textlocal", "Sms\Ejyle.DevAccelerate.Sms.Textlocal\Ejyle.DevAccelerate.Sms.Textlocal.csproj", "{F37B5CA4-A090-4BE3-BCD1-16D11DF1FE84}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{DBD6DE35-2DD0-419D-BB2A-0C9BB7704A08}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ejyle.DevAccelerate.Tools", "Tools\Ejyle.DevAccelerate.Tools\Ejyle.DevAccelerate.Tools.csproj", "{EA6E8F21-A912-4C6F-8EAB-8EC3A2F0B4E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,6 +125,10 @@ Global
 		{F37B5CA4-A090-4BE3-BCD1-16D11DF1FE84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F37B5CA4-A090-4BE3-BCD1-16D11DF1FE84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F37B5CA4-A090-4BE3-BCD1-16D11DF1FE84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA6E8F21-A912-4C6F-8EAB-8EC3A2F0B4E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA6E8F21-A912-4C6F-8EAB-8EC3A2F0B4E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA6E8F21-A912-4C6F-8EAB-8EC3A2F0B4E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA6E8F21-A912-4C6F-8EAB-8EC3A2F0B4E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -142,6 +150,7 @@ Global
 		{F853A721-D5A1-4BB0-ABF4-7F6C56BFAA0C} = {C09963BA-EAE9-4A98-A7A7-A909F664CB80}
 		{728B61A3-64F6-432D-8794-8A881E109B9A} = {C09963BA-EAE9-4A98-A7A7-A909F664CB80}
 		{F37B5CA4-A090-4BE3-BCD1-16D11DF1FE84} = {C09963BA-EAE9-4A98-A7A7-A909F664CB80}
+		{EA6E8F21-A912-4C6F-8EAB-8EC3A2F0B4E0} = {DBD6DE35-2DD0-419D-BB2A-0C9BB7704A08}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {831BB8D2-2AA2-4B38-BD2F-1C679795682C}
