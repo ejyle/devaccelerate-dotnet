@@ -49,17 +49,20 @@ namespace Ejyle.DevAccelerate.Profiles.EF.Addresses
 
         public Task<TAddressProfile> FindByIdAsync(TKey id)
         {
-            return UserProfiles.Where(m => m.Id.Equals(id)).Include(m => m.UserAddresses).SingleOrDefaultAsync();
+            return UserProfiles.Where(m => m.Id.Equals(id))
+                .Include(m => m.UserAddresses).SingleOrDefaultAsync();
         }
 
         public Task<List<TAddressProfile>> FindByTenantIdAsync(TKey tenantId)
         {
-            return UserProfiles.Where(m => m.UserAddresses.Any(n => n.TenantId.Equals(tenantId))).Include(m => m.UserAddresses).ToListAsync();
+            return UserProfiles.Where(m => m.UserAddresses.Any(n => n.TenantId.Equals(tenantId)))
+                .Include(m => m.UserAddresses).ToListAsync();
         }
 
         public Task<List<TAddressProfile>> FindByUserIdAsync(TKey userId)
         {
-            return UserProfiles.Where(m => m.UserAddresses.Any(n => n.UserId.Equals(userId))).Include(m => m.UserAddresses).ToListAsync();
+            return UserProfiles.Where(m => m.UserAddresses.Any(n => n.UserId.Equals(userId)))
+                .Include(m => m.UserAddresses).ToListAsync();
         }
 
         public Task UpdateAsync(TAddressProfile userProfile)

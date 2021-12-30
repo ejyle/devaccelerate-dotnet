@@ -47,19 +47,22 @@ namespace Ejyle.DevAccelerate.Profiles.EF.Organizations
             return SaveChangesAsync();
         }
 
-        public async Task<List<TOrganizationProfile>> FindByAttributeAsync(string attributeName, string attributeValue)
+        public Task<List<TOrganizationProfile>> FindByAttributeAsync(string attributeName, string attributeValue)
         {
-            return await OrganizationProfiles.Where(m => m.Attributes.Any(x => x.AttributeName == attributeName && x.AttributeValue == attributeValue)).ToListAsync();
+            return OrganizationProfiles.Where(m => m.Attributes.Any(x => x.AttributeName == attributeName && x.AttributeValue == attributeValue))
+                .Include(m => m.Attributes).ToListAsync();
         }
 
         public Task<TOrganizationProfile> FindByIdAsync(TKey id)
         {
-            return OrganizationProfiles.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
+            return OrganizationProfiles.Where(m => m.Id.Equals(id))
+                .Include(m => m.Attributes).SingleOrDefaultAsync();
         }
 
         public Task<List<TOrganizationProfile>> FindByTenantIdAsync(TKey tenantId)
         {
-            return OrganizationProfiles.Where(m => m.TenantId.Equals(tenantId)).ToListAsync();
+            return OrganizationProfiles.Where(m => m.TenantId.Equals(tenantId))
+                .Include(m => m.Attributes).ToListAsync();
         }
 
         public Task UpdateAsync(TOrganizationProfile organizationProfile)

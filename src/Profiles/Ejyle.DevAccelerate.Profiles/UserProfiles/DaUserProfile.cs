@@ -35,7 +35,6 @@ namespace Ejyle.DevAccelerate.Profiles.UserProfiles
         public DaGender? Gender { get; set; }
         public string JobTitle { get; set; }
         public string OrganizationName { get; set; }
-        public DaUserProfileType UserProfileType { get; set; }
         public virtual ICollection<TUserProfileAttribute> Attributes { get; set; }
     }
 }

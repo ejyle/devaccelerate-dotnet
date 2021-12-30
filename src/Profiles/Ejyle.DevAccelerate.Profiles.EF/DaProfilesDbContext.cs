@@ -22,6 +22,10 @@ namespace Ejyle.DevAccelerate.Profiles.EF
         public DaProfilesDbContext(DbContextOptions<DaProfilesDbContext> options)
             : base(options)
         { }
+
+        public DaProfilesDbContext(string connectionString)
+            : base(connectionString)
+        { }
     }
 
     public class DaProfilesDbContext<TKey, TNullableKey, TUserProfile, TUserProfileAttribute, TOrganizationProfile, TOrganizationProfileAttribute, TAddressProfile, TUserAddress> : DbContext

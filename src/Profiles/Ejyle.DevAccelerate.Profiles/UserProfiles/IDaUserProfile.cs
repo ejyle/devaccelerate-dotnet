@@ -13,7 +13,6 @@ namespace Ejyle.DevAccelerate.Profiles.UserProfiles
     public interface IDaUserProfile<TKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
-
         TKey OwnerUserId { get; set; }
         string Salutation { get; set; }
         string FirstName { get; set; }
@@ -23,6 +22,5 @@ namespace Ejyle.DevAccelerate.Profiles.UserProfiles
         string OrganizationName { get; set; }
         DateTime? Dob { get; set; }
         DaGender? Gender { get; set; }
-        DaUserProfileType UserProfileType { get; set; }
     }
 }
