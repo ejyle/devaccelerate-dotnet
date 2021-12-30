@@ -15,7 +15,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>DevAccelerateTools</PackageId>
     <Product>DevAccelerate Tools</Product>
-    <Description>DevAccelerate Tools provides a list commands for the NuGet Package Manager Console in Visual Studio.</Description>
+    <Description>DevAccelerate Tools provides a list of dotnet commands to setup and manage a DevAccelerate app.</Description>
     <PackageTags>DevAccelerate;Tools</PackageTags>
     <Version>6.1.0</Version>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
