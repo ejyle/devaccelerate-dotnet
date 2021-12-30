@@ -56,16 +56,16 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
             return DaAsyncHelper.RunSync<TTenant>(() => FindByIdAsync(tenantId));
         }
 
-        public Task<TTenant> FindByKeyAsync(string tenantKey)
+        public Task<TTenant> FindByNameAsync(string name)
         {
             ThrowIfDisposed();
-            ThrowIfArgumentIsNullOrEmpty(tenantKey, "tenantKey");
-            return GetRepository().FindByNameAsync(tenantKey);
+            ThrowIfArgumentIsNullOrEmpty(name, nameof(name));
+            return GetRepository().FindByNameAsync(name);
         }
 
-        public TTenant FindByKey(string tenantKey)
+        public TTenant FindByUniqueName(string uniqueName)
         {
-            return DaAsyncHelper.RunSync<TTenant>(() => FindByKeyAsync(tenantKey));
+            return DaAsyncHelper.RunSync<TTenant>(() => FindByNameAsync(uniqueName));
         }
 
         public Task UpdateAsync(TTenant tenant)

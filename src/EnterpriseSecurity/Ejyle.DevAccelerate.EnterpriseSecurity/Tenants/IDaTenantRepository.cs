@@ -44,7 +44,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
         Task<TTenant> FindByIdAsync(TKey tenantId);
 
         /// <summary>
-        /// Asynchronously finds and returns a tenant by its name.
+        /// Asynchronously finds and returns tenant by its name.
         /// </summary>
         /// <param name="name">The name of the tenant.</param>
         /// <returns>The Task that represents the asynchronous operation containing the matching tenant.</returns>

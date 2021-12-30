@@ -14,13 +14,15 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>DevAccelerateEnterpriseSecurity</PackageId>
     <Product>DevAccelerateEnterpriseSecurity</Product>
-    <Description>Provides additional enterprise-level security such as multi-tenancy, subscription management, etc.</Description>
-    <PackageTags>DevAccelerate;EnterpriseSecurity;Tenants;Subscriptions;Multi-Tenancy</PackageTags>
-    <Version>6.0.2</Version>
+    <Description>DevAccelerateEnterpriseSecurity provides additional enterprise-level security and SaaS-specific features such as multi-tenancy, subscription management, user agreements, etc.</Description>
+    <PackageTags>DevAccelerate;EnterpriseSecurity;Tenants;Subscriptions;Multi-Tenancy;User-Agreements;SaaS</PackageTags>
+    <Version>6.1.0</Version>
     <Nullable>disable</Nullable>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
-    <PackageReleaseNotes>Migrated the library to .NET Core</PackageReleaseNotes>
     <PackageIcon>logo.png</PackageIcon>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageOutputPath>../../../nupkg</PackageOutputPath>        
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\..\assets\logo.png">

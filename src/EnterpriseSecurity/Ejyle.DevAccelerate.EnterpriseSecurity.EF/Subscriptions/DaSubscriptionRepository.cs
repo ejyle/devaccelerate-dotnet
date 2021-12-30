@@ -15,6 +15,7 @@ using Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions;
 using Ejyle.DevAccelerate.EnterpriseSecurity.UserAgreements;
 using Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans;
 using Microsoft.EntityFrameworkCore;
+using Ejyle.DevAccelerate.Core.Data;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Subscriptions
 {
@@ -72,19 +73,41 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Subscriptions
             return SaveChangesAsync();
         }
 
-        public Task<List<TSubscription>> FindAllAsync()
+        public async Task<DaPaginatedEntityList<TKey, TSubscription>> FindAllAsync(DaDataPaginationCriteria paginationCriteria)
         {
-            return Subscriptions.ToListAsync();
+            var totalCount = await Subscriptions.CountAsync();
+
+            if (totalCount <= 0)
+            {
+                return null;
+            }
+
+            var query = Subscriptions
+                .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
+                .Take(paginationCriteria.PageSize)
+                .Include(m => m.Attributes)
+                .AsQueryable();
+
+            var result = await query.ToListAsync();
+
+            return new DaPaginatedEntityList<TKey, TSubscription>(result
+                , new DaDataPaginationResult(paginationCriteria, totalCount));
         }
 
         public Task<TSubscription> FindByIdAsync(TKey id)
         {
-            return Subscriptions.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
+            return Subscriptions
+                .Where(m => m.Id.Equals(id))
+                .Include(m => m.Attributes)
+                .SingleOrDefaultAsync();
         }
 
         public Task<List<TSubscription>> FindByTenantIdAsync(TKey tenantId)
         {
-            return Subscriptions.Where(m => m.TenantId.Equals(tenantId)).ToListAsync();
+            return Subscriptions
+                .Where(m => m.TenantId.Equals(tenantId))
+                .Include(m => m.Attributes)
+                .ToListAsync();
         }
 
         public Task SetBillingCycleFeatureUsageQuantityAsync(TKey billingCycleFeatureUsageId, double value)

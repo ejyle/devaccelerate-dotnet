@@ -42,14 +42,11 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Tenants
             return SaveChangesAsync();
         }
 
-        public Task<TTenant> FindByNameAsync(string name)
-        {
-            return Tenants.Where(m => m.Name == name).SingleOrDefaultAsync();
-        }
-
         public Task<TTenant> FindByIdAsync(TKey tenantId)
         {
-            return Tenants.Where(m => m.Id.Equals(tenantId)).SingleOrDefaultAsync();
+            return Tenants.Where(m => m.Id.Equals(tenantId))
+                .Include(x => x.Attributes)
+                .SingleOrDefaultAsync();
         }
 
         public Task UpdateAsync(TTenant tenant)
@@ -66,7 +63,9 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Tenants
 
         public Task<List<TTenant>> FindByUserIdAsync(TKey userId)
         {
-            return Tenants.Where(m => m.TenantUsers.Any(x => x.UserId.Equals(userId))).ToListAsync();
+            return Tenants.Where(m => m.TenantUsers.Any(x => x.UserId.Equals(userId)))
+                .Include(x => x.Attributes)
+                .ToListAsync();
         }
 
         public async Task<bool> CheckTenantUserActiveAssociationAsync(TKey tenantId, TKey userId)
@@ -81,9 +80,18 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Tenants
             return (tenantUser != null);
         }
 
-        public async Task<List<TTenant>> FindByAttributeAsync(string attributeName, string attributeValue)
+        public Task<List<TTenant>> FindByAttributeAsync(string attributeName, string attributeValue)
         {
-            return await Tenants.Where(m => m.Attributes.Any(x => x.AttributeName == attributeName && x.AttributeValue == attributeValue)).ToListAsync();
+            return Tenants.Where(m => m.Attributes.Any(x => x.AttributeName == attributeName && x.AttributeValue == attributeValue))
+                .Include(x => x.Attributes)
+                .ToListAsync();
+        }
+
+        public Task<TTenant> FindByNameAsync(string name)
+        {
+            return Tenants.Where(m => m.Name == name)
+                .Include(x => x.Attributes)
+                .SingleOrDefaultAsync();
         }
     }
 }

@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
+using Ejyle.DevAccelerate.Core.Data;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 {
@@ -77,15 +78,15 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
             return DaAsyncHelper.RunSync<TSubscription>(() => FindByIdAsync(id));
         }
 
-        public virtual Task<List<TSubscription>> FindAllAsync()
+        public virtual Task<DaPaginatedEntityList<TKey, TSubscription>> FindAllAsync(DaDataPaginationCriteria paginationCriteria)
         {
             ThrowIfDisposed();
-            return Repository.FindAllAsync();
+            return Repository.FindAllAsync(paginationCriteria);
         }
 
-        public virtual List<TSubscription> FindAll()
+        public virtual DaPaginatedEntityList<TKey, TSubscription> FindAll(DaDataPaginationCriteria paginationCriteria)
         {
-            return DaAsyncHelper.RunSync<List<TSubscription>>(() => FindAllAsync());
+            return DaAsyncHelper.RunSync<DaPaginatedEntityList<TKey, TSubscription>>(() => FindAllAsync(paginationCriteria));
         }
 
         public virtual void SetBillingCycleFeatureUsageQuantity(TKey billingCycleFeatureUsageId, double value)

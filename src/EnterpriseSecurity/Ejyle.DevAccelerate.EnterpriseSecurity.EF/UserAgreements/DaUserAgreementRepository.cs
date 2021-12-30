@@ -80,22 +80,35 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.UserAgreements
 
         public Task<TUserAgreement> FindByIdAsync(TKey id)
         {
-            return UserAgreements.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
+            return UserAgreements
+                .Where(m => m.Id.Equals(id))
+                .Include(m => m.UserAgreementVersions)
+                .SingleOrDefaultAsync();
         }
 
         public Task<TUserAgreement> FindByKeyAsync(string key)
         {
-            return UserAgreements.Where(m => m.Key == key).SingleOrDefaultAsync();
+            return UserAgreements
+                .Where(m => m.Key == key)
+                .Include(m => m.UserAgreementVersions)
+                .SingleOrDefaultAsync();
         }
 
         public Task<TUserAgreement> FindByVersionIdAsync(TKey userAgreementVersionId)
         {
-            return UserAgreements.Where(m => m.UserAgreementVersions.Any(n => n.Id.Equals(userAgreementVersionId))).SingleOrDefaultAsync();
+            return UserAgreements
+                .Where(m => m.UserAgreementVersions
+                .Any(n => n.Id.Equals(userAgreementVersionId)))
+                .Include(m => m.UserAgreementVersions)
+                .SingleOrDefaultAsync();
         }
 
         public Task<TUserAgreementVersion> FindCurrentUserAgreementVersionAsync(string key)
         {
-            return UserAgreementVersions.Where(m => m.UserAgreement.Key == key && m.IsCurrent == true).SingleOrDefaultAsync();
+            return UserAgreementVersions
+                .Where(m => m.UserAgreement.Key == key && m.IsCurrent == true)
+                .Include(m => m.UserAgreement)
+                .SingleOrDefaultAsync();
         }
 
         public Task UpdateAsync(TUserAgreement userAgreement)

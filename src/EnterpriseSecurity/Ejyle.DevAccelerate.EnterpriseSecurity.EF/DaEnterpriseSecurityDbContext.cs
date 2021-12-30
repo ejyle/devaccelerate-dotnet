@@ -162,7 +162,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF
                     .HasMaxLength(256);
 
                 entity.HasIndex(e => e.Key)
-                    .IsUnique(true);
+                    .IsUnique();
             });
 
             modelBuilder.Entity<TBillingCycle>(entity =>
@@ -474,10 +474,10 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF
                     .HasMaxLength(256);
 
                 entity.HasIndex(e => e.Name)
-                    .IsUnique(true);
+                    .IsUnique();
 
                 entity.HasIndex(e => e.Domain)
-                    .IsUnique(true);
+                    .IsUnique();
             });
 
             modelBuilder.Entity<TUserAgreementVersionAction>(entity =>

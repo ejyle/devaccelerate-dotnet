@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
+using Ejyle.DevAccelerate.Core.Data;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 {
@@ -21,7 +22,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
         Task UpdateAsync(TSubscription subscription);
         Task<TSubscription> FindByIdAsync(TKey id);
         Task<List<TSubscription>> FindByTenantIdAsync(TKey tenantId);
-        Task<List<TSubscription>> FindAllAsync();
+        Task<DaPaginatedEntityList<TKey, TSubscription>> FindAllAsync(DaDataPaginationCriteria paginationCriteria);
         Task SetBillingCycleFeatureUsageQuantityAsync(TKey billingCycleFeatureUsageId, double value);
     }
 }
