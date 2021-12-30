@@ -80,22 +80,37 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Apps
 
         public Task<List<TApp>> FindAllAsync()
         {
-            return Apps.ToListAsync();
+            return Apps.Include(m => m.Attributes)
+                .Include(m => m.Features)
+                .Include(m => m.AppFeatures)
+                .ThenInclude(m => m.Feature)
+                .ToListAsync();
         }
 
         public Task<TApp> FindByIdAsync(TKey id)
         {
-            return Apps.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
+            return Apps.Where(m => m.Id.Equals(id))
+                .Include(m => m.Attributes)
+                .Include(m => m.Features)
+                .Include(m => m.AppFeatures)
+                .ThenInclude(m => m.Feature)
+                .SingleOrDefaultAsync();
         }
 
         public Task<TApp> FindByKeyAsync(string key)
         {
-            return Apps.Where(m => m.Key == key).SingleOrDefaultAsync();
+            return Apps.Where(m => m.Key == key)
+                .Include(m => m.Attributes)
+                .Include(m => m.Features)
+                .Include(m => m.AppFeatures)
+                .ThenInclude(m => m.Feature)
+                .SingleOrDefaultAsync();
         }
 
         public async Task RemoveAppFeatureByIdAsync(TKey appFeatureId)
         {
-            var appFeature = await AppFeatures.Where(m => m.Id.Equals(appFeatureId)).SingleOrDefaultAsync();
+            var appFeature = await AppFeatures.Where(m => m.Id.Equals(appFeatureId))
+                .SingleOrDefaultAsync();
 
             if(appFeature == null)
             {

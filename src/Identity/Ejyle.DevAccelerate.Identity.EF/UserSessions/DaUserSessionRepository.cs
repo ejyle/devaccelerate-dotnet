@@ -73,10 +73,26 @@ namespace Ejyle.DevAccelerate.Identity.EF.UserSessions
             return UserSessions.Where(m => m.SystemSessionId == systemSessionId).ToListAsync();
         }
 
-        public virtual Task<DaPaginatedEntityList<TKey, TUserSession>> FindByUserIdAsync(DaDataPaginationCriteria paginationCriteria, TKey userId)
+        public virtual async Task<DaPaginatedEntityList<TKey, TUserSession>> FindByUserIdAsync(DaDataPaginationCriteria paginationCriteria, TKey userId)
         {
             ThrowIfDisposed();
-            return UserSessions.PaginateAsync<TKey, TUserSession>(paginationCriteria);
+            var totalCount = await UserSessions.CountAsync();
+
+            if (totalCount <= 0)
+            {
+                return null;
+            }
+
+            var query = UserSessions
+                .Where(m => m.UserId.Equals(userId))
+                .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
+                .Take(paginationCriteria.PageSize)
+                .AsQueryable();
+
+            var result = await query.ToListAsync();
+
+            return new DaPaginatedEntityList<TKey, TUserSession>(result
+                , new DaDataPaginationResult(paginationCriteria, totalCount));
         }
 
         public Task UpdateAsync(TUserSession userSession)

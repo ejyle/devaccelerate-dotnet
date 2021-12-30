@@ -63,11 +63,6 @@ namespace Ejyle.DevAccelerate.Identity.EF.UserActivities
             return SaveChangesAsync();
         }
 
-        public Task DeleteAsync(int olderThanInDays)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task DeleteUserActivityCategoryAsync(TUserActivityCategory userActivityCategory)
         {
             ThrowIfDisposed();
@@ -78,17 +73,58 @@ namespace Ejyle.DevAccelerate.Identity.EF.UserActivities
 
         public Task<TUserActivity> FindByIdAsync(TKey id)
         {
-            return UserActivities.Where(m => m.Equals(id)).SingleOrDefaultAsync();
+            ThrowIfDisposed();
+            return UserActivities.Where(m => m.Equals(id))
+                .Include(m => m.UserActivityCategory)
+                .SingleOrDefaultAsync();
         }
 
-        public Task<DaPaginatedEntityList<TKey, TUserActivity>> FindByUserIdAndUserActivityTypeAsync(DaDataPaginationCriteria paginationCriteria, TKey userId, DaUserActivityType userActivityType)
+        public async Task<DaPaginatedEntityList<TKey, TUserActivity>> FindByUserIdAndUserActivityTypeAsync(DaDataPaginationCriteria paginationCriteria, TKey userId, DaUserActivityType userActivityType)
         {
-            throw new NotImplementedException();
+            ThrowIfDisposed();
+
+            var totalCount = await UserActivities.CountAsync();
+
+            if (totalCount <= 0)
+            {
+                return null;
+            }
+
+            var query = UserActivities
+                .Where(m => m.UserId.Equals(userId) && m.UserActivityType == userActivityType)
+                .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
+                .Take(paginationCriteria.PageSize)
+                .Include(m => m.UserActivityCategory)
+                .AsQueryable();
+
+            var result = await query.ToListAsync();
+
+            return new DaPaginatedEntityList<TKey, TUserActivity>(result
+                , new DaDataPaginationResult(paginationCriteria, totalCount));
         }
 
-        public Task<DaPaginatedEntityList<TKey, TUserActivity>> FindByUserIdAsync(DaDataPaginationCriteria paginationCriteria, TKey userId)
+        public async Task<DaPaginatedEntityList<TKey, TUserActivity>> FindByUserIdAsync(DaDataPaginationCriteria paginationCriteria, TKey userId)
         {
-            throw new NotImplementedException();
+            ThrowIfDisposed();
+
+            var totalCount = await UserActivities.CountAsync();
+
+            if (totalCount <= 0)
+            {
+                return null;
+            }
+
+            var query = UserActivities
+                .Where(m => m.UserId.Equals(userId))
+                .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
+                .Take(paginationCriteria.PageSize)
+                .Include(m => m.UserActivityCategory)
+                .AsQueryable();
+
+            var result = await query.ToListAsync();
+
+            return new DaPaginatedEntityList<TKey, TUserActivity>(result
+                , new DaDataPaginationResult(paginationCriteria, totalCount));
         }
     }
 }

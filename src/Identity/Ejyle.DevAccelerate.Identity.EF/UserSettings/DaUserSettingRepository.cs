@@ -11,6 +11,7 @@ using Ejyle.DevAccelerate.Core.EF;
 using System.Collections.Generic;
 using Ejyle.DevAccelerate.Identity.UserSettings;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Ejyle.DevAccelerate.Identity.EF.UserSettings
 {
@@ -41,34 +42,51 @@ namespace Ejyle.DevAccelerate.Identity.EF.UserSettings
             : base(dbContext)
         { }
 
+        private DbSet<TUserSetting> UserSettings { get { return DbContext.Set<TUserSetting>(); } }
+
+
         public Task CreateAsync(TUserSetting setting)
         {
-            throw new NotImplementedException();
+            ThrowIfDisposed();
+            ThrowIfArgumentIsNull(setting, nameof(setting));
+            UserSettings.Add(setting);
+            return SaveChangesAsync();
         }
 
         public Task DeleteAsync(TUserSetting setting)
         {
-            throw new NotImplementedException();
+            ThrowIfDisposed();
+            ThrowIfArgumentIsNull(setting, nameof(setting));
+
+            UserSettings.Remove(setting);
+            return SaveChangesAsync();
         }
 
         public Task<TUserSetting> FindByIdAsync(TKey id)
         {
-            throw new NotImplementedException();
+            ThrowIfDisposed();
+            return UserSettings.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
         }
 
         public Task<TUserSetting> FindByUserIdAndNameAsync(TKey userId, string name)
         {
-            throw new NotImplementedException();
+            ThrowIfDisposed();
+            return UserSettings.Where(m => m.UserId.Equals(userId) && m.Name == name).SingleOrDefaultAsync();
         }
 
         public Task<List<TUserSetting>> FindByUserIdAsync(TKey userId)
         {
-            throw new NotImplementedException();
+            ThrowIfDisposed();
+            return UserSettings.Where(m => m.UserId.Equals(userId)).ToListAsync();
         }
 
         public Task UpdateAsync(TUserSetting setting)
         {
-            throw new NotImplementedException();
+            ThrowIfDisposed();
+            ThrowIfArgumentIsNull(setting, nameof(setting));
+
+            DbContext.Entry<TUserSetting>(setting).State = EntityState.Modified;
+            return SaveChangesAsync();
         }
     }
 }

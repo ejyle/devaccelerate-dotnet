@@ -79,17 +79,37 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.SubscriptionPlans
 
         public Task<List<TSubscriptionPlan>> FindAllAsync()
         {
-            return SubscriptionPlans.ToListAsync();
+            return SubscriptionPlans.Include(m => m.Attributes)
+                .Include(m => m.BillingCycleOptions)
+                .Include(m => m.SubscriptionPlanApps)
+                .ThenInclude(m => m.App)
+                .Include(m => m.SubscriptionPlanFeatures)
+                .ThenInclude(m => m.Feature)
+                .ToListAsync();
         }
 
         public Task<TSubscriptionPlan> FindByCodeAsync(string code)
         {
-            return SubscriptionPlans.Where(m => m.Code == code).SingleOrDefaultAsync();
+            return SubscriptionPlans.Where(m => m.Code == code)
+                .Include(m => m.Attributes)
+                .Include(m => m.BillingCycleOptions)
+                .Include(m => m.SubscriptionPlanApps)
+                .ThenInclude(m => m.App)
+                .Include(m => m.SubscriptionPlanFeatures)
+                .ThenInclude(m => m.Feature)
+                .SingleOrDefaultAsync();
         }
 
         public Task<TSubscriptionPlan> FindByIdAsync(TKey id)
         {
-            return SubscriptionPlans.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
+            return SubscriptionPlans.Where(m => m.Id.Equals(id))
+                .Include(m => m.Attributes)
+                .Include(m => m.BillingCycleOptions)
+                .Include(m => m.SubscriptionPlanApps)
+                .ThenInclude(m => m.App)
+                .Include(m => m.SubscriptionPlanFeatures)
+                .ThenInclude(m => m.Feature)
+                .SingleOrDefaultAsync();
         }
 
         public Task UpdateAsync(TSubscriptionPlan subscriptionPlan)

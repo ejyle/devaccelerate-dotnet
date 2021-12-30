@@ -86,6 +86,9 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Subscriptions
                 .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
                 .Take(paginationCriteria.PageSize)
                 .Include(m => m.Attributes)
+                .Include(m => m.BillingCycles)
+                .Include(m => m.SubscriptionApps)
+                .Include(m => m.SubscriptionFeatures)
                 .AsQueryable();
 
             var result = await query.ToListAsync();
@@ -99,6 +102,9 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Subscriptions
             return Subscriptions
                 .Where(m => m.Id.Equals(id))
                 .Include(m => m.Attributes)
+                .Include(m => m.BillingCycles)
+                .Include(m => m.SubscriptionApps)
+                .Include(m => m.SubscriptionFeatures)
                 .SingleOrDefaultAsync();
         }
 
@@ -107,6 +113,9 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Subscriptions
             return Subscriptions
                 .Where(m => m.TenantId.Equals(tenantId))
                 .Include(m => m.Attributes)
+                .Include(m => m.BillingCycles)
+                .Include(m => m.SubscriptionApps)
+                .Include(m => m.SubscriptionFeatures)
                 .ToListAsync();
         }
 

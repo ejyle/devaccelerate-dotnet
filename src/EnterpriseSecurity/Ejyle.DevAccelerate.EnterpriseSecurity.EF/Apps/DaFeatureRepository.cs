@@ -79,22 +79,28 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Apps
 
         public Task<List<TFeature>> FindAllAsync()
         {
-            return Features.ToListAsync();
+            return Features.Include(m => m.FeatureActions).ToListAsync();
         }
 
         public Task<List<TFeature>> FindByAppIdAsync(TNullableKey appId)
         {
-            return Features.Where(m => m.AppId.Equals(appId)).ToListAsync();
+            return Features.Where(m => m.AppId.Equals(appId))
+                .Include(m => m.FeatureActions)
+                .ToListAsync();
         }
 
         public Task<TFeature> FindByIdAsync(TKey id)
         {
-            return Features.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
+            return Features.Where(m => m.Id.Equals(id))
+                .Include(m => m.FeatureActions)
+                .SingleOrDefaultAsync();
         }
 
         public Task<TFeature> FindByKeyAsync(string key)
         {
-            return Features.Where(m => m.Key == key).SingleOrDefaultAsync();
+            return Features.Where(m => m.Key == key)
+                .Include(m => m.FeatureActions)
+                .SingleOrDefaultAsync();
         }
 
         public Task UpdateAsync(TFeature feature)

@@ -17,7 +17,6 @@ namespace Ejyle.DevAccelerate.Identity.UserActivities
         where TUserActivity : IDaUserActivity<TKey, TNullableKey>
     {
         Task CreateAsync(TUserActivity userActivity);
-        Task DeleteAsync(int olderThanInDays);
         Task<TUserActivity> FindByIdAsync(TKey id);
         Task<DaPaginatedEntityList<TKey, TUserActivity>> FindByUserIdAsync(DaDataPaginationCriteria paginationCriteria, TKey userId);
         Task<DaPaginatedEntityList<TKey, TUserActivity>> FindByUserIdAndUserActivityTypeAsync(DaDataPaginationCriteria paginationCriteria, TKey userId, DaUserActivityType userActivityType);

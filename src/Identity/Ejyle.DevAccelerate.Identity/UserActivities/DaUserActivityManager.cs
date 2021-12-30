@@ -75,15 +75,5 @@ namespace Ejyle.DevAccelerate.Identity.UserActivities
         {
             return GetRepository().FindByUserIdAndUserActivityTypeAsync(paginationCriteria, userId, userActivityType);
         }
-
-        public void Delete(int olderThanInDays)
-        {
-            DaAsyncHelper.RunSync(() => DeleteAsync(olderThanInDays));
-        }
-
-        public Task DeleteAsync(int olderThanInDays)
-        {
-            return GetRepository().DeleteAsync(olderThanInDays);
-        }
     }
 }

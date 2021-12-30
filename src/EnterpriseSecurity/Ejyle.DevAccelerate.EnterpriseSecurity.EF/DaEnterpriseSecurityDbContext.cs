@@ -422,6 +422,9 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(256);
+
+                entity.HasIndex(m => m.Code)
+                    .IsUnique();
             });
 
             modelBuilder.Entity<TSubscription>(entity =>
