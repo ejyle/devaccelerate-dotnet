@@ -86,7 +86,7 @@ namespace Ejyle.DevAccelerate.Lists.Culture
         public Task<TCurrency> FindAsync()
         {
             ThrowIfDisposed();
-            return Repository.FindFirstDefaultAsync();
+            return Repository.FindFirstAsync();
         }
 
         public TCurrency FindById(TKey id)
@@ -111,6 +111,19 @@ namespace Ejyle.DevAccelerate.Lists.Culture
             ThrowIfArgumentIsNull(name, nameof(name));
 
             return Repository.FindByNameAsync(name);
+        }
+
+        public TCurrency FindByAlphabeticCode(string alphabeticCode)
+        {
+            return DaAsyncHelper.RunSync<TCurrency>(() => FindByAlphabeticCodeAsync(alphabeticCode));
+        }
+
+        public Task<TCurrency> FindByAlphabeticCodeAsync(string alphabeticCode)
+        {
+            ThrowIfDisposed();
+            ThrowIfArgumentIsNull(alphabeticCode, nameof(alphabeticCode));
+
+            return Repository.FindByAlphabeticCodeAsync(alphabeticCode);
         }
     }
 }

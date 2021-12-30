@@ -21,6 +21,9 @@
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <PackageReleaseNotes>Migrated the library to .NET Core</PackageReleaseNotes>
     <PackageIcon>logo.png</PackageIcon>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageOutputPath>../../../nupkg</PackageOutputPath>        
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\..\assets\logo.png">

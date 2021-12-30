@@ -16,11 +16,14 @@
     <Product>DevAccelerateListsEF</Product>
     <Description>An EntityFrameworkCore implementation of DevAccelerateLists repositories.</Description>
     <PackageTags>DevAccelerate;Lists;Countries;Currencies;Time Zones;Languages;EntityFrameworkCore;EF</PackageTags>
-    <Version>6.0.2</Version>
+    <Version>6.1.0</Version>
     <Nullable>disable</Nullable>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <PackageReleaseNotes>Migrated the library to .NET Core</PackageReleaseNotes>
     <PackageIcon>logo.png</PackageIcon>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageOutputPath>../../../nupkg</PackageOutputPath>        
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\..\assets\logo.png">

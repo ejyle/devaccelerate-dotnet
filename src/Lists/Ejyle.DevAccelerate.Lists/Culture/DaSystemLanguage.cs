@@ -41,11 +41,6 @@ namespace Ejyle.DevAccelerate.Lists.Culture
         }
 
         /// <summary>
-        /// Unique identifier of the system language on the OS.
-        /// </summary>
-        public string SystemLanguageId { get; set; }
-
-        /// <summary>
         /// The mapping of applicable countries and system languages.
         /// </summary>
         public virtual ICollection<TCountrySystemLanguage> CountrySystemLanguages { get; set; }

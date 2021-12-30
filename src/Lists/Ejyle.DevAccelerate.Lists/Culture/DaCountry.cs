@@ -82,6 +82,7 @@ namespace Ejyle.DevAccelerate.Lists.Culture
             CountryDateFormats = new HashSet<TCountryDateFormat>();
 
             this.Name = name;
+            this.DisplayName = name;
             this.TwoLetterCode = twoLetterCode;
             this.ThreeLetterCode = threeLetterCode;
             this.NumericCode = numericCode;

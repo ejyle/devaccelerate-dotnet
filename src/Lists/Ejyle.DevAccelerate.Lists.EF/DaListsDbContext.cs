@@ -164,7 +164,13 @@ namespace Ejyle.DevAccelerate.Lists.EF
                     .HasForeignKey(d => d.CurrencyId);
 
                 entity.HasIndex(e => e.Name)
-                    .IsUnique(true);
+                    .IsUnique();
+
+                entity.HasIndex(e => e.ThreeLetterCode)
+                    .IsUnique();
+
+                entity.HasIndex(e => e.TwoLetterCode)
+                    .IsUnique();
             });
 
             modelBuilder.Entity<TCountryDateFormat>(entity =>
@@ -248,7 +254,10 @@ namespace Ejyle.DevAccelerate.Lists.EF
                     .HasMaxLength(256);
 
                 entity.HasIndex(e => e.Name)
-                    .IsUnique(true);
+                    .IsUnique();
+
+                entity.HasIndex(e => e.AlphabeticCode)
+                    .IsUnique();
             });
 
             modelBuilder.Entity<TDateFormat>(entity =>
@@ -268,7 +277,10 @@ namespace Ejyle.DevAccelerate.Lists.EF
                     .HasMaxLength(256);
 
                 entity.HasIndex(e => e.Name)
-                    .IsUnique(true);
+                    .IsUnique();
+
+                entity.HasIndex(e => e.DateFormatExpression)
+                    .IsUnique();
             });
 
             modelBuilder.Entity<TGenericListItem>(entity =>
@@ -312,8 +324,6 @@ namespace Ejyle.DevAccelerate.Lists.EF
                     .IsRequired()
                     .HasMaxLength(256);
 
-                entity.Property(e => e.SystemLanguageId).HasMaxLength(256);
-
                 entity.HasIndex(e => e.Name)
                     .IsUnique(true);
             });
@@ -335,7 +345,7 @@ namespace Ejyle.DevAccelerate.Lists.EF
                 entity.Property(e => e.SystemTimeZoneId).HasMaxLength(256);
 
                 entity.HasIndex(e => e.Name)
-                    .IsUnique(true);
+                    .IsUnique();
             });
         }
     }

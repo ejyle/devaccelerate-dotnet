@@ -16,9 +16,5 @@ namespace Ejyle.DevAccelerate.Lists.Culture
     public interface IDaSystemLanguage<TKey> : IDaListItem<TKey>
         where TKey : IEquatable<TKey>
     {
-        /// <summary>
-        /// Unique identifier of the system language on the OS.
-        /// </summary>
-        string SystemLanguageId { get; set; }
     }
 }

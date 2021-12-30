@@ -14,7 +14,7 @@ namespace Ejyle.DevAccelerate.Lists
     /// Represents the basic interface for a list item entity.
     /// </summary>
     /// <typeparam name="TKey">The type of the entity's ID.</typeparam>
-    public interface IDaListItem<TKey> : IDaAuditedEntity<TKey>
+    public interface IDaListItem<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         /// <summary>
@@ -36,10 +36,5 @@ namespace Ejyle.DevAccelerate.Lists
         /// Determines if the list item information is verified to be valid.
         /// </summary>
         bool IsVerified { get; set; }
-
-        /// <summary>
-        /// Determines if the list item is default.
-        /// </summary>
-        bool IsDefault { get; set; }
     }
 }

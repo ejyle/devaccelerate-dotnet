@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
+using Ejyle.DevAccelerate.Core.Data;
 
 namespace Ejyle.DevAccelerate.Lists.Culture
 {
@@ -80,6 +81,17 @@ namespace Ejyle.DevAccelerate.Lists.Culture
             return Repository.FindAllAsync();
         }
 
+        public DaPaginatedEntityList<TKey, TCountry> FindAll(DaDataPaginationCriteria paginationCriteria)
+        {
+            return DaAsyncHelper.RunSync<DaPaginatedEntityList<TKey, TCountry>>(() => FindAllAsync(paginationCriteria));
+        }
+
+        public Task<DaPaginatedEntityList<TKey, TCountry>> FindAllAsync(DaDataPaginationCriteria paginationCriteria)
+        {
+            ThrowIfDisposed();
+            return Repository.FindAllAsync(paginationCriteria);
+        }
+
         public TCountry FindById(TKey id)
         {
             return DaAsyncHelper.RunSync<TCountry>(() => FindByIdAsync(id));
@@ -99,7 +111,7 @@ namespace Ejyle.DevAccelerate.Lists.Culture
         public Task<TCountry> FindAsync()
         {
             ThrowIfDisposed();
-            return Repository.FindFirstDefaultAsync();
+            return Repository.FindFirstAsync();
         }
 
         public TCountryRegion FindCountryRegionById(TKey id)

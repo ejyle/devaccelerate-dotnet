@@ -76,7 +76,7 @@ namespace Ejyle.DevAccelerate.Lists.Culture
         public Task<TTimeZone> FindAsync()
         {
             ThrowIfDisposed();
-            return Repository.FindFirstDefaultAsync();
+            return Repository.FindFirstAsync();
         }
 
         public List<TTimeZone> FindAll()

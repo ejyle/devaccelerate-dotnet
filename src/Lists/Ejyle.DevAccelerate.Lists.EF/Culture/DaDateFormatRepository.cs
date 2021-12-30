@@ -76,9 +76,9 @@ namespace Ejyle.DevAccelerate.Lists.EF.Culture
             return DbContext.SaveChangesAsync();
         }
 
-        public Task<TDateFormat> FindFirstDefaultAsync()
+        public Task<TDateFormat> FindFirstAsync()
         {
-            return DbContext.DateFormats.Where(m => m.IsDefault == true).FirstOrDefaultAsync();
+            return DbContext.DateFormats.FirstOrDefaultAsync();
         }
     }
 }

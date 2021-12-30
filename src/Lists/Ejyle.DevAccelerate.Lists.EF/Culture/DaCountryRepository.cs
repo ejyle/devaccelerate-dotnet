@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ejyle.DevAccelerate.Core.Data;
 using Ejyle.DevAccelerate.Core.EF;
 using Ejyle.DevAccelerate.Lists.Culture;
 using Ejyle.DevAccelerate.Lists.Generic;
@@ -50,17 +51,27 @@ namespace Ejyle.DevAccelerate.Lists.EF.Culture
 
         public Task<TCountry> FindByIdAsync(TKey id)
         {
-            return DbContext.Countries.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
+            return DbContext.Countries
+                .Where(m => m.Id.Equals(id))
+                .Include(m => m.Regions)
+                .Include(m => m.Currency)
+                .SingleOrDefaultAsync();
         }
 
         public Task<TCountryRegion> FindCountryRegionByIdAsync(TKey id)
         {
-            return DbContext.CountryRegions.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
+            return DbContext.CountryRegions
+                .Where(m => m.Id.Equals(id))
+                .SingleOrDefaultAsync();
         }
 
         public Task<TCountry> FindByNameAsync(string name)
         {
-            return DbContext.Countries.Where(m => m.Name == name).SingleOrDefaultAsync();
+            return DbContext.Countries
+                .Where(m => m.Name == name)
+                .Include(m => m.Regions)
+                .Include(m => m.Currency)
+                .SingleOrDefaultAsync();
         }
 
         public Task CreateAsync(TCountry country)
@@ -83,17 +94,49 @@ namespace Ejyle.DevAccelerate.Lists.EF.Culture
 
         public Task<TCountry> FindByTwoLetterCodeAsync(string twoLetterCode)
         {
-            return DbContext.Countries.Where(m => m.TwoLetterCode == twoLetterCode).SingleOrDefaultAsync();
+            return DbContext.Countries
+                .Where(m => m.TwoLetterCode == twoLetterCode)
+                .Include(m => m.Regions)
+                .Include(m => m.Currency)
+                .SingleOrDefaultAsync();
         }
 
         public Task<TCountry> FindByThreeLetterCodeAsync(string threeLetterCode)
         {
-            return DbContext.Countries.Where(m => m.ThreeLetterCode == threeLetterCode).SingleOrDefaultAsync();
+            return DbContext.Countries
+                .Where(m => m.ThreeLetterCode == threeLetterCode)
+                .Include(m => m.Regions)
+                .Include(m => m.Currency)
+                .SingleOrDefaultAsync();
         }
 
-        public Task<TCountry> FindFirstDefaultAsync()
+        public Task<TCountry> FindFirstAsync()
         {
-            return DbContext.Countries.Where(m => m.IsDefault == true).FirstOrDefaultAsync();
+            return DbContext.Countries
+                .Include(m => m.Regions)
+                .Include(m => m.Currency)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<DaPaginatedEntityList<TKey, TCountry>> FindAllAsync(DaDataPaginationCriteria paginationCriteria)
+        {
+            var totalCount = await DbContext.Countries.CountAsync();
+
+            if (totalCount <= 0)
+            {
+                return null;
+            }
+
+            var query = DbContext.Countries
+                .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
+                .Take(paginationCriteria.PageSize)
+                .Include(m => m.Currency)
+                .AsQueryable();
+
+            var result = await query.ToListAsync();
+
+            return new DaPaginatedEntityList<TKey, TCountry>(result
+                , new DaDataPaginationResult(paginationCriteria, totalCount));
         }
     }
 }

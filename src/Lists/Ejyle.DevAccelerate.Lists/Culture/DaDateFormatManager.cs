@@ -79,7 +79,7 @@ namespace Ejyle.DevAccelerate.Lists.Culture
         public Task<TDateFormat> FindAsync()
         {
             ThrowIfDisposed();
-            return Repository.FindFirstDefaultAsync();
+            return Repository.FindFirstAsync();
         }
 
         public List<TDateFormat> FindAll()

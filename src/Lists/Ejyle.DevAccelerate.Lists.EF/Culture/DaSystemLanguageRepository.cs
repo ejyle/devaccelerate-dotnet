@@ -81,9 +81,9 @@ namespace Ejyle.DevAccelerate.Lists.EF.Culture
             return DbContext.SystemLanguages.Where(m => m.Name == name).SingleOrDefaultAsync();
         }
 
-        public Task<TSystemLanguage> FindFirstDefaultAsync()
+        public Task<TSystemLanguage> FindFirstAsync()
         {
-            return DbContext.SystemLanguages.Where(m => m.IsDefault == true).FirstOrDefaultAsync();
+            return DbContext.SystemLanguages.FirstOrDefaultAsync();
         }
     }
 }

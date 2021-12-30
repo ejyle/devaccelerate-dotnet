@@ -23,6 +23,6 @@ namespace Ejyle.DevAccelerate.Lists.Culture
         Task<TDateFormat> FindByIdAsync(TKey id);
         Task<List<TDateFormat>> FindAllAsync();
         Task<TDateFormat> FindByDateFormatExpressionAsync(string expr);
-        Task<TDateFormat> FindFirstDefaultAsync();
+        Task<TDateFormat> FindFirstAsync();
     }
 }

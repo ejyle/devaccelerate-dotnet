@@ -45,17 +45,25 @@ namespace Ejyle.DevAccelerate.Lists.EF.Generic
 
         public Task<List<TGenericList>> FindAllAsync()
         {
-            return DbContext.GenericLists.ToListAsync();
+            return DbContext.GenericLists
+                .Include(m => m.ListItems)
+                .ToListAsync();
         }
 
         public Task<TGenericList> FindByIdAsync(TKey id)
         {
-            return DbContext.GenericLists.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
+            return DbContext.GenericLists
+                .Where(m => m.Id.Equals(id))
+                .Include(m => m.ListItems)
+                .SingleOrDefaultAsync();
         }
 
         public Task<TGenericList> FindByNameAsync(string name)
         {
-            return DbContext.GenericLists.Where(m => m.Name == name).SingleOrDefaultAsync();
+            return DbContext.GenericLists
+                .Where(m => m.Name == name)
+                .Include(m => m.ListItems)
+                .SingleOrDefaultAsync();
         }
 
         public Task CreateAsync(TGenericList list)

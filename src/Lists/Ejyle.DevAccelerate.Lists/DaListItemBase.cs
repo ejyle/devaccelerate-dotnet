@@ -14,7 +14,7 @@ namespace Ejyle.DevAccelerate.Lists
     /// Represents the base class for a list entity.
     /// </summary>
     /// <typeparam name="TKey">The type of the list entity's ID.</typeparam>
-    public abstract class DaListItemBase<TKey> : DaAuditedEntityBase<TKey>, IDaListItem<TKey>
+    public abstract class DaListItemBase<TKey> : DaEntityBase<TKey>, IDaListItem<TKey>
         where TKey : IEquatable<TKey>
     {
         /// <summary>
@@ -36,10 +36,5 @@ namespace Ejyle.DevAccelerate.Lists
         /// Determines if the list item information is verified to be valid.
         /// </summary>
         public bool IsVerified { get; set; }
-
-        /// <summary>
-        /// Determines if the list item is default.
-        /// </summary>
-        public bool IsDefault { get; set; }
     }
 }

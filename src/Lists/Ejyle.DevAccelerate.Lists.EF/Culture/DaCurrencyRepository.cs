@@ -57,17 +57,25 @@ namespace Ejyle.DevAccelerate.Lists.EF.Culture
 
         public Task<List<TCurrency>> FindAllAsync()
         {
-            return DbContext.Currencies.ToListAsync();
+            return DbContext.Currencies
+                .Include(m => m.Countries)
+                .ToListAsync();
         }
 
         public Task<TCurrency> FindByIdAsync(TKey id)
         {
-            return DbContext.Currencies.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
+            return DbContext.Currencies
+                .Where(m => m.Id.Equals(id))
+                .Include(m => m.Countries)
+                .SingleOrDefaultAsync();
         }
 
         public Task<TCurrency> FindByNameAsync(string name)
         {
-            return DbContext.Currencies.Where(m => m.Name == name).SingleOrDefaultAsync();
+            return DbContext.Currencies
+                .Where(m => m.Name == name)
+                .Include(m => m.Countries)
+                .SingleOrDefaultAsync();
         }
 
         public Task UpdateAsync(TCurrency currency)
@@ -76,9 +84,19 @@ namespace Ejyle.DevAccelerate.Lists.EF.Culture
             return DbContext.SaveChangesAsync();
         }
 
-        public Task<TCurrency> FindFirstDefaultAsync()
+        public Task<TCurrency> FindFirstAsync()
         {
-            return DbContext.Currencies.Where(m => m.IsDefault == true).FirstOrDefaultAsync();
+            return DbContext.Currencies
+                .Include(m => m.Countries)
+                .FirstOrDefaultAsync();
+        }
+
+        public Task<TCurrency> FindByAlphabeticCodeAsync(string alphabeticCode)
+        {
+            return DbContext.Currencies
+                .Where(m => m.AlphabeticCode == alphabeticCode)
+                .Include(m => m.Countries)
+                .SingleOrDefaultAsync();
         }
     }
 }

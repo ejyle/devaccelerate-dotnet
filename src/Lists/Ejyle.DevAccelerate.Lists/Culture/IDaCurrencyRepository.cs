@@ -23,6 +23,7 @@ namespace Ejyle.DevAccelerate.Lists.Culture
         Task<TCurrency> FindByIdAsync(TKey id);
         Task<List<TCurrency>> FindAllAsync();
         Task<TCurrency> FindByNameAsync(string name);
-        Task<TCurrency> FindFirstDefaultAsync();
+        Task<TCurrency> FindFirstAsync();
+        Task<TCurrency> FindByAlphabeticCodeAsync(string alphabeticCode);
     }
 }

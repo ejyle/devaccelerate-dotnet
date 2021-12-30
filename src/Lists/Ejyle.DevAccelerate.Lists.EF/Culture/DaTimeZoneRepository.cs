@@ -81,9 +81,9 @@ namespace Ejyle.DevAccelerate.Lists.EF.Culture
             return DbContext.TimeZones.Where(m => m.Name == name).SingleOrDefaultAsync();
         }
 
-        public Task<TTimeZone> FindFirstDefaultAsync()
+        public Task<TTimeZone> FindFirstAsync()
         {
-            return DbContext.TimeZones.Where(m => m.IsDefault == true).FirstOrDefaultAsync();
+            return DbContext.TimeZones.FirstOrDefaultAsync();
         }
     }
 }
