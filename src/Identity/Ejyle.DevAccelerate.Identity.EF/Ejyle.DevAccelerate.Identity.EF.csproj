@@ -16,11 +16,14 @@
     <Product>DevAccelerateIdentityEF</Product>
     <Description>Provides ASP.NET Identity and EntityFrameworkCore implementation for DevAccelerate Identity.</Description>
     <PackageTags>DevAccelerate;Identity;Identity-Management;User-Activities;User-Sessions;User-Settings;AspNet-Identity;EntityFrameworkCore;EF</PackageTags>
-    <Version>6.0.2</Version>
+    <Version>6.1.0</Version>
     <Nullable>disable</Nullable>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <PackageReleaseNotes>Migrated the library to .NET Core</PackageReleaseNotes>
     <PackageIcon>logo.png</PackageIcon>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageOutputPath>../../../nupkg</PackageOutputPath>        
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\..\assets\logo.png">

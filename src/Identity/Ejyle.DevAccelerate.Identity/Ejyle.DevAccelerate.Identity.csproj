@@ -16,11 +16,14 @@
     <Product>DevAccelerateIdentity</Product>
     <Description>Provides base functionality in terms of identity management.</Description>
     <PackageTags>DevAccelerate;Identity;Identity-Management;User-Activities;User-Sessions;User-Settings</PackageTags>
-    <Version>6.0.2</Version>
+    <Version>6.1.0</Version>
     <Nullable>disable</Nullable>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <PackageReleaseNotes>Migrated the library to .NET Core</PackageReleaseNotes>
     <PackageIcon>logo.png</PackageIcon>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageOutputPath>../../../nupkg</PackageOutputPath>        
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\..\assets\logo.png">
@@ -31,6 +34,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Ejyle.DevAccelerate.Core\Ejyle.DevAccelerate.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Tools\" />
   </ItemGroup>
 
 </Project>
