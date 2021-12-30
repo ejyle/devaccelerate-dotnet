@@ -36,6 +36,8 @@ The following is the list of DevAccelerate modules with corresponding NuGet pack
 * [DevAccelerateSmsTwilio](https://www.nuget.org/packages/DevAccelerateSmsTwilio/)
 #### Facades
 * [DevAccelerateSecurityFacade](https://www.nuget.org/packages/DevAccelerateSecurityFacade/)
+#### Tools
+* [DevAccelerateTools](https://www.nuget.org/packages/DevAccelerateTools/)
 
 ## Getting Started
 ### Installation
