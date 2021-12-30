@@ -16,11 +16,14 @@
     <Product>DevAccelerateSmsTwilio</Product>
     <Description>Provides Twilio implementation for DevAccelerate SMS for sending SMS messages.</Description>
     <PackageTags>DevAccelerate;SMS;SMS-Messages;Twilio</PackageTags>
-    <Version>6.0.2</Version>
+    <Version>6.1.0</Version>
     <Nullable>disable</Nullable>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <PackageReleaseNotes>Migrated the library to .NET Core</PackageReleaseNotes>
     <PackageIcon>logo.png</PackageIcon>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageOutputPath>../../../nupkg</PackageOutputPath>        
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\..\assets\logo.png">
