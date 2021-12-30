@@ -32,6 +32,8 @@ using Ejyle.DevAccelerate.Profiles.Addresses;
 using Ejyle.DevAccelerate.Profiles.EF.Addresses;
 using Microsoft.AspNetCore.Identity;
 using Ejyle.DevAccelerate.Facades.Security.Properties;
+using Ejyle.DevAccelerate.Core.Utils;
+using System.Text.RegularExpressions;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
 {
@@ -353,7 +355,10 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
             }
             else if (subscriptionInfo.TenantType == DaTenantType.Organization)
             {
-                tenant.Name = subscriptionInfo.OrganizationName;
+                var name = subscriptionInfo.OrganizationName;
+                name = Regex.Replace(name, @"[^\w]", "");
+
+                name = name.Trim().ToLower() + "-" + DaRandomNumberUtil.GenerateInt().ToString();
             }
 
             TCountry defaultCountry = await CountryManager.FindAsync();
