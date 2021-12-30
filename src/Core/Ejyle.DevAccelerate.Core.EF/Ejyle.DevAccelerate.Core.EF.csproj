@@ -7,19 +7,21 @@
     <ApplicationIcon>da.ico</ApplicationIcon> 
     <Nullable>disable</Nullable>
     <PackageId>DevAccelerateCoreEF</PackageId>
-    <Version>6.0.2</Version>
+    <Version>6.1.0</Version>
     <Authors>tanveery,ejyle</Authors>
     <Company>Ejyle Technologies (P) Ltd</Company>
     <Product>DevAccelerateCoreEF</Product>
-    <Description>Provides common classes for using Microsoft EntityFrameworkCore in DevAccelerate libraries.</Description>
+    <Description>DevAccelerateCoreEF provides common classes for using Microsoft EntityFrameworkCore in DevAccelerate.</Description>
     <Copyright>© Ejyle Technologies (P) Ltd. All rights reserved.</Copyright>
     <PackageProjectUrl>https://devaccelerate.github.io/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/devaccelerate/DevAccelerateNet</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>DevAccelerate;Entity;Repository;DbContext;EntityFrameworkCore;EF</PackageTags>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <PackageReleaseNotes>Migrated code to .NET Core</PackageReleaseNotes>
     <PackageIcon>logo.png</PackageIcon>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageOutputPath>../../../nupkg</PackageOutputPath>        
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\..\assets\logo.png">
