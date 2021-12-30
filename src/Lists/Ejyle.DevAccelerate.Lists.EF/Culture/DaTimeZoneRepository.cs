@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ejyle.DevAccelerate.Core.Data;
 using Ejyle.DevAccelerate.Core.EF;
 using Ejyle.DevAccelerate.Lists.Culture;
 using Ejyle.DevAccelerate.Lists.Generic;
@@ -45,17 +46,50 @@ namespace Ejyle.DevAccelerate.Lists.EF.Culture
 
         public Task<List<TTimeZone>> FindAllAsync()
         {
-            return DbContext.TimeZones.ToListAsync();
+            return DbContext.TimeZones
+                .Include(m => m.CountryTimeZones)
+                .ThenInclude(m => m.Country)
+                .ToListAsync();
+        }
+
+        public async Task<DaPaginatedEntityList<TKey, TTimeZone>> FindAllAsync(DaDataPaginationCriteria paginationCriteria)
+        {
+            var totalCount = await DbContext.TimeZones.CountAsync();
+
+            if (totalCount <= 0)
+            {
+                return null;
+            }
+
+            var query = DbContext.TimeZones
+                .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
+                .Take(paginationCriteria.PageSize)
+                .Include(m => m.CountryTimeZones)
+                .ThenInclude(m => m.Country)
+                .AsQueryable();
+
+            var result = await query.ToListAsync();
+
+            return new DaPaginatedEntityList<TKey, TTimeZone>(result
+                , new DaDataPaginationResult(paginationCriteria, totalCount));
         }
 
         public Task<TTimeZone> FindByIdAsync(TKey id)
         {
-            return DbContext.TimeZones.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
+            return DbContext.TimeZones
+                .Where(m => m.Id.Equals(id))
+                .Include(m => m.CountryTimeZones)
+                .ThenInclude(m => m.Country)
+                .SingleOrDefaultAsync();
         }
 
         public Task<List<TTimeZone>> FindByCountryIdAsync(TKey countryId)
         {
-            return DbContext.TimeZones.Where(m => m.CountryTimeZones.Any(x => x.CountryId.Equals(countryId))).ToListAsync();
+            return DbContext.TimeZones
+                .Where(m => m.CountryTimeZones.Any(x => x.CountryId.Equals(countryId)))
+                .Include(m => m.CountryTimeZones)
+                .ThenInclude(m => m.Country)
+                .ToListAsync();
         }
 
         public Task CreateAsync(TTimeZone timeZone)
@@ -78,12 +112,19 @@ namespace Ejyle.DevAccelerate.Lists.EF.Culture
 
         public Task<TTimeZone> FindByNameAsync(string name)
         {
-            return DbContext.TimeZones.Where(m => m.Name == name).SingleOrDefaultAsync();
+            return DbContext.TimeZones
+                .Where(m => m.Name == name)
+                .Include(m => m.CountryTimeZones)
+                .ThenInclude(m => m.Country)
+                .SingleOrDefaultAsync();
         }
 
         public Task<TTimeZone> FindFirstAsync()
         {
-            return DbContext.TimeZones.FirstOrDefaultAsync();
+            return DbContext.TimeZones
+                .Include(m => m.CountryTimeZones)
+                .ThenInclude(m => m.Country)
+                .FirstOrDefaultAsync();
         }
     }
 }

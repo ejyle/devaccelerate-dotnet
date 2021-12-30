@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ejyle.DevAccelerate.Core.Data;
 using Ejyle.DevAccelerate.Core.EF;
 using Ejyle.DevAccelerate.Lists.Culture;
 using Ejyle.DevAccelerate.Lists.Generic;
@@ -60,6 +61,27 @@ namespace Ejyle.DevAccelerate.Lists.EF.Culture
             return DbContext.Currencies
                 .Include(m => m.Countries)
                 .ToListAsync();
+        }
+
+        public async Task<DaPaginatedEntityList<TKey, TCurrency>> FindAllAsync(DaDataPaginationCriteria paginationCriteria)
+        {
+            var totalCount = await DbContext.Currencies.CountAsync();
+
+            if (totalCount <= 0)
+            {
+                return null;
+            }
+
+            var query = DbContext.Currencies
+                .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
+                .Take(paginationCriteria.PageSize)
+                .Include(m => m.Countries)
+                .AsQueryable();
+
+            var result = await query.ToListAsync();
+
+            return new DaPaginatedEntityList<TKey, TCurrency>(result
+                , new DaDataPaginationResult(paginationCriteria, totalCount));
         }
 
         public Task<TCurrency> FindByIdAsync(TKey id)

@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ejyle.DevAccelerate.Core.Data;
 using Ejyle.DevAccelerate.Core.EF;
 using Ejyle.DevAccelerate.Lists.Culture;
 using Ejyle.DevAccelerate.Lists.Generic;
@@ -48,6 +49,27 @@ namespace Ejyle.DevAccelerate.Lists.EF.Generic
             return DbContext.GenericLists
                 .Include(m => m.ListItems)
                 .ToListAsync();
+        }
+
+        public async Task<DaPaginatedEntityList<TKey, TGenericList>> FindAllAsync(DaDataPaginationCriteria paginationCriteria)
+        {
+            var totalCount = await DbContext.GenericLists.CountAsync();
+
+            if (totalCount <= 0)
+            {
+                return null;
+            }
+
+            var query = DbContext.GenericLists
+                .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
+                .Take(paginationCriteria.PageSize)
+                .Include(m => m.ListItems)
+                .AsQueryable();
+
+            var result = await query.ToListAsync();
+
+            return new DaPaginatedEntityList<TKey, TGenericList>(result
+                , new DaDataPaginationResult(paginationCriteria, totalCount));
         }
 
         public Task<TGenericList> FindByIdAsync(TKey id)

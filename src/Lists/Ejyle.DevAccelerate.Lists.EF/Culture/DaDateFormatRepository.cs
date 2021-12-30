@@ -45,17 +45,28 @@ namespace Ejyle.DevAccelerate.Lists.EF.Culture
 
         public Task<List<TDateFormat>> FindAllAsync()
         {
-            return DbContext.DateFormats.ToListAsync();
+            return DbContext.DateFormats
+                .Include(m => m.CountryDateFormats)
+                .ThenInclude(m => m.Country)
+                .ToListAsync();
         }
 
         public Task<TDateFormat> FindByIdAsync(TKey id)
         {
-            return DbContext.DateFormats.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
+            return DbContext.DateFormats
+                .Where(m => m.Id.Equals(id))
+                .Include(m => m.CountryDateFormats)
+                .ThenInclude(m => m.Country)
+                .SingleOrDefaultAsync();
         }
 
         public Task<TDateFormat> FindByDateFormatExpressionAsync(string expr)
         {
-            return DbContext.DateFormats.Where(m => m.DateFormatExpression == expr).SingleOrDefaultAsync();
+            return DbContext.DateFormats
+                .Where(m => m.DateFormatExpression == expr)
+                .Include(m => m.CountryDateFormats)
+                .ThenInclude(m => m.Country)
+                .SingleOrDefaultAsync();
         }
 
         public Task CreateAsync(TDateFormat dateFormat)
@@ -78,7 +89,10 @@ namespace Ejyle.DevAccelerate.Lists.EF.Culture
 
         public Task<TDateFormat> FindFirstAsync()
         {
-            return DbContext.DateFormats.FirstOrDefaultAsync();
+            return DbContext.DateFormats
+                .Include(m => m.CountryDateFormats)
+                .ThenInclude(m => m.Country)
+                .FirstOrDefaultAsync();
         }
     }
 }

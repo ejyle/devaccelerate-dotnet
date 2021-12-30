@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
+using Ejyle.DevAccelerate.Core.Data;
 
 namespace Ejyle.DevAccelerate.Lists.Culture
 {
@@ -22,6 +23,7 @@ namespace Ejyle.DevAccelerate.Lists.Culture
 
         Task<TSystemLanguage> FindByIdAsync(TKey id);
         Task<List<TSystemLanguage>> FindAllAsync();
+        Task<DaPaginatedEntityList<TKey, TSystemLanguage>> FindAllAsync(DaDataPaginationCriteria paginationCriteria);
         Task<List<TSystemLanguage>> FindByCountryIdAsync(TKey countryId);
         Task<TSystemLanguage> FindByNameAsync(string name);
         Task<TSystemLanguage> FindFirstAsync();

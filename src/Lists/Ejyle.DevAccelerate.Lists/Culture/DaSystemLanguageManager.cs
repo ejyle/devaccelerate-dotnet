@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
+using Ejyle.DevAccelerate.Core.Data;
 
 namespace Ejyle.DevAccelerate.Lists.Culture
 {
@@ -88,6 +89,17 @@ namespace Ejyle.DevAccelerate.Lists.Culture
         {
             ThrowIfDisposed();
             return Repository.FindAllAsync();
+        }
+
+        public DaPaginatedEntityList<TKey, TSystemLanguage> FindAll(DaDataPaginationCriteria paginationCriteria)
+        {
+            return DaAsyncHelper.RunSync<DaPaginatedEntityList<TKey, TSystemLanguage>>(() => FindAllAsync(paginationCriteria));
+        }
+
+        public Task<DaPaginatedEntityList<TKey, TSystemLanguage>> FindAllAsync(DaDataPaginationCriteria paginationCriteria)
+        {
+            ThrowIfDisposed();
+            return Repository.FindAllAsync(paginationCriteria);
         }
 
         public TSystemLanguage FindById(TKey id)

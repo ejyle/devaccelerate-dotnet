@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ejyle.DevAccelerate.Core.Data;
 using Ejyle.DevAccelerate.Core.EF;
 using Ejyle.DevAccelerate.Lists.Culture;
 using Ejyle.DevAccelerate.Lists.Generic;
@@ -45,17 +46,50 @@ namespace Ejyle.DevAccelerate.Lists.EF.Culture
 
         public Task<List<TSystemLanguage>> FindAllAsync()
         {
-            return DbContext.SystemLanguages.ToListAsync();
+            return DbContext.SystemLanguages
+                .Include(m => m.CountrySystemLanguages)
+                .ThenInclude(m => m.Country)
+                .ToListAsync();
+        }
+
+        public async Task<DaPaginatedEntityList<TKey, TSystemLanguage>> FindAllAsync(DaDataPaginationCriteria paginationCriteria)
+        {
+            var totalCount = await DbContext.SystemLanguages.CountAsync();
+
+            if (totalCount <= 0)
+            {
+                return null;
+            }
+
+            var query = DbContext.SystemLanguages
+                .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
+                .Take(paginationCriteria.PageSize)
+                .Include(m => m.CountrySystemLanguages)
+                .ThenInclude(m => m.Country)
+                .AsQueryable();
+
+            var result = await query.ToListAsync();
+
+            return new DaPaginatedEntityList<TKey, TSystemLanguage>(result
+                , new DaDataPaginationResult(paginationCriteria, totalCount));
         }
 
         public Task<TSystemLanguage> FindByIdAsync(TKey id)
         {
-            return DbContext.SystemLanguages.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
+            return DbContext.SystemLanguages
+                .Where(m => m.Id.Equals(id))
+                .Include(m => m.CountrySystemLanguages)
+                .ThenInclude(m => m.Country)
+                .SingleOrDefaultAsync();
         }
 
         public Task<List<TSystemLanguage>> FindByCountryIdAsync(TKey countryId)
         {
-            return DbContext.SystemLanguages.Where(m => m.CountrySystemLanguages.Any(x => x.CountryId.Equals(countryId))).ToListAsync();
+            return DbContext.SystemLanguages
+                .Where(m => m.CountrySystemLanguages.Any(x => x.CountryId.Equals(countryId)))
+                .Include(m => m.CountrySystemLanguages)
+                .ThenInclude(m => m.Country)
+                .ToListAsync();
         }
 
         public Task CreateAsync(TSystemLanguage systemLanguage)
@@ -78,12 +112,18 @@ namespace Ejyle.DevAccelerate.Lists.EF.Culture
 
         public Task<TSystemLanguage> FindByNameAsync(string name)
         {
-            return DbContext.SystemLanguages.Where(m => m.Name == name).SingleOrDefaultAsync();
+            return DbContext.SystemLanguages.Where(m => m.Name == name)
+                .Include(m => m.CountrySystemLanguages)
+                .ThenInclude(m => m.Country)
+                .SingleOrDefaultAsync();
         }
 
         public Task<TSystemLanguage> FindFirstAsync()
         {
-            return DbContext.SystemLanguages.FirstOrDefaultAsync();
+            return DbContext.SystemLanguages
+                .Include(m => m.CountrySystemLanguages)
+                .ThenInclude(m => m.Country)
+                .FirstOrDefaultAsync();
         }
     }
 }

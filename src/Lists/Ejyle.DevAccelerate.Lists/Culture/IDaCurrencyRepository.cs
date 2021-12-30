@@ -6,6 +6,7 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using Ejyle.DevAccelerate.Core;
+using Ejyle.DevAccelerate.Core.Data;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -22,6 +23,7 @@ namespace Ejyle.DevAccelerate.Lists.Culture
 
         Task<TCurrency> FindByIdAsync(TKey id);
         Task<List<TCurrency>> FindAllAsync();
+        Task<DaPaginatedEntityList<TKey, TCurrency>> FindAllAsync(DaDataPaginationCriteria paginationCriteria);
         Task<TCurrency> FindByNameAsync(string name);
         Task<TCurrency> FindFirstAsync();
         Task<TCurrency> FindByAlphabeticCodeAsync(string alphabeticCode);
