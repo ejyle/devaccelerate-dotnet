@@ -10,7 +10,7 @@ using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
 {
-    public interface IDaFeature<TKey, TNullableKey> : IDaAuditedEntity<TKey>
+    public interface IDaFeature<TKey, TNullableKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         TNullableKey AppId { get; set; }

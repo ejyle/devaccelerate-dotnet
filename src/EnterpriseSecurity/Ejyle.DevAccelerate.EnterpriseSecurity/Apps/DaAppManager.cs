@@ -35,8 +35,6 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
             ThrowIfArgumentIsNull(app, nameof(app));
 
             app.Key = await CreateValidAppKeyAsync(app);
-            app.LastUpdatedDateUtc = DateTime.UtcNow;
-
             await Repository.CreateAsync(app);
         }
 

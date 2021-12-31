@@ -10,7 +10,7 @@ using System;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
 {
-    public interface IDaApp<TKey> : IDaAuditedEntity<TKey>
+    public interface IDaApp<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         string Name { get; set; }

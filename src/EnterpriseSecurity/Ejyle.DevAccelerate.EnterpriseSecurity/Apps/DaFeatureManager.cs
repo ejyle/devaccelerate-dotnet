@@ -36,9 +36,6 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
             ThrowIfArgumentIsNull(feature, nameof(feature));
 
             feature.Key = await CreateValidFeatureKeyAsync(feature);
-            feature.Status = DaFeatureStatus.Inactive;
-            feature.LastUpdatedDateUtc = DateTime.UtcNow;
-
             await Repository.CreateAsync(feature);
         }
 
