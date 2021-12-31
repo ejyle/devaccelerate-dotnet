@@ -8,6 +8,7 @@
 using System;
 using CommandLine;
 using Ejyle.DevAccelerate.Tools.Commands;
+using Ejyle.DevAccelerate.Tools.Commands.EnterpriseSecurity;
 using Ejyle.DevAccelerate.Tools.Commands.Identity;
 using Ejyle.DevAccelerate.Tools.Commands.Lists;
 
@@ -20,6 +21,7 @@ namespace Ejyle.DevAccelerate.Tools
             try
             {
                 Parser.Default.ParseArguments<DaCreateDatabaseCommand,
+                    DaCreateAppCommand,
                     DaCreateDefaultListsCommand,
                     DaCreateUserCommand,
                     DaCreateRoleCommand>(args)
