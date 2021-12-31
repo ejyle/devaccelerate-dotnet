@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
+using Ejyle.DevAccelerate.Core.Data;
 using Ejyle.DevAccelerate.Core.Utils;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
@@ -91,17 +92,6 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
             return Repository.FindByIdAsync(id);
         }
 
-        public virtual List<TApp> FindAll()
-        {
-            return DaAsyncHelper.RunSync<List<TApp>>(() => FindAllAsync());
-        }
-
-        public virtual Task<List<TApp>> FindAllAsync()
-        {
-            ThrowIfDisposed();
-            return Repository.FindAllAsync();
-        }
-
         public virtual TApp FindByName(string name)
         {
             return DaAsyncHelper.RunSync<TApp>(() => FindByKeyAsync(name));
@@ -113,6 +103,17 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
             ThrowIfArgumentIsNull(key, nameof(key));
 
             return Repository.FindByKeyAsync(key);
+        }
+
+        public virtual Task<DaPaginatedEntityList<TKey, TApp>> FindAllAsync(DaDataPaginationCriteria paginationCriteria)
+        {
+            ThrowIfDisposed();
+            return Repository.FindAllAsync(paginationCriteria);
+        }
+
+        public virtual DaPaginatedEntityList<TKey, TApp> FindAll(DaDataPaginationCriteria paginationCriteria)
+        {
+            return DaAsyncHelper.RunSync<DaPaginatedEntityList<TKey, TApp>>(() => FindAllAsync(paginationCriteria));
         }
 
         public virtual string CreateValidAppKey(TApp app)

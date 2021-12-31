@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
+using Ejyle.DevAccelerate.Core.Data;
 using Ejyle.DevAccelerate.Core.Utils;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
@@ -81,17 +82,6 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
             return Repository.FindByIdAsync(id);
         }
 
-        public virtual List<TFeature> FindAll()
-        {
-            return DaAsyncHelper.RunSync<List<TFeature>>(() => FindAllAsync());
-        }
-
-        public virtual Task<List<TFeature>> FindAllAsync()
-        {
-            ThrowIfDisposed();
-            return Repository.FindAllAsync();
-        }
-
         public virtual TFeature FindByName(string name)
         {
             return DaAsyncHelper.RunSync<TFeature>(() => FindByKeyAsync(name));
@@ -109,6 +99,17 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
         {
             ThrowIfDisposed();
             return Repository.FindByAppIdAsync(appId);
+        }
+
+        public virtual Task<DaPaginatedEntityList<TKey, TFeature>> FindAllAsync(DaDataPaginationCriteria paginationCriteria)
+        {
+            ThrowIfDisposed();
+            return Repository.FindAllAsync(paginationCriteria);
+        }
+
+        public virtual DaPaginatedEntityList<TKey, TFeature> FindAll(DaDataPaginationCriteria paginationCriteria)
+        {
+            return DaAsyncHelper.RunSync<DaPaginatedEntityList<TKey, TFeature>>(() => FindAllAsync(paginationCriteria));
         }
 
         public virtual string CreateValidFeatureKey(TFeature feature)

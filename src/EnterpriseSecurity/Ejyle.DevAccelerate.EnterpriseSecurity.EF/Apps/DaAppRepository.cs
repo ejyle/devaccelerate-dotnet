@@ -15,6 +15,7 @@ using Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions;
 using Ejyle.DevAccelerate.EnterpriseSecurity.UserAgreements;
 using Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans;
 using Microsoft.EntityFrameworkCore;
+using Ejyle.DevAccelerate.Core.Data;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Apps
 {
@@ -78,15 +79,6 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Apps
             return SaveChangesAsync();
         }
 
-        public Task<List<TApp>> FindAllAsync()
-        {
-            return Apps.Include(m => m.Attributes)
-                .Include(m => m.Features)
-                .Include(m => m.AppFeatures)
-                .ThenInclude(m => m.Feature)
-                .ToListAsync();
-        }
-
         public Task<TApp> FindByIdAsync(TKey id)
         {
             return Apps.Where(m => m.Id.Equals(id))
@@ -125,6 +117,30 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Apps
         {
             DbContext.Entry<TApp>(app).State = EntityState.Modified;
             return SaveChangesAsync();
+        }
+
+        public async Task<DaPaginatedEntityList<TKey, TApp>> FindAllAsync(DaDataPaginationCriteria paginationCriteria)
+        {
+            var totalCount = await Apps.CountAsync();
+
+            if (totalCount <= 0)
+            {
+                return null;
+            }
+
+            var query = Apps
+                .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
+                .Take(paginationCriteria.PageSize)
+                .Include(m => m.Attributes)
+                .Include(m => m.Features)
+                .Include(m => m.AppFeatures)
+                .ThenInclude(m => m.Feature)
+                .AsQueryable();
+
+            var result = await query.ToListAsync();
+
+            return new DaPaginatedEntityList<TKey, TApp>(result
+                , new DaDataPaginationResult(paginationCriteria, totalCount));
         }
     }
 }

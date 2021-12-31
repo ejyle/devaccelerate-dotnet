@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
+using Ejyle.DevAccelerate.Core.Data;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
 {
@@ -19,7 +20,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
         Task CreateAsync(TApp app);
         Task<TApp> FindByIdAsync(TKey id);
         Task<TApp> FindByKeyAsync(string key);
-        Task<List<TApp>> FindAllAsync();
+        Task<DaPaginatedEntityList<TKey, TApp>> FindAllAsync(DaDataPaginationCriteria paginationCriteria);
         Task UpdateAsync(TApp app);
         Task DeleteAsync(TApp app);
         Task RemoveAppFeatureByIdAsync(TKey appFeatureId);
