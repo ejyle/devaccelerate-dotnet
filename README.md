@@ -41,17 +41,35 @@ The following is the list of DevAccelerate modules with corresponding NuGet pack
 
 ## Getting Started
 ### Installation
-
-The best way to install DevAccelerate libraries in your .NET project is through NuGet's **Install-Package** command. For example, if you want to install **DevAccelerateCoreEF** library:
+DevAccelerate modules are available on NuGet. Each module has its own package(s). Use ```dotnet add package``` command to install DevAccelerate modules:
 ```
-Install-Package DevAccelerateCoreEF 
+dotnet add package DevAccelerateCore
+dotnet add package DevAccelerateCoreEF
+dotnet add package DevAccelerateLists
+dotnet add package DevAccelerateListsEF
+dotnet add package DevAccelerateIdentity
+dotnet add package DevAccelerateIdentityEF
+dotnet add package DevAccelerateProfiles
+dotnet add package DevAccelerateProfilesEF
+dotnet add package DevAccelerateEnterpriseSecurity
+dotnet add package DevAccelerateEnterpriseSecurityEF
+dotnet add package DevAccelerateMail
+dotnet add package DevAccelerateMailSendGrid
+dotnet add package DevAccelerateSms
+dotnet add package DevAccelerateSmsTextlocal
+dotnet add package DevAccelerateSmsTwilio
+dotnet add package DevAccelerateSecurityFacade
+dotnet tool install -g DevAccelerateTools
 ```
-
-You can also install a specific version of a DevAccelerate NuGet package with the **-Version** option. The following is an example of installing specific version **v6.0.0** of **DevAccelerateCoreEF**:
+To install all the DevAccelerate modules (libraries) in one go, the **DevAccelerateAll** metapackage can be quite handy:
 ```
-Install-Package DevAccelerateCoreEF -Version 6.0.0
+dotnet add package DevAccelerateAll
 ```
-**Note:** You always need to install only top-level NuGet package. Dependencies, whether DevAccelerate libraries or any other, would automatically get installed.
+Use ```dotnet tool install``` command to install DevAccelerateTools:
+```
+dotnet tool install -g DevAccelerateTools
+```
+**Note:** Use the ```--version``` option to specify a specific version to install.
 
 ## Issues
 
