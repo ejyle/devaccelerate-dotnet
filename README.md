@@ -61,7 +61,7 @@ dotnet add package DevAccelerateSmsTwilio
 dotnet add package DevAccelerateSecurityFacade
 dotnet tool install -g DevAccelerateTools
 ```
-To install all the DevAccelerate modules (libraries) in one go, the **DevAccelerateAll** metapackage can be quite handy:
+To install all the DevAccelerate modules (libraries) in one go, the DevAccelerateAll metapackage can be quite handy:
 ```
 dotnet add package DevAccelerateAll
 ```
