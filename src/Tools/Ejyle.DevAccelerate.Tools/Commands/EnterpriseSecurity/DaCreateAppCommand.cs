@@ -30,7 +30,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.EnterpriseSecurity
             set;
         }
 
-        [Option('n', "name", Required = false, HelpText = "Description of the new app to be created.")]
+        [Option('d', "desc", Required = false, HelpText = "Description of the new app to be created.")]
         public string Description
         {
             get;
@@ -42,22 +42,16 @@ namespace Ejyle.DevAccelerate.Tools.Commands.EnterpriseSecurity
             using (var context = new DaEnterpriseSecurityDbContext(ConnectionString))
             {
                 var appManager = new DaAppManager(new DaAppRepository(context));
-                var app = appManager.FindByName(Name);
-
-                if (app != null)
-                {
-                    throw new Exception($"App {Name} already exists.");
-                }
-
-                app = new DaApp()
+                var app = new DaApp()
                 {
                     Name = Name,
-                    Key = Guid.NewGuid().ToString(),
                     Status = DaAppStatus.Active,
                     Description = Description
                 };
 
                 appManager.Create(app);
+
+                Console.WriteLine($"App created. The key is {app.Key}");
             }
         }
     }

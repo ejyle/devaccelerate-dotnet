@@ -22,6 +22,7 @@ namespace Ejyle.DevAccelerate.Tools
             {
                 Parser.Default.ParseArguments<DaCreateDatabaseCommand,
                     DaCreateAppCommand,
+                    DaCreateAppFeatureCommand,
                     DaCreateDefaultListsCommand,
                     DaCreateUserCommand,
                     DaCreateRoleCommand>(args)

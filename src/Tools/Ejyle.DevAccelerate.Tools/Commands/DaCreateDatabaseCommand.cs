@@ -87,7 +87,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands
                 }
             }
 
-            Console.WriteLine("DevAccelerate lists database created.");
+            Console.WriteLine("DevAccelerate database created.");
         }
     }
 }
