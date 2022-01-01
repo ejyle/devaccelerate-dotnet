@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
 using Ejyle.DevAccelerate.Core.Data;
 using Ejyle.DevAccelerate.Core.Utils;
+using Microsoft.Extensions.Options;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
 {
@@ -18,8 +19,18 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
         where TKey : IEquatable<TKey>
         where TApp : IDaApp<TKey>
     {
+        public DaAppManager(IOptions<DaAppSettings> options, IDaAppRepository<TKey, TApp> repository) : base(repository)
+        {
+            if (options == null) { throw new ArgumentNullException(nameof(options)); }
+            Settings = options.Value;
+        }
+
         public DaAppManager(IDaAppRepository<TKey, TApp> repository) : base(repository)
         {
+            Settings = new DaAppSettings()
+            {
+                AppKey = "devaccelerate"
+            };
         }
 
         protected virtual IDaAppRepository<TKey, TApp> Repository
@@ -29,6 +40,8 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
                 return GetRepository<IDaAppRepository<TKey, TApp>>();
             }
         }
+
+        public DaAppSettings Settings { get; private set; }
 
         public virtual async Task CreateAsync(TApp app)
         {
@@ -92,9 +105,9 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
             return Repository.FindByIdAsync(id);
         }
 
-        public virtual TApp FindByName(string name)
+        public virtual TApp FindByKey(string key)
         {
-            return DaAsyncHelper.RunSync<TApp>(() => FindByKeyAsync(name));
+            return DaAsyncHelper.RunSync<TApp>(() => FindByKeyAsync(key));
         }
 
         public virtual Task<TApp> FindByKeyAsync(string key)
@@ -103,6 +116,17 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
             ThrowIfArgumentIsNull(key, nameof(key));
 
             return Repository.FindByKeyAsync(key);
+        }
+
+        public virtual TApp Find()
+        {
+            return DaAsyncHelper.RunSync<TApp>(() => FindAsync());
+        }
+
+        public virtual Task<TApp> FindAsync()
+        {
+            ThrowIfDisposed();
+            return Repository.FindByKeyAsync(Settings.AppKey);
         }
 
         public virtual Task<DaPaginatedEntityList<TKey, TApp>> FindAllAsync(DaDataPaginationCriteria paginationCriteria)

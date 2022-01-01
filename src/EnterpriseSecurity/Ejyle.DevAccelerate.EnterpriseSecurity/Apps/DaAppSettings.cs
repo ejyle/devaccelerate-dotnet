@@ -5,19 +5,16 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-using Ejyle.DevAccelerate.EnterpriseSecurity.Apps;
-using Microsoft.Extensions.Options;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Apps
+namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
 {
-    public class DaAppManager : DaAppManager<int, DaApp>
+    public class DaAppSettings
     {
-        public DaAppManager(IOptions<DaAppSettings> options, DaAppRepository repository)
-            : base(options, repository)
-        { }
-
-        public DaAppManager(DaAppRepository repository)
-            : base(repository)
-        { }
+        public string AppKey { get; set; }
     }
 }
