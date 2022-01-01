@@ -7,6 +7,7 @@ The code base has been updated in a significant way to provide better and more o
 * The current code base is now fully migrated to .NET 6 (latest .NET version) and it includes the support for .NET 5 and .NET Core 3.1. The support for .NET Framework has been discontinued.
 * Support for Microsoft Enterprise Library (MSEL) has been removed. The development of MSEL was discontinued by Microsoft long time ago and therefore it was reasonable to discontinue its inclusion in DevAccelerate.
 * The use of application configurations (app.config / web.config) in DevAccelerate libraries has been discontinued. This has been replaced with the IOptions pattern.
+* The DevAccelerate console app has been migrated as a .NET tool.
 
 ## Modules
 
