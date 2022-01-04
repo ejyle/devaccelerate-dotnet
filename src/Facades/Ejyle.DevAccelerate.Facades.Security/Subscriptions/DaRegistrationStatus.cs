@@ -7,7 +7,8 @@
         DuplicateEmail = 2,
         InvalidUserName = 3,
         InvalidEmail = 4,
-        InvalidPersonName = 5,     
+        InvalidPersonName = 5,   
+        InvalidCountry = 50,
         UnknownError = 100
     }
 }

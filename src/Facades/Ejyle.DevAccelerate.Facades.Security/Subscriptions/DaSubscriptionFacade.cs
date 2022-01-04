@@ -302,6 +302,13 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                 return new DaRegistrationResult<TKey>(DaRegistrationStatus.DuplicateEmail, null);
             }
 
+            TCountry country = await CountryManager.FindByIdAsync(subscriptionInfo.CountryId);
+
+            if(country == null)
+            {
+                return new DaRegistrationResult<TKey>(DaRegistrationStatus.InvalidCountry, null);
+            }
+
             user = new TUser
             {
                 UserName = subscriptionInfo.UserName,
@@ -347,8 +354,22 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
 
             await UserProfileManager.CreateAsync(userProfile);
 
-            var tenant = new TTenant();
-
+            var tenant = new TTenant()
+            {
+                OwnerUserId = user.Id,
+                Status = DaTenantStatus.Active,
+                TenantType = DaTenantType.Organization,                 
+                Domain = null,
+                IsDomainOwnershipVerified = false,
+                CountryId = KeyConverter.ToNullableKey(country.Id),
+                CurrencyId = country.CurrencyId,
+                BillingEmail = subscriptionInfo.Email,
+                CreatedDateUtc = DateTime.UtcNow,
+                CreatedBy = user.Id,
+                LastUpdatedBy = user.Id,
+                LastUpdatedDateUtc = DateTime.UtcNow
+            };
+        
             if (subscriptionInfo.TenantType == DaTenantType.Individual)
             {
                 tenant.Name = user.UserName;
@@ -359,35 +380,14 @@ namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
                 name = Regex.Replace(name, @"[^\w]", "");
 
                 name = name.Trim().ToLower() + "-" + DaRandomNumberUtil.GenerateInt().ToString();
+                tenant.Name = name;
             }
-
-            TCountry defaultCountry = await CountryManager.FindAsync();
-            TTimeZone defaultTimeZone = await TimeZoneManager.FindAsync();
-            TSystemLanguage defaultSystemLanguage = await SystemLanguageManager.FindAsync();
-            TDateFormat defaultDateformat = await DateFormatManager.FindAsync();
-            TCurrency defaultCurrency = await CurrencyManager.FindAsync();
-
-            tenant.OwnerUserId = user.Id;
-            tenant.Status = DaTenantStatus.Active;
-            tenant.TenantType = DaTenantType.Organization;
-            tenant.Domain = null;
-            tenant.IsDomainOwnershipVerified = false;
-            tenant.CountryId = (defaultCountry == null) ? default(TNullableKey) : KeyConverter.ToNullableKey(defaultCountry.Id);
-            tenant.TimeZoneId = (defaultTimeZone == null) ? default(TNullableKey) : KeyConverter.ToNullableKey(defaultTimeZone.Id);
-            tenant.SystemLanguageId = (defaultSystemLanguage == null) ? default(TNullableKey) : KeyConverter.ToNullableKey(defaultSystemLanguage.Id);
-            tenant.DateFormatId = (defaultDateformat == null) ? default(TNullableKey) : KeyConverter.ToNullableKey(defaultDateformat.Id);
-            tenant.CurrencyId = (defaultCurrency == null) ? default(TNullableKey) : KeyConverter.ToNullableKey(defaultCurrency.Id);
-            tenant.BillingEmail = subscriptionInfo.Email;
-            tenant.CreatedDateUtc = DateTime.UtcNow;
-            tenant.CreatedBy = user.Id;
-            tenant.LastUpdatedBy = user.Id;
-            tenant.LastUpdatedDateUtc = DateTime.UtcNow;
 
             var tenantUser = new TTenantUser
             {
                 Tenant = tenant,
                 IsActive = true,
-                UserId = user.Id,
+                UserId = user.Id, 
                 TenantId = tenant.Id
             };
 
