@@ -17,6 +17,7 @@ using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Apps;
 using Ejyle.DevAccelerate.Identity.EF;
 using Ejyle.DevAccelerate.Lists.EF;
 using Ejyle.DevAccelerate.Profiles.EF;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -30,7 +31,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands
         { }
 
         public override void Execute()
-        { 
+        {
             using (var listsDbContext = new DaListsDbContext(ConnectionString))
             {
                 try
@@ -44,6 +45,8 @@ namespace Ejyle.DevAccelerate.Tools.Commands
                     // Ignore the error
                 }
             }
+
+            EnsureConnectionIsValid();
 
             using (var identityDbContext = new DaIdentityDbContext(ConnectionString))
             {

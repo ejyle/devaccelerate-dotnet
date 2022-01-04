@@ -43,6 +43,8 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Identity
 
         public override void Execute()
         {
+            EnsureConnectionIsValid();
+
             var services = new DaIdentityServiceConfiguration().CreateAndConfigureIdentity(ConnectionString);
             services.AddScoped<IDaUserService, UserCreationService>();
             

@@ -39,6 +39,8 @@ namespace Ejyle.DevAccelerate.Tools.Commands.EnterpriseSecurity
 
         public override void Execute()
         {
+            EnsureConnectionIsValid();
+
             using (var context = new DaEnterpriseSecurityDbContext(ConnectionString))
             {
                 var appManager = new DaAppManager(new DaAppRepository(context));

@@ -21,6 +21,8 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Lists
     {
         public override void Execute()
         {
+            EnsureConnectionIsValid();
+
             using (var context = new DaListsDbContext(ConnectionString))
             {
                 var currenciesManager = new DaCurrencyManager(new DaCurrencyRepository(context));
