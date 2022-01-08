@@ -9,34 +9,69 @@ using System;
 using System.Collections.Generic;
 using Ejyle.DevAccelerate.EnterpriseSecurity.Tenants;
 using Ejyle.DevAccelerate.Profiles.Organizations;
+using Ejyle.DevAccelerate.Profiles.UserProfiles;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Registration
 {
-    public interface IDaRegistrationInfo<TKey, TNullableKey>
-        where TKey : IEquatable<TKey>
+    public interface IDaRegistrationInfo<TKey,
+        TNullableKey,
+        TAddressProfileRegistrationInfo,
+        TOrganizationRegistrationInfo,
+        TTenantRegistrationInfo,
+        TSubscriptionRegistrationInfo>
+        where TKey:IEquatable<TKey>
+        where TAddressProfileRegistrationInfo : IDaAddressRegistrationInfo<TKey>
+        where TTenantRegistrationInfo : IDaTenantRegistrationInfo
+        where TOrganizationRegistrationInfo : IDaOrganizationRegistrationInfo
+        where TSubscriptionRegistrationInfo : IDaSubscriptionRegistrationInfo<TKey, TNullableKey>
     {
         string UserName { get; set; }
         string FirstName { get; set; }
         string LastName { get; set; }
         string Email { get; set; }
-        TKey SubscriptionPlanId { get; set; }
-        TNullableKey BillingCycleOptionId { get; set; }
-        bool StartWithTrial { get; set; }
+        DateTime? Dob { get; set; }
+        DaGender? Gender { get; set; }
+        Dictionary<string, string> UserProfileAttributes { get; set; }
+        TAddressProfileRegistrationInfo Address { get; set; }
+        TOrganizationRegistrationInfo Organization { get; set; }
+        TTenantRegistrationInfo Tenant { get; set; }
+        TSubscriptionRegistrationInfo Subscription { get; set; }
+    }
+
+    public interface IDaAddressRegistrationInfo<TKey>
+        where TKey : IEquatable<TKey>
+    {
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public string ZipCode { get; set; }
+        public string State { get; set; }
+        public string City { get; set; }
+        public TKey CountryId { get; set; }
+        public string PhoneNumber { get; set; }
+        public string AreaCode { get; set; }
+        public string Extension { get; set; }
+        public string FaxNumber { get; set; }
+    }
+
+    public interface IDaTenantRegistrationInfo
+    {
+        DaTenantType TenantType { get; set; }
+        Dictionary<string, string> TenantAttributes { get; set; }
+    }
+
+    public interface IDaOrganizationRegistrationInfo
+    {
         string OrganizationName { get; set; }
         DaOrganizationType OrganizationType { get; set; }
-        DaTenantType TenantType { get; set; }
-        string Address1 { get; set; }
-        string Address2 { get; set; }
-        string ZipCode { get; set; }
-        string State { get; set; }
-        string City { get; set; }
-        TKey CountryId { get; set; }
-        string PhoneNumber { get; set; }
-        string AreaCode { get; set; }
-        string Extension { get; set; }
-        string FaxNumber { get; set; }
-        Dictionary<string, string> SubscriptionAttributes { get; set; }
-        Dictionary<string, string> UserProfileAttributes { get; set; }
         Dictionary<string, string> OrganizationProfileAttributes { get; set; }
+    }
+
+    public interface IDaSubscriptionRegistrationInfo<TKey, TNullableKey>
+        where TKey : IEquatable<TKey>
+    {
+        TKey SubscriptionPlanId { get; set; }
+        bool StartWithTrial { get; set; }
+        TNullableKey BillingCycleOptionId { get; set; }
+        Dictionary<string, string> SubscriptionAttributes { get; set; }
     }
 }

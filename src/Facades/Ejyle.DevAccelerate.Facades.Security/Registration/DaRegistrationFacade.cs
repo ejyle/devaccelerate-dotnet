@@ -37,7 +37,7 @@ using System.Text.RegularExpressions;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Registration
 {
-    public class DaRegistrationFacade : DaRegistrationFacade<int, int?, DaIntegerKeyConverter, DaRegistrationInfo, UserManager<DaUser>, DaUser, DaUserProfileManager, DaUserProfile, DaUserProfileAttribute, DaOrganizationProfileManager, DaOrganizationProfile, DaOrganizationProfileAttribute, DaTenantManager, DaTenant, DaTenantUser, DaTenantAttribute, DaAddressProfileManager, DaAddressProfile, DaUserAddress, DaUserAgreementManager, DaUserAgreement, DaUserAgreementVersion, DaUserAgreementVersionAction, DaAppManager, DaApp, DaAppAttribute, DaFeatureManager, DaFeature, DaAppFeature, DaFeatureAction, DaSubscriptionPlanManager, DaSubscriptionPlan, DaSubscriptionPlanAttribute, DaBillingCycleOption, DaSubscriptionPlanApp, DaSubscriptionPlanFeature, DaSubscriptionPlanFeatureAttribute, DaSubscriptionManager, DaSubscription, DaSubscriptionAttribute, DaSubscriptionApp, DaSubscriptionFeature, DaSubscriptionFeatureAttribute, DaSubscriptionAppRole, DaSubscriptionAppUser, DaSubscriptionFeatureRole, DaSubscriptionFeatureRoleAction, DaSubscriptionFeatureUser, DaSubscriptionFeatureUserAction, DaBillingCycle, DaBillingCycleAttribute, DaBillingCycleFeatureUsage, DaCurrencyManager, DaCurrency, DaCountryManager, DaCountry, DaCountryRegion, DaCountryDateFormat, DaCountrySystemLanguage, DaCountryTimeZone, DaDateFormatManager, DaDateFormat, DaTimeZoneManager, DaTimeZone, DaSystemLanguageManager, DaSystemLanguage>
+    public class DaRegistrationFacade : DaRegistrationFacade<int, int?, DaIntegerKeyConverter, DaRegistrationInfo, DaAddressRegistrationInfo, DaOrganizationRegistrationInfo, DaTenantRegistrationInfo, DaSubscriptionRegistrationInfo, UserManager<DaUser>, DaUser, DaUserProfileManager, DaUserProfile, DaUserProfileAttribute, DaOrganizationProfileManager, DaOrganizationProfile, DaOrganizationProfileAttribute, DaTenantManager, DaTenant, DaTenantUser, DaTenantAttribute, DaAddressProfileManager, DaAddressProfile, DaUserAddress, DaUserAgreementManager, DaUserAgreement, DaUserAgreementVersion, DaUserAgreementVersionAction, DaAppManager, DaApp, DaAppAttribute, DaFeatureManager, DaFeature, DaAppFeature, DaFeatureAction, DaSubscriptionPlanManager, DaSubscriptionPlan, DaSubscriptionPlanAttribute, DaBillingCycleOption, DaSubscriptionPlanApp, DaSubscriptionPlanFeature, DaSubscriptionPlanFeatureAttribute, DaSubscriptionManager, DaSubscription, DaSubscriptionAttribute, DaSubscriptionApp, DaSubscriptionFeature, DaSubscriptionFeatureAttribute, DaSubscriptionAppRole, DaSubscriptionAppUser, DaSubscriptionFeatureRole, DaSubscriptionFeatureRoleAction, DaSubscriptionFeatureUser, DaSubscriptionFeatureUserAction, DaBillingCycle, DaBillingCycleAttribute, DaBillingCycleFeatureUsage, DaCurrencyManager, DaCurrency, DaCountryManager, DaCountry, DaCountryRegion, DaCountryDateFormat, DaCountrySystemLanguage, DaCountryTimeZone, DaDateFormatManager, DaDateFormat, DaTimeZoneManager, DaTimeZone, DaSystemLanguageManager, DaSystemLanguage>
     {        
         public DaRegistrationFacade(UserManager<DaUser> userManager, DaUserProfileManager userProfileManager, DaOrganizationProfileManager organizationProfileManager,  DaTenantManager tenantManager, DaAddressProfileManager addressProfileManager,  DaAppManager appManager, DaFeatureManager featureManager, DaUserAgreementManager userAgreementManager, DaSubscriptionPlanManager subscriptionPlanManager, DaSubscriptionManager subscriptionManager, DaCurrencyManager currencyManager, DaCountryManager countryManager, DaDateFormatManager dateformatManager, DaTimeZoneManager timeZoneManager, DaSystemLanguageManager systemLanguageManager)
             : base(new DaIntegerKeyConverter(), userManager, userProfileManager, organizationProfileManager, tenantManager, addressProfileManager, appManager, featureManager, userAgreementManager, subscriptionPlanManager, subscriptionManager, currencyManager, countryManager, dateformatManager, timeZoneManager, systemLanguageManager)
@@ -45,10 +45,14 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
         }
     }
 
-    public class DaRegistrationFacade<TKey, TNullableKey, TKeyConverter, TRegistrationInfo, TUserManager, TUser, TUserProfileManager, TUserProfile, TUserProfileAttribute, TOrganizationProfileManager, TOrganizationProfile, TOrganizationProfileAttribute, TTenantManager, TTenant, TTenantUser, TTenantAttribute, TAddressProfileManager, TAddressProfile, TUserAddress, TUserAgreementManager, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction, TAppManager, TApp, TAppAttribute, TFeatureManager, TFeature, TAppFeature, TFeatureAction, TSubscriptionPlanManager, TSubscriptionPlan, TSubscriptionPlanAttribute, TBillingCycleOption, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscriptionPlanFeatureAttribute, TSubscriptionManager, TSubscription, TSubscriptionAttribute, TSubscriptionApp, TSubscriptionFeature, TSubscriptionFeatureAttribute, TSubscriptionAppRole, TSubscriptionAppUser, TSubscriptionFeatureRole, TSubscriptionFeatureRoleAction, TSubscriptionFeatureUser, TSubscriptionFeatureUserAction, TBillingCycle, TBillingCycleAttribute, TBillingCycleFeatureUsage, TCurrencyManager, TCurrency, TCountryManager, TCountry, TCountryRegion, TCountryDateFormat, TCountrySystemLanguage, TCountryTimeZone, TDateFormatManager, TDateFormat, TTimeZoneManager, TTimeZone, TSystemLanguageManager, TSystemLanguage>
+    public class DaRegistrationFacade<TKey, TNullableKey, TKeyConverter, TRegistrationInfo, TAddressProfileRegistrationInfo,TOrganizationRegistrationInfo,TTenantRegistrationInfo,TSubscriptionRegistrationInfo, TUserManager, TUser, TUserProfileManager, TUserProfile, TUserProfileAttribute, TOrganizationProfileManager, TOrganizationProfile, TOrganizationProfileAttribute, TTenantManager, TTenant, TTenantUser, TTenantAttribute, TAddressProfileManager, TAddressProfile, TUserAddress, TUserAgreementManager, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction, TAppManager, TApp, TAppAttribute, TFeatureManager, TFeature, TAppFeature, TFeatureAction, TSubscriptionPlanManager, TSubscriptionPlan, TSubscriptionPlanAttribute, TBillingCycleOption, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscriptionPlanFeatureAttribute, TSubscriptionManager, TSubscription, TSubscriptionAttribute, TSubscriptionApp, TSubscriptionFeature, TSubscriptionFeatureAttribute, TSubscriptionAppRole, TSubscriptionAppUser, TSubscriptionFeatureRole, TSubscriptionFeatureRoleAction, TSubscriptionFeatureUser, TSubscriptionFeatureUserAction, TBillingCycle, TBillingCycleAttribute, TBillingCycleFeatureUsage, TCurrencyManager, TCurrency, TCountryManager, TCountry, TCountryRegion, TCountryDateFormat, TCountrySystemLanguage, TCountryTimeZone, TDateFormatManager, TDateFormat, TTimeZoneManager, TTimeZone, TSystemLanguageManager, TSystemLanguage>
         where TKey : IEquatable<TKey>
         where TKeyConverter : IDaEntityKeyConverter<TKey, TNullableKey>
-        where TRegistrationInfo : IDaRegistrationInfo<TKey, TNullableKey>
+        where TRegistrationInfo : DaRegistrationInfo<TKey, TNullableKey, TAddressProfileRegistrationInfo, TOrganizationRegistrationInfo, TTenantRegistrationInfo, TSubscriptionRegistrationInfo>
+        where TAddressProfileRegistrationInfo : IDaAddressRegistrationInfo<TKey>
+        where TTenantRegistrationInfo : IDaTenantRegistrationInfo
+        where TOrganizationRegistrationInfo : IDaOrganizationRegistrationInfo
+        where TSubscriptionRegistrationInfo : IDaSubscriptionRegistrationInfo<TKey, TNullableKey>
         where TUserManager : UserManager<TUser>
         where TUser : DaUser<TKey, TNullableKey>, new()
         where TUserProfile : DaUserProfile<TKey, TUserProfileAttribute>, new()
@@ -228,19 +232,19 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
             private set;
         }
 
-        public DaRegistrationResult<TKey> Register(TRegistrationInfo registrationInfo, string password)
+        public DaRegistrationResult<TKey, TNullableKey, TKeyConverter> Register(TRegistrationInfo registrationInfo, string password)
         {
-            return DaAsyncHelper.RunSync<DaRegistrationResult<TKey>>(() => RegisterAsync(registrationInfo, password));
+            return DaAsyncHelper.RunSync<DaRegistrationResult<TKey, TNullableKey, TKeyConverter>>(() => RegisterAsync(registrationInfo, password));
         }
 
-        public virtual async Task<DaRegistrationResult<TKey>> RegisterAsync(TRegistrationInfo registrationInfo, string password)
+        public virtual async Task<DaRegistrationResult<TKey, TNullableKey, TKeyConverter>> RegisterAsync(TRegistrationInfo registrationInfo, string password)
         {
             if(registrationInfo == null)
             {
                 throw new ArgumentNullException(nameof(registrationInfo));
             }
 
-            var subscriptionPlan = await SubscriptionPlanManager.FindByIdAsync(registrationInfo.SubscriptionPlanId);
+            var subscriptionPlan = await SubscriptionPlanManager.FindByIdAsync(registrationInfo.Subscription.SubscriptionPlanId);
 
             if (subscriptionPlan == null)
             {
@@ -249,33 +253,53 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
 
             if (string.IsNullOrEmpty(registrationInfo.UserName))
             {
-                return new DaRegistrationResult<TKey>(DaRegistrationStatus.InvalidUserName, null);
+                return new DaRegistrationResult<TKey, TNullableKey, TKeyConverter>(new DaRegistrationError()
+                {
+                    Code = DaRegistrationError.INVALID_USER_NAME,
+                    Description = "Username is invalid."
+                });
             }
 
             if (string.IsNullOrEmpty(registrationInfo.Email))
             {
-                return new DaRegistrationResult<TKey>(DaRegistrationStatus.InvalidEmail, null);
+                return new DaRegistrationResult<TKey, TNullableKey, TKeyConverter>(new DaRegistrationError()
+                {
+                    Code = DaRegistrationError.INVALID_EMAIL,
+                    Description = "Email is invalid."
+                });
             }
 
             var user = await UserManager.FindByNameAsync(registrationInfo.UserName);
 
             if(user != null)
             {
-                return new DaRegistrationResult<TKey>(DaRegistrationStatus.DuplicateUserName, null);
+                return new DaRegistrationResult<TKey, TNullableKey, TKeyConverter>(new DaRegistrationError()
+                {
+                    Code = DaRegistrationError.DUPLICATE_USER_NAME,
+                    Description = "Another account with the same username already exists."
+                });
             }
 
             user = await UserManager.FindByEmailAsync(registrationInfo.Email);
 
             if (user != null)
             {
-                return new DaRegistrationResult<TKey>(DaRegistrationStatus.DuplicateEmail, null);
+                return new DaRegistrationResult<TKey, TNullableKey, TKeyConverter>(new DaRegistrationError()
+                {
+                    Code = DaRegistrationError.DUPLICATE_EMAIL,
+                    Description = "Another account with the same email address already exists."
+                });
             }
 
-            TCountry country = await CountryManager.FindByIdAsync(registrationInfo.CountryId);
+            TCountry country = await CountryManager.FindByIdAsync(registrationInfo.Address.CountryId);
 
             if(country == null)
             {
-                return new DaRegistrationResult<TKey>(DaRegistrationStatus.InvalidCountry, null);
+                return new DaRegistrationResult<TKey, TNullableKey, TKeyConverter>(new DaRegistrationError()
+                {
+                    Code = DaRegistrationError.INVALID_COUNTRY,
+                    Description = "Country ID / name is invalid"
+                }); ;
             }
 
             user = new TUser
@@ -289,9 +313,24 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
 
             var result = await UserManager.CreateAsync(user, password);
             
+            List<DaRegistrationError> errors = null;
+            
+            if(result.Errors != null)
+            {
+                errors = new List<DaRegistrationError>();
+                foreach (var error in errors)
+                {
+                    errors.Add(new DaRegistrationError()
+                    {
+                        Code = error.Code,
+                        Description = error.Description
+                    });
+                }
+            }
+
             if(!result.Succeeded)
             {
-                return new DaRegistrationResult<TKey>(DaRegistrationStatus.UnknownError, result.Errors);
+                return new DaRegistrationResult<TKey, TNullableKey, TKeyConverter>(errors);
             }
 
             var userProfile = new TUserProfile()
@@ -339,13 +378,13 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
                 LastUpdatedDateUtc = DateTime.UtcNow
             };
         
-            if (registrationInfo.TenantType == DaTenantType.Individual)
+            if (registrationInfo.Tenant.TenantType == DaTenantType.Individual)
             {
                 tenant.Name = user.UserName;
             }
-            else if (registrationInfo.TenantType == DaTenantType.Organization)
+            else if (registrationInfo.Tenant.TenantType == DaTenantType.Organization)
             {
-                var name = registrationInfo.OrganizationName;
+                var name = registrationInfo.Organization.OrganizationName;
                 name = Regex.Replace(name, @"[^\w]", "");
 
                 name = name.Trim().ToLower() + "-" + DaRandomNumberUtil.GenerateInt().ToString();
@@ -364,12 +403,12 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
 
             await TenantManager.CreateAsync(tenant);
 
-            if (registrationInfo.TenantType == DaTenantType.Organization)
+            if (registrationInfo.Tenant.TenantType == DaTenantType.Organization)
             {
                 var organizationProfile = new TOrganizationProfile()
                 {
-                    OrganizationName = registrationInfo.OrganizationName,
-                    OrganizationType = registrationInfo.OrganizationType,
+                    OrganizationName = registrationInfo.Organization.OrganizationName,
+                    OrganizationType = registrationInfo.Organization.OrganizationType,
                     TenantId = KeyConverter.ToNullableKey(tenant.Id),
                     CreatedBy = user.Id,
                     CreatedDateUtc = DateTime.UtcNow,
@@ -377,14 +416,14 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
                     LastUpdatedDateUtc = DateTime.UtcNow
                 };
 
-                if (registrationInfo.OrganizationProfileAttributes != null && registrationInfo.OrganizationProfileAttributes.Count > 0)
+                if (registrationInfo.Organization.OrganizationProfileAttributes != null && registrationInfo.Organization.OrganizationProfileAttributes.Count > 0)
                 {
-                    foreach (var key in registrationInfo.OrganizationProfileAttributes.Keys)
+                    foreach (var key in registrationInfo.Organization.OrganizationProfileAttributes.Keys)
                     {
                         var attribute = new TOrganizationProfileAttribute()
                         {
                             AttributeName = key,
-                            AttributeValue = registrationInfo.OrganizationProfileAttributes[key],
+                            AttributeValue = registrationInfo.Organization.OrganizationProfileAttributes[key],
                             OrganizationProfile = organizationProfile,
                             OrganizationProfileId = organizationProfile.Id
                         };
@@ -398,16 +437,16 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
 
             var addressProfile = new TAddressProfile()
             {
-                Address1 = registrationInfo.Address1,
-                Address2 = registrationInfo.Address2,
-                PhoneNumber = registrationInfo.PhoneNumber,
-                ZipCode = registrationInfo.ZipCode,
-                Extension = registrationInfo.Extension,
-                State = registrationInfo.State,
-                FaxNumber = registrationInfo.FaxNumber,
-                AreaCode = registrationInfo.AreaCode,
-                City = registrationInfo.City,
-                CountryId = registrationInfo.CountryId,
+                Address1 = registrationInfo.Address.Address1,
+                Address2 = registrationInfo.Address.Address2,
+                PhoneNumber = registrationInfo.Address.PhoneNumber,
+                ZipCode = registrationInfo.Address.ZipCode,
+                Extension = registrationInfo.Address.Extension,
+                State = registrationInfo.Address.State,
+                FaxNumber = registrationInfo.Address.FaxNumber,
+                AreaCode = registrationInfo.Address.AreaCode,
+                City = registrationInfo.Address.City,
+                CountryId = registrationInfo.Address.CountryId,
                 OwnerUserId = user.Id,
                 CreatedBy = user.Id,
                 CreatedDateUtc = DateTime.UtcNow,
@@ -440,7 +479,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
                 OwnerUserId = user.Id,
                 SubscriptionPlanId = subscriptionPlan.Id,
                 ExpiryDateUtc = DateTime.UtcNow.AddDays(30),
-                CountryId = registrationInfo.CountryId,
+                CountryId = registrationInfo.Address.CountryId,
                 TenantId = tenant.Id,
                 IsAutoRenewUntilCanceled = subscriptionPlan.IsAutoRenewUntilCanceled,
                 UserAgreementVersionId = default(TNullableKey),
@@ -460,7 +499,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
 
             DateTime subscriptionDate = DateTime.UtcNow;
 
-            if ((subscriptionPlan.AllowTrial && subscriptionPlan.StartOnlyWithTrial) || (subscriptionPlan.AllowTrial && registrationInfo.StartWithTrial))
+            if ((subscriptionPlan.AllowTrial && subscriptionPlan.StartOnlyWithTrial) || (subscriptionPlan.AllowTrial && registrationInfo.Subscription.StartWithTrial))
             {
                 subscriptionDate.AddDays((double)subscriptionPlan.TrialDays);
                 subscription.StartDateUtc = DateTime.UtcNow.AddDays((double)subscriptionPlan.TrialDays);
@@ -478,9 +517,9 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
 
             TBillingCycleOption billingCycleOption = null;
             
-            if(registrationInfo.BillingCycleOptionId != null)
+            if(registrationInfo.Subscription.BillingCycleOptionId != null)
             {
-                billingCycleOption = subscriptionPlan.BillingCycleOptions.Where(m => m.Id.Equals(registrationInfo.BillingCycleOptionId)).SingleOrDefault();
+                billingCycleOption = subscriptionPlan.BillingCycleOptions.Where(m => m.Id.Equals(registrationInfo.Subscription.BillingCycleOptionId)).SingleOrDefault();
             }
             else
             {
@@ -627,14 +666,14 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
                 }
             }
 
-            if (registrationInfo.SubscriptionAttributes != null && registrationInfo.SubscriptionAttributes.Count > 0)
+            if (registrationInfo.Subscription.SubscriptionAttributes != null && registrationInfo.Subscription.SubscriptionAttributes.Count > 0)
             {
-                foreach (var key in registrationInfo.SubscriptionAttributes.Keys)
+                foreach (var key in registrationInfo.Subscription.SubscriptionAttributes.Keys)
                 {
                     var attribute = new TSubscriptionAttribute()
                     {
                         AttributeName = key,
-                        AttributeValue = registrationInfo.SubscriptionAttributes[key],
+                        AttributeValue = registrationInfo.Subscription.SubscriptionAttributes[key],
                         Subscription = subscription
                     };
 
@@ -643,320 +682,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
             }
 
             await SubscriptionManager.CreateAsync(subscription);
-            return new DaRegistrationResult<TKey>(subscription.Id);
-        }
-
-        public virtual DaRegistrationCreationResult<TKey> Register(TKey subscriptionPlanId, TKey tenantId, TKey userId, TKey billingCycleOptionId, bool startWithTrial, Dictionary<string, string> subscriptionAttributes, bool deactivateAndExpireExistingSubscriptions = true)
-        {
-            return DaAsyncHelper.RunSync<DaRegistrationCreationResult<TKey>>(() => RegisterAsync(subscriptionPlanId, tenantId, userId, billingCycleOptionId, startWithTrial, subscriptionAttributes, deactivateAndExpireExistingSubscriptions));
-        }
-
-        public virtual async Task<DaRegistrationCreationResult<TKey>> RegisterAsync(TKey subscriptionPlanId, TKey tenantId, TKey userId, TKey billingCycleOptionId, bool startWithTrial, Dictionary<string, string> subscriptionAttributes, bool deactivateAndExpireExistingSubscriptions = true)
-        {
-            var subscriptionPlan = await SubscriptionPlanManager.FindByIdAsync(subscriptionPlanId);
-
-            if (subscriptionPlan == null)
-            {
-                throw new ArgumentException("Invalid subscription plan ID.");
-            }
-
-            var user = await UserManager.FindByIdAsync(userId.ToString());
-
-            if(user == null)
-            {
-                throw new ArgumentException("Invalid user ID.");
-            }
-
-            if(user.Status != DaAccountStatus.Active)
-            {
-                throw new InvalidOperationException("User must be active before a subscription can be created.");
-            }
-
-            var tenant = await TenantManager.FindByIdAsync(tenantId);
-
-            if(tenant == null)
-            {
-                throw new ArgumentException("Invalid tenant ID.");
-            }
-
-            if(tenant.Status == DaTenantStatus.Active)
-            {
-                throw new InvalidOperationException("Tenant must be active before a subscription can be created.");
-            }
-
-            var tenantUser = tenant.TenantUsers.Where(m => m.UserId.Equals(user.Id)).FirstOrDefault();
-
-            if(tenantUser == null)
-            {
-                throw new InvalidOperationException("The user and tenant are not associated.");
-            }
-
-            if(!tenantUser.IsActive)
-            {
-                throw new InvalidOperationException("The user's tenant association is not active.");
-            }
-
-            var existingSubscriptions = await SubscriptionManager.FindByTenantIdAsync(tenant.Id);
-
-            if(existingSubscriptions != null)
-            {
-                foreach(var existingSubscription in existingSubscriptions)
-                {
-                    if(existingSubscription.ExpiryDateUtc > DateTime.UtcNow)
-                    {
-                        existingSubscription.ExpiryDateUtc = DateTime.UtcNow;
-                        existingSubscription.IsActive = false;
-                        existingSubscription.LastUpdatedDateUtc = DateTime.UtcNow;
-                        await SubscriptionManager.UpdateAsync(existingSubscription);
-                    }
-                }
-            }
-
-            var subscription = new TSubscription
-            {
-                Name = subscriptionPlan.Name,
-                IsCurrentlyInTrial = false,
-                OwnerUserId = user.Id,
-                SubscriptionPlanId = subscriptionPlan.Id,
-                ExpiryDateUtc = DateTime.UtcNow.AddDays(30),
-                CountryId = default(TKey),
-                TenantId = tenant.Id,
-                IsAutoRenewUntilCanceled = subscriptionPlan.IsAutoRenewUntilCanceled,
-                UserAgreementVersionId = default(TNullableKey),
-                CurrencyId = default(TKey),
-                CreatedDateUtc = DateTime.UtcNow,
-                LastTransactionId = default(TNullableKey),
-                LastUpdatedDateUtc = DateTime.UtcNow,
-                BillingAmount = 0,
-                IsFree = subscriptionPlan.IsFree,
-                Level = subscriptionPlan.Level,
-                BillingInterval = DaBillingInterval.Monthly,
-                StartDateUtc = DateTime.UtcNow,
-                TrialStartDateUtc = null,
-                LastUpdatedBy = user.Id,
-                CreatedBy = user.Id
-            };
-
-            DateTime subscriptionDate = DateTime.UtcNow;
-
-            if ((subscriptionPlan.AllowTrial && subscriptionPlan.StartOnlyWithTrial) || (subscriptionPlan.AllowTrial && startWithTrial))
-            {
-                subscriptionDate.AddDays((double)subscriptionPlan.TrialDays);
-                subscription.StartDateUtc = DateTime.UtcNow.AddDays((double)subscriptionPlan.TrialDays);
-                subscription.TrialStartDateUtc = DateTime.UtcNow;
-            }
-
-            if (subscriptionPlan.ValidityInMonths == null)
-            {
-                subscription.ExpiryDateUtc = null;
-            }
-            else
-            {
-                subscription.ExpiryDateUtc = subscription.StartDateUtc.AddMonths((int)subscriptionPlan.ValidityInMonths);
-            }
-
-            TBillingCycleOption billingCycleOption = null;
-            billingCycleOption = subscriptionPlan.BillingCycleOptions.Where(m => m.Id.Equals(billingCycleOptionId)).SingleOrDefault();
-
-            if (billingCycleOption != null)
-            {
-                var billingCycle = new TBillingCycle()
-                {
-                    Amount = billingCycleOption.Amount,
-                    FromDateUtc = subscription.StartDateUtc,
-                    CurrencyId = default(TNullableKey),
-                    IsPaid = false,
-                    Subscription = subscription,
-                    InvoiceId = default(TNullableKey),
-                    TransactionId = default(TNullableKey),
-                    CreatedBy = user.Id,
-                    CreatedDateUtc = DateTime.UtcNow,
-                    LastUpdatedBy = user.Id,
-                    LastUpdatedDateUtc = DateTime.UtcNow
-                };
-
-                subscription.BillingAmount = billingCycleOption.Amount;
-                subscription.BillingInterval = billingCycleOption.BillingInterval;
-
-                if (billingCycleOption.BillingInterval == DaBillingInterval.Monthly)
-                {
-                    billingCycle.ToDateUtc = billingCycle.FromDateUtc.AddMonths(1);
-                }
-                else if (billingCycleOption.BillingInterval == DaBillingInterval.Yearly)
-                {
-                    billingCycle.ToDateUtc = billingCycle.FromDateUtc.AddYears(1);
-                }
-                else if (billingCycleOption.BillingInterval == DaBillingInterval.Weekly)
-                {
-                    billingCycle.ToDateUtc = billingCycle.FromDateUtc.AddDays(7);
-                }
-                else if (billingCycleOption.BillingInterval == DaBillingInterval.Quarterly)
-                {
-                    billingCycle.ToDateUtc = billingCycle.FromDateUtc.AddMonths(3);
-                }
-
-                subscription.BillingCycles.Add(billingCycle);
-            }
-
-            if (subscriptionPlan.SubscriptionPlanApps != null && subscriptionPlan.SubscriptionPlanApps.Count > 0)
-            {
-                subscription.SubscriptionApps = new List<TSubscriptionApp>();
-
-                foreach (var subscriptionPlanApp in subscriptionPlan.SubscriptionPlanApps)
-                {
-                    var subscriptionApp = new TSubscriptionApp();
-                    subscriptionApp.AppId = subscriptionPlanApp.AppId;
-                    subscriptionApp.Subscription = subscription;
-
-                    subscription.SubscriptionApps.Add(subscriptionApp);
-                }
-            }
-
-            if (subscriptionPlan.SubscriptionPlanFeatures != null && subscriptionPlan.SubscriptionPlanFeatures.Count > 0)
-            {
-                subscription.SubscriptionFeatures = new List<TSubscriptionFeature>();
-
-                foreach (var subscriptionPlanFeature in subscriptionPlan.SubscriptionPlanFeatures)
-                {
-                    var subscriptionFeature = new TSubscriptionFeature();
-                    subscriptionFeature.FeatureId = subscriptionPlanFeature.FeatureId;
-                    subscriptionFeature.Subscription = subscription;
-                    subscriptionFeature.IsActive = true;
-
-                    if (subscriptionPlanFeature.SubscriptionPlanFeatureAttributes != null && subscriptionPlanFeature.SubscriptionPlanFeatureAttributes.Count > 0)
-                    {
-                        subscriptionFeature.SubscriptionFeatureAttributes = new List<TSubscriptionFeatureAttribute>();
-
-                        foreach (var subscriptionPlanFeatureAttribute in subscriptionPlanFeature.SubscriptionPlanFeatureAttributes)
-                        {
-                            var subscriptionFeatureAttribute = new TSubscriptionFeatureAttribute();
-
-                            subscriptionFeatureAttribute.AttributeName = subscriptionPlanFeatureAttribute.AttributeName;
-                            subscriptionFeatureAttribute.AttributeValue = subscriptionPlanFeatureAttribute.AttributeValue;
-                            subscriptionFeatureAttribute.SubscriptionFeature = subscriptionFeature;
-
-                            subscriptionFeature.SubscriptionFeatureAttributes.Add(subscriptionFeatureAttribute);
-                        }
-                    }
-                    subscription.SubscriptionFeatures.Add(subscriptionFeature);
-                }
-            }
-
-            if (subscriptionPlan.Attributes != null && subscriptionPlan.Attributes.Count > 0)
-            {
-                TBillingCycle billingCycle = null;
-
-                if (subscription.BillingCycles != null)
-                {
-                    billingCycle = subscription.BillingCycles.SingleOrDefault();
-                    billingCycle.Attributes = new List<TBillingCycleAttribute>();
-                }
-
-                subscription.Attributes = new List<TSubscriptionAttribute>();
-
-                foreach (var subscriptionPlanAttribute in subscriptionPlan.Attributes)
-                {
-                    if (subscriptionPlanAttribute.Target == DaSubscriptionPlanAttributeTarget.CopyToSubscription || subscriptionPlanAttribute.Target == DaSubscriptionPlanAttributeTarget.CopyToSubscriptionAndBillingCycle)
-                    {
-                        var attribute = new TSubscriptionAttribute();
-                        attribute.AttributeName = subscriptionPlanAttribute.AttributeName;
-                        attribute.AttributeValue = subscriptionPlanAttribute.AttributeValue;
-                        attribute.Subscription = subscription;
-
-                        subscription.Attributes.Add(attribute);
-                    }
-                    if (billingCycle != null)
-                    {
-                        if (subscriptionPlanAttribute.Target == DaSubscriptionPlanAttributeTarget.CopyToBillingCycle || subscriptionPlanAttribute.Target == DaSubscriptionPlanAttributeTarget.CopyToSubscriptionAndBillingCycle)
-                        {
-                            var bcAttribute = new TBillingCycleAttribute();
-                            bcAttribute.AttributeName = subscriptionPlanAttribute.AttributeName;
-                            bcAttribute.AttributeValue = subscriptionPlanAttribute.AttributeValue;
-                            bcAttribute.BillingCycle = billingCycle;
-
-                            billingCycle.Attributes.Add(bcAttribute);
-                        }
-                    }
-                }
-            }
-
-            if (subscriptionAttributes != null && subscriptionAttributes.Count > 0)
-            {
-                foreach (var key in subscriptionAttributes.Keys)
-                {
-                    var attribute = new TSubscriptionAttribute()
-                    {
-                        AttributeName = key,
-                        AttributeValue = subscriptionAttributes[key],
-                        Subscription = subscription,
-                    };
-
-                    subscription.Attributes.Add(attribute);
-                }
-            }
-
-            await SubscriptionManager.CreateAsync(subscription);
-            return new DaRegistrationCreationResult<TKey>(subscription.Id);
-        }
-
-
-        public virtual void UpdatePaymentInfo(TKey subscriptionId, TNullableKey transactionId, TNullableKey paymentMethodId)
-        {
-            DaAsyncHelper.RunSync(() => UpdatePaymentInfoAsync(subscriptionId, transactionId, paymentMethodId));
-        }
-
-        public virtual async Task UpdatePaymentInfoAsync(TKey subscriptionId, TNullableKey transactionId, TNullableKey paymentMethodId)
-        {
-            var subscription = await SubscriptionManager.FindByIdAsync(subscriptionId);
-
-            if (subscription == null)
-            {
-                throw new InvalidOperationException($"{subscriptionId} subscription doesn't exist.");
-            }
-
-            subscription.LastTransactionId = transactionId;
-            subscription.LastPaymentMethodId = paymentMethodId;
-
-            subscription.LastUpdatedDateUtc = DateTime.UtcNow;
-            await SubscriptionManager.UpdateAsync(subscription);
-        }
-
-        public virtual void Activate(TKey subscriptionId)
-        {
-            DaAsyncHelper.RunSync(() => ActivateAsync(subscriptionId));
-        }
-
-        public virtual async Task ActivateAsync(TKey subscriptionId)
-        {
-            var subscription = await SubscriptionManager.FindByIdAsync(subscriptionId);
-
-            if(subscription == null)
-            {
-                throw new InvalidOperationException($"{subscriptionId} subscription doesn't exist.");
-            }
-
-            subscription.IsActive = true;
-            subscription.LastUpdatedDateUtc = DateTime.UtcNow;
-            await SubscriptionManager.UpdateAsync(subscription);
-        }
-
-        public virtual void DeActivate(TKey subscriptionId)
-        {
-            DaAsyncHelper.RunSync(() => DeActivateAsync(subscriptionId));
-        }
-
-        public virtual async Task DeActivateAsync(TKey subscriptionId)
-        {
-            var subscription = await SubscriptionManager.FindByIdAsync(subscriptionId);
-
-            if (subscription == null)
-            {
-                throw new InvalidOperationException($"{subscriptionId} subscription doesn't exist.");
-            }
-
-            subscription.IsActive = false;
-            subscription.LastUpdatedDateUtc = DateTime.UtcNow;
-            await SubscriptionManager.UpdateAsync(subscription);
+            return new DaRegistrationResult<TKey, TNullableKey, TKeyConverter>(KeyConverter, user.Id, userProfile.Id, tenant.Id, subscription.Id);
         }
     }
 }
