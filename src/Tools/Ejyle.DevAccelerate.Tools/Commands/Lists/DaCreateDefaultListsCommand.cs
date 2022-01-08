@@ -185,6 +185,8 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Lists
                     }
                 }
             }
+
+            Console.Write("Default set of lists created.");
         }
 
         private IEnumerable<DaCountry> GetCountries()
