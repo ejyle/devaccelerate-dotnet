@@ -10,9 +10,9 @@ using System.Collections.Generic;
 using Ejyle.DevAccelerate.EnterpriseSecurity.Tenants;
 using Ejyle.DevAccelerate.Profiles.Organizations;
 
-namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
+namespace Ejyle.DevAccelerate.Facades.Security.Registration
 {
-    public interface IDaSubscriptionInfo<TKey, TNullableKey>
+    public interface IDaRegistrationInfo<TKey, TNullableKey>
         where TKey : IEquatable<TKey>
     {
         string UserName { get; set; }

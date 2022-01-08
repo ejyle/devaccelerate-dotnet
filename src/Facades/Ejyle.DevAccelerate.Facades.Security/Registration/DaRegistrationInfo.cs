@@ -10,15 +10,15 @@ using System.Collections.Generic;
 using Ejyle.DevAccelerate.EnterpriseSecurity.Tenants;
 using Ejyle.DevAccelerate.Profiles.Organizations;
 
-namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
+namespace Ejyle.DevAccelerate.Facades.Security.Registration
 {
-    public class DaSubscriptionInfo : DaSubscriptionInfo<int, int?>
+    public class DaRegistrationInfo : DaRegistrationInfo<int, int?>
     { }
 
-    public class DaSubscriptionInfo<TKey, TNullableKey> : IDaSubscriptionInfo<TKey, TNullableKey>
+    public class DaRegistrationInfo<TKey, TNullableKey> : IDaRegistrationInfo<TKey, TNullableKey>
         where TKey : IEquatable<TKey>
     {
-        public DaSubscriptionInfo()
+        public DaRegistrationInfo()
         {
             SubscriptionAttributes = new Dictionary<string, string>();
             UserProfileAttributes = new Dictionary<string, string>();

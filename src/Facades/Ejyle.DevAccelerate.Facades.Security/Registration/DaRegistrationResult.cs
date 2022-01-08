@@ -1,8 +1,15 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿// ----------------------------------------------------------------------------------------------------------------------
+// Author: Tanveer Yousuf (@tanveery)
+// ----------------------------------------------------------------------------------------------------------------------
+// Copyright © Ejyle Technologies (P) Ltd. All rights reserved.
+// Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
+// ----------------------------------------------------------------------------------------------------------------------
+
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 
-namespace Ejyle.DevAccelerate.Facades.Security.Subscriptions
+namespace Ejyle.DevAccelerate.Facades.Security.Registration
 {
     public class DaRegistrationResult<TKey>
         where TKey : IEquatable<TKey>
