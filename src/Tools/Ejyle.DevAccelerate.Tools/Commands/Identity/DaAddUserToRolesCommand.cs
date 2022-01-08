@@ -17,8 +17,8 @@ using Microsoft.Extensions.Logging;
 
 namespace Ejyle.DevAccelerate.Tools.Commands.Identity
 {
-    [Verb("addusertorole", HelpText = "Add DevAccelerate user to a role.")]
-    public class DaAddUserToRoleCommand : DaDatabaseCommand
+    [Verb("addusertoroles", HelpText = "Adds a DevAccelerate user to one or more roles.")]
+    public class DaAddUserToRolesCommand : DaDatabaseCommand
     {
         [Option('u', "username", Required = true, HelpText = "Username of the user.")]
         public string Username
@@ -27,7 +27,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Identity
             set;
         }
 
-        [Option('r', "role", Required = true, HelpText = "Name of the role.")]
+        [Option('r', "role", Required = true, HelpText = "Comma-separated list of roles")]
         public string Role
         {
             get;
@@ -38,17 +38,25 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Identity
         {
             EnsureConnectionIsValid();
 
-            var services = new DaIdentityServiceConfiguration().CreateAndConfigureIdentity(ConnectionString);
+            var services = new DaIdentityServiceConfiguration().CreateAndConfigureIdentity(GetConnectionString());
             services.AddScoped<IDaRoleService, DaRoleService>();
             
             var provider = services.BuildServiceProvider();
 
-            var userService = provider.GetService<IDaRoleService>();   
-            var result = userService.AddToRole(Username, Role);
+            var userService = provider.GetService<IDaRoleService>();
+
+            string[] roles = Role.Split(",");
+
+            for(int i = 0; i < roles.Length; i++)
+            {
+                roles[i] = roles[i].Trim();
+            }
+
+            var result = userService.AddToRoles(Username, roles);
 
             if (result.Succeeded)
             {
-                Console.WriteLine($"User {Username} added to the {Role} role.");
+                Console.WriteLine($"User {Username} added to the roles.");
             }
             else
             {
@@ -68,7 +76,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Identity
 
         private interface IDaRoleService
         {
-            IdentityResult AddToRole(string userName, string role);
+            IdentityResult AddToRoles(string userName, string[] roles);
         }
 
         private class DaRoleService : IDaRoleService
@@ -80,7 +88,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Identity
                 this.userManager = userManager;
             }
 
-            public IdentityResult AddToRole(string userName, string role)
+            public IdentityResult AddToRoles(string userName, string[] roles)
             {
                 var user = DaAsyncHelper.RunSync<DaUser>(() => this.userManager.FindByNameAsync(userName));
 
@@ -89,7 +97,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Identity
                     throw new Exception($"Username {userName} doesn't exist.");
                 }
 
-                return DaAsyncHelper.RunSync<IdentityResult>(() => this.userManager.AddToRoleAsync(user, role));
+                return DaAsyncHelper.RunSync<IdentityResult>(() => this.userManager.AddToRolesAsync(user, roles));
             }
         }
     }

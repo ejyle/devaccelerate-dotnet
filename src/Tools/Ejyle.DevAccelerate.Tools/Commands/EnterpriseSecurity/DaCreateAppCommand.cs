@@ -41,7 +41,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.EnterpriseSecurity
         {
             EnsureConnectionIsValid();
 
-            using (var context = new DaEnterpriseSecurityDbContext(ConnectionString))
+            using (var context = new DaEnterpriseSecurityDbContext(GetConnectionString()))
             {
                 var appManager = new DaAppManager(new DaAppRepository(context));
                 var app = new DaApp()

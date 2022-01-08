@@ -32,7 +32,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands
 
         public override void Execute()
         {
-            using (var listsDbContext = new DaListsDbContext(ConnectionString))
+            using (var listsDbContext = new DaListsDbContext(GetConnectionString()))
             {
                 try
                 {
@@ -48,7 +48,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands
 
             EnsureConnectionIsValid();
 
-            using (var identityDbContext = new DaIdentityDbContext(ConnectionString))
+            using (var identityDbContext = new DaIdentityDbContext(GetConnectionString()))
             {
                 try
                 {
@@ -62,7 +62,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands
                 }
             }
 
-            using (var enterpriseSecurityDbContext = new DaEnterpriseSecurityDbContext(ConnectionString))
+            using (var enterpriseSecurityDbContext = new DaEnterpriseSecurityDbContext(GetConnectionString()))
             {
                 try
                 {
@@ -76,7 +76,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands
                 }
             }
 
-            using (var profilesDbContext = new DaProfilesDbContext(ConnectionString))
+            using (var profilesDbContext = new DaProfilesDbContext(GetConnectionString()))
             {
                 try
                 {

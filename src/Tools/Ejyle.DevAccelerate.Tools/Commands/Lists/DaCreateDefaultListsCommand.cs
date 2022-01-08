@@ -23,7 +23,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Lists
         {
             EnsureConnectionIsValid();
 
-            using (var context = new DaListsDbContext(ConnectionString))
+            using (var context = new DaListsDbContext(GetConnectionString()))
             {
                 var currenciesManager = new DaCurrencyManager(new DaCurrencyRepository(context));
                 var currencies = currenciesManager.FindAll();

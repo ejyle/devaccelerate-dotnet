@@ -34,7 +34,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Identity
         {
             EnsureConnectionIsValid();
 
-            var services = new DaIdentityServiceConfiguration().CreateAndConfigureIdentity(ConnectionString);
+            var services = new DaIdentityServiceConfiguration().CreateAndConfigureIdentity(GetConnectionString());
             services.AddScoped<IDaRoleService, RoleCreationService>();
 
             var provider = services.BuildServiceProvider();

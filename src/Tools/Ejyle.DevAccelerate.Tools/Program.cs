@@ -20,13 +20,15 @@ namespace Ejyle.DevAccelerate.Tools
         {
             try
             {
-                Parser.Default.ParseArguments<DaCreateDatabaseCommand,
+                Parser.Default.ParseArguments<
+                    DaSetConnectionCommand,
+                    DaCreateDatabaseCommand,
                     DaCreateAppCommand,
                     DaCreateAppFeatureCommand,
                     DaCreateDefaultListsCommand,
                     DaCreateUserCommand,
                     DaCreateRoleCommand,
-                    DaAddUserToRoleCommand>(args)
+                    DaAddUserToRolesCommand>(args)
                 .WithParsed<IDaCommand>(t => t.Execute());
             }
             catch (Exception ex)

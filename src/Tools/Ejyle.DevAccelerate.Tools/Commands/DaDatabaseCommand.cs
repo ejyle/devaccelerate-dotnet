@@ -11,13 +11,29 @@ namespace Ejyle.DevAccelerate.Tools.Commands
     public abstract class DaDatabaseCommand : IDaCommand
     {
         [Option('c', "connectionstring", Required = false, HelpText = "Connection string of the DevAccelerate database")]
-        public string ConnectionString { get; set; } = @"Data Source=(localdb)\mssqllocaldb; Initial Catalog=DevAccelerate; Integrated Security=True;";
+        public string ConnectionString { get; set; } 
+        protected string GetConnectionString()
+        {
+            if(!string.IsNullOrEmpty(ConnectionString))
+            {
+                return ConnectionString;
+            }
+
+            var conn = Environment.GetEnvironmentVariable("DEVACCELERATE_DB_CONN", EnvironmentVariableTarget.User);
+
+            if(!string.IsNullOrEmpty(conn))
+            {
+                return conn;
+            }
+
+            return @"Data Source=(localdb)\mssqllocaldb; Initial Catalog=DevAccelerate; Integrated Security=True;";
+        }
 
         protected void EnsureConnectionIsValid()
         {
             try
             {
-                using (var conn = new SqlConnection(ConnectionString))
+                using (var conn = new SqlConnection(GetConnectionString()))
                 {
                     conn.Open();
                 }

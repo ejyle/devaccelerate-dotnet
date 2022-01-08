@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Microsoft.Extensions.Logging;
+using Ejyle.DevAccelerate.Identity;
 
 namespace Ejyle.DevAccelerate.Tools.Commands.Identity
 {
@@ -45,7 +46,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Identity
         {
             EnsureConnectionIsValid();
 
-            var services = new DaIdentityServiceConfiguration().CreateAndConfigureIdentity(ConnectionString);
+            var services = new DaIdentityServiceConfiguration().CreateAndConfigureIdentity(GetConnectionString());
             services.AddScoped<IDaUserService, UserCreationService>();
             
             var provider = services.BuildServiceProvider();
@@ -103,7 +104,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Identity
                     throw new Exception($"Email address {email} already exists.");
                 }
 
-                user = new DaUser { UserName = userName, Email = email };
+                user = new DaUser { UserName = userName, Email = email, EmailConfirmed = true, Status = DaAccountStatus.Active };
                 return DaAsyncHelper.RunSync<IdentityResult>(() => this.userManager.CreateAsync(user, password));
             }
         }
