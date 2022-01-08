@@ -8,7 +8,7 @@
 namespace Ejyle.DevAccelerate.Core
 {
     /// <summary>
-    /// Represents the interface to convert int to int? and vice-versa.
+    /// Represents the functionality to convert int to int? and vice-versa.
     /// </summary>
     public class DaIntegerKeyConverter : IDaEntityKeyConverter<int, int?>
     {
