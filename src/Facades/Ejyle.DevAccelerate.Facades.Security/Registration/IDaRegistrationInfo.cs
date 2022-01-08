@@ -26,11 +26,15 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
         where TSubscriptionRegistrationInfo : IDaSubscriptionRegistrationInfo<TKey, TNullableKey>
     {
         string UserName { get; set; }
+        string Salutation { get; set; }
         string FirstName { get; set; }
+        string MiddleName { get; set; }
         string LastName { get; set; }
         string Email { get; set; }
+        string JobTitle { get; set; }
         DateTime? Dob { get; set; }
         DaGender? Gender { get; set; }
+        string UserPhoneNumber { get; set; }
         Dictionary<string, string> UserProfileAttributes { get; set; }
         TAddressProfileRegistrationInfo Address { get; set; }
         TOrganizationRegistrationInfo Organization { get; set; }
