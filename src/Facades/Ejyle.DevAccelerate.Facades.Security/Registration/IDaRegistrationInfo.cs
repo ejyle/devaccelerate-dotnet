@@ -26,6 +26,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
         where TSubscriptionRegistrationInfo : IDaSubscriptionRegistrationInfo<TKey, TNullableKey>
     {
         string UserName { get; set; }
+        string Roles { get; set; }
         string Salutation { get; set; }
         string FirstName { get; set; }
         string MiddleName { get; set; }

@@ -380,6 +380,11 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
                 return new DaRegistrationResult<TKey, TNullableKey, TKeyConverter>(errors);
             }
 
+            if (registrationInfo.Roles != null)
+            {
+                await UserManager.AddToRolesAsync(user, registrationInfo.Roles);
+            }
+
             var userProfile = new TUserProfile()
             {
                 Salutation = registrationInfo.Salutation,
