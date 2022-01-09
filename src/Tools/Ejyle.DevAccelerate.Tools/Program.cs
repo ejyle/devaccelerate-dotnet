@@ -27,7 +27,7 @@ namespace Ejyle.DevAccelerate.Tools
                     DaCreateAppFeatureCommand,
                     DaCreateDefaultListsCommand,
                     DaCreateUserCommand,
-                    DaCreateRoleCommand,
+                    DaCreateRolesCommand,
                     DaAddUserToRolesCommand>(args)
                 .WithParsed<IDaCommand>(t => t.Execute());
             }

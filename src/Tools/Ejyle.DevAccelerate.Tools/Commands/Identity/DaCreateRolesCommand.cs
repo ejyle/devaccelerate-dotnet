@@ -20,10 +20,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ejyle.DevAccelerate.Tools.Commands.Identity
 {
-    [Verb("createrole", HelpText = "Creates a DevAccelerate role.")]
-    public class DaCreateRoleCommand : DaDatabaseCommand
+    [Verb("createroles", HelpText = "Creates one or more DevAccelerate roles.")]
+    public class DaCreateRolesCommand : DaDatabaseCommand
     {
-        [Option('r', "role", Required = true, HelpText = "Name of the new role to be created.")]
+        [Option('r', "roles", Required = true, HelpText = "Comma-separated list of roles to be created.")]
         public string Role
         {
             get;
@@ -39,31 +39,42 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Identity
 
             var provider = services.BuildServiceProvider();
             var roleService = provider.GetService<IDaRoleService>();
-            var result = roleService.Create(Role);
 
-            if (result.Succeeded)
+            string[] roles = Role.Split(",");
+
+            for (int i = 0; i < roles.Length; i++)
             {
-                Console.WriteLine($"Created the {Role} role.");
+                roles[i] = roles[i].Trim();
             }
-            else
+
+            var resultList = roleService.Create(roles);
+
+            foreach (var result in resultList)
             {
-                var errorMessage = String.Empty;
-
-                if (result.Errors != null && result.Errors.Count() > 0)
+                if (result.Succeeded)
                 {
-                    foreach (var err in result.Errors)
-                    {
-                        errorMessage = errorMessage + err.Description + "\n";
-                    }
+                    Console.WriteLine($"Created the roles.");
                 }
+                else
+                {
+                    var errorMessage = String.Empty;
 
-                throw new Exception(errorMessage);
+                    if (result.Errors != null && result.Errors.Count() > 0)
+                    {
+                        foreach (var err in result.Errors)
+                        {
+                            errorMessage = errorMessage + err.Description + "\n";
+                        }
+                    }
+
+                    throw new Exception(errorMessage);
+                }
             }
         }
 
         private interface IDaRoleService
         {
-            IdentityResult Create(string roleName);
+            List<IdentityResult> Create(string[] roleNames);
         }
 
         private class RoleCreationService : IDaRoleService
@@ -75,19 +86,26 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Identity
                 this.roleManager = roleManager;
             }
 
-            public IdentityResult Create(string roleName)
+            public List<IdentityResult> Create(string[] roleNames)
             {
-                var role = DaAsyncHelper.RunSync<DaRole>(() => roleManager.FindByNameAsync(roleName));
+                var results = new List<IdentityResult>();
 
-                if (role != null)
+                foreach (var roleName in roleNames)
                 {
-                    throw new Exception($"Role {roleName} already exists.");
+                    var role = DaAsyncHelper.RunSync<DaRole>(() => roleManager.FindByNameAsync(roleName));
+
+                    if (role != null)
+                    {
+                        throw new Exception($"Role {roleName} already exists.");
+                    }
+
+                    role = new DaRole();
+                    role.Name = roleName;
+
+                    results.Add(DaAsyncHelper.RunSync<IdentityResult>(() => roleManager.CreateAsync(role)));
                 }
 
-                role = new DaRole();
-                role.Name = roleName;
-
-                return DaAsyncHelper.RunSync<IdentityResult>(() => roleManager.CreateAsync(role));
+                return results;
             }
         }
     }
