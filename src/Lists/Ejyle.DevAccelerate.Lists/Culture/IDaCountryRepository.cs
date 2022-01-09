@@ -24,6 +24,7 @@ namespace Ejyle.DevAccelerate.Lists.Culture
 
         Task<TCountry> FindByIdAsync(TKey id);
         Task<TCountry> FindByNameAsync(string name);
+        Task<TCountry> FindByNameOrCodeAsync(string nameOrCode);
         Task<TCountry> FindByTwoLetterCodeAsync(string twoLetterCode);
         Task<TCountry> FindByThreeLetterCodeAsync(string threeLetterCode);
         Task<List<TCountry>> FindAllAsync();

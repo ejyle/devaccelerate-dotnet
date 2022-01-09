@@ -137,5 +137,18 @@ namespace Ejyle.DevAccelerate.Lists.Culture
 
             return Repository.FindByAlphabeticCodeAsync(alphabeticCode);
         }
+
+        public TCurrency FindByNameOrCode(string nameOrCode)
+        {
+            return DaAsyncHelper.RunSync<TCurrency>(() => FindByNameOrCodeAsync(nameOrCode));
+        }
+
+        public Task<TCurrency> FindByNameOrCodeAsync(string nameOrCode)
+        {
+            ThrowIfDisposed();
+            ThrowIfArgumentIsNull(nameOrCode, nameof(nameOrCode));
+
+            return Repository.FindByNameOrCodeAsync(nameOrCode);
+        }
     }
 }

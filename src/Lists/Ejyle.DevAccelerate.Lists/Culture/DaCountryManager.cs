@@ -163,5 +163,18 @@ namespace Ejyle.DevAccelerate.Lists.Culture
 
             return Repository.FindByThreeLetterCodeAsync(threeLetterCode);
         }
+
+        public TCountry FindByNameOrCode(string nameOrCode)
+        {
+            return DaAsyncHelper.RunSync<TCountry>(() => FindByNameOrCodeAsync(nameOrCode));
+        }
+
+        public Task<TCountry> FindByNameOrCodeAsync(string nameOrCode)
+        {
+            ThrowIfDisposed();
+            ThrowIfArgumentIsNull(nameOrCode, nameof(nameOrCode));
+
+            return Repository.FindByNameOrCodeAsync(nameOrCode);
+        }
     }
 }

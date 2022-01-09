@@ -120,5 +120,13 @@ namespace Ejyle.DevAccelerate.Lists.EF.Culture
                 .Include(m => m.Countries)
                 .SingleOrDefaultAsync();
         }
+
+        public Task<TCurrency> FindByNameOrCodeAsync(string nameOrCode)
+        {
+            return DbContext.Currencies
+                .Where(m => m.Name == nameOrCode || m.AlphabeticCode == nameOrCode)
+                .Include(m => m.Countries)
+                .SingleOrDefaultAsync();
+        }
     }
 }

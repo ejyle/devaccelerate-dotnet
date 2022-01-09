@@ -138,5 +138,14 @@ namespace Ejyle.DevAccelerate.Lists.EF.Culture
             return new DaPaginatedEntityList<TKey, TCountry>(result
                 , new DaDataPaginationResult(paginationCriteria, totalCount));
         }
+
+        public Task<TCountry> FindByNameOrCodeAsync(string nameOrCode)
+        {
+            return DbContext.Countries
+                .Where(m => m.Name == nameOrCode || m.TwoLetterCode == nameOrCode || m.ThreeLetterCode == nameOrCode)
+                .Include(m => m.Regions)
+                .Include(m => m.Currency)
+                .SingleOrDefaultAsync();
+        }
     }
 }

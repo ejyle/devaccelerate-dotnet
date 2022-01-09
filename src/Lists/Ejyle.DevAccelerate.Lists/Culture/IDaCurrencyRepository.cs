@@ -27,5 +27,6 @@ namespace Ejyle.DevAccelerate.Lists.Culture
         Task<TCurrency> FindByNameAsync(string name);
         Task<TCurrency> FindFirstAsync();
         Task<TCurrency> FindByAlphabeticCodeAsync(string alphabeticCode);
+        Task<TCurrency> FindByNameOrCodeAsync(string nameOrCode);
     }
 }
