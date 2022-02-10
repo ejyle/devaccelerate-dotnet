@@ -11,30 +11,30 @@ using System.Collections.Generic;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Registration
 {
-    public class DaRegistrationResult<TKey, TNullableKey, TKeyConverter>
+    public class DaRegistrationResult<TKey, TNullableKey, TKeyConverter> : DaOperationResult<DaRegistrationError>
         where TKey : IEquatable<TKey>
         where TKeyConverter : IDaEntityKeyConverter<TKey, TNullableKey>
     {
         private readonly TKeyConverter _keyConverter;
 
         public DaRegistrationResult(TKeyConverter keyConverter, TKey userId, TKey userProfileId)
+            :base()
         {
-            IsSuccess = true;
             UserId = keyConverter.ToNullableKey(userId);
             UserProfileId = keyConverter.ToNullableKey(userId);
         }
 
         public DaRegistrationResult(TKeyConverter keyConverter, TKey userId, TKey userProfileId, TKey tenantId)
+            : base()
         {
-            IsSuccess = true;
             UserId = keyConverter.ToNullableKey(userId);
             UserProfileId = keyConverter.ToNullableKey(userId);
             TenantId = keyConverter.ToNullableKey(tenantId);
         }
 
         public DaRegistrationResult(TKeyConverter keyConverter, TKey userId, TKey userProfileId, TKey tenantId, TKey subscriptionId)
+            : base()
         {
-            IsSuccess = true;
             UserId = keyConverter.ToNullableKey(userId);
             UserProfileId = keyConverter.ToNullableKey(userId);
             TenantId = keyConverter.ToNullableKey(tenantId);
@@ -42,32 +42,16 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
         }
 
         public DaRegistrationResult(IEnumerable<DaRegistrationError> errors)
-        {
-            IsSuccess = false;
-            Errors = errors;
-        }
+            : base(errors)
+        { }
 
         public DaRegistrationResult(DaRegistrationError error)
-        {
-            IsSuccess = false;
-
-            var errors = new List<DaRegistrationError>();
-            errors.Add(error);
-
-            Errors = errors;
-        }
+            : base(error)
+        { }
 
         public TNullableKey UserId { get; private set; }
         public TNullableKey UserProfileId { get; private set; }
         public TNullableKey TenantId { get; private set; }
         public TNullableKey SubscriptionId { get; private set; }
-
-        public IEnumerable<DaRegistrationError> Errors
-        {
-            get;
-            private set;
-        }
-
-        public bool IsSuccess { get; private set; }
     }
 }

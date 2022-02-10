@@ -5,11 +5,12 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
+using Ejyle.DevAccelerate.Core;
 using Microsoft.AspNetCore.Identity;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Registration
 {
-    public class DaRegistrationError : IdentityError
+    public class DaRegistrationError : DaOperationError
     {
         public const string DUPLICATE_USER_NAME = nameof(DUPLICATE_USER_NAME);
         public const string DUPLICATE_EMAIL = nameof(DUPLICATE_EMAIL);
@@ -24,5 +25,11 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
         public const string INVALID_PHONE_NUMBER = nameof(INVALID_PHONE_NUMBER);
         public const string INVALID_SUBSCRIPTION_PLAN = nameof(INVALID_SUBSCRIPTION_PLAN);
         public const string UNKNOWN_ERROR = nameof(UNKNOWN_ERROR);
+
+        public DaRegistrationError(string code, string description) : base(code, description)
+        { }
+
+        public DaRegistrationError(string description) : base(description)
+        { }
     }
 }

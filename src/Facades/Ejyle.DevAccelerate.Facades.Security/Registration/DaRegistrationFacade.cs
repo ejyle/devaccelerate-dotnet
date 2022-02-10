@@ -281,42 +281,30 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
 
             if (string.IsNullOrEmpty(registrationInfo.UserName))
             {
-                return new DaRegistrationResult<TKey, TNullableKey, TKeyConverter>(new DaRegistrationError()
-                {
-                    Code = DaRegistrationError.INVALID_USER_NAME,
-                    Description = "Username is invalid."
-                });
+                return new DaRegistrationResult<TKey, TNullableKey, TKeyConverter>(
+                    new DaRegistrationError(DaRegistrationError.INVALID_USER_NAME, "Username is invalid."));
             }
 
             if (string.IsNullOrEmpty(registrationInfo.Email))
             {
-                return new DaRegistrationResult<TKey, TNullableKey, TKeyConverter>(new DaRegistrationError()
-                {
-                    Code = DaRegistrationError.INVALID_EMAIL,
-                    Description = "Email is invalid."
-                });
+                return new DaRegistrationResult<TKey, TNullableKey, TKeyConverter>(
+                    new DaRegistrationError(DaRegistrationError.INVALID_EMAIL, "Email is invalid."));
             }
 
             var user = await UserManager.FindByNameAsync(registrationInfo.UserName);
 
             if (user != null)
             {
-                return new DaRegistrationResult<TKey, TNullableKey, TKeyConverter>(new DaRegistrationError()
-                {
-                    Code = DaRegistrationError.DUPLICATE_USER_NAME,
-                    Description = "Another account with the same username already exists."
-                });
+                return new DaRegistrationResult<TKey, TNullableKey, TKeyConverter>(
+                    new DaRegistrationError(DaRegistrationError.DUPLICATE_USER_NAME, "Another account with the same username already exists."));
             }
 
             user = await UserManager.FindByEmailAsync(registrationInfo.Email);
 
             if (user != null)
             {
-                return new DaRegistrationResult<TKey, TNullableKey, TKeyConverter>(new DaRegistrationError()
-                {
-                    Code = DaRegistrationError.DUPLICATE_EMAIL,
-                    Description = "Another account with the same email address already exists."
-                });
+                return new DaRegistrationResult<TKey, TNullableKey, TKeyConverter>(
+                    new DaRegistrationError(DaRegistrationError.DUPLICATE_EMAIL, "Another account with the same email address already exists."));
             }
 
             TCountry country = default(TCountry);
@@ -327,11 +315,8 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
 
                 if (country == null)
                 {
-                    return new DaRegistrationResult<TKey, TNullableKey, TKeyConverter>(new DaRegistrationError()
-                    {
-                        Code = DaRegistrationError.INVALID_COUNTRY,
-                        Description = "Country ID / name is invalid"
-                    });
+                    return new DaRegistrationResult<TKey, TNullableKey, TKeyConverter>(
+                        new DaRegistrationError(DaRegistrationError.INVALID_COUNTRY, "Country ID / name is invalid"));
                 }
             }
 
@@ -367,11 +352,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
                 errors = new List<DaRegistrationError>();
                 foreach (var error in errors)
                 {
-                    errors.Add(new DaRegistrationError()
-                    {
-                        Code = error.Code,
-                        Description = error.Description
-                    });
+                    errors.Add(new DaRegistrationError(error.Code, error.Description));
                 }
             }
 
