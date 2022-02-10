@@ -17,9 +17,9 @@ namespace Ejyle.DevAccelerate.Lists.Generic
         where TKey : IEquatable<TKey>
         where TGenericList : IDaGenericList<TKey>
     {
-        Task CreateAsync(TGenericList currency);
-        Task UpdateAsync(TGenericList currency);
-        Task DeleteAsync(TGenericList currency);
+        Task CreateAsync(TGenericList genericList);
+        Task UpdateAsync(TGenericList genericList);
+        Task DeleteAsync(TGenericList genericList);
 
         Task<TGenericList> FindByIdAsync(TKey id);
         Task<List<TGenericList>> FindAllAsync();
