@@ -15,7 +15,7 @@
     <Product>DevAccelerate Core</Product>
     <Description>DevAccelerate Core provides all the basic interfaces for the most common cross-cutting concerns such as entity management, data pagination, caching, logging, exception handling, and so on.</Description>
     <PackageTags>DevAccelerate;Entity;Pagination;Repository;Logging;Exception;Caching</PackageTags>
-    <Version>6.2.0</Version>
+    <Version>6.3.0</Version>
     <Nullable>disable</Nullable>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <PackageIcon>logo.png</PackageIcon>
