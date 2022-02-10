@@ -15,7 +15,7 @@
     <Product>DevAccelerateSystemTasksEF</Product>
     <Description>An EntityFrameworkCore implementation of DevAccelerateSystemTasks repositories.</Description>
     <PackageTags>DevAccelerate;SystemTasks;Background-Jobs;Jobs;EntityFrameworkCore;EF</PackageTags>
-    <Version>6.3.0</Version>
+    <Version>6.3.1</Version>
     <Nullable>disable</Nullable>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <PackageReleaseNotes>Migrated the library to .NET Core</PackageReleaseNotes>

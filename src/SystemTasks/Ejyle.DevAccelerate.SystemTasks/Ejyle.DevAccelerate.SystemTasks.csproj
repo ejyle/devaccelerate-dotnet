@@ -16,7 +16,7 @@
     <Product>DevAccelerateSystemTasks</Product>
     <Description>Provides interfaces and base functionality for creating, managing, and executing system tasks in background.</Description>
     <PackageTags>DevAccelerate;SystemTasks;Background-Jobs;Jobs</PackageTags>
-    <Version>6.3.0</Version>
+    <Version>6.3.1</Version>
     <Nullable>disable</Nullable>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <PackageReleaseNotes>Migrated the library to .NET Core</PackageReleaseNotes>
