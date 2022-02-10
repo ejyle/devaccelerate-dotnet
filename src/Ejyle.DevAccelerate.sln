@@ -55,6 +55,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{DBD6DE35
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ejyle.DevAccelerate.Tools", "Tools\Ejyle.DevAccelerate.Tools\Ejyle.DevAccelerate.Tools.csproj", "{EA6E8F21-A912-4C6F-8EAB-8EC3A2F0B4E0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SystemTasks", "SystemTasks", "{F42CFB9F-66A2-480D-ADDD-DD5AA1C4C404}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejyle.DevAccelerate.SystemTasks", "SystemTasks\Ejyle.DevAccelerate.SystemTasks\Ejyle.DevAccelerate.SystemTasks.csproj", "{81CAFC99-265C-41F1-979B-AEB77144D7D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejyle.DevAccelerate.SystemTasks.EF", "SystemTasks\Ejyle.DevAccelerate.SystemTasks.EF\Ejyle.DevAccelerate.SystemTasks.EF.csproj", "{D157F44E-AB15-4676-ADB6-C14BE0C680A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +135,14 @@ Global
 		{EA6E8F21-A912-4C6F-8EAB-8EC3A2F0B4E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA6E8F21-A912-4C6F-8EAB-8EC3A2F0B4E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA6E8F21-A912-4C6F-8EAB-8EC3A2F0B4E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81CAFC99-265C-41F1-979B-AEB77144D7D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81CAFC99-265C-41F1-979B-AEB77144D7D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81CAFC99-265C-41F1-979B-AEB77144D7D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81CAFC99-265C-41F1-979B-AEB77144D7D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D157F44E-AB15-4676-ADB6-C14BE0C680A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D157F44E-AB15-4676-ADB6-C14BE0C680A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D157F44E-AB15-4676-ADB6-C14BE0C680A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D157F44E-AB15-4676-ADB6-C14BE0C680A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -151,9 +165,11 @@ Global
 		{728B61A3-64F6-432D-8794-8A881E109B9A} = {C09963BA-EAE9-4A98-A7A7-A909F664CB80}
 		{F37B5CA4-A090-4BE3-BCD1-16D11DF1FE84} = {C09963BA-EAE9-4A98-A7A7-A909F664CB80}
 		{EA6E8F21-A912-4C6F-8EAB-8EC3A2F0B4E0} = {DBD6DE35-2DD0-419D-BB2A-0C9BB7704A08}
+		{81CAFC99-265C-41F1-979B-AEB77144D7D3} = {F42CFB9F-66A2-480D-ADDD-DD5AA1C4C404}
+		{D157F44E-AB15-4676-ADB6-C14BE0C680A2} = {F42CFB9F-66A2-480D-ADDD-DD5AA1C4C404}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {831BB8D2-2AA2-4B38-BD2F-1C679795682C}
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.ExceptionHandling.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45
+		SolutionGuid = {831BB8D2-2AA2-4B38-BD2F-1C679795682C}
 	EndGlobalSection
 EndGlobal
