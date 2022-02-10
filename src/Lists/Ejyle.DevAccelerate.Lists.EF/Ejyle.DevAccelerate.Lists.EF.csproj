@@ -16,7 +16,7 @@
     <Product>DevAccelerateListsEF</Product>
     <Description>An EntityFrameworkCore implementation of DevAccelerateLists repositories.</Description>
     <PackageTags>DevAccelerate;Lists;Countries;Currencies;Time Zones;Languages;EntityFrameworkCore;EF</PackageTags>
-    <Version>6.2.0</Version>
+    <Version>6.3.0</Version>
     <Nullable>disable</Nullable>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <PackageReleaseNotes>Migrated the library to .NET Core</PackageReleaseNotes>

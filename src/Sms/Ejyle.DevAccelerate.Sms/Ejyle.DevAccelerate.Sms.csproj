@@ -16,7 +16,7 @@
     <Product>DevAccelerateSms</Product>
     <Description>Provides interfaces for sending SMS messages.</Description>
     <PackageTags>DevAccelerate;SMS;SMS-Messages</PackageTags>
-    <Version>6.1.0</Version>
+    <Version>6.3.0</Version>
     <Nullable>disable</Nullable>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <PackageReleaseNotes>Migrated the library to .NET Core</PackageReleaseNotes>

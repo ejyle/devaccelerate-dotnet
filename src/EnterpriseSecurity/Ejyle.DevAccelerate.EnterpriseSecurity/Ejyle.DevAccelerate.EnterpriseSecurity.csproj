@@ -16,7 +16,7 @@
     <Product>DevAccelerateEnterpriseSecurity</Product>
     <Description>DevAccelerateEnterpriseSecurity provides additional enterprise-level security and SaaS-specific features such as multi-tenancy, subscription management, user agreements, etc.</Description>
     <PackageTags>DevAccelerate;EnterpriseSecurity;Tenants;Subscriptions;Multi-Tenancy;User-Agreements;SaaS</PackageTags>
-    <Version>6.1.0</Version>
+    <Version>6.3.0</Version>
     <Nullable>disable</Nullable>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <PackageIcon>logo.png</PackageIcon>
