@@ -6,6 +6,7 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using Ejyle.DevAccelerate.Core;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,7 @@ namespace Ejyle.DevAccelerate.SystemTasks
             }
 
             _taskManager = taskManager;
+            _queue = new Queue<DaSystemTaskQueueItem<TKey, TSystemTaskDefinition>>();
         }
 
         public async Task QueueAsync()
@@ -60,16 +62,18 @@ namespace Ejyle.DevAccelerate.SystemTasks
                             new DaOperationError("NULL_INSTANCE", "Activator.CreateInstance() returned null.")};
 
                         systemTaskDefinition.Status = DaSystemTaskStatus.TypeError;
-                        systemTaskDefinition.ErrorData = JObject.FromObject(errors);
+                        systemTaskDefinition.ErrorData = JObject.FromObject(errors).ToString(Formatting.None);
+                        systemTaskDefinition.ErrorDataType = errors.GetType().FullName;
                     }
                 }
                 catch(Exception ex)
                 {
                     var errors = new List<DaOperationError>(){
-                            new DaOperationError(ex.GetType().Name, ex.Message)};
+                            new DaOperationError(ex.GetType().FullName, ex.Message)};
 
                     systemTaskDefinition.Status = DaSystemTaskStatus.TypeError;
-                    systemTaskDefinition.ErrorData = JObject.FromObject(errors);
+                    systemTaskDefinition.ErrorData = JObject.FromObject(errors).ToString(Formatting.None);
+                    systemTaskDefinition.ErrorDataType = errors.GetType().FullName;
                 }
 
                 await _taskManager.UpdateAsync(systemTaskDefinition);
@@ -99,16 +103,18 @@ namespace Ejyle.DevAccelerate.SystemTasks
                     else
                     {
                         systemTaskDefinition.Status = DaSystemTaskStatus.ExecutedWithErrors;
-                        systemTaskDefinition.ErrorData = JObject.FromObject(result.Errors);
+                        systemTaskDefinition.ErrorData = JObject.FromObject(result.Errors).ToString(Formatting.None);
+                        systemTaskDefinition.ErrorDataType = result.Errors.GetType().FullName;
                     }
                 }
                 catch (Exception ex)
                 {
                     var errors = new List<DaOperationError>(){
-                            new DaOperationError(ex.GetType().Name, ex.Message)};
+                            new DaOperationError(ex.GetType().FullName, ex.Message)};
 
                     systemTaskDefinition.Status = DaSystemTaskStatus.ExecutedWithErrors;
-                    systemTaskDefinition.ErrorData = JObject.FromObject(errors);
+                    systemTaskDefinition.ErrorData = JObject.FromObject(errors).ToString(Formatting.None);
+                    systemTaskDefinition.ErrorDataType = errors.GetType().FullName;
                 }
             }
         }

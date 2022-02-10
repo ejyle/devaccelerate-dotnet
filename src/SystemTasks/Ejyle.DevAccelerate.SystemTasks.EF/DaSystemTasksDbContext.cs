@@ -6,7 +6,10 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
+using Ejyle.DevAccelerate.Core;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace Ejyle.DevAccelerate.SystemTasks.EF
 {
@@ -67,14 +70,11 @@ namespace Ejyle.DevAccelerate.SystemTasks.EF
                     .IsRequired()
                     .HasMaxLength(500);
 
-                entity.Ignore(e => e.SystemTaskData);
-                entity.Ignore(e => e.ErrorData);
+                entity.Property(e => e.SystemTaskDataType)
+                    .HasMaxLength(500);
 
-                entity.Property(e => e.SystemTaskData)
-                    .HasField("_systemTaskData");
-
-                entity.Property(e => e.ErrorData)
-                    .HasField("_errorData");
+                entity.Property(e => e.ErrorDataType)
+                    .HasMaxLength(500);
             });
 
             modelBuilder.Entity<TSystemTaskDefinitionAttribute>(entity =>

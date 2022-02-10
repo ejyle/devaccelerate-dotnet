@@ -18,7 +18,7 @@ namespace Ejyle.DevAccelerate.SystemTasks
     {
     }
 
-    public class DaSystemTaskAttribute<TKey, TSystemTaskDefinition> : DaAuditedEntityBase<TKey>, IDaSystemTaskDefinitionAttribute<TKey>
+    public class DaSystemTaskAttribute<TKey, TSystemTaskDefinition> : DaEntityBase<TKey>, IDaSystemTaskDefinitionAttribute<TKey>
         where TKey : IEquatable<TKey>
         where TSystemTaskDefinition : IDaSystemTaskDefinition<TKey>
     {

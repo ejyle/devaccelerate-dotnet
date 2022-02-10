@@ -8,6 +8,7 @@
 using Ejyle.DevAccelerate.Core;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 
 namespace Ejyle.DevAccelerate.SystemTasks
 {
@@ -16,8 +17,10 @@ namespace Ejyle.DevAccelerate.SystemTasks
     {
         string SystemTaskType { get; set; }
         DaSystemTaskStatus Status { get; set; }
-        JObject SystemTaskData { get; set; }
-        JObject ErrorData { get; set; }
+        string SystemTaskData { get; set; }
+        string SystemTaskDataType { get; set; }
+        string ErrorData { get; set; }
+        string ErrorDataType { get; set; }
         DateTime CreatedDateUtc { get; set; }
         DateTime LastUpdatedDateUtc { get; set; }
     }

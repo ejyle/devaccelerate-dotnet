@@ -26,42 +26,20 @@ namespace Ejyle.DevAccelerate.SystemTasks
         where TKey : IEquatable<TKey>
         where TSystemTaskDefinitionAttribute : IDaSystemTaskDefinitionAttribute<TKey>
     {
-        private string _systemTaskData;
-        private string _errorData;
-
         public DaSystemTaskDefinition()
         {
             Attributes = new HashSet<TSystemTaskDefinitionAttribute>();
         }
 
         public DaSystemTaskStatus Status { get; set; }
-        public JObject SystemTaskData
-        {
-            get
-            {
-                return JsonConvert.DeserializeObject<JObject>(string.IsNullOrEmpty(_systemTaskData) ? "{}" : _systemTaskData);
-            }
-            set
-            {
-                _systemTaskData = value.ToString();
-            }
-        }
-
-        public JObject ErrorData
-        {
-            get
-            {
-                return JsonConvert.DeserializeObject<JObject>(string.IsNullOrEmpty(_errorData) ? "{}" : _errorData);
-            }
-            set
-            {
-                _errorData = value.ToString();
-            }
-        }
-
-        public virtual ICollection<TSystemTaskDefinitionAttribute> Attributes { get; set; }
+        public string SystemTaskType { get; set; }
+        public string SystemTaskData { get; set; }
+        public string ErrorData { get; set; }
+        public string SystemTaskDataType { get; set; }
+        public string ErrorDataType { get; set; }
         public DateTime CreatedDateUtc { get; set; }
         public DateTime LastUpdatedDateUtc { get; set; }
-        public string SystemTaskType { get; set; }
+
+        public virtual ICollection<TSystemTaskDefinitionAttribute> Attributes { get; set; }
     }
 }
