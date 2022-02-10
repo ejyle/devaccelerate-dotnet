@@ -17,7 +17,7 @@
     <Product>DevAccelerate Tools</Product>
     <Description>DevAccelerate Tools provides a list of dotnet commands to setup and manage a DevAccelerate app.</Description>
     <PackageTags>DevAccelerate;Tools</PackageTags>
-    <Version>6.2.2</Version>
+    <Version>6.3.0</Version>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <PackageIcon>logo.png</PackageIcon>
     <PackAsTool>true</PackAsTool>
@@ -63,9 +63,12 @@
     <ProjectReference Include="..\..\Facades\Ejyle.DevAccelerate.Facades.Security\Ejyle.DevAccelerate.Facades.Security.csproj" />
     <ProjectReference Include="..\..\Identity\Ejyle.DevAccelerate.Identity.EF\Ejyle.DevAccelerate.Identity.EF.csproj" />
     <ProjectReference Include="..\..\Identity\Ejyle.DevAccelerate.Identity\Ejyle.DevAccelerate.Identity.csproj" />
+    <ProjectReference Include="..\..\Lists\Ejyle.DevAccelerate.Lists.EF\Ejyle.DevAccelerate.Lists.EF.csproj" />
     <ProjectReference Include="..\..\Lists\Ejyle.DevAccelerate.Lists\Ejyle.DevAccelerate.Lists.csproj" />
     <ProjectReference Include="..\..\Profiles\Ejyle.DevAccelerate.Profiles.EF\Ejyle.DevAccelerate.Profiles.EF.csproj" />
     <ProjectReference Include="..\..\Profiles\Ejyle.DevAccelerate.Profiles\Ejyle.DevAccelerate.Profiles.csproj" />
+    <ProjectReference Include="..\..\SystemTasks\Ejyle.DevAccelerate.SystemTasks.EF\Ejyle.DevAccelerate.SystemTasks.EF.csproj" />
+    <ProjectReference Include="..\..\SystemTasks\Ejyle.DevAccelerate.SystemTasks\Ejyle.DevAccelerate.SystemTasks.csproj" />
   </ItemGroup>
 
 </Project>

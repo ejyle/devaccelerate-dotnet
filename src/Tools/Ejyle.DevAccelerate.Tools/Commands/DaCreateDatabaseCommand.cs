@@ -17,6 +17,7 @@ using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Apps;
 using Ejyle.DevAccelerate.Identity.EF;
 using Ejyle.DevAccelerate.Lists.EF;
 using Ejyle.DevAccelerate.Profiles.EF;
+using Ejyle.DevAccelerate.SystemTasks.EF;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -47,6 +48,20 @@ namespace Ejyle.DevAccelerate.Tools.Commands
             }
 
             EnsureConnectionIsValid();
+
+            using (var systemTasksDbContext = new DaSystemTasksDbContext(GetConnectionString()))
+            {
+                try
+                {
+                    systemTasksDbContext.Database.EnsureCreated();
+                    var databaseCreator = systemTasksDbContext.GetService<IRelationalDatabaseCreator>();
+                    databaseCreator.CreateTables();
+                }
+                catch (Exception)
+                {
+                    // Ignore the error
+                }
+            }
 
             using (var identityDbContext = new DaIdentityDbContext(GetConnectionString()))
             {
