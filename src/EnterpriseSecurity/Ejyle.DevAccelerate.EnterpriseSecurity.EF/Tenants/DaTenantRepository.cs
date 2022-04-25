@@ -45,6 +45,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Tenants
         public Task<TTenant> FindByIdAsync(TKey tenantId)
         {
             return Tenants.Where(m => m.Id.Equals(tenantId))
+                .Include(x => x.TenantUsers)
                 .Include(x => x.Attributes)
                 .SingleOrDefaultAsync();
         }
@@ -64,6 +65,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Tenants
         public Task<List<TTenant>> FindByUserIdAsync(TKey userId)
         {
             return Tenants.Where(m => m.TenantUsers.Any(x => x.UserId.Equals(userId)))
+                .Include(x => x.TenantUsers)
                 .Include(x => x.Attributes)
                 .ToListAsync();
         }
@@ -83,6 +85,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Tenants
         public Task<List<TTenant>> FindByAttributeAsync(string attributeName, string attributeValue)
         {
             return Tenants.Where(m => m.Attributes.Any(x => x.AttributeName == attributeName && x.AttributeValue == attributeValue))
+                .Include(x => x.TenantUsers)
                 .Include(x => x.Attributes)
                 .ToListAsync();
         }
@@ -90,6 +93,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Tenants
         public Task<TTenant> FindByNameAsync(string name)
         {
             return Tenants.Where(m => m.Name == name)
+                .Include(x => x.TenantUsers)
                 .Include(x => x.Attributes)
                 .SingleOrDefaultAsync();
         }
