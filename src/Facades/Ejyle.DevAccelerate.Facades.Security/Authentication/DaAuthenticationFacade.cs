@@ -12,9 +12,12 @@ using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Tenants;
 using Ejyle.DevAccelerate.Identity.EF;
 using Ejyle.DevAccelerate.Identity.EF.UserSessions;
 using Ejyle.DevAccelerate.Identity.UserSessions;
+using Ejyle.DevAccelerate.Identity;
 using Ejyle.DevAccelerate.Core;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Authentication
 {
@@ -72,19 +75,89 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
             private set;
         }
 
-        public SignInResult Authenticate(HttpRequest request, ISession session, ConnectionInfo connection, DaUserAccountCredentialsInfo credentials, int expiryTimeInMinutes = 30)
+        public DaAuthenticationResult<TKey> Authenticate(HttpRequest request, ISession session, ConnectionInfo connection, DaUserAccountCredentialsInfo credentials, int expiryTimeInMinutes = 30)
         {
-            return DaAsyncHelper.RunSync<SignInResult>(() => AuthenticateAsync(request, session, connection, credentials, expiryTimeInMinutes));
+            return DaAsyncHelper.RunSync<DaAuthenticationResult<TKey>>(() => AuthenticateAsync(request, session, connection, credentials, expiryTimeInMinutes));
         }
 
-        public virtual async Task<SignInResult> AuthenticateAsync(HttpRequest request, ISession session, ConnectionInfo connection, DaUserAccountCredentialsInfo credentials, int expiryTimeInMinutes = 30)
+        public virtual async Task<DaAuthenticationResult<TKey>> AuthenticateAsync(HttpRequest request, ISession session, ConnectionInfo connection, DaUserAccountCredentialsInfo credentials, int expiryTimeInMinutes = 30)
         {
+            var user = await UserManager.FindByNameAsync(credentials.Username);
+
+            if(user == null)
+            {
+                return DaAuthenticationResult<TKey>.Failed as DaAuthenticationResult<TKey>;
+            }
+
+            var validPassword = await UserManager.CheckPasswordAsync(user, credentials.Password);
+
+            if(!validPassword)
+            {
+                return DaAuthenticationResult<TKey>.Failed as DaAuthenticationResult<TKey>;
+            }
+
+            if(user.IsDeleted)
+            {
+                return DaAuthenticationResult<TKey>.Deleted;
+            }
+
+            if(user.Status != DaAccountStatus.Active)
+            {
+                if (user.Status == DaAccountStatus.Inactive)
+                {
+                    return DaAuthenticationResult<TKey>.NotActive;
+                }
+                else if(user.Status == DaAccountStatus.Suspended)
+                {
+                    return DaAuthenticationResult<TKey>.Suspended;
+                }
+                else if(user.Status == DaAccountStatus.Closed)
+                {
+                    return DaAuthenticationResult<TKey>.Closed;
+                }
+            }
+
+            var tenants = await TenantManager.FindByUserIdAsync(user.Id);
+            List<TKey> tenantKeys = null;
+
+            if(tenants != null && tenants.Count > 0)
+            {
+                if(tenants.Count == 1)
+                {
+                    if(tenants[0].Status != DaTenantStatus.Active)
+                    {
+                        return DaAuthenticationResult<TKey>.TenantNotActive;
+                    }
+                    else
+                    {
+                        tenantKeys = new List<TKey>()
+                        {
+                            tenants[0].Id
+                        };
+                    }
+                }
+                else
+                {
+                    tenantKeys = new List<TKey>();
+                    foreach(var tenant in tenants)
+                    {
+                        if (tenant.Status == DaTenantStatus.Active)
+                        {
+                            tenantKeys.Add(tenant.Id);
+                        }
+                    }
+                    
+                    if(tenantKeys.Count <= 0)
+                    {
+                        return DaAuthenticationResult<TKey>.TenantNotActive;
+                    }
+                }
+            }
+
             var result = await SignInManager.PasswordSignInAsync(credentials.Username, credentials.Password, credentials.RememberUser, lockoutOnFailure: false);
 
             if (result == SignInResult.Success)
             {
-                var user = await UserManager.FindByNameAsync(credentials.Username);
-
                 string sessionId = null;
                 string ipAddress = null;
                 string deviceAgent = null;
@@ -117,7 +190,15 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
                 session.SetString(USER_SESSION_KEY_SESSION_NAME, userSession.SessionKey);
             }
 
-            return result;
+            if(result.Succeeded)
+            {
+                if(tenantKeys != null && tenantKeys.Count > 0)
+                {
+                    return DaAuthenticationResult<TKey>.SuccessWithTenants(tenantKeys);                 
+                }
+            }
+
+            return result as DaAuthenticationResult<TKey>;
         }
 
         public virtual async Task<TUserSession> GetAuthenticatedUserSessionAsync(ISession session)
