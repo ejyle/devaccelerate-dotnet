@@ -21,7 +21,7 @@ using System.Linq;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Authentication
 {
-    public class DaAuthenticationFacade : DaAuthenticationFacade<int, int?, DaUser, UserManager<DaUser>, SignInManager<DaUser>, DaTenant, DaTenantUser, DaTenantAttribute, DaTenantManager, DaUserSession, DaUserSessionManager>
+    public class DaAuthenticationFacade : DaAuthenticationFacade<int, int?, DaUser, UserManager<DaUser>, SignInManager<DaUser>, DaTenant, DaTenantUser, DaTenantAttribute, DaTenantManager, DaUserSession, DaUserSessionManager, DaAuthenticationResult>
     {
         public DaAuthenticationFacade(UserManager<DaUser> userManager, SignInManager<DaUser> signInManager, DaTenantManager tenantManager, DaUserSessionManager userSessionManager)
             : base(userManager, signInManager, tenantManager, userSessionManager)
@@ -29,7 +29,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
         }
     }
 
-    public class DaAuthenticationFacade<TKey, TNullableKey, TUser, TUserManager, TSignInManager, TTenant, TTenantUser, TTenantAttribute, TTenantManager, TUserSession, TUserSessionManager>
+    public class DaAuthenticationFacade<TKey, TNullableKey, TUser, TUserManager, TSignInManager, TTenant, TTenantUser, TTenantAttribute, TTenantManager, TUserSession, TUserSessionManager, TAuthenticationResult>
         where TKey : IEquatable<TKey>
         where TUser : DaUser<TKey, TNullableKey>
         where TUserManager : UserManager<TUser>
@@ -40,6 +40,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
         where TTenantUser : DaTenantUser<TKey, TNullableKey, TTenant>, new()
         where TUserSession : DaUserSession<TKey>, new()
         where TUserSessionManager : DaUserSessionManager<TKey, TUserSession>
+        where TAuthenticationResult : DaAuthenticationResult<TKey>
     {
         private const string USER_SESSION_KEY_SESSION_NAME = "DaAuthenticationFacade_SessionKey";
 
@@ -75,45 +76,45 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
             private set;
         }
 
-        public DaAuthenticationResult<TKey> Authenticate(HttpRequest request, ISession session, ConnectionInfo connection, DaUserAccountCredentialsInfo credentials, int expiryTimeInMinutes = 30)
+        public TAuthenticationResult Authenticate(HttpRequest request, ISession session, ConnectionInfo connection, DaUserAccountCredentialsInfo credentials, int expiryTimeInMinutes = 30)
         {
-            return DaAsyncHelper.RunSync<DaAuthenticationResult<TKey>>(() => AuthenticateAsync(request, session, connection, credentials, expiryTimeInMinutes));
+            return DaAsyncHelper.RunSync<TAuthenticationResult>(() => AuthenticateAsync(request, session, connection, credentials, expiryTimeInMinutes));
         }
 
-        public virtual async Task<DaAuthenticationResult<TKey>> AuthenticateAsync(HttpRequest request, ISession session, ConnectionInfo connection, DaUserAccountCredentialsInfo credentials, int expiryTimeInMinutes = 30)
+        public virtual async Task<TAuthenticationResult> AuthenticateAsync(HttpRequest request, ISession session, ConnectionInfo connection, DaUserAccountCredentialsInfo credentials, int expiryTimeInMinutes = 30)
         {
             var user = await UserManager.FindByNameAsync(credentials.Username);
 
             if(user == null)
             {
-                return DaAuthenticationResult<TKey>.Failed as DaAuthenticationResult<TKey>;
+                return DaAuthenticationResult<TKey>.Failed as TAuthenticationResult;
             }
 
             var validPassword = await UserManager.CheckPasswordAsync(user, credentials.Password);
 
             if(!validPassword)
             {
-                return DaAuthenticationResult<TKey>.Failed as DaAuthenticationResult<TKey>;
+                return DaAuthenticationResult<TKey>.Failed as TAuthenticationResult;
             }
 
             if(user.IsDeleted)
             {
-                return DaAuthenticationResult<TKey>.Deleted;
+                return DaAuthenticationResult<TKey>.Deleted as TAuthenticationResult;
             }
 
             if(user.Status != DaAccountStatus.Active)
             {
                 if (user.Status == DaAccountStatus.Inactive)
                 {
-                    return DaAuthenticationResult<TKey>.NotActive;
+                    return DaAuthenticationResult<TKey>.NotActive as TAuthenticationResult;
                 }
                 else if(user.Status == DaAccountStatus.Suspended)
                 {
-                    return DaAuthenticationResult<TKey>.Suspended;
+                    return DaAuthenticationResult<TKey>.Suspended as TAuthenticationResult;
                 }
                 else if(user.Status == DaAccountStatus.Closed)
                 {
-                    return DaAuthenticationResult<TKey>.Closed;
+                    return DaAuthenticationResult<TKey>.Closed as TAuthenticationResult;
                 }
             }
 
@@ -126,7 +127,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
                 {
                     if(tenants[0].Status != DaTenantStatus.Active)
                     {
-                        return DaAuthenticationResult<TKey>.TenantNotActive;
+                        return DaAuthenticationResult<TKey>.TenantNotActive as TAuthenticationResult;
                     }
                     else
                     {
@@ -149,7 +150,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
                     
                     if(tenantKeys.Count <= 0)
                     {
-                        return DaAuthenticationResult<TKey>.TenantNotActive;
+                        return DaAuthenticationResult<TKey>.TenantNotActive as TAuthenticationResult;
                     }
                 }
             }
@@ -194,11 +195,11 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
             {
                 if(tenantKeys != null && tenantKeys.Count > 0)
                 {
-                    return DaAuthenticationResult<TKey>.SuccessWithTenants(tenantKeys);                 
+                    return DaAuthenticationResult<TKey>.SuccessWithTenants(tenantKeys) as TAuthenticationResult;                 
                 }
             }
 
-            return result as DaAuthenticationResult<TKey>;
+            return result as TAuthenticationResult;
         }
 
         public virtual async Task<TUserSession> GetAuthenticatedUserSessionAsync(ISession session)
