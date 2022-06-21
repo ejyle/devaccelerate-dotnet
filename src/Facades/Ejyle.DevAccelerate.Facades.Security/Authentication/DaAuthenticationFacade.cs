@@ -40,7 +40,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
         where TTenantUser : DaTenantUser<TKey, TNullableKey, TTenant>, new()
         where TUserSession : DaUserSession<TKey>, new()
         where TUserSessionManager : DaUserSessionManager<TKey, TUserSession>
-        where TAuthenticationResult : DaAuthenticationResult<TKey>
+        where TAuthenticationResult : DaAuthenticationResult<TKey>, new()
     {
         private const string USER_SESSION_KEY_SESSION_NAME = "DaAuthenticationFacade_SessionKey";
 
@@ -76,58 +76,58 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
             private set;
         }
 
-        public TAuthenticationResult Authenticate(HttpRequest request, ISession session, ConnectionInfo connection, DaUserAccountCredentialsInfo credentials, int expiryTimeInMinutes = 30)
+        public DaAuthenticationResult<TKey> Authenticate(HttpRequest request, ISession session, ConnectionInfo connection, DaUserAccountCredentialsInfo credentials, int expiryTimeInMinutes = 30)
         {
-            return DaAsyncHelper.RunSync<TAuthenticationResult>(() => AuthenticateAsync(request, session, connection, credentials, expiryTimeInMinutes));
+            return DaAsyncHelper.RunSync<DaAuthenticationResult<TKey>>(() => AuthenticateAsync(request, session, connection, credentials, expiryTimeInMinutes));
         }
 
-        public virtual async Task<TAuthenticationResult> AuthenticateAsync(HttpRequest request, ISession session, ConnectionInfo connection, DaUserAccountCredentialsInfo credentials, int expiryTimeInMinutes = 30)
+        public virtual async Task<DaAuthenticationResult<TKey>> AuthenticateAsync(HttpRequest request, ISession session, ConnectionInfo connection, DaUserAccountCredentialsInfo credentials, int expiryTimeInMinutes = 30)
         {
             var user = await UserManager.FindByNameAsync(credentials.Username);
 
-            if(user == null)
+            if (user == null)
             {
-                return DaAuthenticationResult<TKey>.Failed as TAuthenticationResult;
+                return DaAuthenticationResult<TKey>.Failed;
             }
 
             var validPassword = await UserManager.CheckPasswordAsync(user, credentials.Password);
 
-            if(!validPassword)
+            if (!validPassword)
             {
-                return DaAuthenticationResult<TKey>.Failed as TAuthenticationResult;
+                return DaAuthenticationResult<TKey>.Failed;
             }
 
-            if(user.IsDeleted)
+            if (user.IsDeleted)
             {
-                return DaAuthenticationResult<TKey>.Deleted as TAuthenticationResult;
+                return DaAuthenticationResult<TKey>.Deleted;
             }
 
-            if(user.Status != DaAccountStatus.Active)
+            if (user.Status != DaAccountStatus.Active)
             {
                 if (user.Status == DaAccountStatus.Inactive)
                 {
-                    return DaAuthenticationResult<TKey>.NotActive as TAuthenticationResult;
+                    return DaAuthenticationResult<TKey>.NotActive;
                 }
-                else if(user.Status == DaAccountStatus.Suspended)
+                else if (user.Status == DaAccountStatus.Suspended)
                 {
-                    return DaAuthenticationResult<TKey>.Suspended as TAuthenticationResult;
+                    return DaAuthenticationResult<TKey>.Suspended;
                 }
-                else if(user.Status == DaAccountStatus.Closed)
+                else if (user.Status == DaAccountStatus.Closed)
                 {
-                    return DaAuthenticationResult<TKey>.Closed as TAuthenticationResult;
+                    return DaAuthenticationResult<TKey>.Closed;
                 }
             }
 
             var tenants = await TenantManager.FindByUserIdAsync(user.Id);
             List<TKey> tenantKeys = null;
 
-            if(tenants != null && tenants.Count > 0)
+            if (tenants != null && tenants.Count > 0)
             {
-                if(tenants.Count == 1)
+                if (tenants.Count == 1)
                 {
-                    if(tenants[0].Status != DaTenantStatus.Active)
+                    if (tenants[0].Status != DaTenantStatus.Active)
                     {
-                        return DaAuthenticationResult<TKey>.TenantNotActive as TAuthenticationResult;
+                        return DaAuthenticationResult<TKey>.TenantNotActive;
                     }
                     else
                     {
@@ -140,66 +140,82 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
                 else
                 {
                     tenantKeys = new List<TKey>();
-                    foreach(var tenant in tenants)
+                    foreach (var tenant in tenants)
                     {
                         if (tenant.Status == DaTenantStatus.Active)
                         {
                             tenantKeys.Add(tenant.Id);
                         }
                     }
-                    
-                    if(tenantKeys.Count <= 0)
+
+                    if (tenantKeys.Count <= 0)
                     {
-                        return DaAuthenticationResult<TKey>.TenantNotActive as TAuthenticationResult;
+                        return DaAuthenticationResult<TKey>.TenantNotActive;
                     }
                 }
             }
 
             var result = await SignInManager.PasswordSignInAsync(credentials.Username, credentials.Password, credentials.RememberUser, lockoutOnFailure: false);
 
-            if (result == SignInResult.Success)
+            if (!result.Succeeded)
             {
-                string sessionId = null;
-                string ipAddress = null;
-                string deviceAgent = null;
-
-                if (request != null)
+                if (result.IsLockedOut)
                 {
-                    ipAddress = connection.RemoteIpAddress.ToString();
-                    deviceAgent = request.Headers["User-Agent"].ToString();
+                    return DaAuthenticationResult<TKey>.LockedOut;
                 }
-
-                if (session != null)
+                else if (result.IsNotAllowed)
                 {
-                    sessionId = session.Id;
+                    return DaAuthenticationResult<TKey>.NotAllowed;
                 }
-
-                var userSession = new TUserSession()
+                else if (result.RequiresTwoFactor)
                 {
-                    UserId = user.Id,
-                    SessionKey = Guid.NewGuid().ToString(),
-                    SystemSessionId = sessionId,
-                    IpAddress = ipAddress,
-                    DeviceAgent = deviceAgent,
-                    Status = DaUserSessionStatus.New,
-                    CreatedDateUtc = DateTime.UtcNow,
-                    ExpiryDateUtc = DateTime.UtcNow.AddMinutes(expiryTimeInMinutes),
-                    ExpiredDateUtc = null
-                };
-
-                await UserSessionManager.CreateAsync(userSession);
-                session.SetString(USER_SESSION_KEY_SESSION_NAME, userSession.SessionKey);
-            }
-
-            if(result.Succeeded)
-            {
-                if(tenantKeys != null && tenantKeys.Count > 0)
+                    return DaAuthenticationResult<TKey>.TwoFactorRequired;
+                }
+                else
                 {
-                    return DaAuthenticationResult<TKey>.SuccessWithTenants(tenantKeys) as TAuthenticationResult;                 
+                    return DaAuthenticationResult<TKey>.Failed;
                 }
             }
 
-            return result as TAuthenticationResult;
+            string sessionId = null;
+            string ipAddress = null;
+            string deviceAgent = null;
+
+            if (request != null)
+            {
+                ipAddress = connection.RemoteIpAddress.ToString();
+                deviceAgent = request.Headers["User-Agent"].ToString();
+            }
+
+            if (session != null)
+            {
+                sessionId = session.Id;
+            }
+
+            var userSession = new TUserSession()
+            {
+                UserId = user.Id,
+                SessionKey = Guid.NewGuid().ToString(),
+                SystemSessionId = sessionId,
+                IpAddress = ipAddress,
+                DeviceAgent = deviceAgent,
+                Status = DaUserSessionStatus.New,
+                CreatedDateUtc = DateTime.UtcNow,
+                ExpiryDateUtc = DateTime.UtcNow.AddMinutes(expiryTimeInMinutes),
+                ExpiredDateUtc = null
+            };
+
+            await UserSessionManager.CreateAsync(userSession);
+            session.SetString(USER_SESSION_KEY_SESSION_NAME, userSession.SessionKey);
+
+            if (tenantKeys != null && tenantKeys.Count > 0)
+            {
+                return DaAuthenticationResult<TKey>.SuccessWithTenants(tenantKeys);
+            }
+            else
+            {
+                return DaAuthenticationResult<TKey>.Success;
+            }
         }
 
         public virtual async Task<TUserSession> GetAuthenticatedUserSessionAsync(ISession session)

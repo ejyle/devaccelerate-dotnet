@@ -10,9 +10,39 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
     public class DaAuthenticationResult : DaAuthenticationResult<int>
     { }
 
-    public class DaAuthenticationResult<TKey> : SignInResult
+    public class DaAuthenticationResult<TKey>
         where TKey : IEquatable<TKey>
     {
+        public bool IsSuccess
+        {
+            get;
+            protected set;
+        }
+
+        public bool IsFailed
+        {
+            get;
+            protected set;
+        }
+
+        public bool IsTwoFactorRequired
+        {
+            get;
+            protected set;
+        }
+
+        public bool IsLockedOut
+        {
+            get;
+            protected set;
+        }
+
+        public bool IsNotAllowed
+        {
+            get;
+            protected set;
+        }
+
         public bool IsNotActive
         {
             get;
@@ -89,6 +119,39 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
             }
         }
 
+        public static DaAuthenticationResult<TKey> LockedOut
+        {
+            get
+            {
+                return new DaAuthenticationResult<TKey>()
+                {
+                    IsLockedOut = true
+                };
+            }
+        }
+
+        public static DaAuthenticationResult<TKey> Failed
+        {
+            get
+            {
+                return new DaAuthenticationResult<TKey>()
+                {
+                    IsFailed = true
+                };
+            }
+        }
+
+        public static DaAuthenticationResult<TKey> NotAllowed
+        {
+            get
+            {
+                return new DaAuthenticationResult<TKey>()
+                {
+                    IsNotAllowed = true
+                };
+            }
+        }
+
         public static DaAuthenticationResult<TKey> Closed
         {
             get
@@ -107,6 +170,28 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
                 return new DaAuthenticationResult<TKey>()
                 {
                     IsDeleted = true
+                };
+            }
+        }
+
+        public static DaAuthenticationResult<TKey> Success
+        {
+            get
+            {
+                return new DaAuthenticationResult<TKey>()
+                {
+                    IsSuccess = true
+                };
+            }
+        }
+
+        public static DaAuthenticationResult<TKey> TwoFactorRequired
+        {
+            get
+            {
+                return new DaAuthenticationResult<TKey>()
+                {
+                    IsTwoFactorRequired = true
                 };
             }
         }
