@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Ejyle.CyberRisk.Comments
+namespace Ejyle.DevAccelerate.Comments
 {
     public class DaCommentThread : DaCommentThread<int, int?, DaComment>
     {

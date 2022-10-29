@@ -5,35 +5,14 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-using Ejyle.DevAccelerate.Core;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Ejyle.DevAccelerate.Comments;
 
-namespace Ejyle.DevAccelerate.Comments
+namespace Ejyle.DevAccelerate.Comments.EF
 {
-    public interface IDaComment<TKey, TNullableKey> : IDaAuditedEntity<TKey>
-        where TKey : IEquatable<TKey>
+    public class DaCommentThreadManager : DaCommentThreadManager<int, int?, DaCommentThread, DaComment>
     {
-        TNullableKey ParentId
-        {
-            get;
-            set;
-        }
-
-        string Message
-        {
-            get;
-            set;
-        }
-
-        TKey CommentThreadId
-        {
-            get;
-            set;
-        }
+        public DaCommentThreadManager(DaCommentThreadRepository repository)
+            : base(repository)
+        { }
     }
 }
