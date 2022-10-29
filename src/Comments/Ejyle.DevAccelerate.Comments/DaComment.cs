@@ -50,6 +50,12 @@ namespace Ejyle.DevAccelerate.Comments
             set;
         }
 
+        public virtual TComment Parent
+        {
+            get;
+            set;
+        }
+
         public virtual TCommentThread CommentThread
         {
             get;
