@@ -14,16 +14,15 @@ using System.Collections.Generic;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Objects
 {
-    public class DaObjectType : DaObjectType<int, DaApp, DaObjectInstance>
+    public class DaObjectType : DaObjectType<int, DaObjectInstance>
     {
         public DaObjectType() : base()
         { }
     }
 
-    public class DaObjectType<TKey, TApp, TObjectInstance>
+    public class DaObjectType<TKey, TObjectInstance>
         : DaEntityBase<TKey>, IDaObjectType<TKey>
         where TKey : IEquatable<TKey>
-        where TApp : IDaApp<TKey>
         where TObjectInstance : IDaObjectInstance<TKey>
     {
         public DaObjectType()
@@ -37,8 +36,6 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Objects
         public string Description { get; set; }
 
         public TKey AppId { get; set; }
-
-        public virtual TApp App { get; set; }
 
         public virtual ICollection<TObjectInstance> ObjectInstances { get; set; }
     }

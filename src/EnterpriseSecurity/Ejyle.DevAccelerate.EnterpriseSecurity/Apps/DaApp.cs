@@ -6,6 +6,7 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using Ejyle.DevAccelerate.Core;
+using Ejyle.DevAccelerate.EnterpriseSecurity.Objects;
 using Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans;
 using Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions;
 using Ejyle.DevAccelerate.EnterpriseSecurity.UserAgreements;

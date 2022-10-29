@@ -5,21 +5,14 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Ejyle.DevAccelerate.Core;
-using Ejyle.DevAccelerate.Core.Data;
+using Ejyle.DevAccelerate.EnterpriseSecurity.Objects;
 
-namespace Ejyle.DevAccelerate.EnterpriseSecurity.Objects
+namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Objects
 {
-    public interface IDaObjectTypeRepository<TKey, TObjectType> : IDaEntityRepository<TKey, TObjectType>
-        where TKey : IEquatable<TKey>
-        where TObjectType : IDaObjectType<TKey>
+    public class DaObjectTypeManager : DaObjectTypeManager<int, DaObjectType>
     {
-        Task CreateAsync(TObjectType objType);
-        Task<TObjectType> FindByIdAsync(TKey id);
-        Task UpdateAsync(TObjectType objType);
-        Task DeleteAsync(TObjectType objType);
+        public DaObjectTypeManager(DaObjectTypeRepository repository)
+            : base(repository)
+        { }
     }
 }
