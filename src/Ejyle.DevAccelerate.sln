@@ -61,6 +61,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ejyle.DevAccelerate.SystemT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ejyle.DevAccelerate.SystemTasks.EF", "SystemTasks\Ejyle.DevAccelerate.SystemTasks.EF\Ejyle.DevAccelerate.SystemTasks.EF.csproj", "{D157F44E-AB15-4676-ADB6-C14BE0C680A2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Comments", "Comments", "{28DCEF29-8F77-4974-B234-49A23A70BC24}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejyle.DevAccelerate.Comments", "Comments\Ejyle.DevAccelerate.Comments\Ejyle.DevAccelerate.Comments.csproj", "{3F16D311-1FD9-4775-8EB8-95E4A51FE89D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -143,6 +147,10 @@ Global
 		{D157F44E-AB15-4676-ADB6-C14BE0C680A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D157F44E-AB15-4676-ADB6-C14BE0C680A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D157F44E-AB15-4676-ADB6-C14BE0C680A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F16D311-1FD9-4775-8EB8-95E4A51FE89D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F16D311-1FD9-4775-8EB8-95E4A51FE89D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F16D311-1FD9-4775-8EB8-95E4A51FE89D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F16D311-1FD9-4775-8EB8-95E4A51FE89D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -167,9 +175,10 @@ Global
 		{EA6E8F21-A912-4C6F-8EAB-8EC3A2F0B4E0} = {DBD6DE35-2DD0-419D-BB2A-0C9BB7704A08}
 		{81CAFC99-265C-41F1-979B-AEB77144D7D3} = {F42CFB9F-66A2-480D-ADDD-DD5AA1C4C404}
 		{D157F44E-AB15-4676-ADB6-C14BE0C680A2} = {F42CFB9F-66A2-480D-ADDD-DD5AA1C4C404}
+		{3F16D311-1FD9-4775-8EB8-95E4A51FE89D} = {28DCEF29-8F77-4974-B234-49A23A70BC24}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {831BB8D2-2AA2-4B38-BD2F-1C679795682C}
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.ExceptionHandling.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45
+		SolutionGuid = {831BB8D2-2AA2-4B38-BD2F-1C679795682C}
 	EndGlobalSection
 EndGlobal
