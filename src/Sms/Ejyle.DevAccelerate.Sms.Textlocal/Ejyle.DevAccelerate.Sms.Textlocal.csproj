@@ -16,7 +16,7 @@
     <Product>DevAccelerateSmsTextlocal</Product>
     <Description>Provides Textlocal implementation for DevAccelerate SMS for sending SMS messages.</Description>
     <PackageTags>DevAccelerate;SMS;SMS-Messages;Textlocal</PackageTags>
-    <Version>6.3.0</Version>
+    <Version>6.5.0</Version>
     <Nullable>disable</Nullable>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <PackageReleaseNotes>Migrated the library to .NET Core</PackageReleaseNotes>

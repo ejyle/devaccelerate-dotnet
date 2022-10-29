@@ -17,7 +17,7 @@
     <Product>DevAccelerate Tools</Product>
     <Description>DevAccelerate Tools provides a list of dotnet commands to setup and manage a DevAccelerate app.</Description>
     <PackageTags>DevAccelerate;Tools</PackageTags>
-    <Version>6.3.1</Version>
+    <Version>6.5.0</Version>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <PackageIcon>logo.png</PackageIcon>
     <PackAsTool>true</PackAsTool>
