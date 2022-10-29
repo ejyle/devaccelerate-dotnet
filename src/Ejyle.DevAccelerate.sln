@@ -57,9 +57,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ejyle.DevAccelerate.Tools",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SystemTasks", "SystemTasks", "{F42CFB9F-66A2-480D-ADDD-DD5AA1C4C404}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejyle.DevAccelerate.SystemTasks", "SystemTasks\Ejyle.DevAccelerate.SystemTasks\Ejyle.DevAccelerate.SystemTasks.csproj", "{81CAFC99-265C-41F1-979B-AEB77144D7D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ejyle.DevAccelerate.SystemTasks", "SystemTasks\Ejyle.DevAccelerate.SystemTasks\Ejyle.DevAccelerate.SystemTasks.csproj", "{81CAFC99-265C-41F1-979B-AEB77144D7D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejyle.DevAccelerate.SystemTasks.EF", "SystemTasks\Ejyle.DevAccelerate.SystemTasks.EF\Ejyle.DevAccelerate.SystemTasks.EF.csproj", "{D157F44E-AB15-4676-ADB6-C14BE0C680A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ejyle.DevAccelerate.SystemTasks.EF", "SystemTasks\Ejyle.DevAccelerate.SystemTasks.EF\Ejyle.DevAccelerate.SystemTasks.EF.csproj", "{D157F44E-AB15-4676-ADB6-C14BE0C680A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -169,7 +169,7 @@ Global
 		{D157F44E-AB15-4676-ADB6-C14BE0C680A2} = {F42CFB9F-66A2-480D-ADDD-DD5AA1C4C404}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.ExceptionHandling.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45
 		SolutionGuid = {831BB8D2-2AA2-4B38-BD2F-1C679795682C}
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.ExceptionHandling.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45
 	EndGlobalSection
 EndGlobal
