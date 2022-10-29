@@ -69,6 +69,14 @@ namespace Ejyle.DevAccelerate.Comments.EF
                 entity.Property(e => e.Message)
                     .IsRequired()
                     .HasMaxLength(500);
+
+                entity.HasOne(d => d.CommentThread)
+                    .WithMany(p => p.Comments)
+                    .HasForeignKey(d => d.CommentThreadId);
+
+                entity.HasOne(d => d.Parent)
+                    .WithMany(p => p.Children)
+                    .HasForeignKey(d => d.ParentId);
             });
 
             modelBuilder.Entity<TCommentThread>(entity =>
