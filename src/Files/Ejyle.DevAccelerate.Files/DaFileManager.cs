@@ -81,6 +81,17 @@ namespace Ejyle.DevAccelerate.Files
             return Repository.FindByIdAsync(id);
         }
 
+        public virtual TFile FindByGuidFileName(string guidFileName)
+        {
+            return DaAsyncHelper.RunSync<TFile>(() => FindByGuidFileNameAsync(guidFileName));
+        }
+
+        public virtual Task<TFile> FindByGuidFileNameAsync(string guidFileName)
+        {
+            ThrowIfDisposed();
+            return Repository.FindByGuidFileNameAsync(guidFileName);
+        }
+
         public virtual DaPaginatedEntityList<TKey, TFile> FindByFileCollectionId(TKey fileCollectionId, DaDataPaginationCriteria paginationCriteria)
         {
             return DaAsyncHelper.RunSync<DaPaginatedEntityList<TKey, TFile>>(() => FindByFileCollectionIdAsync(fileCollectionId, paginationCriteria));

@@ -21,6 +21,7 @@ namespace Ejyle.DevAccelerate.Files
     {
         Task CreateAsync(TFile file);
         Task<TFile> FindByIdAsync(TKey id);
+        Task<TFile> FindByGuidFileNameAsync(string guidFileName);
         Task RenameAsync(TKey id, string newName);
         Task DeleteAsync(TFile file);
         Task<DaPaginatedEntityList<TKey, TFile>> FindByFileCollectionIdAsync(TKey fileCollectionId, DaDataPaginationCriteria paginationCriteria);

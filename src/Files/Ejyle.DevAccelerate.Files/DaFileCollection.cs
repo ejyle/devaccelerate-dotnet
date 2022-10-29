@@ -14,6 +14,9 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Files
 {
+    public class DaFileCollection : DaFileCollection<int, int?, DaFileCollection, DaFile>
+    { }
+
     public class DaFileCollection<TKey, TNullableKey, TFileCollection, TFile> : DaAuditedEntityBase<TKey>, IDaFileCollection<TKey, TNullableKey>
         where TKey : IEquatable<TKey>
         where TFileCollection : IDaFileCollection<TKey, TNullableKey>

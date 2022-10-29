@@ -24,5 +24,6 @@ namespace Ejyle.DevAccelerate.Files
         TNullableKey FileCollectionId { get; set; }
         TKey OwnerUserId { get; set; }
         TNullableKey TenantId { get; set; }
+        TNullableKey ObjectInstanceId { get; set; }
     }
 }
