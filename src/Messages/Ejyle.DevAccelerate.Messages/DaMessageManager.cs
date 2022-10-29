@@ -14,7 +14,7 @@ using Ejyle.DevAccelerate.Core.Utils;
 
 namespace Ejyle.DevAccelerate.Messages
 {
-    public class DaMessageManager<TKey, TNullableKey, TMessage> : DaEntityManagerBase<TKey, TMessage>
+    public class DaMessageManager<TKey, TMessage> : DaEntityManagerBase<TKey, TMessage>
         where TKey : IEquatable<TKey>
         where TMessage : IDaMessage<TKey>
     {

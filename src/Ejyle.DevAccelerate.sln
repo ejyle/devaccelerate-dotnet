@@ -77,6 +77,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Messages", "Messages", "{9C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejyle.DevAccelerate.Messages", "Messages\Ejyle.DevAccelerate.Messages\Ejyle.DevAccelerate.Messages.csproj", "{E9229471-00F6-49C7-A5DA-D1E926548C84}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejyle.DevAccelerate.Messages.EF", "Messages\Ejyle.DevAccelerate.Messages.EF\Ejyle.DevAccelerate.Messages.EF.csproj", "{504AD0A6-ADAA-4315-96D2-A9824E3819A7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -179,6 +181,10 @@ Global
 		{E9229471-00F6-49C7-A5DA-D1E926548C84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9229471-00F6-49C7-A5DA-D1E926548C84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9229471-00F6-49C7-A5DA-D1E926548C84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{504AD0A6-ADAA-4315-96D2-A9824E3819A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{504AD0A6-ADAA-4315-96D2-A9824E3819A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{504AD0A6-ADAA-4315-96D2-A9824E3819A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{504AD0A6-ADAA-4315-96D2-A9824E3819A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -208,6 +214,7 @@ Global
 		{4F815ACD-53C9-4292-AFB4-0E7B70E8E3EF} = {CBB7FF24-CE18-486E-B7D0-8E492BBCD99E}
 		{040D087E-DCCB-4281-95E1-117874189BB0} = {CBB7FF24-CE18-486E-B7D0-8E492BBCD99E}
 		{E9229471-00F6-49C7-A5DA-D1E926548C84} = {9CCC4EFE-3272-4D85-9430-BFA38AF76BEB}
+		{504AD0A6-ADAA-4315-96D2-A9824E3819A7} = {9CCC4EFE-3272-4D85-9430-BFA38AF76BEB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.ExceptionHandling.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45
