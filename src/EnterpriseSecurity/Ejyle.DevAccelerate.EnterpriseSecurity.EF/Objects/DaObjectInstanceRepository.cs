@@ -58,6 +58,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Objects
         public Task<TObjectInstance> FindByIdAsync(TKey id)
         {
             return ObjectInstances.Where(m => m.Id.Equals(id))
+                .Include(m => m.ObjectHistoryItems)
                 .SingleOrDefaultAsync();
         }
 
