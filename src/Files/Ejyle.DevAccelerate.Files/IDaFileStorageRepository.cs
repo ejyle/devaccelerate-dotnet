@@ -21,6 +21,7 @@ namespace Ejyle.DevAccelerate.Files
     {
         Task CreateAsync(TFileStorage fileStorage);
         Task<TFileStorage> FindByIdAsync(TKey id);
+        Task<TFileStorage> FindByNameAsync(string name);
         Task UpdateAsync(TFileStorage fileStorage);
         Task DeleteAsync(TFileStorage fileStorage);
         Task<List<TFileStorage>> FindAllAsync();

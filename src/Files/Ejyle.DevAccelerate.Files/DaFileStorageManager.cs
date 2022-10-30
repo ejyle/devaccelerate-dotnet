@@ -81,6 +81,18 @@ namespace Ejyle.DevAccelerate.Files
             return Repository.FindByIdAsync(id);
         }
 
+        public virtual TFileStorage FindByName(string name)
+        {
+            return DaAsyncHelper.RunSync<TFileStorage>(() => FindByNameAsync(name));
+        }
+
+        public virtual Task<TFileStorage> FindByNameAsync(string name)
+        {
+            ThrowIfDisposed();
+            ThrowIfArgumentIsNull(name, nameof(name));
+            return Repository.FindByNameAsync(name);
+        }
+
         public virtual List<TFileStorage> FindAll()
         {
             return DaAsyncHelper.RunSync<List<TFileStorage>>(() => FindAllAsync());

@@ -64,5 +64,10 @@ namespace Ejyle.DevAccelerate.Files.EF
         {
             return FileStorages.ToListAsync();
         }
+
+        public Task<TFileStorage> FindByNameAsync(string name)
+        {
+            return FileStorages.Where(m => m.Name.Equals(name)).SingleOrDefaultAsync();
+        }
     }
 }
