@@ -20,6 +20,7 @@ namespace Ejyle.DevAccelerate.Tasks
         string Summary { get; set; }
         string Description { get; set; }
         DaTaskStatus Status { get; set; }
+        string StatusReason { get; set; }
         TNullableKey AssignedTo { get; set; }
         TKey OwnerUserId { get; set; }
         TNullableKey TenantId { get; set; }

@@ -68,6 +68,9 @@ namespace Ejyle.DevAccelerate.Tasks.EF
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(256);
+
+                entity.Property(e => e.StatusReason)
+                    .HasMaxLength(500);
             });
         }
     }
