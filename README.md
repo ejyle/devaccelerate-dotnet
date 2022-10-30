@@ -17,12 +17,21 @@ The following is the list of DevAccelerate modules with corresponding NuGet pack
 #### Core
 * [DevAccelerateCore](https://www.nuget.org/packages/DevAccelerateCore)
 * [DevAccelerateCoreEF](https://www.nuget.org/packages/DevAccelerateCoreEF)
+#### Comments
+* [DevAccelerateCore](https://www.nuget.org/packages/DevAccelerateComments)
+* [DevAccelerateCoreEF](https://www.nuget.org/packages/DevAccelerateCommentsEF)
+#### Files
+* [DevAccelerateCore](https://www.nuget.org/packages/DevAccelerateFiles)
+* [DevAccelerateCoreEF](https://www.nuget.org/packages/DevAccelerateFilesEF)
 #### Lists
 * [DevAccelerateLists](https://www.nuget.org/packages/DevAccelerateLists/)
 * [DevAccelerateListsEF](https://www.nuget.org/packages/DevAccelerateListsEF/)
 #### Identity
 * [DevAccelerateIdentity](https://www.nuget.org/packages/DevAccelerateIdentity/)
 * [DevAccelerateIdentityEF](https://www.nuget.org/packages/DevAccelerateIdentityEF/)
+#### Messages
+* [DevAccelerateCore](https://www.nuget.org/packages/DevAccelerateMessages)
+* [DevAccelerateCoreEF](https://www.nuget.org/packages/DevAccelerateMessagesEF)
 #### Profiles
 * [DevAccelerateProfiles](https://www.nuget.org/packages/DevAccelerateProfiles/)
 * [DevAccelerateProfilesEF](https://www.nuget.org/packages/DevAccelerateProfilesEF/)
@@ -40,6 +49,9 @@ The following is the list of DevAccelerate modules with corresponding NuGet pack
 #### System Tasks
 * [DevAccelerateSystemTasks](https://www.nuget.org/packages/DevAccelerateSystemTasks/)
 * [DevAccelerateSystemTasksEF](https://www.nuget.org/packages/DevAccelerateSystemTasksEF/)
+#### Tasks
+* [DevAccelerateCore](https://www.nuget.org/packages/DevAccelerateTasks)
+* [DevAccelerateCoreEF](https://www.nuget.org/packages/DevAccelerateTasksEF)
 #### Tools
 * [DevAccelerateTools](https://www.nuget.org/packages/DevAccelerateTools/)
 
@@ -49,14 +61,22 @@ DevAccelerate modules are available on NuGet. Each module has its own package(s)
 ```
 dotnet add package DevAccelerateCore
 dotnet add package DevAccelerateCoreEF
+dotnet add package DevAccelerateComments
+dotnet add package DevAccelerateCommentsEF
+dotnet add package DevAccelerateFiles
+dotnet add package DevAccelerateFilesEF
 dotnet add package DevAccelerateLists
 dotnet add package DevAccelerateListsEF
 dotnet add package DevAccelerateIdentity
 dotnet add package DevAccelerateIdentityEF
+dotnet add package DevAccelerateMessages
+dotnet add package DevAccelerateMessagesEF
 dotnet add package DevAccelerateProfiles
 dotnet add package DevAccelerateProfilesEF
 dotnet add package DevAccelerateEnterpriseSecurity
 dotnet add package DevAccelerateEnterpriseSecurityEF
+dotnet add package DevAccelerateTasks
+dotnet add package DevAccelerateTasksEF
 dotnet add package DevAccelerateMail
 dotnet add package DevAccelerateMailSendGrid
 dotnet add package DevAccelerateSms
