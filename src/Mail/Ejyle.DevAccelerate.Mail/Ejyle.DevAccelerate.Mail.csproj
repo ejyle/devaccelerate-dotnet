@@ -16,7 +16,7 @@
     <Product>DevAccelerateMail</Product>
     <Description>Provides interfaces for sending email messages.</Description>
     <PackageTags>DevAccelerate;Mail;Email</PackageTags>
-    <Version>6.3.0</Version>
+    <Version>6.5.0</Version>
     <Nullable>disable</Nullable>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <PackageReleaseNotes>Migrated the library to .NET Core</PackageReleaseNotes>

@@ -16,7 +16,7 @@
     <Product>DevAccelerateSecurityFacade</Product>
     <Description>A facade library that simplifies security APIs. It works on top of DeAaccelerateIdenitty and DevAccelerateEnterpriseSecurity.</Description>
     <PackageTags>DevAccelerate;Subscriptions;Identity;Security;Facades</PackageTags>
-    <Version>6.4.2</Version>
+    <Version>6.5.0</Version>
     <Nullable>disable</Nullable>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <PackageReleaseNotes>Migrated the library to .NET Core</PackageReleaseNotes>
@@ -62,9 +62,5 @@
     <ProjectReference Include="..\..\Profiles\Ejyle.DevAccelerate.Profiles.EF\Ejyle.DevAccelerate.Profiles.EF.csproj" />
     <ProjectReference Include="..\..\Profiles\Ejyle.DevAccelerate.Profiles\Ejyle.DevAccelerate.Profiles.csproj" />
   </ItemGroup>  
-
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
 
 </Project>

@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
+		<RootNamespace>Ejyle.DevAccelerate.Messages</RootNamespace>
+		<AssemblyName>Ejyle.DevAccelerate.Messages</AssemblyName>
+		<ApplicationIcon>da.ico</ApplicationIcon>
+		<Company>Ejyle Technologies (P) Ltd</Company>
+		<Authors>ejyle, tanveery</Authors>
+		<Copyright>Copyright © Ejyle Technologies (P) Ltd. All rights reserved.</Copyright>
+		<PackageProjectUrl>https://devaccelerate.github.io</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/devaccelerate/DevAccelerateNet.git</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageId>DevAccelerateMessages</PackageId>
+		<Product>DevAccelerateMessages</Product>
+		<Description>Provides interfaces and base functionality for creating and managing message templates and messages.</Description>
+		<PackageTags>DevAccelerate;Messages;Message-Templates</PackageTags>
+		<Version>6.5.0</Version>
+		<Nullable>disable</Nullable>
+		<GenerateDocumentationFile>False</GenerateDocumentationFile>
+		<PackageReleaseNotes>Added to DevAccelerate.</PackageReleaseNotes>
+		<PackageIcon>logo.png</PackageIcon>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<PackageOutputPath>../../../nupkg</PackageOutputPath>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="..\..\..\assets\logo.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Core\Ejyle.DevAccelerate.Core\Ejyle.DevAccelerate.Core.csproj" />
+	</ItemGroup>
+
+</Project>
