@@ -11,13 +11,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CommandLine;
+using Ejyle.DevAccelerate.Comments.EF;
 using Ejyle.DevAccelerate.EnterpriseSecurity.Apps;
 using Ejyle.DevAccelerate.EnterpriseSecurity.EF;
 using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Apps;
 using Ejyle.DevAccelerate.Identity.EF;
 using Ejyle.DevAccelerate.Lists.EF;
+using Ejyle.DevAccelerate.Messages.EF;
 using Ejyle.DevAccelerate.Profiles.EF;
 using Ejyle.DevAccelerate.SystemTasks.EF;
+using Ejyle.DevAccelerate.Tasks.EF;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -97,6 +100,62 @@ namespace Ejyle.DevAccelerate.Tools.Commands
                 {
                     profilesDbContext.Database.EnsureCreated();
                     var databaseCreator = profilesDbContext.GetService<IRelationalDatabaseCreator>();
+                    databaseCreator.CreateTables();
+                }
+                catch (Exception)
+                {
+                    // Ignore the error
+                }
+            }
+
+            using (var commentsDbContext = new DaCommentsDbContext(GetConnectionString()))
+            {
+                try
+                {
+                    commentsDbContext.Database.EnsureCreated();
+                    var databaseCreator = commentsDbContext.GetService<IRelationalDatabaseCreator>();
+                    databaseCreator.CreateTables();
+                }
+                catch (Exception)
+                {
+                    // Ignore the error
+                }
+            }
+
+            using (var filesDbContext = new DaFilesDbContext(GetConnectionString()))
+            {
+                try
+                {
+                    filesDbContext.Database.EnsureCreated();
+                    var databaseCreator = filesDbContext.GetService<IRelationalDatabaseCreator>();
+                    databaseCreator.CreateTables();
+                }
+                catch (Exception)
+                {
+                    // Ignore the error
+                }
+            }
+
+            using (var messagesDbContext = new DaMessagesDbContext(GetConnectionString()))
+            {
+                try
+                {
+                    messagesDbContext.Database.EnsureCreated();
+                    var databaseCreator = messagesDbContext.GetService<IRelationalDatabaseCreator>();
+                    databaseCreator.CreateTables();
+                }
+                catch (Exception)
+                {
+                    // Ignore the error
+                }
+            }
+
+            using (var tasksDbContext = new DaTasksDbContext(GetConnectionString()))
+            {
+                try
+                {
+                    tasksDbContext.Database.EnsureCreated();
+                    var databaseCreator = tasksDbContext.GetService<IRelationalDatabaseCreator>();
                     databaseCreator.CreateTables();
                 }
                 catch (Exception)
