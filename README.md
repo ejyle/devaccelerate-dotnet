@@ -2,7 +2,14 @@
 
 **DevAccelerate for .NET** is a comprehensive and well-designed development accelerator for Microsoft .NET Framework. It is free and open source. It contains common components and functionalities that allow developers to build real-world .NET apps rapidly. It is broken up into individual modules and therefore allows developers to use only what is needed. The usage of the framework is governed by the terms and conditions of its [License](https://github.com/devaccelerate/DevAccelerateNet/blob/master/LICENSE).
 
-## Latest Changes
+## 6.5.0 Changes
+Some new modules have been added and few older modules have also been migrated to the latest code base. The following are the highlights:
+* Added Comments module to create and manage comments.
+* Added Files module to create and manage logical file objects.
+* Migrated the older Notifications library and added it as Messages module.
+* Added Tasks module to create and manage user-defined tasks.
+
+## 6.1.0 Changes
 The code base has been updated in a significant way to provide better and more optimised functionality. The following are the highlights:
 * The current code base is now fully migrated to .NET 6 (latest .NET version) and it includes the support for .NET 5 and .NET Core 3.1. The support for .NET Framework has been discontinued.
 * Support for Microsoft Enterprise Library (MSEL) has been removed. The development of MSEL was discontinued by Microsoft long time ago and therefore it was reasonable to discontinue its inclusion in DevAccelerate.
