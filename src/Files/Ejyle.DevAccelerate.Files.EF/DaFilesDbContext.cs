@@ -72,6 +72,10 @@ namespace Ejyle.DevAccelerate.Comments.EF
                     .IsRequired()
                     .HasMaxLength(256);
 
+                entity.Property(e => e.GuidFileName)
+                    .IsRequired()
+                    .HasMaxLength(128);
+
                 entity.Property(e => e.MimeType)
                     .HasMaxLength(256);
 
