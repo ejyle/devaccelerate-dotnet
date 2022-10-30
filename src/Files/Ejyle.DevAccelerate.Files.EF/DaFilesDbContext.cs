@@ -109,6 +109,9 @@ namespace Ejyle.DevAccelerate.Comments.EF
             {
                 entity.ToTable("FileStorages", SCHEMA_NAME);
 
+                entity.HasIndex(e => e.Name)
+                    .IsUnique();
+
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(256);
