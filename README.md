@@ -18,11 +18,11 @@ The following is the list of DevAccelerate modules with corresponding NuGet pack
 * [DevAccelerateCore](https://www.nuget.org/packages/DevAccelerateCore)
 * [DevAccelerateCoreEF](https://www.nuget.org/packages/DevAccelerateCoreEF)
 #### Comments
-* [DevAccelerateCore](https://www.nuget.org/packages/DevAccelerateComments)
-* [DevAccelerateCoreEF](https://www.nuget.org/packages/DevAccelerateCommentsEF)
+* [DevAccelerateComments](https://www.nuget.org/packages/DevAccelerateComments)
+* [DevAccelerateCommentsEF](https://www.nuget.org/packages/DevAccelerateCommentsEF)
 #### Files
-* [DevAccelerateCore](https://www.nuget.org/packages/DevAccelerateFiles)
-* [DevAccelerateCoreEF](https://www.nuget.org/packages/DevAccelerateFilesEF)
+* [DevAccelerateFiles](https://www.nuget.org/packages/DevAccelerateFiles)
+* [DevAccelerateFilesEF](https://www.nuget.org/packages/DevAccelerateFilesEF)
 #### Lists
 * [DevAccelerateLists](https://www.nuget.org/packages/DevAccelerateLists/)
 * [DevAccelerateListsEF](https://www.nuget.org/packages/DevAccelerateListsEF/)
@@ -30,8 +30,8 @@ The following is the list of DevAccelerate modules with corresponding NuGet pack
 * [DevAccelerateIdentity](https://www.nuget.org/packages/DevAccelerateIdentity/)
 * [DevAccelerateIdentityEF](https://www.nuget.org/packages/DevAccelerateIdentityEF/)
 #### Messages
-* [DevAccelerateCore](https://www.nuget.org/packages/DevAccelerateMessages)
-* [DevAccelerateCoreEF](https://www.nuget.org/packages/DevAccelerateMessagesEF)
+* [DevAccelerateMessages](https://www.nuget.org/packages/DevAccelerateMessages)
+* [DevAccelerateMessagesEF](https://www.nuget.org/packages/DevAccelerateMessagesEF)
 #### Profiles
 * [DevAccelerateProfiles](https://www.nuget.org/packages/DevAccelerateProfiles/)
 * [DevAccelerateProfilesEF](https://www.nuget.org/packages/DevAccelerateProfilesEF/)
@@ -50,8 +50,8 @@ The following is the list of DevAccelerate modules with corresponding NuGet pack
 * [DevAccelerateSystemTasks](https://www.nuget.org/packages/DevAccelerateSystemTasks/)
 * [DevAccelerateSystemTasksEF](https://www.nuget.org/packages/DevAccelerateSystemTasksEF/)
 #### Tasks
-* [DevAccelerateCore](https://www.nuget.org/packages/DevAccelerateTasks)
-* [DevAccelerateCoreEF](https://www.nuget.org/packages/DevAccelerateTasksEF)
+* [DevAccelerateTasks](https://www.nuget.org/packages/DevAccelerateTasks)
+* [DevAccelerateTasksEF](https://www.nuget.org/packages/DevAccelerateTasksEF)
 #### Tools
 * [DevAccelerateTools](https://www.nuget.org/packages/DevAccelerateTools/)
 
