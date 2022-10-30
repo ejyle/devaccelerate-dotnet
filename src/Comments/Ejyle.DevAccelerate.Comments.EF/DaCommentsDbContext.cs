@@ -67,8 +67,7 @@ namespace Ejyle.DevAccelerate.Comments.EF
                 entity.ToTable("Comments", SCHEMA_NAME);
 
                 entity.Property(e => e.Message)
-                    .IsRequired()
-                    .HasMaxLength(500);
+                    .IsRequired();
 
                 entity.HasOne(d => d.CommentThread)
                     .WithMany(p => p.Comments)
@@ -82,6 +81,9 @@ namespace Ejyle.DevAccelerate.Comments.EF
             modelBuilder.Entity<TCommentThread>(entity =>
             {
                 entity.ToTable("CommentThreads", SCHEMA_NAME);
+
+                entity.Property(e => e.Format)
+                    .HasMaxLength(256);
             });
         }
     }

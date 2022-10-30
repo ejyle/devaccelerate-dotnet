@@ -30,8 +30,6 @@ namespace Ejyle.DevAccelerate.Comments
             Children = new HashSet<TComment>();
         }
 
-        [StringLength(1000)]
-        [Required]
         public string Message
         {
             get;

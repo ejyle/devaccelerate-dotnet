@@ -35,6 +35,12 @@ namespace Ejyle.DevAccelerate.Comments
             set;
         }
 
+        public string Format
+        {
+            get;
+            set;
+        }
+
         public TKey ObjectInstanceId
         {
             get;
