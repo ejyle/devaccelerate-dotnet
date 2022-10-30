@@ -16,7 +16,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Ejyle.DevAccelerate.Comments.EF
 {
     public class DaFilesDbContext
-        : DaFilesDbContext<int, int?, DaFileStorage, DaFileCollection, DaFile>
+        : DaFilesDbContext<int, int?, DaFileStorage, DaFileStorageLocation, DaFileStorageAttribute, DaFileCollection, DaFile>
     {
         public DaFilesDbContext() : base()
         { }
@@ -30,9 +30,11 @@ namespace Ejyle.DevAccelerate.Comments.EF
         { }
     }
 
-    public class DaFilesDbContext<TKey, TNullableKey, TFileStorage, TFileCollection, TFile> : DbContext
+    public class DaFilesDbContext<TKey, TNullableKey, TFileStorage, TFileStorageLocation, TFileStorageAttribute, TFileCollection, TFile> : DbContext
         where TKey : IEquatable<TKey>
-        where TFileStorage : DaFileStorage<TKey>
+        where TFileStorage : DaFileStorage<TKey, TFileStorageLocation, TFileStorageAttribute>
+        where TFileStorageLocation : DaFileStorageLocation<TKey, TFileStorage>
+        where TFileStorageAttribute : DaFileStorageAttribute<TKey, TFileStorage>
         where TFile : DaFile<TKey, TNullableKey, TFileCollection>
         where TFileCollection : DaFileCollection<TKey, TNullableKey, TFileCollection, TFile>
     {
@@ -45,7 +47,7 @@ namespace Ejyle.DevAccelerate.Comments.EF
             : base(options)
         { }
 
-        public DaFilesDbContext(DbContextOptions<DaFilesDbContext<TKey, TNullableKey, TFileStorage, TFileCollection, TFile>> options)
+        public DaFilesDbContext(DbContextOptions<DaFilesDbContext<TKey, TNullableKey, TFileStorage, TFileStorageLocation, TFileStorageAttribute, TFileCollection, TFile>> options)
             : base(options)
         { }
 
@@ -53,12 +55,14 @@ namespace Ejyle.DevAccelerate.Comments.EF
             : base(GetOptions(connectionString))
         { }
 
-        private static DbContextOptions<DaFilesDbContext<TKey, TNullableKey, TFileStorage, TFileCollection, TFile>> GetOptions(string connectionString)
+        private static DbContextOptions<DaFilesDbContext<TKey, TNullableKey, TFileStorage, TFileStorageLocation, TFileStorageAttribute, TFileCollection, TFile>> GetOptions(string connectionString)
         {
-            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaFilesDbContext<TKey, TNullableKey, TFileStorage, TFileCollection, TFile>>(), connectionString).Options;
+            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaFilesDbContext<TKey, TNullableKey, TFileStorage, TFileStorageLocation, TFileStorageAttribute, TFileCollection, TFile>>(), connectionString).Options;
         }
 
         public virtual DbSet<TFileStorage> FileStorages { get; set; }
+        public virtual DbSet<TFileStorageLocation> FileStorageLocations { get; set; }
+        public virtual DbSet<TFileStorageAttribute> FileStorageAttributes { get; set; }
         public virtual DbSet<TFile> Files { get; set; }
         public virtual DbSet<TFileCollection> FileCollections { get; set; }
 
@@ -119,6 +123,32 @@ namespace Ejyle.DevAccelerate.Comments.EF
                 entity.Property(e => e.Platform)
                     .IsRequired()
                     .HasMaxLength(256);
+            });
+
+            modelBuilder.Entity<TFileStorageLocation>(entity =>
+            {
+                entity.ToTable("FileStorageLocations", SCHEMA_NAME);
+
+                entity.Property(e => e.Location)
+                    .IsRequired()
+                    .HasMaxLength(1000);
+
+                entity.HasOne(d => d.FileStorage)
+                    .WithMany(p => p.Locations)
+                    .HasForeignKey(d => d.FileStorageId);
+            });
+
+            modelBuilder.Entity<TFileStorageAttribute>(entity =>
+            {
+                entity.ToTable("FileStorageAttributes", SCHEMA_NAME);
+
+                entity.Property(e => e.AttributeName)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.HasOne(d => d.FileStorage)
+                    .WithMany(p => p.Attributes)
+                    .HasForeignKey(d => d.FileStorageId);
             });
         }
     }

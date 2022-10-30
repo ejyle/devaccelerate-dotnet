@@ -23,6 +23,6 @@ namespace Ejyle.DevAccelerate.Files
         TNullableKey ParentId { get; set; }
         TNullableKey TenantId { get; set; }
         bool IsUserDefined { get; set; }
-        TNullableKey FileStorageId { get; set; }
+        TNullableKey FileStorageLocationId { get; set; }
     }
 }

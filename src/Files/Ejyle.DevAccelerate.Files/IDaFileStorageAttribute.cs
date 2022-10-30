@@ -5,27 +5,16 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-using Ejyle.DevAccelerate.Core;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.Files
 {
-    public interface IDaFile<TKey, TNullableKey> : IDaAuditedEntity<TKey>
+    public interface IDaFileStorageAttribute<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {
-        string FileName { get; set; }
-        string GuidFileName { get; set; }
-        string MimeType { get; set; }
-        long? FileSize { get; set; }
-        string Extension { get; set; }
-        TNullableKey FileCollectionId { get; set; }
-        TKey OwnerUserId { get; set; }
-        TNullableKey TenantId { get; set; }
-        TNullableKey ObjectInstanceId { get; set; }
-        TNullableKey FileStorageLocationId { get; set; }
+        TKey FileStorageId { get; set; }
+        string AttributeName { get; set; }
+        string AttributeValue { get; set; }
     }
 }

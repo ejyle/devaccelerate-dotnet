@@ -14,18 +14,10 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Files
 {
-    public interface IDaFile<TKey, TNullableKey> : IDaAuditedEntity<TKey>
+    public interface IDaFileStorageLocation<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {
-        string FileName { get; set; }
-        string GuidFileName { get; set; }
-        string MimeType { get; set; }
-        long? FileSize { get; set; }
-        string Extension { get; set; }
-        TNullableKey FileCollectionId { get; set; }
-        TKey OwnerUserId { get; set; }
-        TNullableKey TenantId { get; set; }
-        TNullableKey ObjectInstanceId { get; set; }
-        TNullableKey FileStorageLocationId { get; set; }
+        string Location { get; set; }
+        TKey FileStorageId { get; set; }
     }
 }

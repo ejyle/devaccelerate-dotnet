@@ -17,7 +17,7 @@ using System.Xml.Linq;
 
 namespace Ejyle.DevAccelerate.Files.EF
 {
-    public class DaFileStorageRepository : DaFileStorageRepository<int, DaFileStorage, DbContext>
+    public class DaFileStorageRepository : DaFileStorageRepository<int, DaFileStorage, DaFileStorageLocation, DaFileStorageAttribute, DbContext>
     {
         public DaFileStorageRepository(DbContext dbContext)
             : base(dbContext)
@@ -25,10 +25,12 @@ namespace Ejyle.DevAccelerate.Files.EF
     }
 
 
-    public class DaFileStorageRepository<TKey, TFileStorage, TDbContext>
+    public class DaFileStorageRepository<TKey, TFileStorage, TFileStorageLocation, TFileStorageAttribute, TDbContext>
         : DaEntityRepositoryBase<TKey, TFileStorage, TDbContext>, IDaFileStorageRepository<TKey, TFileStorage>
         where TKey : IEquatable<TKey>
-        where TFileStorage : DaFileStorage<TKey>
+        where TFileStorage : DaFileStorage<TKey, TFileStorageLocation, TFileStorageAttribute>
+        where TFileStorageLocation : DaFileStorageLocation<TKey, TFileStorage>
+        where TFileStorageAttribute : DaFileStorageAttribute<TKey, TFileStorage>
         where TDbContext : DbContext
     {
         public DaFileStorageRepository(TDbContext dbContext)
@@ -58,11 +60,6 @@ namespace Ejyle.DevAccelerate.Files.EF
         {
             DbContext.Entry<TFileStorage>(fileStorage).State = EntityState.Modified;
             await SaveChangesAsync();
-        }
-
-        public Task<List<TFileStorage>> FindAllAsync()
-        {
-            return FileStorages.ToListAsync();
         }
 
         public Task<TFileStorage> FindByNameAsync(string name)
