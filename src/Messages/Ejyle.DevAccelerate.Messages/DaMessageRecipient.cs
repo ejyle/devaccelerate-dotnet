@@ -14,13 +14,13 @@ using System.Xml.Linq;
 
 namespace Ejyle.DevAccelerate.Messages
 {
-    public class DaMessageRecipient : DaMessageRecipient<int, DaMessage, DaMessageRecipientVariable>
+    public class DaMessageRecipient : DaMessageRecipient<int, int?, DaMessage, DaMessageRecipientVariable>
     {
         public DaMessageRecipient()
         { }
     }
 
-    public class DaMessageRecipient<TKey, TMessage, TMessageRecipientVariable> : DaEntityBase<TKey>, IDaMessageRecipient<TKey>
+    public class DaMessageRecipient<TKey, TNullableKey, TMessage, TMessageRecipientVariable> : DaEntityBase<TKey>, IDaMessageRecipient<TKey, TNullableKey>
         where TKey : IEquatable<TKey>
         where TMessage : IDaMessage<TKey>
         where TMessageRecipientVariable : IDaMessageRecipientVariable<TKey>
@@ -46,5 +46,6 @@ namespace Ejyle.DevAccelerate.Messages
         public string RecipientAddress { get; set; }
         public DaMessageStatus Status { get; set; }
         public string FailureMessage { get; set; }
+        public TNullableKey UserId { get; set; }
     }
 }

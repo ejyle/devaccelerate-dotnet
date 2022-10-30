@@ -14,16 +14,16 @@ using System.Xml.Linq;
 
 namespace Ejyle.DevAccelerate.Messages
 {
-    public class DaMessage : DaMessage<int, DaMessageVariable, DaMessageRecipient>
+    public class DaMessage : DaMessage<int, int?, DaMessageVariable, DaMessageRecipient>
     {
         public DaMessage()
         { }
     }
 
-    public class DaMessage<TKey, TMessageVariable, TMessageRecipient> : DaEntityBase<TKey>, IDaMessage<TKey>
+    public class DaMessage<TKey, TNullableKey, TMessageVariable, TMessageRecipient> : DaEntityBase<TKey>, IDaMessage<TKey>
         where TKey : IEquatable<TKey>
         where TMessageVariable : IDaMessageVariable<TKey>
-        where TMessageRecipient : IDaMessageRecipient<TKey>
+        where TMessageRecipient : IDaMessageRecipient<TKey, TNullableKey>
     {
         public DaMessage()
         {
@@ -43,6 +43,7 @@ namespace Ejyle.DevAccelerate.Messages
             set;
         }
 
+        public string Category { get; set; }
         public string Subject { get; set; }
         public string Message { get; set; }
         public string Format { get; set; }

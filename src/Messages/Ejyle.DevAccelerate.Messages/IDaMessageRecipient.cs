@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Messages
 {
-    public interface IDaMessageRecipient<TKey> : IDaEntity<TKey>
+    public interface IDaMessageRecipient<TKey, TNullableKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         TKey MessageId { get; set; }
@@ -21,5 +21,6 @@ namespace Ejyle.DevAccelerate.Messages
         string RecipientAddress { get; set; }
         DaMessageStatus Status { get; set; }
         string FailureMessage { get; set; }
+        TNullableKey UserId { get; set; }
     }
 }

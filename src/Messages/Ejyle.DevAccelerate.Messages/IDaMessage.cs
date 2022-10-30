@@ -19,6 +19,7 @@ namespace Ejyle.DevAccelerate.Messages
         string Subject { get; set; }
         string Message { get; set; }
         string Format { get; set; }
+        string Category { get; set; }
         TKey MessageTemplateId { get; set; }
         DaMessageStatus Status { get; set; }
         string FailureMessage { get; set; }
