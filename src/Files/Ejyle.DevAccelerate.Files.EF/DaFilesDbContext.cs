@@ -16,7 +16,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Ejyle.DevAccelerate.Comments.EF
 {
     public class DaFilesDbContext
-        : DaFilesDbContext<int, int?, DaFileCollection, DaFile>
+        : DaFilesDbContext<int, int?, DaFileStorage, DaFileCollection, DaFile>
     {
         public DaFilesDbContext() : base()
         { }
@@ -30,8 +30,9 @@ namespace Ejyle.DevAccelerate.Comments.EF
         { }
     }
 
-    public class DaFilesDbContext<TKey, TNullableKey, TFileCollection, TFile> : DbContext
+    public class DaFilesDbContext<TKey, TNullableKey, TFileStorage, TFileCollection, TFile> : DbContext
         where TKey : IEquatable<TKey>
+        where TFileStorage : DaFileStorage<TKey>
         where TFile : DaFile<TKey, TNullableKey, TFileCollection>
         where TFileCollection : DaFileCollection<TKey, TNullableKey, TFileCollection, TFile>
     {
@@ -44,7 +45,7 @@ namespace Ejyle.DevAccelerate.Comments.EF
             : base(options)
         { }
 
-        public DaFilesDbContext(DbContextOptions<DaFilesDbContext<TKey, TNullableKey, TFileCollection, TFile>> options)
+        public DaFilesDbContext(DbContextOptions<DaFilesDbContext<TKey, TNullableKey, TFileStorage, TFileCollection, TFile>> options)
             : base(options)
         { }
 
@@ -52,11 +53,12 @@ namespace Ejyle.DevAccelerate.Comments.EF
             : base(GetOptions(connectionString))
         { }
 
-        private static DbContextOptions<DaFilesDbContext<TKey, TNullableKey, TFileCollection, TFile>> GetOptions(string connectionString)
+        private static DbContextOptions<DaFilesDbContext<TKey, TNullableKey, TFileStorage, TFileCollection, TFile>> GetOptions(string connectionString)
         {
-            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaFilesDbContext<TKey, TNullableKey, TFileCollection, TFile>>(), connectionString).Options;
+            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaFilesDbContext<TKey, TNullableKey, TFileStorage, TFileCollection, TFile>>(), connectionString).Options;
         }
 
+        public virtual DbSet<TFileStorage> FileStorages { get; set; }
         public virtual DbSet<TFile> Files { get; set; }
         public virtual DbSet<TFileCollection> FileCollections { get; set; }
 
@@ -98,6 +100,19 @@ namespace Ejyle.DevAccelerate.Comments.EF
                 entity.HasOne(d => d.Parent)
                     .WithMany(p => p.Children)
                     .HasForeignKey(d => d.ParentId);
+            });
+
+            modelBuilder.Entity<TFileStorage>(entity =>
+            {
+                entity.ToTable("FileStorages", SCHEMA_NAME);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.Platform)
+                    .IsRequired()
+                    .HasMaxLength(256);
             });
         }
     }

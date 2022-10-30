@@ -6,6 +6,7 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using Ejyle.DevAccelerate.Core;
+using Ejyle.DevAccelerate.Core.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,23 +15,14 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Files
 {
-    public class DaFile : DaFile<int, int?, DaFileCollection>
-    { }
-
-    public class DaFile<TKey, TNullableKey, TFileCollection> : DaAuditedEntityBase<TKey>, IDaFile<TKey, TNullableKey>
+    public interface IDaFileStorageRepository<TKey, TFileStorage> : IDaEntityRepository<TKey, TFileStorage>
         where TKey : IEquatable<TKey>
-        where TFileCollection : IDaFileCollection<TKey, TNullableKey>
+        where TFileStorage : IDaFileStorage<TKey>
     {
-        public string FileName { get; set; }
-        public string GuidFileName { get; set; }
-        public string MimeType { get; set; }
-        public long? FileSize { get; set; }
-        public string Extension { get; set; }
-        public TNullableKey FileCollectionId { get; set; }
-        public TNullableKey ObjectInstanceId { get; set; }
-        public TKey OwnerUserId { get; set; }
-        public TNullableKey TenantId { get; set; }
-        public virtual TFileCollection FileCollection { get; set; }
-        public TNullableKey FileStorageId { get; set; }
+        Task CreateAsync(TFileStorage fileStorage);
+        Task<TFileStorage> FindByIdAsync(TKey id);
+        Task UpdateAsync(TFileStorage fileStorage);
+        Task DeleteAsync(TFileStorage fileStorage);
+        Task<List<TFileStorage>> FindAllAsync();
     }
 }

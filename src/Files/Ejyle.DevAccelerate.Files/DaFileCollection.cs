@@ -37,5 +37,6 @@ namespace Ejyle.DevAccelerate.Files
         public virtual TFileCollection Parent { get; set; }
         public virtual ICollection<TFileCollection> Children { get; set; }
         public virtual ICollection<TFile> Files { get; set; }
+        public TNullableKey FileStorageId { get; set; }
     }
 }

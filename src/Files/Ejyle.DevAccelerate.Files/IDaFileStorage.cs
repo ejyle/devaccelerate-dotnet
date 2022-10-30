@@ -14,23 +14,11 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Files
 {
-    public class DaFile : DaFile<int, int?, DaFileCollection>
-    { }
-
-    public class DaFile<TKey, TNullableKey, TFileCollection> : DaAuditedEntityBase<TKey>, IDaFile<TKey, TNullableKey>
+    public interface IDaFileStorage<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
-        where TFileCollection : IDaFileCollection<TKey, TNullableKey>
     {
-        public string FileName { get; set; }
-        public string GuidFileName { get; set; }
-        public string MimeType { get; set; }
-        public long? FileSize { get; set; }
-        public string Extension { get; set; }
-        public TNullableKey FileCollectionId { get; set; }
-        public TNullableKey ObjectInstanceId { get; set; }
-        public TKey OwnerUserId { get; set; }
-        public TNullableKey TenantId { get; set; }
-        public virtual TFileCollection FileCollection { get; set; }
-        public TNullableKey FileStorageId { get; set; }
+        string Name { get; set; }
+        DaFileStorageType StorageType { get; set; }
+        string Platform { get; set; }
     }
 }
