@@ -70,6 +70,9 @@ namespace Ejyle.DevAccelerate.Comments.EF
             {
                 entity.ToTable("Files", SCHEMA_NAME);
 
+                entity.HasIndex(e => e.GuidFileName)
+                    .IsUnique();
+
                 entity.Property(e => e.FileName)
                     .IsRequired()
                     .HasMaxLength(256);
