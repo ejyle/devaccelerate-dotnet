@@ -75,6 +75,9 @@ namespace Ejyle.DevAccelerate.Comments.EF
                 entity.Property(e => e.MimeType)
                     .HasMaxLength(256);
 
+                entity.Property(e => e.Extension)
+                    .HasMaxLength(50);
+
                 entity.HasOne(d => d.FileCollection)
                     .WithMany(p => p.Files)
                     .HasForeignKey(d => d.FileCollectionId);

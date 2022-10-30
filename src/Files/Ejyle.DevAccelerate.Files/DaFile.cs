@@ -25,6 +25,7 @@ namespace Ejyle.DevAccelerate.Files
         public string GuidFileName { get; set; }
         public string MimeType { get; set; }
         public long FileSize { get; set; }
+        public string Extension { get; set; }
         public TNullableKey FileCollectionId { get; set; }
         public TNullableKey ObjectInstanceId { get; set; }
         public TKey OwnerUserId { get; set; }
