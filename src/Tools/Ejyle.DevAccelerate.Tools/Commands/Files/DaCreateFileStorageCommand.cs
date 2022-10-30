@@ -36,6 +36,13 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Files
             set;
         }
 
+        [Option('r', "root", Required = true, HelpText = "Root of the new file storage to be created.")]
+        public string Root
+        {
+            get;
+            set;
+        }
+
         [Option('t', "type", Required = true, HelpText = "Type of the new file storage to be created. Passible values: LocalFileSystem, NetworkFileSystem, CloudStorage")]
         public DaFileStorageType StorageType
         {
@@ -49,10 +56,32 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Files
 
             using (var context = new DaFilesDbContext(GetConnectionString()))
             {
+                Name = Name.Trim();
+                Root = Root.Trim();
+                Platform = Platform.Trim();
+
+                if (string.IsNullOrEmpty(Name))
+                {
+                    Console.WriteLine("Name is required.");
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(Platform))
+                {
+                    Console.WriteLine("Platform is required.");
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(Root))
+                {
+                    Console.WriteLine("Root is required.");
+                    return;
+                }
+
                 var fileStorageManager = new DaFileStorageManager(new DaFileStorageRepository(context));
                 var existingFileStorage = fileStorageManager.FindByName(Name);
 
-                if(existingFileStorage != null)
+                if (existingFileStorage != null)
                 {
                     Console.WriteLine("Name must be unique.");
                     return;
@@ -61,6 +90,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Files
                 var storage = new DaFileStorage()
                 {
                     Name = Name,
+                    Root = Root,
                     Platform = Platform,
                     StorageType = StorageType
                 };

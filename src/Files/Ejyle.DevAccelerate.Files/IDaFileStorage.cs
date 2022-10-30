@@ -18,6 +18,7 @@ namespace Ejyle.DevAccelerate.Files
         where TKey : IEquatable<TKey>
     {
         string Name { get; set; }
+        string Root { get; set; }
         DaFileStorageType StorageType { get; set; }
         string Platform { get; set; }
     }

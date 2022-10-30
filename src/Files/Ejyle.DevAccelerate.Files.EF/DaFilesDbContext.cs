@@ -120,6 +120,9 @@ namespace Ejyle.DevAccelerate.Comments.EF
                     .IsRequired()
                     .HasMaxLength(256);
 
+                entity.Property(e => e.Root)
+                    .IsRequired();
+
                 entity.Property(e => e.Platform)
                     .IsRequired()
                     .HasMaxLength(256);

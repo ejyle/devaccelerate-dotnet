@@ -27,6 +27,7 @@ namespace Ejyle.DevAccelerate.Files
         }
 
         public string Name { get; set; }
+        public string Root { get; set; }
         public DaFileStorageType StorageType { get; set; }
         public string Platform { get; set; }
         public virtual ICollection<TFileStorageLocation> Locations { get; set; }

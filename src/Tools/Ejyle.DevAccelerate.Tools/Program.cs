@@ -28,6 +28,7 @@ namespace Ejyle.DevAccelerate.Tools
                     DaCreateAppFeatureCommand,
                     DaCreateDefaultListsCommand,
                     DaCreateFileStorageCommand,
+                    DaCreateFileStorageLocationCommand,
                     DaCreateUserCommand,
                     DaCreateRolesCommand,
                     DaAddUserToRolesCommand>(args)
