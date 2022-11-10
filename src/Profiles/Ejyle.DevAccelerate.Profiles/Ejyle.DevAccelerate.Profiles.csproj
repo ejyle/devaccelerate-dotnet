@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
     <RootNamespace>Ejyle.DevAccelerate.Profiles</RootNamespace>
     <AssemblyName>Ejyle.DevAccelerate.Profiles</AssemblyName>
     <ApplicationIcon>da.ico</ApplicationIcon>
@@ -16,10 +16,10 @@
     <Product>DevAccelerateProfiles</Product>
     <Description>Provides interfaces and base functionality for user and organization profiles.</Description>
     <PackageTags>DevAccelerate;Profiles;User-Profiles;Organization-Profiles</PackageTags>
-    <Version>6.5.0</Version>
+    <Version>7.0.0</Version>
     <Nullable>disable</Nullable>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
-    <PackageReleaseNotes>Migrated the library to .NET Core</PackageReleaseNotes>
+    <PackageReleaseNotes>Added .NET 7.0 support.</PackageReleaseNotes>
     <PackageIcon>logo.png</PackageIcon>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>

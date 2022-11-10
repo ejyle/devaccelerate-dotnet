@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
+		<TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
 		<RootNamespace>Ejyle.DevAccelerate.Files</RootNamespace>
 		<AssemblyName>Ejyle.DevAccelerate.Files</AssemblyName>
 		<ApplicationIcon>da.ico</ApplicationIcon>
@@ -16,10 +16,10 @@
 		<Product>DevAccelerateFiles</Product>
 		<Description>Provides interfaces and base functionality for managing files and file collections.</Description>
 		<PackageTags>DevAccelerate;Files;File-Collections</PackageTags>
-		<Version>6.5.0</Version>
+		<Version>7.0.0</Version>
 		<Nullable>disable</Nullable>
 		<GenerateDocumentationFile>False</GenerateDocumentationFile>
-		<PackageReleaseNotes>Added back to DevAccelerate.</PackageReleaseNotes>
+		<PackageReleaseNotes>Added .NET 7.0 support.</PackageReleaseNotes>
 		<PackageIcon>logo.png</PackageIcon>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>

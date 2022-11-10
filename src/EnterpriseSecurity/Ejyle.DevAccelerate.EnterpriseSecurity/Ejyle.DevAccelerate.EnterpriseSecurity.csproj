@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
     <RootNamespace>Ejyle.DevAccelerate.EnterpriseSecurity</RootNamespace>
     <AssemblyName>Ejyle.DevAccelerate.EnterpriseSecurity</AssemblyName>
     <ApplicationIcon>da.ico</ApplicationIcon>
@@ -16,9 +16,10 @@
     <Product>DevAccelerateEnterpriseSecurity</Product>
     <Description>DevAccelerateEnterpriseSecurity provides additional enterprise-level security and SaaS-specific features such as multi-tenancy, subscription management, user agreements, etc.</Description>
     <PackageTags>DevAccelerate;EnterpriseSecurity;Tenants;Subscriptions;Multi-Tenancy;User-Agreements;SaaS</PackageTags>
-    <Version>6.5.0</Version>
+    <Version>7.0.0</Version>
     <Nullable>disable</Nullable>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
+	<PackageReleaseNotes>Added .NET 7.0 support.</PackageReleaseNotes>	  
     <PackageIcon>logo.png</PackageIcon>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
@@ -31,6 +32,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+	<PackageReference Include="Microsoft.Extensions.Options" Version="7.0.*" Condition="'$(TargetFramework)' == 'net7.0'" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />    

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
     <RootNamespace>Ejyle.DevAccelerate.Facades.Security</RootNamespace>
     <AssemblyName>Ejyle.DevAccelerate.Facades.Security</AssemblyName>
     <ApplicationIcon>da.ico</ApplicationIcon>
@@ -16,10 +16,10 @@
     <Product>DevAccelerateSecurityFacade</Product>
     <Description>A facade library that simplifies security APIs. It works on top of DeAaccelerateIdenitty and DevAccelerateEnterpriseSecurity.</Description>
     <PackageTags>DevAccelerate;Subscriptions;Identity;Security;Facades</PackageTags>
-    <Version>6.5.0</Version>
+    <Version>6.5.1</Version>
     <Nullable>disable</Nullable>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
-    <PackageReleaseNotes>Migrated the library to .NET Core</PackageReleaseNotes>
+    <PackageReleaseNotes>Added .NET 7.0 support.</PackageReleaseNotes>
     <PackageIcon>logo.png</PackageIcon>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
@@ -33,21 +33,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.*" Condition="'$(TargetFramework)' == 'net7.0'" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
 
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
-
+	<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.*" Condition="'$(TargetFramework)' == 'net7.0'" />	  
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
 
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />    
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.*" />    
   </ItemGroup>  
 
   <ItemGroup>
