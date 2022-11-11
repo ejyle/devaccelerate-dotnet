@@ -73,15 +73,23 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
             protected set;
         }
 
+        public string AccessToken
+        {
+            get;
+            protected set;
+        }
+
         public List<TKey> Tenants
         {
             get;
             protected set;
         }
 
-        public static DaAuthenticationResult<TKey> SuccessWithTenants(List<TKey> tenants)
+        public static DaAuthenticationResult<TKey> Success(string accessToken = null, List<TKey> tenants = null)
         {
-            var result = Success as DaAuthenticationResult<TKey>;
+            var result = new DaAuthenticationResult<TKey>();
+
+            result.AccessToken = accessToken;
             result.Tenants = tenants;
             return result;
         }
@@ -170,17 +178,6 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
                 return new DaAuthenticationResult<TKey>()
                 {
                     IsDeleted = true
-                };
-            }
-        }
-
-        public static DaAuthenticationResult<TKey> Success
-        {
-            get
-            {
-                return new DaAuthenticationResult<TKey>()
-                {
-                    IsSuccess = true
                 };
             }
         }

@@ -59,7 +59,7 @@ namespace Ejyle.DevAccelerate.Identity.EF.UserSessions
             return UserSessions.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
         }
 
-        public Task<TUserSession> FindBySessionKeyAsync(string sessionKey)
+        public Task<TUserSession> FindByAccessTokenAsync(string sessionKey)
         {
             ThrowIfDisposed();
             ThrowIfArgumentIsNullOrEmpty(sessionKey, nameof(sessionKey));

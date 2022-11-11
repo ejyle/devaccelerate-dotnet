@@ -78,14 +78,14 @@ namespace Ejyle.DevAccelerate.Identity.UserSessions
             return GetRepository().FindByIdAsync(userSessionId);
         }
 
-        public Task<TUserSession> FindBySessionKeyAsync(string sessionKey)
+        public Task<TUserSession> FindByAccessTokenAsync(string accessToken)
         {
-            return GetRepository().FindBySessionKeyAsync(sessionKey);
+            return GetRepository().FindByAccessTokenAsync(accessToken);
         }
 
-        public TUserSession FindBySessionKey(string sessionKey)
+        public TUserSession FindByAccessToken(string accessToken)
         {
-            return DaAsyncHelper.RunSync<TUserSession>(() => FindBySessionKeyAsync(sessionKey));
+            return DaAsyncHelper.RunSync<TUserSession>(() => FindByAccessTokenAsync(accessToken));
         }
 
         public Task<List<TUserSession>> FindBySystemSessionIdAsync(string systemSessionId)

@@ -94,11 +94,11 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
 
             if (tenantKeys != null && tenantKeys.Count > 0)
             {
-                return DaAuthenticationResult<TKey>.SuccessWithTenants(tenantKeys);
+                return DaAuthenticationResult<TKey>.Success(userSession.AccessToken, tenantKeys);
             }
             else
             {
-                return DaAuthenticationResult<TKey>.Success;
+                return DaAuthenticationResult<TKey>.Success(userSession.AccessToken);
             }
         }
 
@@ -125,12 +125,12 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
                 await CreateUserSessionAsync(validationResult.User.Id, null, ipAddress, null, expiryTimeInMinutes);
             }
 
-            return DaAuthenticationResult<TKey>.Success;
+            return DaAuthenticationResult<TKey>.Success(userSession.AccessToken);
         }
 
         public async Task<bool> ValidateAccessToken(string accessToken)
         {
-            var userSession = await UserSessionManager.FindBySessionKeyAsync(accessToken);
+            var userSession = await UserSessionManager.FindByAccessTokenAsync(accessToken);
 
             if (userSession == null)
             {

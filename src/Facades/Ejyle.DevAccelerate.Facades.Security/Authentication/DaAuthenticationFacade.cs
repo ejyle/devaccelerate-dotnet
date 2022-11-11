@@ -112,11 +112,11 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
 
             if (tenantKeys != null && tenantKeys.Count > 0)
             {
-                return DaAuthenticationResult<TKey>.SuccessWithTenants(tenantKeys);
+                return DaAuthenticationResult<TKey>.Success(userSession.AccessToken, tenantKeys);
             }
             else
             {
-                return DaAuthenticationResult<TKey>.Success;
+                return DaAuthenticationResult<TKey>.Success(userSession.AccessToken);
             }
         }
 
@@ -128,7 +128,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
 
             if (!string.IsNullOrEmpty(userSessionKey))
             {
-                userSession = await UserSessionManager.FindBySessionKeyAsync(userSessionKey);
+                userSession = await UserSessionManager.FindByAccessTokenAsync(userSessionKey);
             }
 
             return userSession;
@@ -152,7 +152,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
 
             if (!string.IsNullOrEmpty(userSessionKey))
             {
-                userSession = await UserSessionManager.FindBySessionKeyAsync(userSessionKey);
+                userSession = await UserSessionManager.FindByAccessTokenAsync(userSessionKey);
             }
 
             await SignInManager.SignOutAsync();

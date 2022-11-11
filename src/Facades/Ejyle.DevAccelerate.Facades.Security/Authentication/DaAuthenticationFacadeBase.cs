@@ -167,7 +167,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
                 }
             }
 
-            return new DaUserValidationResult(DaAuthenticationResult<TKey>.Success, user, tenantKeys);
+            return new DaUserValidationResult(DaAuthenticationResult<TKey>.Success(), user, tenantKeys);
         }
 
         protected class DaUserValidationResult
