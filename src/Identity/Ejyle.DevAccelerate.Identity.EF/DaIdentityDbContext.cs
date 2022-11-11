@@ -103,7 +103,7 @@ namespace Ejyle.DevAccelerate.Identity.EF
 
                 entity.Property(e => e.IpAddress).HasMaxLength(15);
 
-                entity.Property(e => e.SessionKey).HasMaxLength(128);
+                entity.Property(e => e.AccessToken).HasMaxLength(128);
 
                 entity.Property(e => e.SystemSessionId).HasMaxLength(128);
             });

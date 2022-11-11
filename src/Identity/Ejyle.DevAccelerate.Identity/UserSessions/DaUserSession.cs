@@ -23,7 +23,7 @@ namespace Ejyle.DevAccelerate.Identity.UserSessions
             set;
         }
 
-        public string SessionKey
+        public string AccessToken
         {
             get;
             set;

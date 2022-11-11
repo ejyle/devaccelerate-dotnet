@@ -23,9 +23,9 @@ namespace Ejyle.DevAccelerate.Identity.UserSessions
         TKey UserId { get; set; }
 
         /// <summary>
-        /// Gets or sets the unique key of the session.
+        /// Gets or sets the unique access token associated with the session.
         /// </summary>
-        string SessionKey { get; set; }
+        string AccessToken { get; set; }
 
         /// <summary>
         /// Gets or sets the system session ID.

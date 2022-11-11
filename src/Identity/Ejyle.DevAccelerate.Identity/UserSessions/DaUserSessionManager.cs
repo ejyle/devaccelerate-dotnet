@@ -55,7 +55,7 @@ namespace Ejyle.DevAccelerate.Identity.UserSessions
                 throw new InvalidOperationException("Invalid user session ID.");
             }
 
-            if (status == DaUserSessionStatus.LoggedOff || status == DaUserSessionStatus.Unknown)
+            if (status != DaUserSessionStatus.Active)
             {
                 userSession.ExpiredDateUtc = DateTime.UtcNow;
             }

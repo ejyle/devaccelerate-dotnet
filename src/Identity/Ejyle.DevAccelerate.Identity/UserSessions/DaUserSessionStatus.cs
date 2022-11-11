@@ -9,8 +9,9 @@ namespace Ejyle.DevAccelerate.Identity.UserSessions
 {
     public enum DaUserSessionStatus
     {
-        New = 0,
+        Active = 0,
         LoggedOff = 1,
+        Expired = 2,
         Unknown = 100
     }
 }
