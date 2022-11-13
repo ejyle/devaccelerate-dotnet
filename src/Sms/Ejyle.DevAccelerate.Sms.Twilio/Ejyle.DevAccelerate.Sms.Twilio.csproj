@@ -6,6 +6,9 @@
 		<PlatformTarget>anycpu</PlatformTarget>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<OutputType>Library</OutputType>
+		<SignAssembly>true</SignAssembly>
+		<AssemblyOriginatorKeyFile>../../../assets/devaccelerate.snk</AssemblyOriginatorKeyFile>
+		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb;.xml</AllowedOutputExtensionsInPackageBuildOutputFolder>		
 	</PropertyGroup>
 	<PropertyGroup>
 		<RootNamespace>Ejyle.DevAccelerate.Sms.Twilio</RootNamespace>

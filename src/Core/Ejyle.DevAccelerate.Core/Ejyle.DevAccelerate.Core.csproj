@@ -4,8 +4,11 @@
 		<VersionSuffix>preview1</VersionSuffix>
 		<TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
 		<PlatformTarget>anycpu</PlatformTarget>
-		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>		
 		<OutputType>Library</OutputType>
+		<SignAssembly>true</SignAssembly>
+		<AssemblyOriginatorKeyFile>../../../assets/devaccelerate.snk</AssemblyOriginatorKeyFile>		
+		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb;.xml</AllowedOutputExtensionsInPackageBuildOutputFolder>		
 	</PropertyGroup>
 	<PropertyGroup>
 		<RootNamespace>Ejyle.DevAccelerate.Core</RootNamespace>
@@ -28,6 +31,7 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<PackageOutputPath>../../../nupkg</PackageOutputPath>
+		<SignAssembly>False</SignAssembly>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="..\..\..\assets\logo.png">
