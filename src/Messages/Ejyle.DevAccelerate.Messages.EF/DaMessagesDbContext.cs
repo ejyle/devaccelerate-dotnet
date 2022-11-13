@@ -65,6 +65,16 @@ namespace Ejyle.DevAccelerate.Messages.EF
         public virtual DbSet<TMessageRecipient> MessageRecipients { get; set; }
         public virtual DbSet<TMessageRecipientVariable> MessageRecipientVariables { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            string connectionString = "Server=(localdb)\\mssqllocaldb;Database=Ejyle.DevAccelerate;Trusted_Connection = True;MultipleActiveResultSets=True";
+
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(connectionString);
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

@@ -127,6 +127,16 @@ namespace Ejyle.DevAccelerate.Lists.EF
         /// </summary>
         public virtual DbSet<TGenericList> GenericLists { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            string connectionString = "Server=(localdb)\\mssqllocaldb;Database=Ejyle.DevAccelerate;Trusted_Connection = True;MultipleActiveResultSets=True";
+
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(connectionString);
+            }
+        }
+
         /// <summary>
         /// Overrides this method to futher configure the <see cref="DbSet{TEntity}"/> properties.
         /// </summary>

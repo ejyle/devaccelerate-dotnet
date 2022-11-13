@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net7.0;net6.0;net5.0</TargetFrameworks>
     <RootNamespace>Ejyle.DevAccelerate.Mail.SendGrid</RootNamespace>
     <AssemblyName>Ejyle.DevAccelerate.Mail.SendGrid</AssemblyName>
     <ApplicationIcon>da.ico</ApplicationIcon>
@@ -36,7 +36,6 @@
 	  <PackageReference Include="Microsoft.Extensions.Options" Version="7.0.*" Condition="'$(TargetFramework)' == 'net7.0'" />
 	  <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
 	  <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
-	  <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
     <PackageReference Include="SendGrid" Version="9.*" />
   </ItemGroup>
 
