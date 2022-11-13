@@ -89,6 +89,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
         {
             var result = new DaAuthenticationResult<TKey>();
 
+            result.IsSuccess = true;
             result.AccessToken = accessToken;
             result.Tenants = tenants;
             return result;
