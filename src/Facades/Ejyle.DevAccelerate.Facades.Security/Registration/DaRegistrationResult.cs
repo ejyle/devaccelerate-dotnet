@@ -15,8 +15,6 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
         where TKey : IEquatable<TKey>
         where TKeyConverter : IDaEntityKeyConverter<TKey, TNullableKey>
     {
-        private readonly TKeyConverter _keyConverter;
-
         public DaRegistrationResult(TKeyConverter keyConverter, TKey userId, TKey userProfileId)
             :base()
         {

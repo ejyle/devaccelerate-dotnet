@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net7.0;net6.0;net5.0</TargetFrameworks>
+		<TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
 		<RootNamespace>Ejyle.DevAccelerate.Identity.EF</RootNamespace>
 		<AssemblyName>Ejyle.DevAccelerate.Identity.EF</AssemblyName>
 		<ApplicationIcon>da.ico</ApplicationIcon>
@@ -36,30 +36,23 @@
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.*" Condition="'$(TargetFramework)' == 'net7.0'" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
-		
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
 
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.*" Condition="'$(TargetFramework)' == 'net7.0'" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
 
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.*" Condition="'$(TargetFramework)' == 'net7.0'" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
-		
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.*" Condition="'$(TargetFramework)' == 'net7.0'" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
-		
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />		
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\Core\Ejyle.DevAccelerate.Core.EF\Ejyle.DevAccelerate.Core.EF.csproj" />
 		<ProjectReference Include="..\..\Core\Ejyle.DevAccelerate.Core\Ejyle.DevAccelerate.Core.csproj" />
 		<ProjectReference Include="..\Ejyle.DevAccelerate.Identity\Ejyle.DevAccelerate.Identity.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Migrations\" />
 	</ItemGroup>
 
 </Project>

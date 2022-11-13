@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFrameworks>net7.0;net6.0;net5.0</TargetFrameworks>
+    <TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
     <RootNamespace>Ejyle.DevAccelerate.Core.EF</RootNamespace>
     <AssemblyName>Ejyle.DevAccelerate.Core.EF</AssemblyName>
     <ApplicationIcon>da.ico</ApplicationIcon> 
@@ -30,15 +29,13 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
-
   <ItemGroup>
-	<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.*" Condition="'$(TargetFramework)' == 'net7.0'" />
-	<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.*" Condition="'$(TargetFramework)' == 'net7.0'" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Ejyle.DevAccelerate.Core\Ejyle.DevAccelerate.Core.csproj" />
   </ItemGroup>
-
 </Project>
