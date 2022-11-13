@@ -32,6 +32,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
         public DaTenantType TenantType { get; set; }
         public TKey OwnerUserId { get; set; }
         public string Name { get; set; }
+        public bool IsSystemTenant { get; set; }
         public string Domain { get; set; }
         public bool IsDomainOwnershipVerified { get; set; }
         public DaTenantStatus Status { get; set; }

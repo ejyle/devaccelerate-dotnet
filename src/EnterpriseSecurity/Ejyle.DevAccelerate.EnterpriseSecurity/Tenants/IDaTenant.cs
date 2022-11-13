@@ -34,6 +34,11 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
         string Domain { get; set; }
 
         /// <summary>
+        /// Determines if the tenant is part of the system.
+        /// </summary>
+        bool IsSystemTenant { get; set; }
+
+        /// <summary>
         /// Determines if the domain's ownership is verified or not.
         /// </summary>
         bool IsDomainOwnershipVerified { get; set; }
