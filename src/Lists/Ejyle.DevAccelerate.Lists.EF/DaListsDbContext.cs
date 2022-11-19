@@ -7,15 +7,19 @@
 
 using System;
 using Microsoft.EntityFrameworkCore;
-using Ejyle.DevAccelerate.Lists.Culture;
-using Ejyle.DevAccelerate.Lists.Generic;
+using Ejyle.DevAccelerate.Lists.Custom;
+using Ejyle.DevAccelerate.Lists.Countries;
+using Ejyle.DevAccelerate.Lists.Currencies;
+using Ejyle.DevAccelerate.Lists.DateFormats;
+using Ejyle.DevAccelerate.Lists.SystemLanguages;
+using Ejyle.DevAccelerate.Lists.TimeZones;
 
 namespace Ejyle.DevAccelerate.Lists.EF
 {
     /// <summary>
     /// Represents database context for list entities.
     /// </summary>
-    public class DaListsDbContext : DaListsDbContext<int, int?, DaTimeZone, DaDateFormat, DaSystemLanguage, DaCurrency, DaCountry, DaCountryRegion, DaCountryTimeZone, DaCountryDateFormat, DaCountrySystemLanguage, DaGenericList, DaGenericListItem>
+    public class DaListsDbContext : DaListsDbContext<int, int?, DaTimeZone, DaDateFormat, DaSystemLanguage, DaCurrency, DaCountry, DaCountryRegion, DaCountryTimeZone, DaCountryDateFormat, DaCountrySystemLanguage, DaCustomList, DaCustomListItem>
     {
         public DaListsDbContext() : base()
         { }
@@ -48,9 +52,9 @@ namespace Ejyle.DevAccelerate.Lists.EF
     /// <typeparam name="TCurrency">Represents the type of the currency entity.</typeparam>
     /// <typeparam name="TCountry">Represents the type of the country entity.</typeparam>
     /// <typeparam name="TCountryRegion">Represents the type of the country region entity.</typeparam>
-    /// <typeparam name="TGenericList">Represents the type of the generic list entity.</typeparam>
-    /// <typeparam name="TGenericListItem">Represents the type of the generic list item entity.</typeparam>
-    public class DaListsDbContext<TKey, TNullableKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TGenericList, TGenericListItem> : DbContext
+    /// <typeparam name="TCustomList">Represents the type of the custom list entity.</typeparam>
+    /// <typeparam name="TCustomListItem">Represents the type of the custom list item entity.</typeparam>
+    public class DaListsDbContext<TKey, TNullableKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem> : DbContext
         where TKey : IEquatable<TKey>
         where TTimeZone : DaTimeZone<TKey, TCountryTimeZone>
         where TDateFormat : DaDateFormat<TKey, TCountryDateFormat>
@@ -61,26 +65,26 @@ namespace Ejyle.DevAccelerate.Lists.EF
         where TCountryTimeZone : DaCountryTimeZone<TKey, TNullableKey, TCountry, TTimeZone>
         where TCountryDateFormat : DaCountryDateFormat<TKey, TNullableKey, TCountry, TDateFormat>
         where TCountrySystemLanguage : DaCountrySystemLanguage<TKey, TNullableKey, TCountry, TSystemLanguage>
-        where TGenericList : DaGenericList<TKey, TGenericListItem>
-        where TGenericListItem : DaGenericListItem<TKey, TGenericList>
+        where TCustomList : DaCustomList<TKey, TCustomListItem>
+        where TCustomListItem : DaCustomListItem<TKey, TCustomList>
     {
         private const string SCHEMA_NAME = "Lists";
 
         /// <summary>
-        /// Creates an instance of the <see cref="DaListsDbContext{TKey, TNullableKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TGenericList, TGenericListItem}"/> class.
+        /// Creates an instance of the <see cref="DaListsDbContext{TKey, TNullableKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem}"/> class.
         /// </summary>
         public DaListsDbContext() : base()
         { }
 
         /// <summary>
-        /// Creates an instance of the <see cref="DaListsDbContext{TKey, TNullableKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TGenericList, TGenericListItem}"/> class.
+        /// Creates an instance of the <see cref="DaListsDbContext{TKey, TNullableKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCustomList, TCustomListItem}"/> class.
         /// </summary>
         /// <param name="options">The options for this context.</param>
         public DaListsDbContext(DbContextOptions options)
             : base(options)
         { }
 
-        public DaListsDbContext(DbContextOptions<DaListsDbContext<TKey, TNullableKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TGenericList, TGenericListItem>> options)
+        public DaListsDbContext(DbContextOptions<DaListsDbContext<TKey, TNullableKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem>> options)
             : base(options)
         { }
 
@@ -88,9 +92,9 @@ namespace Ejyle.DevAccelerate.Lists.EF
             : base(GetOptions(connectionString))
         { }
 
-        private static DbContextOptions<DaListsDbContext<TKey, TNullableKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TGenericList, TGenericListItem>> GetOptions(string connectionString)
+        private static DbContextOptions<DaListsDbContext<TKey, TNullableKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem>> GetOptions(string connectionString)
         {
-            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaListsDbContext<TKey, TNullableKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TGenericList, TGenericListItem>>(), connectionString).Options;
+            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaListsDbContext<TKey, TNullableKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem>>(), connectionString).Options;
         }
 
         /// <summary>
@@ -123,9 +127,9 @@ namespace Ejyle.DevAccelerate.Lists.EF
         public virtual DbSet<TDateFormat> DateFormats { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="DbSet{TGenericList}"/> of generic lists.
+        /// Gets or sets the <see cref="DbSet{TCustomList}"/> of custom lists.
         /// </summary>
-        public virtual DbSet<TGenericList> GenericLists { get; set; }
+        public virtual DbSet<TCustomList> CustomLists { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -293,7 +297,7 @@ namespace Ejyle.DevAccelerate.Lists.EF
                     .IsUnique();
             });
 
-            modelBuilder.Entity<TGenericListItem>(entity =>
+            modelBuilder.Entity<TCustomListItem>(entity =>
             {
                 entity.ToTable("GenericListItems", SCHEMA_NAME);
 
@@ -310,7 +314,7 @@ namespace Ejyle.DevAccelerate.Lists.EF
                     .HasForeignKey(d => d.ListId);
             });
 
-            modelBuilder.Entity<TGenericList>(entity =>
+            modelBuilder.Entity<TCustomList>(entity =>
             {
                 entity.ToTable("GenericLists", SCHEMA_NAME);
 

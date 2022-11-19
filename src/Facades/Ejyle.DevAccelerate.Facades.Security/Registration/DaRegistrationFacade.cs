@@ -18,8 +18,6 @@ using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Subscriptions;
 using Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions;
 using Ejyle.DevAccelerate.EnterpriseSecurity.Apps;
 using Ejyle.DevAccelerate.EnterpriseSecurity.UserAgreements;
-using Ejyle.DevAccelerate.Lists.EF.Culture;
-using Ejyle.DevAccelerate.Lists.Culture;
 using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Apps;
 using Ejyle.DevAccelerate.EnterpriseSecurity.EF.UserAgreements;
 using System.Collections.Generic;
@@ -33,6 +31,16 @@ using Ejyle.DevAccelerate.Profiles.EF.Addresses;
 using Microsoft.AspNetCore.Identity;
 using Ejyle.DevAccelerate.Core.Utils;
 using System.Text.RegularExpressions;
+using Ejyle.DevAccelerate.Lists.Countries;
+using Ejyle.DevAccelerate.Lists.Currencies;
+using Ejyle.DevAccelerate.Lists.DateFormats;
+using Ejyle.DevAccelerate.Lists.SystemLanguages;
+using Ejyle.DevAccelerate.Lists.TimeZones;
+using Ejyle.DevAccelerate.Lists.EF.Countries;
+using Ejyle.DevAccelerate.Lists.EF.Currencies;
+using Ejyle.DevAccelerate.Lists.EF.DateFormats;
+using Ejyle.DevAccelerate.Lists.EF.SystemLanguages;
+using Ejyle.DevAccelerate.Lists.EF.TimeZones;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Registration
 {
