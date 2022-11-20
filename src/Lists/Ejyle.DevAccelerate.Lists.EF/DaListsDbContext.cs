@@ -65,8 +65,8 @@ namespace Ejyle.DevAccelerate.Lists.EF
         where TCountryTimeZone : DaCountryTimeZone<TKey, TNullableKey, TCountry, TTimeZone>
         where TCountryDateFormat : DaCountryDateFormat<TKey, TNullableKey, TCountry, TDateFormat>
         where TCountrySystemLanguage : DaCountrySystemLanguage<TKey, TNullableKey, TCountry, TSystemLanguage>
-        where TCustomList : DaCustomList<TKey, TCustomListItem>
-        where TCustomListItem : DaCustomListItem<TKey, TCustomList>
+        where TCustomList : DaCustomList<TKey, TNullableKey, TCustomListItem>
+        where TCustomListItem : DaCustomListItem<TKey, TNullableKey, TCustomList>
     {
         private const string SCHEMA_NAME = "Lists";
 

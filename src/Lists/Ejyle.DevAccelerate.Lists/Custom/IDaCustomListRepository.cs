@@ -13,9 +13,9 @@ using Ejyle.DevAccelerate.Core.Data;
 
 namespace Ejyle.DevAccelerate.Lists.Custom
 {
-    public interface IDaCustomListRepository<TKey, TCustomList> : IDaEntityRepository<TKey, TCustomList>
+    public interface IDaCustomListRepository<TKey, TNullableKey, TCustomList> : IDaEntityRepository<TKey, TCustomList>
         where TKey : IEquatable<TKey>
-        where TCustomList : IDaCustomList<TKey>
+        where TCustomList : IDaCustomList<TKey, TNullableKey>
     {
         Task CreateAsync(TCustomList customList);
         Task UpdateAsync(TCustomList customList);
@@ -24,6 +24,6 @@ namespace Ejyle.DevAccelerate.Lists.Custom
         Task<TCustomList> FindByIdAsync(TKey id);
         Task<List<TCustomList>> FindAllAsync();
         Task<DaPaginatedEntityList<TKey, TCustomList>> FindAllAsync(DaDataPaginationCriteria paginationCriteria);
-        Task<TCustomList> FindByNameAsync(string name);
+        Task<TCustomList> FindByKeyAsync(string key);
     }
 }

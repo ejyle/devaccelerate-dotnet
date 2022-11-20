@@ -15,20 +15,21 @@ namespace Ejyle.DevAccelerate.Lists.Custom
     /// <summary>
     /// Represents a custom list entity.
     /// </summary>
-    public class DaCustomList : DaCustomList<int, DaCustomListItem>
+    public class DaCustomList : DaCustomList<int, int?, DaCustomListItem>
     { }
 
     /// <summary>
     /// Represents a custom list entity.
     /// </summary>
     /// <typeparam name="TKey">Represents a non-nullable type of an entity ID.</typeparam>
+    /// <typeparam name="TNullableKey">Represents a non-nullable type of an entity ID.</typeparam> 
     /// <typeparam name="TCustomListItem">Represents the type of the items of the list.</typeparam>
-    public class DaCustomList<TKey, TCustomListItem> : DaAuditedEntityBase<TKey>, IDaCustomList<TKey>
+    public class DaCustomList<TKey, TNullableKey, TCustomListItem> : DaAuditedEntityBase<TKey>, IDaCustomList<TKey, TNullableKey>
         where TKey : IEquatable<TKey>
         where TCustomListItem : IDaCustomListItem<TKey>
     {
         /// <summary>
-        /// Creates an instance of the <see cref="DaCustomList{TKey, TCustomListItem}"/> entity.
+        /// Creates an instance of the <see cref="DaCustomList{TKey, TNullableKey, TCustomListItem}"/> entity.
         /// </summary>
         public DaCustomList()
         {
@@ -49,5 +50,15 @@ namespace Ejyle.DevAccelerate.Lists.Custom
         /// The collection of list items of the custom list.
         /// </summary>
         public virtual ICollection<TCustomListItem> ListItems { get; set; }
+
+        /// <summary>
+        /// The unique string that represents the custom list.
+        /// </summary>
+        public string Key { get; set; }
+
+        /// <summary>
+        /// The tenant ID associated with the custom list.
+        /// </summary>
+        public TNullableKey TenantId { get; set; }
     }
 }

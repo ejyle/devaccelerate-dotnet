@@ -40,8 +40,8 @@ namespace Ejyle.DevAccelerate.Lists.EF.Currencies
         where TCountryTimeZone : DaCountryTimeZone<TKey, TNullableKey, TCountry, TTimeZone>
         where TCountryDateFormat : DaCountryDateFormat<TKey, TNullableKey, TCountry, TDateFormat>
         where TCountrySystemLanguage : DaCountrySystemLanguage<TKey, TNullableKey, TCountry, TSystemLanguage>
-        where TCustomList : DaCustomList<TKey, TCustomListItem>
-        where TCustomListItem : DaCustomListItem<TKey, TCustomList>
+        where TCustomList : DaCustomList<TKey, TNullableKey, TCustomListItem>
+        where TCustomListItem : DaCustomListItem<TKey, TNullableKey, TCustomList>
         where TDbContext : DaListsDbContext<TKey, TNullableKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem>
     {
         public DaCurrencyRepository(TDbContext dbContext)

@@ -21,15 +21,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ejyle.DevAccelerate.Lists.EF.Custom
 {
-    public class DaCustomListRepository : DaGenericListRepository<int, int?, DaCustomList, DaCustomListItem, DaCountry, DaCountryRegion, DaTimeZone, DaDateFormat, DaSystemLanguage, DaCurrency, DaCountryTimeZone, DaCountryDateFormat, DaCountrySystemLanguage, DaListsDbContext>
+    public class DaCustomListRepository : DaCustomListRepository<int, int?, DaCustomList, DaCustomListItem, DaCountry, DaCountryRegion, DaTimeZone, DaDateFormat, DaSystemLanguage, DaCurrency, DaCountryTimeZone, DaCountryDateFormat, DaCountrySystemLanguage, DaListsDbContext>
     {
         public DaCustomListRepository(DaListsDbContext dbContext)
             : base(dbContext)
         { }
     }
 
-    public class DaGenericListRepository<TKey, TNullableKey, TCustomList, TCustomListItem, TCountry, TCountryRegion, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TDbContext>
-        : DaEntityRepositoryBase<TKey, TCountry, TDbContext>, IDaCustomListRepository<TKey, TCustomList>
+    public class DaCustomListRepository<TKey, TNullableKey, TCustomList, TCustomListItem, TCountry, TCountryRegion, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TDbContext>
+        : DaEntityRepositoryBase<TKey, TCountry, TDbContext>, IDaCustomListRepository<TKey, TNullableKey, TCustomList>
         where TKey : IEquatable<TKey>
         where TTimeZone : DaTimeZone<TKey, TCountryTimeZone>
         where TDateFormat : DaDateFormat<TKey, TCountryDateFormat>
@@ -40,11 +40,11 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
         where TCountryTimeZone : DaCountryTimeZone<TKey, TNullableKey, TCountry, TTimeZone>
         where TCountryDateFormat : DaCountryDateFormat<TKey, TNullableKey, TCountry, TDateFormat>
         where TCountrySystemLanguage : DaCountrySystemLanguage<TKey, TNullableKey, TCountry, TSystemLanguage>
-        where TCustomList : DaCustomList<TKey, TCustomListItem>
-        where TCustomListItem : DaCustomListItem<TKey, TCustomList>
+        where TCustomList : DaCustomList<TKey, TNullableKey, TCustomListItem>
+        where TCustomListItem : DaCustomListItem<TKey, TNullableKey, TCustomList>
         where TDbContext : DaListsDbContext<TKey, TNullableKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem>
     {
-        public DaGenericListRepository(TDbContext dbContext)
+        public DaCustomListRepository(TDbContext dbContext)
             : base(dbContext)
         { }
 
@@ -84,10 +84,10 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
                 .SingleOrDefaultAsync();
         }
 
-        public Task<TCustomList> FindByNameAsync(string name)
+        public Task<TCustomList> FindByKeyAsync(string key)
         {
             return DbContext.CustomLists
-                .Where(m => m.Name == name)
+                .Where(m => m.Key == key)
                 .Include(m => m.ListItems)
                 .SingleOrDefaultAsync();
         }

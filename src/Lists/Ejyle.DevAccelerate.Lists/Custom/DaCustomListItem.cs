@@ -12,17 +12,18 @@ namespace Ejyle.DevAccelerate.Lists.Custom
     /// <summary>
     /// Represents a custom list item entity.
     /// </summary>
-    public class DaCustomListItem : DaCustomListItem<int, DaCustomList>
+    public class DaCustomListItem : DaCustomListItem<int, int?, DaCustomList>
     { }
 
     /// <summary>
     /// Represents a custom list item entity.
     /// </summary>
     /// <typeparam name="TKey">Represents a non-nullable type of an entity ID.</typeparam>
+    /// <typeparam name="TNullableKey">Represents a non-nullable type of an entity ID.</typeparam>
     /// <typeparam name="TCustomList">The type of the list to which the list item belongs.</typeparam>
-    public class DaCustomListItem<TKey, TCustomList> : DaListItemBase<TKey>, IDaCustomListItem<TKey>
+    public class DaCustomListItem<TKey, TNullableKey, TCustomList> : DaListItemBase<TKey>, IDaCustomListItem<TKey>
         where TKey : IEquatable<TKey>
-        where TCustomList : IDaCustomList<TKey>
+        where TCustomList : IDaCustomList<TKey, TNullableKey>
     {
         /// <summary>
         /// The ID of the list to which the list item belongs.

@@ -10,22 +10,23 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
 using Ejyle.DevAccelerate.Core.Data;
+using Ejyle.DevAccelerate.Core.Utils;
 
 namespace Ejyle.DevAccelerate.Lists.Custom
 {
-    public class DaCustomListManager<TKey, TCustomList> : DaEntityManagerBase<TKey, TCustomList>
+    public class DaCustomListManager<TKey, TNullableKey, TCustomList> : DaEntityManagerBase<TKey, TCustomList>
         where TKey : IEquatable<TKey>
-        where TCustomList : IDaCustomList<TKey>
+        where TCustomList : IDaCustomList<TKey, TNullableKey>
     {
-        public DaCustomListManager(IDaCustomListRepository<TKey, TCustomList> repository)
+        public DaCustomListManager(IDaCustomListRepository<TKey, TNullableKey, TCustomList> repository)
             : base(repository)
         { }
 
-        protected virtual IDaCustomListRepository<TKey, TCustomList> Repository
+        protected virtual IDaCustomListRepository<TKey, TNullableKey, TCustomList> Repository
         {
             get
             {
-                return GetRepository<IDaCustomListRepository<TKey, TCustomList>>();
+                return GetRepository<IDaCustomListRepository<TKey, TNullableKey, TCustomList>>();
             }
         }
 
@@ -34,12 +35,13 @@ namespace Ejyle.DevAccelerate.Lists.Custom
             DaAsyncHelper.RunSync(() => CreateAsync(customList));
         }
 
-        public Task CreateAsync(TCustomList customList)
+        public async Task CreateAsync(TCustomList customList)
         {
             ThrowIfDisposed();
             ThrowIfArgumentIsNull(customList, nameof(customList));
 
-            return Repository.CreateAsync(customList);
+            customList.Key = await CreateValidKeyAsync(customList);            
+            await Repository.CreateAsync(customList);
         }
 
         public void Update(TCustomList customList)
@@ -101,17 +103,51 @@ namespace Ejyle.DevAccelerate.Lists.Custom
             return Repository.FindByIdAsync(id);
         }
 
-        public TCustomList FindByName(string name)
+        public TCustomList FindByKey(string key)
         {
-            return DaAsyncHelper.RunSync<TCustomList>(() => FindByNameAsync(name));
+            return DaAsyncHelper.RunSync<TCustomList>(() => FindByKeyAsync(key));
         }
 
-        public Task<TCustomList> FindByNameAsync(string name)
+        public Task<TCustomList> FindByKeyAsync(string key)
         {
             ThrowIfDisposed();
-            ThrowIfArgumentIsNull(name, nameof(name));
+            ThrowIfArgumentIsNull(key, nameof(key));
 
-            return Repository.FindByNameAsync(name);
+            return Repository.FindByKeyAsync(key);
+        }
+
+        public virtual async Task<string> CreateValidKeyAsync(TCustomList customList)
+        {
+            if(!string.IsNullOrEmpty(customList.Key))
+            {
+                if(await IsKeyExistsAsync(customList.Key) == false)
+                {
+                    return customList.Key;
+                }
+            }
+
+            var key = customList.Name;
+            var tenantId = customList.TenantId as IEquatable<TNullableKey>;
+
+            if(tenantId != null)
+            {
+                key = key + "_" + tenantId.ToString();
+            }
+
+            key = key.Replace(" ", "_").ToLower();
+
+            if (await IsKeyExistsAsync(key))
+            {
+                key = key + "_" + DaRandomNumberUtil.GenerateInt().ToString();
+            }
+
+            return key;
+        }
+
+        private async Task<bool> IsKeyExistsAsync(string key)
+        {
+            var customList = await FindByKeyAsync(key);
+            return (customList != null);
         }
     }
 }
