@@ -127,11 +127,9 @@ namespace Ejyle.DevAccelerate.Lists.Custom
             }
 
             var key = customList.Name;
-            var tenantId = customList.TenantId as IEquatable<TNullableKey>;
-
-            if(tenantId != null)
+            if(customList.TenantId != null)
             {
-                key = key + "_" + tenantId.ToString();
+                key = key + "_" + customList.TenantId.ToString();
             }
 
             key = key.Replace(" ", "_").ToLower();
