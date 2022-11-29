@@ -27,6 +27,7 @@ namespace Ejyle.DevAccelerate.Forms.Definition.Forms
         public string Name { get; set; }
         public string Key { get; set; }
         public string Title { get; set; }
+        public string Type { get; set; }
         public virtual ICollection<TFormSection> Sections { get; set; }
     }
 }
