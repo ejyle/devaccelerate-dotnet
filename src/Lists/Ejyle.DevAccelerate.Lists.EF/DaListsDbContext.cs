@@ -299,7 +299,7 @@ namespace Ejyle.DevAccelerate.Lists.EF
 
             modelBuilder.Entity<TCustomListItem>(entity =>
             {
-                entity.ToTable("GenericListItems", SCHEMA_NAME);
+                entity.ToTable("CustomListItems", SCHEMA_NAME);
 
                 entity.Property(e => e.DisplayName)
                     .IsRequired()
@@ -316,7 +316,7 @@ namespace Ejyle.DevAccelerate.Lists.EF
 
             modelBuilder.Entity<TCustomList>(entity =>
             {
-                entity.ToTable("GenericLists", SCHEMA_NAME);
+                entity.ToTable("CustomLists", SCHEMA_NAME);
 
                 entity.Property(e => e.Name)
                     .IsRequired()
