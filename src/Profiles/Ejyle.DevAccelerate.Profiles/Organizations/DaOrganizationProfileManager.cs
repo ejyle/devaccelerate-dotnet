@@ -12,19 +12,20 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Profiles.Organizations
 {
-    public class DaOrganizationProfileManager<TKey, TNullableKey, TOrganizationProfile> : DaEntityManagerBase<TKey, TOrganizationProfile>
+    public class DaOrganizationProfileManager<TKey, TNullableKey, TOrganizationProfile, TOrganizaitonGroup> : DaEntityManagerBase<TKey, TOrganizationProfile>
         where TKey : IEquatable<TKey>
         where TOrganizationProfile : IDaOrganizationProfile<TKey, TNullableKey>
+        where TOrganizaitonGroup : IDaOrganizationGroup<TKey, TNullableKey>
     {
-        public DaOrganizationProfileManager(IDaOrganizationProfileRepository<TKey, TNullableKey, TOrganizationProfile> repository) : base(repository)
+        public DaOrganizationProfileManager(IDaOrganizationProfileRepository<TKey, TNullableKey, TOrganizationProfile, TOrganizaitonGroup> repository) : base(repository)
         {
         }
 
-        protected virtual IDaOrganizationProfileRepository<TKey, TNullableKey, TOrganizationProfile> Repository
+        protected virtual IDaOrganizationProfileRepository<TKey, TNullableKey, TOrganizationProfile, TOrganizaitonGroup> Repository
         {
             get
             {
-                return GetRepository<IDaOrganizationProfileRepository<TKey,TNullableKey, TOrganizationProfile>>();
+                return GetRepository<IDaOrganizationProfileRepository<TKey,TNullableKey, TOrganizationProfile, TOrganizaitonGroup>>();
             }
         }
 
@@ -92,6 +93,12 @@ namespace Ejyle.DevAccelerate.Profiles.Organizations
         {
             ThrowIfDisposed();
             return Repository.FindByTenantIdAsync(id);
+        }
+
+        public virtual Task<TOrganizaitonGroup> FindOrganizationGroupByIdAsync(TKey id, TKey organizationGroupId)
+        {
+            ThrowIfDisposed();
+            return Repository.FindOrganizaitonGroupByIdAsync(id, organizationGroupId);
         }
     }
 }

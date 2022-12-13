@@ -18,7 +18,7 @@ namespace Ejyle.DevAccelerate.Profiles.Organizations
         TKey OwnerUserId { get; set; }
 
         string OrganizationName { get; set; }
-
+        public TNullableKey ParentId { get; set; }
         DaOrganizationType OrganizationType { get; set; }
         TNullableKey IndustryId { get; set; }
     }

@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ejyle.DevAccelerate.Profiles.EF
 {
-    public class DaProfilesDbContext : DaProfilesDbContext<int,int?, DaUserProfile, DaUserProfileAttribute, DaOrganizationProfile, DaOrganizationProfileAttribute, DaAddressProfile, DaUserAddress>
+    public class DaProfilesDbContext : DaProfilesDbContext<int,int?, DaUserProfile, DaUserProfileAttribute, DaOrganizationProfile, DaOrganizationProfileAttribute, DaOrganizationGroup, DaAddressProfile, DaUserAddress>
     {
         public DaProfilesDbContext()
             : base()
@@ -28,11 +28,12 @@ namespace Ejyle.DevAccelerate.Profiles.EF
         { }
     }
 
-    public class DaProfilesDbContext<TKey, TNullableKey, TUserProfile, TUserProfileAttribute, TOrganizationProfile, TOrganizationProfileAttribute, TAddressProfile, TUserAddress> : DbContext
+    public class DaProfilesDbContext<TKey, TNullableKey, TUserProfile, TUserProfileAttribute, TOrganizationProfile, TOrganizationProfileAttribute, TOrganizationGroup, TAddressProfile, TUserAddress> : DbContext
         where TKey : IEquatable<TKey>
         where TUserProfile : DaUserProfile<TKey, TUserProfileAttribute>
         where TUserProfileAttribute : DaUserProfileAttribute<TKey, TUserProfile>
-        where TOrganizationProfile : DaOrganizationProfile<TKey, TNullableKey, TOrganizationProfileAttribute>
+        where TOrganizationProfile : DaOrganizationProfile<TKey, TNullableKey, TOrganizationProfile, TOrganizationProfileAttribute, TOrganizationGroup>
+        where TOrganizationGroup : DaOrganizationGroup<TKey, TNullableKey, TOrganizationGroup, TOrganizationProfile>
         where TOrganizationProfileAttribute : DaOrganizationProfileAttribute<TKey, TNullableKey, TOrganizationProfile>
         where TAddressProfile : DaAddressProfile<TKey, TNullableKey, TUserAddress>
         where TUserAddress : DaUserAddress<TKey, TNullableKey, TAddressProfile>
@@ -47,7 +48,7 @@ namespace Ejyle.DevAccelerate.Profiles.EF
             : base(options)
         { }
 
-        public DaProfilesDbContext(DbContextOptions<DaProfilesDbContext<TKey, TNullableKey, TUserProfile, TUserProfileAttribute, TOrganizationProfile, TOrganizationProfileAttribute, TAddressProfile, TUserAddress>> options)
+        public DaProfilesDbContext(DbContextOptions<DaProfilesDbContext<TKey, TNullableKey, TUserProfile, TUserProfileAttribute, TOrganizationProfile, TOrganizationProfileAttribute, TOrganizationGroup, TAddressProfile, TUserAddress>> options)
             : base(options)
         { }
 
@@ -55,15 +56,16 @@ namespace Ejyle.DevAccelerate.Profiles.EF
             : base(GetOptions(connectionString))
         { }
 
-        private static DbContextOptions<DaProfilesDbContext<TKey, TNullableKey, TUserProfile, TUserProfileAttribute, TOrganizationProfile, TOrganizationProfileAttribute, TAddressProfile, TUserAddress>> GetOptions(string connectionString)
+        private static DbContextOptions<DaProfilesDbContext<TKey, TNullableKey, TUserProfile, TUserProfileAttribute, TOrganizationProfile, TOrganizationProfileAttribute, TOrganizationGroup, TAddressProfile, TUserAddress>> GetOptions(string connectionString)
         {
-            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaProfilesDbContext<TKey, TNullableKey, TUserProfile, TUserProfileAttribute, TOrganizationProfile, TOrganizationProfileAttribute, TAddressProfile, TUserAddress>>(), connectionString).Options;
+            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaProfilesDbContext<TKey, TNullableKey, TUserProfile, TUserProfileAttribute, TOrganizationProfile, TOrganizationProfileAttribute, TOrganizationGroup, TAddressProfile, TUserAddress>>(), connectionString).Options;
         }
 
         public virtual DbSet<TUserProfile> UserProfiles { get; set; }
         public virtual DbSet<TUserProfileAttribute> UserProfileAttributes { get; set; }
         public virtual DbSet<TOrganizationProfile> OrganizationProfiles { get; set; }
         public virtual DbSet<TOrganizationProfileAttribute> OrganizationProfileAttributes { get; set; }
+        public virtual DbSet<TOrganizationGroup> OrganizationGroups { get; set; }
         public virtual DbSet<TAddressProfile> AddressProfiles { get; set; }
         public virtual DbSet<TUserAddress> UserAddresses { get; set; }
 
@@ -106,6 +108,27 @@ namespace Ejyle.DevAccelerate.Profiles.EF
                 entity.Property(e => e.OrganizationName)
                     .IsRequired()
                     .HasMaxLength(256);
+
+                entity.HasOne(d => d.Parent)
+                    .WithMany(p => p.Children)
+                    .HasForeignKey(d => d.ParentId);
+            });
+
+            modelBuilder.Entity<TOrganizationGroup>(entity =>
+            {
+                entity.ToTable("OrganizationGroups", SCHEMA_NAME);
+
+                entity.Property(e => e.GroupName)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.HasOne(d => d.Parent)
+                    .WithMany(p => p.Children)
+                    .HasForeignKey(d => d.ParentId);
+
+                entity.HasOne(d => d.OrganizationProfile)
+                     .WithMany(p => p.Groups)
+                     .HasForeignKey(d => d.OrganizationProfileId);
             });
 
             modelBuilder.Entity<TUserAddress>(entity =>

@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Profiles.EF.Organizations
 {
-    public class DaOrganizationProfileRepository : DaOrganizationProfileRepository<int,int?, DaOrganizationProfile, DaOrganizationProfileAttribute, DbContext>
+    public class DaOrganizationProfileRepository : DaOrganizationProfileRepository<int,int?, DaOrganizationProfile, DaOrganizationProfileAttribute, DaOrganizationGroup, DbContext>
     {
         public DaOrganizationProfileRepository(DbContext dbContext)
             : base(dbContext)
@@ -23,11 +23,12 @@ namespace Ejyle.DevAccelerate.Profiles.EF.Organizations
     }
 
 
-    public class DaOrganizationProfileRepository<TKey, TNullableKey, TOrganizationProfile, TOrganizationProfileAttribute, TDbContext>
-        : DaEntityRepositoryBase<TKey, TOrganizationProfile, TDbContext>, IDaOrganizationProfileRepository<TKey, TNullableKey, TOrganizationProfile>
+    public class DaOrganizationProfileRepository<TKey, TNullableKey, TOrganizationProfile, TOrganizationProfileAttribute, TOrganizationGroup, TDbContext>
+        : DaEntityRepositoryBase<TKey, TOrganizationProfile, TDbContext>, IDaOrganizationProfileRepository<TKey, TNullableKey, TOrganizationProfile, TOrganizationGroup>
         where TKey : IEquatable<TKey>
-        where TOrganizationProfile : DaOrganizationProfile<TKey, TNullableKey, TOrganizationProfileAttribute>
+        where TOrganizationProfile : DaOrganizationProfile<TKey, TNullableKey, TOrganizationProfile, TOrganizationProfileAttribute, TOrganizationGroup>
         where TOrganizationProfileAttribute : DaOrganizationProfileAttribute<TKey, TNullableKey, TOrganizationProfile>
+        where TOrganizationGroup : DaOrganizationGroup<TKey, TNullableKey, TOrganizationGroup, TOrganizationProfile>
         where TDbContext : DbContext
     {
         public DaOrganizationProfileRepository(TDbContext dbContext)
@@ -35,6 +36,8 @@ namespace Ejyle.DevAccelerate.Profiles.EF.Organizations
         { }
 
         private DbSet<TOrganizationProfile> OrganizationProfiles { get { return DbContext.Set<TOrganizationProfile>(); } }
+        private DbSet<TOrganizationGroup> OrganizationGroups { get { return DbContext.Set<TOrganizationGroup>(); } }
+
         public Task CreateAsync(TOrganizationProfile organizationProfile)
         {
             OrganizationProfiles.Add(organizationProfile);
@@ -50,19 +53,36 @@ namespace Ejyle.DevAccelerate.Profiles.EF.Organizations
         public Task<List<TOrganizationProfile>> FindByAttributeAsync(string attributeName, string attributeValue)
         {
             return OrganizationProfiles.Where(m => m.Attributes.Any(x => x.AttributeName == attributeName && x.AttributeValue == attributeValue))
-                .Include(m => m.Attributes).ToListAsync();
+                .Include(m => m.Attributes)
+                .Include(m => m.Children)
+                .Include(m => m.Groups)
+                .ThenInclude(m => m.Children)
+                .ToListAsync();
         }
 
         public Task<TOrganizationProfile> FindByIdAsync(TKey id)
         {
             return OrganizationProfiles.Where(m => m.Id.Equals(id))
-                .Include(m => m.Attributes).SingleOrDefaultAsync();
+                .Include(m => m.Attributes)
+                .Include(m => m.Children)
+                .Include(m => m.Groups)
+                .ThenInclude(m => m.Children)
+                .SingleOrDefaultAsync();
         }
 
         public Task<List<TOrganizationProfile>> FindByTenantIdAsync(TKey tenantId)
         {
             return OrganizationProfiles.Where(m => m.TenantId.Equals(tenantId))
-                .Include(m => m.Attributes).ToListAsync();
+                .Include(m => m.Attributes)
+                .Include(m => m.Children)
+                .Include(m => m.Groups)
+                .ThenInclude(m => m.Children)
+                .ToListAsync();
+        }
+
+        public Task<TOrganizationGroup> FindOrganizaitonGroupByIdAsync(TKey id, TKey organizationGroupId)
+        {
+            return OrganizationGroups.Where(m => m.Id.Equals(organizationGroupId) && m.OrganizationProfileId.Equals(id)).Include(m => m.Children).SingleOrDefaultAsync();  
         }
 
         public Task UpdateAsync(TOrganizationProfile organizationProfile)
