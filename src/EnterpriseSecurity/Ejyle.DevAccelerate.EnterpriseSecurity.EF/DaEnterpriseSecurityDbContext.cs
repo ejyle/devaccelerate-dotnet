@@ -13,10 +13,11 @@ using Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans;
 using Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions;
 using Microsoft.EntityFrameworkCore;
 using Ejyle.DevAccelerate.EnterpriseSecurity.Objects;
+using Ejyle.DevAccelerate.EnterpriseSecurity.Groups;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF
 {
-    public class DaEnterpriseSecurityDbContext : DaEnterpriseSecurityDbContext<int, int?, DaApp, DaAppAttribute, DaFeature, DaAppFeature, DaFeatureAction, DaTenant, DaTenantUser, DaTenantAttribute, DaSubscriptionPlan, DaSubscriptionPlanAttribute, DaBillingCycleOption, DaSubscriptionPlanApp, DaSubscriptionPlanFeature, DaSubscriptionPlanFeatureAttribute, DaSubscription, DaSubscriptionAttribute, DaSubscriptionApp, DaSubscriptionFeature, DaSubscriptionFeatureAttribute, DaSubscriptionAppRole, DaSubscriptionAppUser, DaSubscriptionFeatureRole, DaSubscriptionFeatureRoleAction, DaSubscriptionFeatureUser, DaSubscriptionFeatureUserAction, DaBillingCycle, DaBillingCycleAttribute, DaBillingCycleFeatureUsage, DaUserAgreement, DaUserAgreementVersion, DaUserAgreementVersionAction, DaObjectType, DaObjectInstance, DaObjectHistoryItem>
+    public class DaEnterpriseSecurityDbContext : DaEnterpriseSecurityDbContext<int, int?, DaApp, DaAppAttribute, DaFeature, DaAppFeature, DaFeatureAction, DaTenant, DaTenantUser, DaTenantAttribute, DaSubscriptionPlan, DaSubscriptionPlanAttribute, DaBillingCycleOption, DaSubscriptionPlanApp, DaSubscriptionPlanFeature, DaSubscriptionPlanFeatureAttribute, DaSubscription, DaSubscriptionAttribute, DaSubscriptionApp, DaSubscriptionFeature, DaSubscriptionFeatureAttribute, DaSubscriptionAppRole, DaSubscriptionAppUser, DaSubscriptionFeatureRole, DaSubscriptionFeatureRoleAction, DaSubscriptionFeatureUser, DaSubscriptionFeatureUserAction, DaBillingCycle, DaBillingCycleAttribute, DaBillingCycleFeatureUsage, DaUserAgreement, DaUserAgreementVersion, DaUserAgreementVersionAction, DaObjectType, DaObjectInstance, DaObjectHistoryItem, DaGroup, DaGroupRole, DaGroupUser>
     {
         public DaEnterpriseSecurityDbContext()
             : base()
@@ -31,7 +32,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF
         { }
     }
 
-    public class DaEnterpriseSecurityDbContext<TKey, TNullableKey, TApp, TAppAttribute, TFeature, TAppFeature, TFeatureAction, TTenant, TTenantUser, TTenantAttribute, TSubscriptionPlan, TSubscriptionPlanAttribute, TBillingCycleOption, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscriptionPlanFeatureAttribute, TSubscription, TSubscriptionAttribute, TSubscriptionApp, TSubscriptionFeature, TSubscriptionFeatureAttribute, TSubscriptionAppRole, TSubscriptionAppUser, TSubscriptionFeatureRole, TSubscriptionFeatureRoleAction, TSubscriptionFeatureUser, TSubscriptionFeatureUserAction, TBillingCycle, TBillingCycleAttribute, TBillingCycleFeatureUsage, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction, TObjectType, TObjectInstance, TObjectHistoryItem> : DbContext
+    public class DaEnterpriseSecurityDbContext<TKey, TNullableKey, TApp, TAppAttribute, TFeature, TAppFeature, TFeatureAction, TTenant, TTenantUser, TTenantAttribute, TSubscriptionPlan, TSubscriptionPlanAttribute, TBillingCycleOption, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscriptionPlanFeatureAttribute, TSubscription, TSubscriptionAttribute, TSubscriptionApp, TSubscriptionFeature, TSubscriptionFeatureAttribute, TSubscriptionAppRole, TSubscriptionAppUser, TSubscriptionFeatureRole, TSubscriptionFeatureRoleAction, TSubscriptionFeatureUser, TSubscriptionFeatureUserAction, TBillingCycle, TBillingCycleAttribute, TBillingCycleFeatureUsage, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction, TObjectType, TObjectInstance, TObjectHistoryItem, TGroup, TGroupRole, TGroupUser> : DbContext
         where TKey : IEquatable<TKey>
         where TApp : DaApp<TKey, TNullableKey, TAppAttribute, TFeature, TAppFeature, TSubscriptionApp, TSubscriptionPlanApp, TUserAgreement>
         where TAppAttribute : DaAppAttribute<TKey, TApp>
@@ -67,6 +68,9 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF
         where TObjectType : DaObjectType<TKey, TObjectInstance>
         where TObjectInstance : DaObjectInstance<TKey, TObjectType, TObjectHistoryItem>
         where TObjectHistoryItem : DaObjectHistoryItem<TKey, TObjectInstance>
+        where TGroup : DaGroup<TKey, TNullableKey, TGroupRole, TGroupUser>
+        where TGroupRole : DaGroupRole<TKey, TNullableKey, TGroup>
+        where TGroupUser : DaGroupUser<TKey, TNullableKey, TGroup>
     {
         private const string SCHEMA_NAME = "EnterpriseSecurity";
 
@@ -78,7 +82,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF
             : base(options)
         { }
 
-        public DaEnterpriseSecurityDbContext(DbContextOptions<DaEnterpriseSecurityDbContext<TKey, TNullableKey, TApp, TAppAttribute, TFeature, TAppFeature, TFeatureAction, TTenant, TTenantUser, TTenantAttribute, TSubscriptionPlan, TSubscriptionPlanAttribute, TBillingCycleOption, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscriptionPlanFeatureAttribute, TSubscription, TSubscriptionAttribute, TSubscriptionApp, TSubscriptionFeature, TSubscriptionFeatureAttribute, TSubscriptionAppRole, TSubscriptionAppUser, TSubscriptionFeatureRole, TSubscriptionFeatureRoleAction, TSubscriptionFeatureUser, TSubscriptionFeatureUserAction, TBillingCycle, TBillingCycleAttribute, TBillingCycleFeatureUsage, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction, TObjectType, TObjectInstance, TObjectHistoryItem>> options)
+        public DaEnterpriseSecurityDbContext(DbContextOptions<DaEnterpriseSecurityDbContext<TKey, TNullableKey, TApp, TAppAttribute, TFeature, TAppFeature, TFeatureAction, TTenant, TTenantUser, TTenantAttribute, TSubscriptionPlan, TSubscriptionPlanAttribute, TBillingCycleOption, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscriptionPlanFeatureAttribute, TSubscription, TSubscriptionAttribute, TSubscriptionApp, TSubscriptionFeature, TSubscriptionFeatureAttribute, TSubscriptionAppRole, TSubscriptionAppUser, TSubscriptionFeatureRole, TSubscriptionFeatureRoleAction, TSubscriptionFeatureUser, TSubscriptionFeatureUserAction, TBillingCycle, TBillingCycleAttribute, TBillingCycleFeatureUsage, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction, TObjectType, TObjectInstance, TObjectHistoryItem, TGroup, TGroupRole, TGroupUser>> options)
             : base(options)
         { }
 
@@ -86,9 +90,9 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF
             : base(GetOptions(connectionString))
         { }
 
-        private static DbContextOptions<DaEnterpriseSecurityDbContext<TKey, TNullableKey, TApp, TAppAttribute, TFeature, TAppFeature, TFeatureAction, TTenant, TTenantUser, TTenantAttribute, TSubscriptionPlan, TSubscriptionPlanAttribute, TBillingCycleOption, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscriptionPlanFeatureAttribute, TSubscription, TSubscriptionAttribute, TSubscriptionApp, TSubscriptionFeature, TSubscriptionFeatureAttribute, TSubscriptionAppRole, TSubscriptionAppUser, TSubscriptionFeatureRole, TSubscriptionFeatureRoleAction, TSubscriptionFeatureUser, TSubscriptionFeatureUserAction, TBillingCycle, TBillingCycleAttribute, TBillingCycleFeatureUsage, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction, TObjectType, TObjectInstance, TObjectHistoryItem>> GetOptions(string connectionString)
+        private static DbContextOptions<DaEnterpriseSecurityDbContext<TKey, TNullableKey, TApp, TAppAttribute, TFeature, TAppFeature, TFeatureAction, TTenant, TTenantUser, TTenantAttribute, TSubscriptionPlan, TSubscriptionPlanAttribute, TBillingCycleOption, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscriptionPlanFeatureAttribute, TSubscription, TSubscriptionAttribute, TSubscriptionApp, TSubscriptionFeature, TSubscriptionFeatureAttribute, TSubscriptionAppRole, TSubscriptionAppUser, TSubscriptionFeatureRole, TSubscriptionFeatureRoleAction, TSubscriptionFeatureUser, TSubscriptionFeatureUserAction, TBillingCycle, TBillingCycleAttribute, TBillingCycleFeatureUsage, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction, TObjectType, TObjectInstance, TObjectHistoryItem, TGroup, TGroupRole, TGroupUser>> GetOptions(string connectionString)
         {
-            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaEnterpriseSecurityDbContext<TKey, TNullableKey, TApp, TAppAttribute, TFeature, TAppFeature, TFeatureAction, TTenant, TTenantUser, TTenantAttribute, TSubscriptionPlan, TSubscriptionPlanAttribute, TBillingCycleOption, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscriptionPlanFeatureAttribute, TSubscription, TSubscriptionAttribute, TSubscriptionApp, TSubscriptionFeature, TSubscriptionFeatureAttribute, TSubscriptionAppRole, TSubscriptionAppUser, TSubscriptionFeatureRole, TSubscriptionFeatureRoleAction, TSubscriptionFeatureUser, TSubscriptionFeatureUserAction, TBillingCycle, TBillingCycleAttribute, TBillingCycleFeatureUsage, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction, TObjectType, TObjectInstance, TObjectHistoryItem>>(), connectionString).Options;
+            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaEnterpriseSecurityDbContext<TKey, TNullableKey, TApp, TAppAttribute, TFeature, TAppFeature, TFeatureAction, TTenant, TTenantUser, TTenantAttribute, TSubscriptionPlan, TSubscriptionPlanAttribute, TBillingCycleOption, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscriptionPlanFeatureAttribute, TSubscription, TSubscriptionAttribute, TSubscriptionApp, TSubscriptionFeature, TSubscriptionFeatureAttribute, TSubscriptionAppRole, TSubscriptionAppUser, TSubscriptionFeatureRole, TSubscriptionFeatureRoleAction, TSubscriptionFeatureUser, TSubscriptionFeatureUserAction, TBillingCycle, TBillingCycleAttribute, TBillingCycleFeatureUsage, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction, TObjectType, TObjectInstance, TObjectHistoryItem, TGroup, TGroupRole, TGroupUser>>(), connectionString).Options;
         }
 
         public virtual DbSet<TAppFeature> AppFeatures { get; set; }
@@ -125,6 +129,9 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF
         public virtual DbSet<DaObjectType> ObjectTypes { get; set; }
         public virtual DbSet<DaObjectInstance> ObjectInstances { get; set; }
         public virtual DbSet<DaObjectHistoryItem> ObjectHistoryItems { get; set; }
+        public virtual DbSet<DaGroup> Groups { get; set; }
+        public virtual DbSet<DaGroupRole> GroupRoles { get; set; }
+        public virtual DbSet<DaGroupUser> GroupUsers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -560,6 +567,33 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF
                 entity.HasOne(d => d.ObjectInstance)
                     .WithMany(p => p.ObjectHistoryItems)
                     .HasForeignKey(d => d.ObjectInstanceId);
+            });
+
+            modelBuilder.Entity<TGroup>(entity =>
+            {
+                entity.ToTable("Groups", SCHEMA_NAME);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(256);
+            });
+
+            modelBuilder.Entity<TGroupRole>(entity =>
+            {
+                entity.ToTable("GroupRoles", SCHEMA_NAME);
+
+                entity.HasOne(d => d.Group)
+                    .WithMany(p => p.GroupRoles)
+                    .HasForeignKey(d => d.GroupId);
+            });
+
+            modelBuilder.Entity<TGroupUser>(entity =>
+            {
+                entity.ToTable("GroupUsers", SCHEMA_NAME);
+
+                entity.HasOne(d => d.Group)
+                    .WithMany(p => p.GroupUsers)
+                    .HasForeignKey(d => d.GroupId);
             });
         }
     }
