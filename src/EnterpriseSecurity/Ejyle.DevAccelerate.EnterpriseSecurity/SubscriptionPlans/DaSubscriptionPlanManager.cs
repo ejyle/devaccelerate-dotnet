@@ -12,20 +12,20 @@ using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
 {
-    public class DaSubscriptionPlanManager<TKey, TNullableKey, TSubscriptionPlan> : DaEntityManagerBase<TKey, TSubscriptionPlan>
+    public class DaSubscriptionPlanManager<TKey, TSubscriptionPlan> : DaEntityManagerBase<TKey, TSubscriptionPlan>
         where TKey : IEquatable<TKey>
-        where TSubscriptionPlan : IDaSubscriptionPlan<TKey, TNullableKey>
+        where TSubscriptionPlan : IDaSubscriptionPlan<TKey>
     {
-        public DaSubscriptionPlanManager(IDaSubscriptionPlanRepository<TKey, TNullableKey, TSubscriptionPlan> repository)
+        public DaSubscriptionPlanManager(IDaSubscriptionPlanRepository<TKey, TSubscriptionPlan> repository)
             : base(repository)
         {
         }
 
-        protected virtual IDaSubscriptionPlanRepository<TKey, TNullableKey, TSubscriptionPlan> Repository
+        protected virtual IDaSubscriptionPlanRepository<TKey, TSubscriptionPlan> Repository
         {
             get
             {
-                return GetRepository<IDaSubscriptionPlanRepository<TKey, TNullableKey, TSubscriptionPlan>>();
+                return GetRepository<IDaSubscriptionPlanRepository<TKey, TSubscriptionPlan>>();
             }
         }
 

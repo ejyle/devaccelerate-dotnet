@@ -24,8 +24,8 @@ namespace Ejyle.DevAccelerate.Identity.EF.UserSessions
     }
 
     public class DaUserSessionRepository<TUserSession, TDbContext>
-        : DaUserSessionRepository<int, TUserSession, TDbContext>
-        where TUserSession : DaUserSession<int>
+        : DaUserSessionRepository<string, TUserSession, TDbContext>
+        where TUserSession : DaUserSession<string>
         where TDbContext : DbContext
     {
         public DaUserSessionRepository(TDbContext context)

@@ -26,15 +26,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Authentication
 {
-    public abstract class DaAuthenticationFacadeBase<TKey, TNullableKey, TUser, TUserManager, TSignInManager, TTenant, TTenantUser, TTenantAttribute, TTenantManager, TUserSession, TUserSessionManager, TAuthenticationResult>
+    public abstract class DaAuthenticationFacadeBase<TKey, TUser, TUserManager, TSignInManager, TTenant, TTenantUser, TTenantAttribute, TTenantManager, TUserSession, TUserSessionManager, TAuthenticationResult>
         where TKey : IEquatable<TKey>
-        where TUser : DaUser<TKey, TNullableKey>
+        where TUser : DaUser<TKey>
         where TUserManager : UserManager<TUser>
         where TSignInManager : SignInManager<TUser>
-        where TTenantManager : DaTenantManager<TKey, TNullableKey, TTenant>
-        where TTenant : DaTenant<TKey, TNullableKey, TTenantUser, TTenantAttribute>, new()
-        where TTenantAttribute : DaTenantAttribute<TKey, TNullableKey, TTenant>
-        where TTenantUser : DaTenantUser<TKey, TNullableKey, TTenant>, new()
+        where TTenantManager : DaTenantManager<TKey, TTenant>
+        where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute>, new()
+        where TTenantAttribute : DaTenantAttribute<TKey, TTenant>
+        where TTenantUser : DaTenantUser<TKey, TTenant>, new()
         where TUserSession : DaUserSession<TKey>, new()
         where TUserSessionManager : DaUserSessionManager<TKey, TUserSession>
         where TAuthenticationResult : DaAuthenticationResult<TKey>, new()

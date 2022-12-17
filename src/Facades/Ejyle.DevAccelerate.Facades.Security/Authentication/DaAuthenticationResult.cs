@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Authentication
 {
-    public class DaAuthenticationResult : DaAuthenticationResult<int>
+    public class DaAuthenticationResult : DaAuthenticationResult<string>
     { }
 
     public class DaAuthenticationResult<TKey>

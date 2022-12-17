@@ -14,11 +14,11 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Forms.Instances
 {
-    public interface IDaFormInstance<TKey, TNullableKey> : IDaAuditedEntity<TKey>
+    public interface IDaFormInstance<TKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         TKey FormId { get; set; }
         TKey OwnerUserId { get; set; }
-        TNullableKey TenantId { get; set; }
+        TKey TenantId { get; set; }
     }
 }

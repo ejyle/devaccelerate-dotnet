@@ -9,7 +9,7 @@ using Ejyle.DevAccelerate.Lists.TimeZones;
 
 namespace Ejyle.DevAccelerate.Lists.EF.TimeZones
 {
-    public class DaTimeZoneManager : DaTimeZoneManager<int, int?, DaTimeZone>
+    public class DaTimeZoneManager : DaTimeZoneManager<string, DaTimeZone>
     {
         public DaTimeZoneManager(DaTimeZoneRepository repository)
             : base(repository)

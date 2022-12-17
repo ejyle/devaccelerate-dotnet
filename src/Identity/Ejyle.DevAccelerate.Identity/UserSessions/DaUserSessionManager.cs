@@ -13,10 +13,10 @@ using Ejyle.DevAccelerate.Core.Data;
 
 namespace Ejyle.DevAccelerate.Identity.UserSessions
 {
-    public class DaUserSessionManager<TUserSession> : DaUserSessionManager<int, TUserSession>
-        where TUserSession : IDaUserSession<int>
+    public class DaUserSessionManager<TUserSession> : DaUserSessionManager<string, TUserSession>
+        where TUserSession : IDaUserSession<string>
     {
-        public DaUserSessionManager(IDaUserSessionRepository<int, TUserSession> repository)
+        public DaUserSessionManager(IDaUserSessionRepository<string, TUserSession> repository)
             : base(repository)
         {
         }

@@ -87,9 +87,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ejyle.DevAccelerate.Tasks.E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Forms", "Forms", "{EA3F99CF-3400-435E-8DD2-C71381FC07D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejyle.DevAccelerate.Forms", "Forms\Ejyle.DevAccelerate.Forms\Ejyle.DevAccelerate.Forms.csproj", "{11DBAE8E-AC81-452E-9D17-B0B36D8981E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ejyle.DevAccelerate.Forms", "Forms\Ejyle.DevAccelerate.Forms\Ejyle.DevAccelerate.Forms.csproj", "{11DBAE8E-AC81-452E-9D17-B0B36D8981E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ejyle.DevAccelerate.Forms.EF", "Forms\Ejyle.DevAccelerate.Forms.EF\Ejyle.DevAccelerate.Forms.EF.csproj", "{EAF444B9-BA5E-4252-9987-1F45D29CA651}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ejyle.DevAccelerate.Forms.EF", "Forms\Ejyle.DevAccelerate.Forms.EF\Ejyle.DevAccelerate.Forms.EF.csproj", "{EAF444B9-BA5E-4252-9987-1F45D29CA651}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

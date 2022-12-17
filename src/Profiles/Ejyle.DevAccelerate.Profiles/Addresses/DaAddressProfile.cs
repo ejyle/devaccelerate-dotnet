@@ -18,17 +18,17 @@ namespace Ejyle.DevAccelerate.Profiles.Addresses
         { }
     }
 
-    public class DaAddressProfile<TUserAddress> : DaAddressProfile<int, int?, TUserAddress>
-        where TUserAddress : IDaUserAddress<int, int?>
+    public class DaAddressProfile<TUserAddress> : DaAddressProfile<string, TUserAddress>
+        where TUserAddress : IDaUserAddress<string>
     {
         public DaAddressProfile()
             : base()
         { }
     }
 
-    public class DaAddressProfile<TKey, TNullableKey, TUserAddress> : DaAuditedEntityBase<TKey>, IDaAddressProfile<TKey, TNullableKey>
+    public class DaAddressProfile<TKey, TUserAddress> : DaAuditedEntityBase<TKey>, IDaAddressProfile<TKey>
         where TKey : IEquatable<TKey>
-        where TUserAddress : IDaUserAddress<TKey, TNullableKey>
+        where TUserAddress : IDaUserAddress<TKey>
     {
         public DaAddressProfile()
             : base()

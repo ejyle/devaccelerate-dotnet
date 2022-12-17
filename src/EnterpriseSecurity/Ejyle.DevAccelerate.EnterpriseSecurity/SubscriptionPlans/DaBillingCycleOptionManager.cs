@@ -12,7 +12,7 @@ using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
 {
-    public class DaBillingCycleOptionManager<TKey, TNullableKey, TBillingCycle> : DaEntityManagerBase<TKey, TBillingCycle>
+    public class DaBillingCycleOptionManager<TKey, TBillingCycle> : DaEntityManagerBase<TKey, TBillingCycle>
         where TKey : IEquatable<TKey>
         where TBillingCycle : IDaBillingCycleOption<TKey>
     {

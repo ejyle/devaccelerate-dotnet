@@ -9,7 +9,7 @@ using System;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Authorization
 {
-    public class DaAuthorizedFeatureInfo : DaAuthorizedFeatureInfo<int>
+    public class DaAuthorizedFeatureInfo : DaAuthorizedFeatureInfo<string>
     { }
 
     public class DaAuthorizedFeatureInfo<TKey> : IDaAuthorizedFeatureInfo<TKey>

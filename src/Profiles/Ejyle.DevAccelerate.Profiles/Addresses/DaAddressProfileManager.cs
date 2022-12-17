@@ -12,19 +12,19 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Profiles.Addresses
 {
-    public class DaAddressProfileManager<TKey, TNullableKey, TAddressProfile> : DaEntityManagerBase<TKey, TAddressProfile>
+    public class DaAddressProfileManager<TKey, TAddressProfile> : DaEntityManagerBase<TKey, TAddressProfile>
         where TKey : IEquatable<TKey>
-        where TAddressProfile : IDaAddressProfile<TKey, TNullableKey>
+        where TAddressProfile : IDaAddressProfile<TKey>
     {
-        public DaAddressProfileManager(IDaAddressProfileRepository<TKey, TNullableKey, TAddressProfile> repository) : base(repository)
+        public DaAddressProfileManager(IDaAddressProfileRepository<TKey, TAddressProfile> repository) : base(repository)
         {
         }
 
-        protected virtual IDaAddressProfileRepository<TKey, TNullableKey, TAddressProfile> Repository
+        protected virtual IDaAddressProfileRepository<TKey, TAddressProfile> Repository
         {
             get
             {
-                return GetRepository<IDaAddressProfileRepository<TKey, TNullableKey, TAddressProfile>>();
+                return GetRepository<IDaAddressProfileRepository<TKey, TAddressProfile>>();
             }
         }
 

@@ -17,7 +17,7 @@ using System.Xml.Linq;
 
 namespace Ejyle.DevAccelerate.Files.EF
 {
-    public class DaFileCollectionRepository : DaFileCollectionRepository<int, int?, DaFileCollection, DaFile, DbContext>
+    public class DaFileCollectionRepository : DaFileCollectionRepository<string, DaFileCollection, DaFile, DbContext>
     {
         public DaFileCollectionRepository(DbContext dbContext)
             : base(dbContext)
@@ -25,11 +25,11 @@ namespace Ejyle.DevAccelerate.Files.EF
     }
 
 
-    public class DaFileCollectionRepository<TKey, TNullableKey, TFileCollection, TFile, TDbContext>
-        : DaEntityRepositoryBase<TKey, TFileCollection, TDbContext>, IDaFileCollectionRepository<TKey, TNullableKey, TFileCollection>
+    public class DaFileCollectionRepository<TKey, TFileCollection, TFile, TDbContext>
+        : DaEntityRepositoryBase<TKey, TFileCollection, TDbContext>, IDaFileCollectionRepository<TKey, TFileCollection>
         where TKey : IEquatable<TKey>
-        where TFileCollection : DaFileCollection<TKey, TNullableKey, TFileCollection, TFile>
-        where TFile : DaFile<TKey, TNullableKey, TFileCollection>
+        where TFileCollection : DaFileCollection<TKey, TFileCollection, TFile>
+        where TFile : DaFile<TKey, TFileCollection>
         where TDbContext : DbContext
     {
         public DaFileCollectionRepository(TDbContext dbContext)

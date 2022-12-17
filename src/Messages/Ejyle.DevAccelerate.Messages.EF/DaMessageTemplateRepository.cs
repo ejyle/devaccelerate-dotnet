@@ -17,7 +17,7 @@ using System.Xml.Linq;
 
 namespace Ejyle.DevAccelerate.Messages.EF
 {
-    public class DaMessageTemplateRepository : DaMessageTemplateRepository<int, DaMessageTemplate, DbContext>
+    public class DaMessageTemplateRepository : DaMessageTemplateRepository<string, DaMessageTemplate, DbContext>
     {
         public DaMessageTemplateRepository(DbContext dbContext)
             : base(dbContext)

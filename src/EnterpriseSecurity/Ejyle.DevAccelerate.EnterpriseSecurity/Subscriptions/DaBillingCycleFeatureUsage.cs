@@ -13,14 +13,14 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
     public class DaBillingCycleFeatureUsage : DaBillingCycleFeatureUsage<DaBillingCycle, DaSubscriptionFeature>
     { }
 
-    public class DaBillingCycleFeatureUsage<TBillingCycle, TSubscriptionFeatue> : DaBillingCycleFeatureUsage<int, int?, TBillingCycle, TSubscriptionFeatue>
-        where TBillingCycle : IDaBillingCycle<int, int?>
-        where TSubscriptionFeatue : IDaSubscriptionFeature<int>
+    public class DaBillingCycleFeatureUsage<TBillingCycle, TSubscriptionFeatue> : DaBillingCycleFeatureUsage<string, TBillingCycle, TSubscriptionFeatue>
+        where TBillingCycle : IDaBillingCycle<string>
+        where TSubscriptionFeatue : IDaSubscriptionFeature<string>
     { }
 
-    public class DaBillingCycleFeatureUsage<TKey, TNullableKey, TBillingCycle, TSubscriptionFeature> : DaEntityBase<TKey>, IDaBillingCycleFeatureUsage<TKey>
+    public class DaBillingCycleFeatureUsage<TKey, TBillingCycle, TSubscriptionFeature> : DaEntityBase<TKey>, IDaBillingCycleFeatureUsage<TKey>
         where TKey : IEquatable<TKey>
-        where TBillingCycle : IDaBillingCycle<TKey, TNullableKey>
+        where TBillingCycle : IDaBillingCycle<TKey>
         where TSubscriptionFeature : IDaSubscriptionFeature<TKey>
     {
         public virtual TBillingCycle BillingCycle { get; set; }

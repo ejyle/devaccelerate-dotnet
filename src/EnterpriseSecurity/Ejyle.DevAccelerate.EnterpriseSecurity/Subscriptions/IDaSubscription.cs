@@ -11,7 +11,7 @@ using Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 {
-    public interface IDaSubscription<TKey, TNullableKey> : IDaAuditedEntity<TKey>
+    public interface IDaSubscription<TKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         string Name { get; set; }
@@ -30,10 +30,10 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
         DateTime StartDateUtc { get; set; }
         bool IsAutoRenewUntilCanceled { get; set; }
         TKey TenantId { get; set; }
-        TNullableKey UserAgreementVersionId { get; set; }
+        TKey UserAgreementVersionId { get; set; }
         TKey OwnerUserId { get; set; }
-        TNullableKey LastTransactionId { get; set; }
-        TNullableKey LastPaymentMethodId { get; set; }
+        TKey LastTransactionId { get; set; }
+        TKey LastPaymentMethodId { get; set; }
         string ReferenceNumber { get; set; }
         DateTime? NextBillingDateUtc { get; set; }
         DateTime? TrialStartDateUtc { get; set; }

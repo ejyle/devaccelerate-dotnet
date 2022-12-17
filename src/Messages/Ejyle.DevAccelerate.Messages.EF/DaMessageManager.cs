@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace Ejyle.DevAccelerate.Messages.EF
 {
-    public class DaMessageManager : DaMessageManager<int, DaMessage>
+    public class DaMessageManager : DaMessageManager<string, DaMessage>
     {
         public DaMessageManager(DaMessageRepository repository)
             : base(repository)

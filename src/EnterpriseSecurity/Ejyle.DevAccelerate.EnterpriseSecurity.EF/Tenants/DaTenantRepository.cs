@@ -15,19 +15,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Tenants
 {
-    public class DaTenantRepository : DaTenantRepository<int, int?, DaTenant, DaTenantUser, DaTenantAttribute, DbContext>
+    public class DaTenantRepository : DaTenantRepository<string, DaTenant, DaTenantUser, DaTenantAttribute, DbContext>
     {
         public DaTenantRepository(DbContext dbContext)
             : base(dbContext)
         { }
     }
 
-    public class DaTenantRepository<TKey, TNullableKey, TTenant, TTenantUser, TTenantAttribute, TDbContext>
-         : DaEntityRepositoryBase<TKey, TTenant, DbContext>, IDaTenantRepository<TKey, TNullableKey, TTenant>
+    public class DaTenantRepository<TKey, TTenant, TTenantUser, TTenantAttribute, TDbContext>
+         : DaEntityRepositoryBase<TKey, TTenant, DbContext>, IDaTenantRepository<TKey, TTenant>
          where TKey : IEquatable<TKey>
-         where TTenant : DaTenant<TKey, TNullableKey, TTenantUser, TTenantAttribute>
-         where TTenantUser : DaTenantUser<TKey, TNullableKey, TTenant>
-        where TTenantAttribute : DaTenantAttribute<TKey, TNullableKey, TTenant>
+         where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute>
+         where TTenantUser : DaTenantUser<TKey, TTenant>
+        where TTenantAttribute : DaTenantAttribute<TKey, TTenant>
     {
         public DaTenantRepository(DbContext dbContext)
             : base(dbContext)

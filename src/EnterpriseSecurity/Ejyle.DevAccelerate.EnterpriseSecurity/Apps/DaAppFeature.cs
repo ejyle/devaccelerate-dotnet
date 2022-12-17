@@ -10,7 +10,7 @@ using System;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
 {
-    public class DaAppFeature : DaAppFeature<int, DaApp, DaFeature>
+    public class DaAppFeature : DaAppFeature<string, DaApp, DaFeature>
     {
         public DaAppFeature() : base()
         { }

@@ -13,7 +13,7 @@ using Ejyle.DevAccelerate.Core.Data;
 
 namespace Ejyle.DevAccelerate.Lists.TimeZones
 {
-    public class DaTimeZoneManager<TKey, TNullableKey, TTimeZone>
+    public class DaTimeZoneManager<TKey, TTimeZone>
         : DaEntityManagerBase<TKey, TTimeZone>
         where TKey : IEquatable<TKey>
         where TTimeZone : IDaTimeZone<TKey>

@@ -12,17 +12,17 @@ using System.Collections.Generic;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 {
-    public class DaSubscriptionApp : DaSubscriptionApp<int, int?, DaApp, DaSubscriptionAppRole, DaSubscription, DaSubscriptionAppUser>
+    public class DaSubscriptionApp : DaSubscriptionApp<string, DaApp, DaSubscriptionAppRole, DaSubscription, DaSubscriptionAppUser>
     {
         public DaSubscriptionApp() : base()
         { }
     }
 
-    public class DaSubscriptionApp<TKey, TNullableKey, TApp, TSubscriptionAppRole, TSubscription, TSubscriptionAppUser> : DaEntityBase<TKey>, IDaSubscriptionApp<TKey>
+    public class DaSubscriptionApp<TKey, TApp, TSubscriptionAppRole, TSubscription, TSubscriptionAppUser> : DaEntityBase<TKey>, IDaSubscriptionApp<TKey>
         where TKey : IEquatable<TKey>
         where TApp : IDaApp<TKey>
         where TSubscriptionAppRole : IDaSubscriptionAppRole<TKey>
-        where TSubscription : IDaSubscription<TKey, TNullableKey>
+        where TSubscription : IDaSubscription<TKey>
         where TSubscriptionAppUser : IDaSubscriptionAppUser<TKey>
     {
         public DaSubscriptionApp()

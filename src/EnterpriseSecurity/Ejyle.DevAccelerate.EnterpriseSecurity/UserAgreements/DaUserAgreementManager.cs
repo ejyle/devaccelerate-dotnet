@@ -11,19 +11,19 @@ using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.UserAgreements
 {
-    public class DaUserAgreementManager<TKey, TNullableKey, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction> : DaEntityManagerBase<TKey, TUserAgreement>
+    public class DaUserAgreementManager<TKey, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction> : DaEntityManagerBase<TKey, TUserAgreement>
         where TKey : IEquatable<TKey>
-        where TUserAgreement : IDaUserAgreement<TKey, TNullableKey>
+        where TUserAgreement : IDaUserAgreement<TKey>
         where TUserAgreementVersion : IDaUserAgreementVersion<TKey>
         where TUserAgreementVersionAction : IDaUserAgreementVersionAction<TKey>
     {
-        public DaUserAgreementManager(IDaUserAgreementRepository<TKey, TNullableKey, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction> repository)
+        public DaUserAgreementManager(IDaUserAgreementRepository<TKey, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction> repository)
             : base(repository)
         { }
 
-        private IDaUserAgreementRepository<TKey, TNullableKey, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction> GetRepository()
+        private IDaUserAgreementRepository<TKey, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction> GetRepository()
         {
-            return GetRepository<IDaUserAgreementRepository<TKey, TNullableKey, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction>>();
+            return GetRepository<IDaUserAgreementRepository<TKey, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction>>();
         }
 
         public Task CreateAsync(TUserAgreement userAgreement)

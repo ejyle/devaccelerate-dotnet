@@ -13,14 +13,14 @@ using System.Collections.Generic;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
 {
-    public class DaFeature : DaFeature<int, int?, DaApp, DaAppFeature, DaFeatureAction, DaSubscriptionFeature, DaSubscriptionPlanFeature>
+    public class DaFeature : DaFeature<string, DaApp, DaAppFeature, DaFeatureAction, DaSubscriptionFeature, DaSubscriptionPlanFeature>
     {
         public DaFeature() : base()
         { }
     }
 
-    public class DaFeature<TKey, TnullableKey, TApp, TAppFeature, TFeatureAction, TSubscriptionFeature, TSubscriptionPlanFeature>
-        : DaEntityBase<TKey>, IDaFeature<TKey, TnullableKey>
+    public class DaFeature<TKey, TApp, TAppFeature, TFeatureAction, TSubscriptionFeature, TSubscriptionPlanFeature>
+        : DaEntityBase<TKey>, IDaFeature<TKey>
         where TKey : IEquatable<TKey>
         where TApp : IDaApp<TKey>
         where TAppFeature : IDaAppFeature<TKey>
@@ -41,7 +41,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
 
         public string Key { get; set; }
 
-        public TnullableKey AppId { get; set; }
+        public TKey AppId { get; set; }
 
         public DaFeatureStatus Status { get; set; }
 

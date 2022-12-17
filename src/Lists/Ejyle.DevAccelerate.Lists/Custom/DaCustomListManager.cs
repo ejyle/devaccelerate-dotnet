@@ -14,19 +14,19 @@ using Ejyle.DevAccelerate.Core.Utils;
 
 namespace Ejyle.DevAccelerate.Lists.Custom
 {
-    public class DaCustomListManager<TKey, TNullableKey, TCustomList> : DaEntityManagerBase<TKey, TCustomList>
+    public class DaCustomListManager<TKey, TCustomList> : DaEntityManagerBase<TKey, TCustomList>
         where TKey : IEquatable<TKey>
-        where TCustomList : IDaCustomList<TKey, TNullableKey>
+        where TCustomList : IDaCustomList<TKey>
     {
-        public DaCustomListManager(IDaCustomListRepository<TKey, TNullableKey, TCustomList> repository)
+        public DaCustomListManager(IDaCustomListRepository<TKey, TCustomList> repository)
             : base(repository)
         { }
 
-        protected virtual IDaCustomListRepository<TKey, TNullableKey, TCustomList> Repository
+        protected virtual IDaCustomListRepository<TKey, TCustomList> Repository
         {
             get
             {
-                return GetRepository<IDaCustomListRepository<TKey, TNullableKey, TCustomList>>();
+                return GetRepository<IDaCustomListRepository<TKey, TCustomList>>();
             }
         }
 

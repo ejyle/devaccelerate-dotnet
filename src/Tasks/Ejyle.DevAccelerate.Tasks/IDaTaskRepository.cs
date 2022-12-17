@@ -15,9 +15,9 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Tasks
 {
-    public interface IDaTaskRepository<TKey, TNullableKey, TTask> : IDaEntityRepository<TKey, TTask>
+    public interface IDaTaskRepository<TKey, TTask> : IDaEntityRepository<TKey, TTask>
         where TKey : IEquatable<TKey>
-        where TTask : IDaTask<TKey, TNullableKey>
+        where TTask : IDaTask<TKey>
     {
         Task CreateAsync(TTask task);
         Task<TTask> FindByIdAsync(TKey id);

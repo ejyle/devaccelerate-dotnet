@@ -14,7 +14,7 @@ namespace Ejyle.DevAccelerate.Lists.DateFormats
     /// <summary>
     /// Represents the format of a date.
     /// </summary>
-    public class DaDateFormat : DaDateFormat<int, DaCountryDateFormat>
+    public class DaDateFormat : DaDateFormat<string, DaCountryDateFormat>
     { }
 
     /// <summary>

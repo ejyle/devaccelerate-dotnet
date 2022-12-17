@@ -17,7 +17,7 @@ using System.Xml.Linq;
 
 namespace Ejyle.DevAccelerate.Files.EF
 {
-    public class DaFileStorageRepository : DaFileStorageRepository<int, DaFileStorage, DaFileStorageLocation, DaFileStorageAttribute, DbContext>
+    public class DaFileStorageRepository : DaFileStorageRepository<string, DaFileStorage, DaFileStorageLocation, DaFileStorageAttribute, DbContext>
     {
         public DaFileStorageRepository(DbContext dbContext)
             : base(dbContext)

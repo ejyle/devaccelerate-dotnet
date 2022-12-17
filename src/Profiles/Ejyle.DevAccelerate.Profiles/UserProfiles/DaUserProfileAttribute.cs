@@ -16,8 +16,8 @@ namespace Ejyle.DevAccelerate.Profiles.UserProfiles
         { }
     }
 
-    public class DaUserProfileAttribute<TUserProfile> : DaUserProfileAttribute<int, TUserProfile>
-        where TUserProfile : IDaUserProfile<int>
+    public class DaUserProfileAttribute<TUserProfile> : DaUserProfileAttribute<string, TUserProfile>
+        where TUserProfile : IDaUserProfile<string>
     { 
         public DaUserProfileAttribute() : base()
         { }

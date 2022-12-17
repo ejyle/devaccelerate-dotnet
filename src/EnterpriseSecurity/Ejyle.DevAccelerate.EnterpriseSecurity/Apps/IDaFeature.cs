@@ -10,10 +10,10 @@ using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
 {
-    public interface IDaFeature<TKey, TNullableKey> : IDaEntity<TKey>
+    public interface IDaFeature<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {
-        TNullableKey AppId { get; set; }
+        TKey AppId { get; set; }
         string Name { get; set; }
         string Key { get; set; }
         DaFeatureStatus Status { get; set; }

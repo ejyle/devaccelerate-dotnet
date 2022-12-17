@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Ejyle.DevAccelerate.Messages.EF
 {
     public class DaMessagesDbContext
-        : DaMessagesDbContext<int, int?, DaMessageTemplate, DaMessage, DaMessageVariable, DaMessageRecipient, DaMessageRecipientVariable>
+        : DaMessagesDbContext<string, DaMessageTemplate, DaMessage, DaMessageVariable, DaMessageRecipient, DaMessageRecipientVariable>
     {
         public DaMessagesDbContext() : base()
         { }
@@ -29,13 +29,13 @@ namespace Ejyle.DevAccelerate.Messages.EF
         { }
     }
 
-    public class DaMessagesDbContext<TKey, TNullableKey, TMessageTemplate, TMessage, TMessageVariable, TMessageRecipient, TMessageRecipientVariable> : DbContext
+    public class DaMessagesDbContext<TKey, TMessageTemplate, TMessage, TMessageVariable, TMessageRecipient, TMessageRecipientVariable> : DbContext
         where TKey : IEquatable<TKey>
         where TMessageTemplate : DaMessageTemplate<TKey>
-        where TMessage : DaMessage<TKey, TNullableKey, TMessageVariable, TMessageRecipient>
+        where TMessage : DaMessage<TKey, TMessageVariable, TMessageRecipient>
         where TMessageVariable : DaMessageVariable<TKey, TMessage>
-        where TMessageRecipient : DaMessageRecipient<TKey, TNullableKey, TMessage, TMessageRecipientVariable>
-        where TMessageRecipientVariable : DaMessageRecipientVariable<TKey, TNullableKey, TMessageRecipient>
+        where TMessageRecipient : DaMessageRecipient<TKey, TMessage, TMessageRecipientVariable>
+        where TMessageRecipientVariable : DaMessageRecipientVariable<TKey, TMessageRecipient>
     {
         private const string SCHEMA_NAME = "Messages";
 
@@ -46,7 +46,7 @@ namespace Ejyle.DevAccelerate.Messages.EF
             : base(options)
         { }
 
-        public DaMessagesDbContext(DbContextOptions<DaMessagesDbContext<TKey, TNullableKey, TMessageTemplate, TMessage, TMessageVariable, TMessageRecipient, TMessageRecipientVariable>> options)
+        public DaMessagesDbContext(DbContextOptions<DaMessagesDbContext<TKey, TMessageTemplate, TMessage, TMessageVariable, TMessageRecipient, TMessageRecipientVariable>> options)
             : base(options)
         { }
 
@@ -54,9 +54,9 @@ namespace Ejyle.DevAccelerate.Messages.EF
             : base(GetOptions(connectionString))
         { }
 
-        private static DbContextOptions<DaMessagesDbContext<TKey, TNullableKey, TMessageTemplate, TMessage, TMessageVariable, TMessageRecipient, TMessageRecipientVariable>> GetOptions(string connectionString)
+        private static DbContextOptions<DaMessagesDbContext<TKey, TMessageTemplate, TMessage, TMessageVariable, TMessageRecipient, TMessageRecipientVariable>> GetOptions(string connectionString)
         {
-            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaMessagesDbContext<TKey, TNullableKey, TMessageTemplate, TMessage, TMessageVariable, TMessageRecipient, TMessageRecipientVariable>>(), connectionString).Options;
+            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaMessagesDbContext<TKey, TMessageTemplate, TMessage, TMessageVariable, TMessageRecipient, TMessageRecipientVariable>>(), connectionString).Options;
         }
 
         public virtual DbSet<TMessage> Messages { get; set; }
@@ -83,6 +83,8 @@ namespace Ejyle.DevAccelerate.Messages.EF
             {
                 entity.ToTable("MessageTemplates", SCHEMA_NAME);
 
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
                 entity.Property(e => e.Name)
                     .HasMaxLength(256)
                     .IsRequired();
@@ -104,6 +106,8 @@ namespace Ejyle.DevAccelerate.Messages.EF
             {
                 entity.ToTable("Messages", SCHEMA_NAME);
 
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
                 entity.Property(e => e.Message)
                     .IsRequired();
 
@@ -121,6 +125,8 @@ namespace Ejyle.DevAccelerate.Messages.EF
             {
                 entity.ToTable("MessageVariables", SCHEMA_NAME);
 
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
                 entity.Property(e => e.Name)
                     .HasMaxLength(256)
                     .IsRequired();
@@ -133,6 +139,8 @@ namespace Ejyle.DevAccelerate.Messages.EF
             modelBuilder.Entity<TMessageRecipient>(entity =>
             {
                 entity.ToTable("MessageRecipients", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.RecipientName)
                     .HasMaxLength(256)
@@ -150,6 +158,8 @@ namespace Ejyle.DevAccelerate.Messages.EF
             modelBuilder.Entity<TMessageRecipientVariable>(entity =>
             {
                 entity.ToTable("MessageRecipientVariables", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Name)
                     .HasMaxLength(256)

@@ -14,20 +14,20 @@ using Ejyle.DevAccelerate.Core.Utils;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
 {
-    public class DaFeatureManager<TKey, TNullableKey, TFeature> : DaEntityManagerBase<TKey, TFeature>
+    public class DaFeatureManager<TKey, TFeature> : DaEntityManagerBase<TKey, TFeature>
         where TKey : IEquatable<TKey>
-        where TFeature : IDaFeature<TKey, TNullableKey>
+        where TFeature : IDaFeature<TKey>
     {
-        public DaFeatureManager(IDaFeatureRepository<TKey, TNullableKey, TFeature> repository)
+        public DaFeatureManager(IDaFeatureRepository<TKey, TFeature> repository)
             : base(repository)
         {
         }
 
-        protected virtual IDaFeatureRepository<TKey, TNullableKey, TFeature> Repository
+        protected virtual IDaFeatureRepository<TKey, TFeature> Repository
         {
             get
             {
-                return GetRepository<IDaFeatureRepository<TKey, TNullableKey, TFeature>>();
+                return GetRepository<IDaFeatureRepository<TKey, TFeature>>();
             }
         }
 
@@ -95,7 +95,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
             return Repository.FindByKeyAsync(key);
         }
 
-        public Task<List<TFeature>> FindByAppIdAsync(TNullableKey appId)
+        public Task<List<TFeature>> FindByAppIdAsync(TKey appId)
         {
             ThrowIfDisposed();
             return Repository.FindByAppIdAsync(appId);

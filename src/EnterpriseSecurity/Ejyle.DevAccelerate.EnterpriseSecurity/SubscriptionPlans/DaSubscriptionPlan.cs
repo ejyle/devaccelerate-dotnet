@@ -12,19 +12,19 @@ using System.Collections.Generic;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
 {
-    public class DaSubscriptionPlan : DaSubscriptionPlan<int, int?, DaSubscriptionPlanAttribute, DaBillingCycleOption, DaSubscriptionPlanApp, DaSubscriptionPlanFeature, DaSubscription>
+    public class DaSubscriptionPlan : DaSubscriptionPlan<string, DaSubscriptionPlanAttribute, DaBillingCycleOption, DaSubscriptionPlanApp, DaSubscriptionPlanFeature, DaSubscription>
     {
         public DaSubscriptionPlan() : base()
         { }
     }
 
-    public class DaSubscriptionPlan<TKey, TNullableKey, TSubscriptionPlanAttribute, TBillingCycleOptions, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscription> : DaAuditedEntityBase<TKey>, IDaSubscriptionPlan<TKey, TNullableKey>        
+    public class DaSubscriptionPlan<TKey, TSubscriptionPlanAttribute, TBillingCycleOptions, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscription> : DaAuditedEntityBase<TKey>, IDaSubscriptionPlan<TKey>        
         where TKey : IEquatable<TKey>
         where TSubscriptionPlanAttribute : IDaSubscriptionPlanAttribute<TKey>
         where TBillingCycleOptions : IDaBillingCycleOption<TKey>
         where TSubscriptionPlanFeature : IDaSubscriptionPlanFeature<TKey>
         where TSubscriptionPlanApp : IDaSubscriptionPlanApp<TKey>
-        where TSubscription : IDaSubscription<TKey, TNullableKey>
+        where TSubscription : IDaSubscription<TKey>
     {
         public DaSubscriptionPlan()
         {
@@ -63,11 +63,11 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
 
         public bool IsFree { get; set; }
 
-        public TNullableKey UserAgreementVersionId { get; set; }
+        public TKey UserAgreementVersionId { get; set; }
 
         public DateTime? PublishedDateUtc { get; set; }
 
-        public TNullableKey DefaultBillingCycleId { get; set; }
+        public TKey DefaultBillingCycleId { get; set; }
 
         public virtual ICollection<TSubscriptionPlanAttribute> Attributes { get; set; }
 

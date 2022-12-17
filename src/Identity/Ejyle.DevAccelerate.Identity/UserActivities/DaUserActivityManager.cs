@@ -13,27 +13,27 @@ using Ejyle.DevAccelerate.Core.Data;
 namespace Ejyle.DevAccelerate.Identity.UserActivities
 {
     public class DaUserActivityManager<TUserActivity>
-        : DaUserActivityManager<int, int?, TUserActivity>
-        where TUserActivity : IDaUserActivity<int, int?>
+        : DaUserActivityManager<string, TUserActivity>
+        where TUserActivity : IDaUserActivity<string>
     {
-        public DaUserActivityManager(IDaUserActivityRepository<int, int?, TUserActivity> repository)
+        public DaUserActivityManager(IDaUserActivityRepository<string, TUserActivity> repository)
             : base(repository)
         {
         }
     }
 
-    public class DaUserActivityManager<TKey, TNullableKey, TUserActivity>
+    public class DaUserActivityManager<TKey, TUserActivity>
     : DaEntityManagerBase<TKey, TUserActivity>
         where TKey : IEquatable<TKey>
-        where TUserActivity : IDaUserActivity<TKey, TNullableKey>
+        where TUserActivity : IDaUserActivity<TKey>
     {
-        public DaUserActivityManager(IDaUserActivityRepository<TKey, TNullableKey, TUserActivity> repository)
+        public DaUserActivityManager(IDaUserActivityRepository<TKey, TUserActivity> repository)
             : base(repository)
         { }
 
-        private IDaUserActivityRepository<TKey, TNullableKey, TUserActivity> GetRepository()
+        private IDaUserActivityRepository<TKey, TUserActivity> GetRepository()
         {
-            return GetRepository<IDaUserActivityRepository<TKey, TNullableKey, TUserActivity>>();
+            return GetRepository<IDaUserActivityRepository<TKey, TUserActivity>>();
         }
 
         public Task CreateAsync(TUserActivity userActivity)

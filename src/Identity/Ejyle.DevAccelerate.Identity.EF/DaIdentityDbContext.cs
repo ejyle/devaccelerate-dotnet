@@ -16,7 +16,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Ejyle.DevAccelerate.Identity.EF
 {
     public class DaIdentityDbContext
-    : DaIdentityDbContext<int, int?, DaUser, DaRole, DaUserSession, DaUserActivityCategory, DaUserActivity, DaUserSetting>
+    : DaIdentityDbContext<string, DaUser, DaRole, DaUserSession, DaUserActivityCategory, DaUserActivity, DaUserSetting>
     {
         public DaIdentityDbContext(DbContextOptions<DaIdentityDbContext> options)
             : base(options)
@@ -31,19 +31,19 @@ namespace Ejyle.DevAccelerate.Identity.EF
         { }
     }
 
-    public class DaIdentityDbContext<TKey, TNullableKey, TUser, TRole, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting>
+    public class DaIdentityDbContext<TKey, TUser, TRole, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting>
         : IdentityDbContext<TUser, TRole, TKey>
         where TKey : IEquatable<TKey>
         where TUser: IdentityUser<TKey>
         where TRole : IdentityRole<TKey>
         where TUserSession : DaUserSession<TKey>
-        where TUserActivityCategory : DaUserActivityCategory<TKey, TNullableKey, TUserActivity>
-        where TUserActivity : DaUserActivity<TKey, TNullableKey, TUserActivityCategory>
+        where TUserActivityCategory : DaUserActivityCategory<TKey, TUserActivity>
+        where TUserActivity : DaUserActivity<TKey, TUserActivityCategory>
         where TUserSetting : DaUserSetting<TKey>
     {
         private const string SCHEMA_NAME = "Identity";
 
-        public DaIdentityDbContext(DbContextOptions<DaIdentityDbContext<TKey, TNullableKey, TUser, TRole, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting>> options)
+        public DaIdentityDbContext(DbContextOptions<DaIdentityDbContext<TKey, TUser, TRole, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting>> options)
             : base(options)
         { }
 
@@ -59,9 +59,9 @@ namespace Ejyle.DevAccelerate.Identity.EF
             : base(GetOptions(connectionString))
         { }
 
-        private static DbContextOptions<DaIdentityDbContext<TKey, TNullableKey, TUser, TRole, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting>> GetOptions(string connectionString)
+        private static DbContextOptions<DaIdentityDbContext<TKey, TUser, TRole, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting>> GetOptions(string connectionString)
         {
-            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaIdentityDbContext<TKey, TNullableKey, TUser, TRole, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting>>(), connectionString).Options;
+            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaIdentityDbContext<TKey, TUser, TRole, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting>>(), connectionString).Options;
         }
 
         public virtual DbSet<TUserSession> UserSessions { get; set; }
@@ -95,6 +95,8 @@ namespace Ejyle.DevAccelerate.Identity.EF
             {
                 entity.ToTable("UserActivities", SCHEMA_NAME);
 
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
                 entity.HasOne(d => d.UserActivityCategory)
                     .WithMany(p => p.UserActivities)
                     .HasForeignKey(d => d.UserActivityCategoryId);
@@ -109,6 +111,8 @@ namespace Ejyle.DevAccelerate.Identity.EF
             {
                 entity.ToTable("UserSessions", SCHEMA_NAME);
 
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
                 entity.Property(e => e.DeviceAgent).HasMaxLength(500);
 
                 entity.Property(e => e.IpAddress).HasMaxLength(15);
@@ -121,6 +125,8 @@ namespace Ejyle.DevAccelerate.Identity.EF
             modelBuilder.Entity<TUserSetting>(entity =>
             {
                 entity.ToTable("UserSettings", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
             });
         }
     }

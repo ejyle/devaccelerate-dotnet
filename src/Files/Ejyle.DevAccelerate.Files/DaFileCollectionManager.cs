@@ -14,20 +14,20 @@ using Ejyle.DevAccelerate.Core.Utils;
 
 namespace Ejyle.DevAccelerate.Files
 {
-    public class DaFileCollectionManager<TKey, TNullableKey, TFileCollection> : DaEntityManagerBase<TKey, TFileCollection>
+    public class DaFileCollectionManager<TKey, TFileCollection> : DaEntityManagerBase<TKey, TFileCollection>
         where TKey : IEquatable<TKey>
-        where TFileCollection : IDaFileCollection<TKey, TNullableKey>
+        where TFileCollection : IDaFileCollection<TKey>
     {
-        public DaFileCollectionManager(IDaFileCollectionRepository<TKey, TNullableKey, TFileCollection> repository)
+        public DaFileCollectionManager(IDaFileCollectionRepository<TKey, TFileCollection> repository)
             : base(repository)
         {
         }
 
-        protected virtual IDaFileCollectionRepository<TKey, TNullableKey, TFileCollection> Repository
+        protected virtual IDaFileCollectionRepository<TKey, TFileCollection> Repository
         {
             get
             {
-                return GetRepository<IDaFileCollectionRepository<TKey, TNullableKey, TFileCollection>>();
+                return GetRepository<IDaFileCollectionRepository<TKey, TFileCollection>>();
             }
         }
 

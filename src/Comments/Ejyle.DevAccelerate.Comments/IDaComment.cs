@@ -15,10 +15,10 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Comments
 {
-    public interface IDaComment<TKey, TNullableKey> : IDaAuditedEntity<TKey>
+    public interface IDaComment<TKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
-        TNullableKey ParentId
+        TKey ParentId
         {
             get;
             set;

@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ejyle.DevAccelerate.Profiles.EF.Addresses
 {
-    public class DaAddressProfileRepository : DaAddressProfileRepository<int, int?, DaAddressProfile, DaUserAddress, DbContext>
+    public class DaAddressProfileRepository : DaAddressProfileRepository<string, DaAddressProfile, DaUserAddress, DbContext>
     {
         public DaAddressProfileRepository(DbContext dbContext)
             : base(dbContext)
@@ -23,11 +23,11 @@ namespace Ejyle.DevAccelerate.Profiles.EF.Addresses
     }
 
 
-    public class DaAddressProfileRepository<TKey, TNullableKey, TAddressProfile, TUserAddress, TDbContext>
-        : DaEntityRepositoryBase<TKey, TAddressProfile, TDbContext>, IDaAddressProfileRepository<TKey, TNullableKey, TAddressProfile>
+    public class DaAddressProfileRepository<TKey, TAddressProfile, TUserAddress, TDbContext>
+        : DaEntityRepositoryBase<TKey, TAddressProfile, TDbContext>, IDaAddressProfileRepository<TKey, TAddressProfile>
         where TKey : IEquatable<TKey>
-        where TAddressProfile : DaAddressProfile<TKey, TNullableKey, TUserAddress>
-        where TUserAddress : DaUserAddress<TKey, TNullableKey, TAddressProfile>
+        where TAddressProfile : DaAddressProfile<TKey, TUserAddress>
+        where TUserAddress : DaUserAddress<TKey, TAddressProfile>
         where TDbContext : DbContext
     {
         public DaAddressProfileRepository(TDbContext dbContext)

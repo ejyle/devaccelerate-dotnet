@@ -13,18 +13,18 @@ using System.Collections.Generic;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 {
-    public class DaSubscriptionFeature : DaSubscriptionFeature<int, int?, DaFeature, DaSubscriptionFeatureAttribute, DaSubscriptionFeatureRole, DaSubscription, DaSubscriptionFeatureUser, DaBillingCycleFeatureUsage>
+    public class DaSubscriptionFeature : DaSubscriptionFeature<string, DaFeature, DaSubscriptionFeatureAttribute, DaSubscriptionFeatureRole, DaSubscription, DaSubscriptionFeatureUser, DaBillingCycleFeatureUsage>
     {
         public DaSubscriptionFeature() : base()
         { }
     }
 
-    public class DaSubscriptionFeature<TKey, TNullableKey, TFeature, TSubscriptionFeatureAttribute, TSubscriptionFeatureRole, TSubscription, TSubscriptionFeatureUser, TBillingCycleFeatureUsage> : DaEntityBase<TKey>, IDaSubscriptionFeature<TKey>
+    public class DaSubscriptionFeature<TKey, TFeature, TSubscriptionFeatureAttribute, TSubscriptionFeatureRole, TSubscription, TSubscriptionFeatureUser, TBillingCycleFeatureUsage> : DaEntityBase<TKey>, IDaSubscriptionFeature<TKey>
         where TKey : IEquatable<TKey>
-        where TFeature : IDaFeature<TKey, TNullableKey>
+        where TFeature : IDaFeature<TKey>
         where TSubscriptionFeatureAttribute : IDaSubscriptionFeatureAttribute<TKey>
         where TSubscriptionFeatureRole : IDaSubscriptionFeatureRole<TKey>
-        where TSubscription : IDaSubscription<TKey, TNullableKey>
+        where TSubscription : IDaSubscription<TKey>
         where TSubscriptionFeatureUser : IDaSubscriptionFeatureUser<TKey>
         where TBillingCycleFeatureUsage : IDaBillingCycleFeatureUsage<TKey>
     {

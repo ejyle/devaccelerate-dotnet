@@ -12,17 +12,17 @@ using System.Collections.Generic;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
 {
-    public class DaSubscriptionPlanFeature : DaSubscriptionPlanFeature<int, int?, DaFeature, DaSubscriptionPlanFeatureAttribute, DaSubscriptionPlan>
+    public class DaSubscriptionPlanFeature : DaSubscriptionPlanFeature<string, DaFeature, DaSubscriptionPlanFeatureAttribute, DaSubscriptionPlan>
     {
         public DaSubscriptionPlanFeature() : base()
         { }
     }
 
-    public class DaSubscriptionPlanFeature<TKey, TNullableKey, TFeature, TSubscriptionPlanFeatureAttribute, TSubscriptionPlan> : DaEntityBase<TKey>, IDaSubscriptionPlanFeature<TKey>
+    public class DaSubscriptionPlanFeature<TKey, TFeature, TSubscriptionPlanFeatureAttribute, TSubscriptionPlan> : DaEntityBase<TKey>, IDaSubscriptionPlanFeature<TKey>
         where TKey : IEquatable<TKey>
-        where TFeature : IDaFeature<TKey, TNullableKey>
+        where TFeature : IDaFeature<TKey>
         where TSubscriptionPlanFeatureAttribute : IDaSubscriptionPlanFeatureAttribute<TKey>
-        where TSubscriptionPlan : IDaSubscriptionPlan<TKey, TNullableKey>
+        where TSubscriptionPlan : IDaSubscriptionPlan<TKey>
     {
         public DaSubscriptionPlanFeature()
         {

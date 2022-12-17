@@ -15,19 +15,19 @@ using System.Collections.Generic;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
 {
-    public class DaApp : DaApp<int, int?, DaAppAttribute, DaFeature, DaAppFeature, DaSubscriptionApp, DaSubscriptionPlanApp, DaUserAgreement>
+    public class DaApp : DaApp<string, DaAppAttribute, DaFeature, DaAppFeature, DaSubscriptionApp, DaSubscriptionPlanApp, DaUserAgreement>
     {
         public DaApp() : base()
         { }
     }
 
-    public class DaApp<TKey, TNullableKey, TAppAttribute, TFeature, TAppFeature, TSubscriptionApp, TSubscriptionPlanApp, TUserAgreement> : DaEntityBase<TKey>, IDaApp<TKey>
+    public class DaApp<TKey, TAppAttribute, TFeature, TAppFeature, TSubscriptionApp, TSubscriptionPlanApp, TUserAgreement> : DaEntityBase<TKey>, IDaApp<TKey>
         where TKey : IEquatable<TKey>
         where TAppAttribute : IDaAppAttribute<TKey>
-        where TFeature : IDaFeature<TKey, TNullableKey>
+        where TFeature : IDaFeature<TKey>
         where TAppFeature : IDaAppFeature<TKey>
         where TSubscriptionApp : IDaSubscriptionApp<TKey>
-        where TUserAgreement : IDaUserAgreement<TKey, TNullableKey>
+        where TUserAgreement : IDaUserAgreement<TKey>
     {
         public DaApp()
         {

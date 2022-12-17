@@ -9,7 +9,7 @@ using Ejyle.DevAccelerate.Lists.SystemLanguages;
 
 namespace Ejyle.DevAccelerate.Lists.EF.SystemLanguages
 {
-    public class DaSystemLanguageManager : DaSystemLanguageManager<int, DaSystemLanguage>
+    public class DaSystemLanguageManager : DaSystemLanguageManager<string, DaSystemLanguage>
     {
         public DaSystemLanguageManager(DaSystemLanguageRepository repository)
             : base(repository)

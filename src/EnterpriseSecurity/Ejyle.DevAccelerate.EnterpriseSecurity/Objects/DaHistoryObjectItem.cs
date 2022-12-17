@@ -14,7 +14,7 @@ using System.Collections.Generic;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Objects
 {
-    public class DaObjectHistoryItem : DaObjectHistoryItem<int, DaObjectInstance>
+    public class DaObjectHistoryItem : DaObjectHistoryItem<string, DaObjectInstance>
     {
         public DaObjectHistoryItem() : base()
         { }

@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Tasks
 {
-    public interface IDaTask<TKey, TNullableKey> : IDaAuditedEntity<TKey>
+    public interface IDaTask<TKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         string Name { get; set; }
@@ -21,9 +21,9 @@ namespace Ejyle.DevAccelerate.Tasks
         string Description { get; set; }
         DaTaskStatus Status { get; set; }
         string StatusReason { get; set; }
-        TNullableKey AssignedTo { get; set; }
+        TKey AssignedTo { get; set; }
         TKey OwnerUserId { get; set; }
-        TNullableKey TenantId { get; set; }
-        TNullableKey ObjectInstanceId { get; set; }
+        TKey TenantId { get; set; }
+        TKey ObjectInstanceId { get; set; }
     }
 }

@@ -9,7 +9,7 @@ using Ejyle.DevAccelerate.Profiles.UserProfiles;
 
 namespace Ejyle.DevAccelerate.Profiles.EF.UserProfiles
 {
-    public class DaUserProfileManager : DaUserProfileManager<int, DaUserProfile>
+    public class DaUserProfileManager : DaUserProfileManager<string, DaUserProfile>
     {
         public DaUserProfileManager(DaUserProfileRepository repository)
             : base(repository)

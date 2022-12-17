@@ -23,9 +23,9 @@ namespace Ejyle.DevAccelerate.Identity.EF.UserActivities
     }
 
     public class DaUserActivityRepository<TUserActivityCategory, TUserActivity, TDbContext>
-        : DaUserActivityRepository<int, int?, TUserActivityCategory, TUserActivity, TDbContext>
-        where TUserActivityCategory : DaUserActivityCategory<int, int?, TUserActivity>
-        where TUserActivity : DaUserActivity<int, int?, TUserActivityCategory>
+        : DaUserActivityRepository<string, TUserActivityCategory, TUserActivity, TDbContext>
+        where TUserActivityCategory : DaUserActivityCategory<string, TUserActivity>
+        where TUserActivity : DaUserActivity<string, TUserActivityCategory>
         where TDbContext : DbContext
     {
         public DaUserActivityRepository(TDbContext context)
@@ -33,11 +33,11 @@ namespace Ejyle.DevAccelerate.Identity.EF.UserActivities
         { }
     }
 
-    public class DaUserActivityRepository<TKey, TNullableKey, TUserActivityCategory, TUserActivity, TDbContext>
-         : DaEntityRepositoryBase<TKey, TUserActivity, TDbContext>, IDaUserActivityRepository<TKey, TNullableKey, TUserActivity>
+    public class DaUserActivityRepository<TKey, TUserActivityCategory, TUserActivity, TDbContext>
+         : DaEntityRepositoryBase<TKey, TUserActivity, TDbContext>, IDaUserActivityRepository<TKey, TUserActivity>
          where TKey : IEquatable<TKey>
-         where TUserActivityCategory : DaUserActivityCategory<TKey, TNullableKey, TUserActivity>
-         where TUserActivity : DaUserActivity<TKey, TNullableKey, TUserActivityCategory>
+         where TUserActivityCategory : DaUserActivityCategory<TKey, TUserActivity>
+         where TUserActivity : DaUserActivity<TKey, TUserActivityCategory>
          where TDbContext : DbContext
     {
         public DaUserActivityRepository(TDbContext dbContext)

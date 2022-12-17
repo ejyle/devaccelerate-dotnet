@@ -13,9 +13,9 @@ using Ejyle.DevAccelerate.Core.Data;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Groups
 {
-    public interface IDaGroupRepository<TKey, TNullableKey, TGroup> : IDaEntityRepository<TKey, TGroup>
+    public interface IDaGroupRepository<TKey, TGroup> : IDaEntityRepository<TKey, TGroup>
         where TKey : IEquatable<TKey>
-        where TGroup : IDaGroup<TKey, TNullableKey>
+        where TGroup : IDaGroup<TKey>
     {
         Task CreateAsync(TGroup group);
         Task<TGroup> FindByIdAsync(TKey id);
@@ -23,7 +23,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Groups
         Task DeleteAsync(TGroup group);
         Task AddUserAsync(TKey id, TKey userId);
         Task RemoveUserAsync(TKey id, TKey userId);
-        Task<List<TKey>> FindUserRolesByUserIdAsync(TNullableKey tenantId, TKey userId);
-        Task<bool> IsUserInRoleAsync(TNullableKey tenantId, TKey roleId, TKey userId);
+        Task<List<TKey>> FindUserRolesByUserIdAsync(TKey tenantId, TKey userId);
+        Task<bool> IsUserInRoleAsync(TKey tenantId, TKey roleId, TKey userId);
     }
 }

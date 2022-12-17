@@ -9,7 +9,7 @@ using Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.SubscriptionPlans
 {
-    public class DaSubscriptionPlanManager : DaSubscriptionPlanManager<int, int?, DaSubscriptionPlan>
+    public class DaSubscriptionPlanManager : DaSubscriptionPlanManager<string, DaSubscriptionPlan>
     {
         public DaSubscriptionPlanManager(DaSubscriptionPlanRepository repository)
             : base(repository)

@@ -14,7 +14,7 @@ using System.Collections.Generic;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Objects
 {
-    public class DaObjectType : DaObjectType<int, DaObjectInstance>
+    public class DaObjectType : DaObjectType<string, DaObjectInstance>
     {
         public DaObjectType() : base()
         { }

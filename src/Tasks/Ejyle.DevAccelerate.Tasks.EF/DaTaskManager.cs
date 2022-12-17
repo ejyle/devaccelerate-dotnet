@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace Ejyle.DevAccelerate.Tasks.EF
 {
-    public class DaTaskManager : DaTaskManager<int, int?, DaTask>
+    public class DaTaskManager : DaTaskManager<string, DaTask>
     {
         public DaTaskManager(DaTaskRepository repository)
             : base(repository)

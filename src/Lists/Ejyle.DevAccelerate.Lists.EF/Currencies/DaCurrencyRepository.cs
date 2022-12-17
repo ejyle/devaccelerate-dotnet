@@ -21,28 +21,28 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ejyle.DevAccelerate.Lists.EF.Currencies
 {
-    public class DaCurrencyRepository : DaCurrencyRepository<int, int?, DaTimeZone, DaDateFormat, DaSystemLanguage, DaCurrency, DaCountry, DaCountryRegion, DaCountryTimeZone, DaCountryDateFormat, DaCountrySystemLanguage, DaCustomList, DaCustomListItem, DaListsDbContext>
+    public class DaCurrencyRepository : DaCurrencyRepository<string, DaTimeZone, DaDateFormat, DaSystemLanguage, DaCurrency, DaCountry, DaCountryRegion, DaCountryTimeZone, DaCountryDateFormat, DaCountrySystemLanguage, DaCustomList, DaCustomListItem, DaListsDbContext>
     {
         public DaCurrencyRepository(DaListsDbContext dbContext)
             : base(dbContext)
         { }
     }
 
-    public class DaCurrencyRepository<TKey, TNullableKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem, TDbContext>
+    public class DaCurrencyRepository<TKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem, TDbContext>
         : DaEntityRepositoryBase<TKey, TCurrency, TDbContext>, IDaCurrencyRepository<TKey, TCurrency>
         where TKey : IEquatable<TKey>
         where TTimeZone : DaTimeZone<TKey, TCountryTimeZone>
         where TDateFormat : DaDateFormat<TKey, TCountryDateFormat>
         where TSystemLanguage : DaSystemLanguage<TKey, TCountrySystemLanguage>
-        where TCurrency : DaCurrency<TKey, TNullableKey, TCountry>
-        where TCountry : DaCountry<TKey, TNullableKey, TCurrency, TCountryTimeZone, TCountryRegion, TCountrySystemLanguage, TCountryDateFormat>
-        where TCountryRegion : DaCountryRegion<TKey, TNullableKey, TCountryRegion, TCountry>
-        where TCountryTimeZone : DaCountryTimeZone<TKey, TNullableKey, TCountry, TTimeZone>
-        where TCountryDateFormat : DaCountryDateFormat<TKey, TNullableKey, TCountry, TDateFormat>
-        where TCountrySystemLanguage : DaCountrySystemLanguage<TKey, TNullableKey, TCountry, TSystemLanguage>
-        where TCustomList : DaCustomList<TKey, TNullableKey, TCustomListItem>
-        where TCustomListItem : DaCustomListItem<TKey, TNullableKey, TCustomList>
-        where TDbContext : DaListsDbContext<TKey, TNullableKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem>
+        where TCurrency : DaCurrency<TKey, TCountry>
+        where TCountry : DaCountry<TKey, TCurrency, TCountryTimeZone, TCountryRegion, TCountrySystemLanguage, TCountryDateFormat>
+        where TCountryRegion : DaCountryRegion<TKey, TCountryRegion, TCountry>
+        where TCountryTimeZone : DaCountryTimeZone<TKey, TCountry, TTimeZone>
+        where TCountryDateFormat : DaCountryDateFormat<TKey, TCountry, TDateFormat>
+        where TCountrySystemLanguage : DaCountrySystemLanguage<TKey, TCountry, TSystemLanguage>
+        where TCustomList : DaCustomList<TKey, TCustomListItem>
+        where TCustomListItem : DaCustomListItem<TKey, TCustomList>
+        where TDbContext : DaListsDbContext<TKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem>
     {
         public DaCurrencyRepository(TDbContext dbContext)
             : base(dbContext)

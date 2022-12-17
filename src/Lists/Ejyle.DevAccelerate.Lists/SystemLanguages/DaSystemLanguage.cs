@@ -14,7 +14,7 @@ namespace Ejyle.DevAccelerate.Lists.SystemLanguages
     /// <summary>
     /// Represents a system language entity.
     /// </summary>
-    public class DaSystemLanguage : DaSystemLanguage<int, DaCountrySystemLanguage>
+    public class DaSystemLanguage : DaSystemLanguage<string, DaCountrySystemLanguage>
     {
         /// <summary>
         /// Creates an instance of the <see cref="DaSystemLanguage"/> entity.
@@ -34,7 +34,7 @@ namespace Ejyle.DevAccelerate.Lists.SystemLanguages
         where TCountrySystemLanguage : IDaCountrySystemLanguage<TKey>
     {
         /// <summary>
-        /// Creates an instance of the <see cref="DaSystemLanguage{TKey, TNullableKey, TCountry}"/> entity.
+        /// Creates an instance of the <see cref="DaSystemLanguage{TKey, TCountry}"/> entity.
         /// </summary>
         public DaSystemLanguage()
         {

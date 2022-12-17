@@ -13,9 +13,9 @@ using Ejyle.DevAccelerate.Core.Data;
 
 namespace Ejyle.DevAccelerate.Lists.Custom
 {
-    public interface IDaCustomListRepository<TKey, TNullableKey, TCustomList> : IDaEntityRepository<TKey, TCustomList>
+    public interface IDaCustomListRepository<TKey, TCustomList> : IDaEntityRepository<TKey, TCustomList>
         where TKey : IEquatable<TKey>
-        where TCustomList : IDaCustomList<TKey, TNullableKey>
+        where TCustomList : IDaCustomList<TKey>
     {
         Task CreateAsync(TCustomList customList);
         Task UpdateAsync(TCustomList customList);

@@ -12,20 +12,20 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Profiles.Organizations
 {
-    public class DaOrganizationProfileManager<TKey, TNullableKey, TOrganizationProfile, TOrganizaitonGroup> : DaEntityManagerBase<TKey, TOrganizationProfile>
+    public class DaOrganizationProfileManager<TKey, TOrganizationProfile, TOrganizaitonGroup> : DaEntityManagerBase<TKey, TOrganizationProfile>
         where TKey : IEquatable<TKey>
-        where TOrganizationProfile : IDaOrganizationProfile<TKey, TNullableKey>
-        where TOrganizaitonGroup : IDaOrganizationGroup<TKey, TNullableKey>
+        where TOrganizationProfile : IDaOrganizationProfile<TKey>
+        where TOrganizaitonGroup : IDaOrganizationGroup<TKey>
     {
-        public DaOrganizationProfileManager(IDaOrganizationProfileRepository<TKey, TNullableKey, TOrganizationProfile, TOrganizaitonGroup> repository) : base(repository)
+        public DaOrganizationProfileManager(IDaOrganizationProfileRepository<TKey, TOrganizationProfile, TOrganizaitonGroup> repository) : base(repository)
         {
         }
 
-        protected virtual IDaOrganizationProfileRepository<TKey, TNullableKey, TOrganizationProfile, TOrganizaitonGroup> Repository
+        protected virtual IDaOrganizationProfileRepository<TKey, TOrganizationProfile, TOrganizaitonGroup> Repository
         {
             get
             {
-                return GetRepository<IDaOrganizationProfileRepository<TKey,TNullableKey, TOrganizationProfile, TOrganizaitonGroup>>();
+                return GetRepository<IDaOrganizationProfileRepository<TKey, TOrganizationProfile, TOrganizaitonGroup>>();
             }
         }
 

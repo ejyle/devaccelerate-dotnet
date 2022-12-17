@@ -12,19 +12,19 @@ using System.Collections.Generic;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 {
-    public class DaSubscription : DaSubscription<int, int?, DaSubscriptionAttribute, DaSubscriptionApp, DaSubscriptionFeature, DaSubscriptionPlan, DaBillingCycle>
+    public class DaSubscription : DaSubscription<string, DaSubscriptionAttribute, DaSubscriptionApp, DaSubscriptionFeature, DaSubscriptionPlan, DaBillingCycle>
     {
         public DaSubscription() : base()
         { }
     }
 
-    public class DaSubscription<TKey, TNullableKey, TSubscriptionAttribute, TSubscriptionApp, TSubscriptionFeature, TSubscriptionPlan, TBillingCycle> : DaAuditedEntityBase<TKey>, IDaSubscription<TKey, TNullableKey>
+    public class DaSubscription<TKey, TSubscriptionAttribute, TSubscriptionApp, TSubscriptionFeature, TSubscriptionPlan, TBillingCycle> : DaAuditedEntityBase<TKey>, IDaSubscription<TKey>
         where TKey : IEquatable<TKey>
         where TSubscriptionAttribute : IDaSubscriptionAttribute<TKey>
         where TSubscriptionApp : IDaSubscriptionApp<TKey>
         where TSubscriptionFeature : IDaSubscriptionFeature<TKey>
-        where TSubscriptionPlan : IDaSubscriptionPlan<TKey, TNullableKey>
-        where TBillingCycle : IDaBillingCycle<TKey, TNullableKey>
+        where TSubscriptionPlan : IDaSubscriptionPlan<TKey>
+        where TBillingCycle : IDaBillingCycle<TKey>
     {
         public DaSubscription()
         {
@@ -44,10 +44,10 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
         public DaBillingInterval? BillingInterval { get; set; }
         public TKey TenantId { get; set; }
         public int Level { get; set; }
-        public TNullableKey UserAgreementVersionId { get; set; }
+        public TKey UserAgreementVersionId { get; set; }
         public TKey OwnerUserId { get; set; }
-        public TNullableKey LastTransactionId { get; set; }
-        public TNullableKey LastPaymentMethodId { get; set; }
+        public TKey LastTransactionId { get; set; }
+        public TKey LastPaymentMethodId { get; set; }
         public TKey SubscriptionPlanId { get; set; }
         public bool IsCurrentlyInTrial { get; set; }
 

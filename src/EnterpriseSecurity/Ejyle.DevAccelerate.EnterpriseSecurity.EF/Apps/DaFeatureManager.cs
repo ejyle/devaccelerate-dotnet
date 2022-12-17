@@ -9,7 +9,7 @@ using Ejyle.DevAccelerate.EnterpriseSecurity.Apps;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Apps
 {
-    public class DaFeatureManager : DaFeatureManager<int, int?, DaFeature>
+    public class DaFeatureManager : DaFeatureManager<string, DaFeature>
     {
         public DaFeatureManager(DaFeatureRepository repository)
             : base(repository)

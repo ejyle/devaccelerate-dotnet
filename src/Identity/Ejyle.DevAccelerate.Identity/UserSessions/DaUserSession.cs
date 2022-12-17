@@ -10,7 +10,7 @@ using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.Identity.UserSessions
 {
-    public class DaUserSession : DaUserSession<int>
+    public class DaUserSession : DaUserSession<string>
     { }
 
     public class DaUserSession<TKey> : DaEntityBase<TKey>, IDaUserSession<TKey>

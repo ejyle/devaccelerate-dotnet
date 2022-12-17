@@ -9,7 +9,7 @@ using Ejyle.DevAccelerate.Comments;
 
 namespace Ejyle.DevAccelerate.Comments.EF
 {
-    public class DaCommentThreadManager : DaCommentThreadManager<int, int?, DaCommentThread, DaComment>
+    public class DaCommentThreadManager : DaCommentThreadManager<string, DaCommentThread, DaComment>
     {
         public DaCommentThreadManager(DaCommentThreadRepository repository)
             : base(repository)

@@ -10,7 +10,7 @@ using System;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
 {
-    public class DaSubscriptionPlanFeatureAttribute : DaSubscriptionPlanFeatureAttribute<int, DaSubscriptionPlanFeature>
+    public class DaSubscriptionPlanFeatureAttribute : DaSubscriptionPlanFeatureAttribute<string, DaSubscriptionPlanFeature>
     {
         public DaSubscriptionPlanFeatureAttribute() : base()
         { }

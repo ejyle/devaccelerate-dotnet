@@ -11,16 +11,16 @@ using System;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
 {
-    public class DaSubscriptionPlanApp : DaSubscriptionPlanApp<int, int?, DaApp, DaSubscriptionPlan>        
+    public class DaSubscriptionPlanApp : DaSubscriptionPlanApp<string, DaApp, DaSubscriptionPlan>        
     {
         public DaSubscriptionPlanApp() : base()
         { }
     }
 
-    public class DaSubscriptionPlanApp<TKey, TNullableKey, TApp, TSubscriptionPlan> : DaEntityBase<TKey>, IDaSubscriptionPlanApp<TKey>
+    public class DaSubscriptionPlanApp<TKey, TApp, TSubscriptionPlan> : DaEntityBase<TKey>, IDaSubscriptionPlanApp<TKey>
         where TKey : IEquatable<TKey>
         where TApp : IDaApp<TKey>
-        where TSubscriptionPlan : IDaSubscriptionPlan<TKey, TNullableKey>
+        where TSubscriptionPlan : IDaSubscriptionPlan<TKey>
     {
         public TKey SubscriptionPlanId { get; set; }
 

@@ -12,20 +12,20 @@ using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Groups
 {
-    public class DaGroupManager<TKey, TNullableKey, TGroup> : DaEntityManagerBase<TKey, TGroup>
+    public class DaGroupManager<TKey, TGroup> : DaEntityManagerBase<TKey, TGroup>
         where TKey : IEquatable<TKey>
-        where TGroup : IDaGroup<TKey, TNullableKey>
+        where TGroup : IDaGroup<TKey>
     {
-        public DaGroupManager(IDaGroupRepository<TKey, TNullableKey, TGroup> repository)
+        public DaGroupManager(IDaGroupRepository<TKey, TGroup> repository)
             : base(repository)
         {
         }
 
-        protected virtual IDaGroupRepository<TKey, TNullableKey, TGroup> Repository
+        protected virtual IDaGroupRepository<TKey, TGroup> Repository
         {
             get
             {
-                return GetRepository<IDaGroupRepository<TKey, TNullableKey, TGroup>>();
+                return GetRepository<IDaGroupRepository<TKey, TGroup>>();
             }
         }
 
@@ -101,23 +101,23 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Groups
             DaAsyncHelper.RunSync(() => RemoveUserAsync(id, userId));
         }
 
-        public virtual List<TKey> FindUserRolesByUserIdA(TNullableKey tenantId, TKey userId)
+        public virtual List<TKey> FindUserRolesByUserIdA(TKey tenantId, TKey userId)
         {
             return DaAsyncHelper.RunSync<List<TKey>>(() => FindUserRolesByUserIdAsync(tenantId, userId));
         }
 
-        public virtual Task<List<TKey>> FindUserRolesByUserIdAsync(TNullableKey tenantId, TKey userId)
+        public virtual Task<List<TKey>> FindUserRolesByUserIdAsync(TKey tenantId, TKey userId)
         {
             ThrowIfDisposed();
             return Repository.FindUserRolesByUserIdAsync(tenantId, userId);
         }
 
-        public virtual bool IsUserInRole(TNullableKey tenantId, TKey roleId, TKey userId)
+        public virtual bool IsUserInRole(TKey tenantId, TKey roleId, TKey userId)
         {
             return DaAsyncHelper.RunSync<bool>(() => IsUserInRoleAsync(tenantId, roleId, userId));
         }
 
-        public virtual Task<bool> IsUserInRoleAsync(TNullableKey tenantId, TKey roleId, TKey userId)
+        public virtual Task<bool> IsUserInRoleAsync(TKey tenantId, TKey roleId, TKey userId)
         {
             ThrowIfDisposed();
             return Repository.IsUserInRoleAsync(tenantId, roleId, userId);

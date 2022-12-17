@@ -16,16 +16,16 @@ namespace Ejyle.DevAccelerate.Profiles.Organizations
         { }
     }
 
-    public class DaOrganizationProfileAttribute<TOrganizationProfile> : DaOrganizationProfileAttribute<int, int?, TOrganizationProfile>
-        where TOrganizationProfile : IDaOrganizationProfile<int, int?>
+    public class DaOrganizationProfileAttribute<TOrganizationProfile> : DaOrganizationProfileAttribute<string, TOrganizationProfile>
+        where TOrganizationProfile : IDaOrganizationProfile<string>
     {
         public DaOrganizationProfileAttribute() : base()
         { }
     }
 
-    public class DaOrganizationProfileAttribute<TKey, TNullableKey, TOrganizationProfile> : DaEntityBase<TKey>, IDaOrganizationProfileAttribute<TKey>
+    public class DaOrganizationProfileAttribute<TKey, TOrganizationProfile> : DaEntityBase<TKey>, IDaOrganizationProfileAttribute<TKey>
         where TKey : IEquatable<TKey>
-        where TOrganizationProfile : IDaOrganizationProfile<TKey, TNullableKey>
+        where TOrganizationProfile : IDaOrganizationProfile<TKey>
     {
         public DaOrganizationProfileAttribute() : base()
         { }

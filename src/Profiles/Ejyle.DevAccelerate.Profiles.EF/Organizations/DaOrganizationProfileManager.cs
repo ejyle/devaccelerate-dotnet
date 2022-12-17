@@ -9,7 +9,7 @@ using Ejyle.DevAccelerate.Profiles.Organizations;
 
 namespace Ejyle.DevAccelerate.Profiles.EF.Organizations
 {
-    public class DaOrganizationProfileManager : DaOrganizationProfileManager<int,int?, DaOrganizationProfile, DaOrganizationGroup>
+    public class DaOrganizationProfileManager : DaOrganizationProfileManager<string, DaOrganizationProfile, DaOrganizationGroup>
     {
         public DaOrganizationProfileManager(DaOrganizationProfileRepository repository)
             : base(repository)

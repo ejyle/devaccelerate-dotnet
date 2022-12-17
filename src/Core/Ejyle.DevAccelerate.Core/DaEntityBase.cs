@@ -13,7 +13,7 @@ namespace Ejyle.DevAccelerate.Core
     /// <summary>
     /// Represents the base class for an entity. The type of the entity ID is <see cref="System.Int32"/>.
     /// </summary>
-    public abstract class DaEntityBase : DaEntityBase<int>
+    public abstract class DaEntityBase : DaEntityBase<string>
     { }
 
     /// <summary>

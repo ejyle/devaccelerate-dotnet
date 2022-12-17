@@ -9,7 +9,7 @@ using Ejyle.DevAccelerate.EnterpriseSecurity.Objects;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Objects
 {
-    public class DaObjectInstanceManager : DaObjectInstanceManager<int, DaObjectInstance, DaObjectHistoryItem>
+    public class DaObjectInstanceManager : DaObjectInstanceManager<string, DaObjectInstance, DaObjectHistoryItem>
     {
         public DaObjectInstanceManager(DaObjectInstanceRepository repository)
             : base(repository)

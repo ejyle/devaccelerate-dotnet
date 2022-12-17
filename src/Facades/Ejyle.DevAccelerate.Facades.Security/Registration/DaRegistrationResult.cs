@@ -11,32 +11,31 @@ using System.Collections.Generic;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Registration
 {
-    public class DaRegistrationResult<TKey, TNullableKey, TKeyConverter> : DaOperationResult<DaRegistrationError>
+    public class DaRegistrationResult<TKey> : DaOperationResult<DaRegistrationError>
         where TKey : IEquatable<TKey>
-        where TKeyConverter : IDaEntityKeyConverter<TKey, TNullableKey>
     {
-        public DaRegistrationResult(TKeyConverter keyConverter, TKey userId, TKey userProfileId)
+        public DaRegistrationResult(TKey userId, TKey userProfileId)
             :base()
         {
-            UserId = keyConverter.ToNullableKey(userId);
-            UserProfileId = keyConverter.ToNullableKey(userId);
+            UserId = userId;
+            UserProfileId = userId;
         }
 
-        public DaRegistrationResult(TKeyConverter keyConverter, TKey userId, TKey userProfileId, TKey tenantId)
+        public DaRegistrationResult(TKey userId, TKey userProfileId, TKey tenantId)
             : base()
         {
-            UserId = keyConverter.ToNullableKey(userId);
-            UserProfileId = keyConverter.ToNullableKey(userId);
-            TenantId = keyConverter.ToNullableKey(tenantId);
+            UserId = userId;
+            UserProfileId = userId;
+            TenantId = tenantId;
         }
 
-        public DaRegistrationResult(TKeyConverter keyConverter, TKey userId, TKey userProfileId, TKey tenantId, TKey subscriptionId)
+        public DaRegistrationResult(TKey userId, TKey userProfileId, TKey tenantId, TKey subscriptionId)
             : base()
         {
-            UserId = keyConverter.ToNullableKey(userId);
-            UserProfileId = keyConverter.ToNullableKey(userId);
-            TenantId = keyConverter.ToNullableKey(tenantId);
-            SubscriptionId = keyConverter.ToNullableKey(subscriptionId);
+            UserId = userId;
+            UserProfileId = userId;
+            TenantId = tenantId;
+            SubscriptionId = subscriptionId;
         }
 
         public DaRegistrationResult(IEnumerable<DaRegistrationError> errors)
@@ -47,9 +46,9 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
             : base(error)
         { }
 
-        public TNullableKey UserId { get; private set; }
-        public TNullableKey UserProfileId { get; private set; }
-        public TNullableKey TenantId { get; private set; }
-        public TNullableKey SubscriptionId { get; private set; }
+        public TKey UserId { get; private set; }
+        public TKey UserProfileId { get; private set; }
+        public TKey TenantId { get; private set; }
+        public TKey SubscriptionId { get; private set; }
     }
 }

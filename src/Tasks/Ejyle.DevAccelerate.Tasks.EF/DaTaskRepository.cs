@@ -17,7 +17,7 @@ using System.Xml.Linq;
 
 namespace Ejyle.DevAccelerate.Tasks.EF
 {
-    public class DaTaskRepository : DaTaskRepository<int, int?, DaTask, DbContext>
+    public class DaTaskRepository : DaTaskRepository<string, DaTask, DbContext>
     {
         public DaTaskRepository(DbContext dbContext)
             : base(dbContext)
@@ -25,10 +25,10 @@ namespace Ejyle.DevAccelerate.Tasks.EF
     }
 
 
-    public class DaTaskRepository<TKey, TNullableKey, TTask, TDbContext>
-        : DaEntityRepositoryBase<TKey, TTask, TDbContext>, IDaTaskRepository<TKey, TNullableKey, TTask>
+    public class DaTaskRepository<TKey, TTask, TDbContext>
+        : DaEntityRepositoryBase<TKey, TTask, TDbContext>, IDaTaskRepository<TKey, TTask>
         where TKey : IEquatable<TKey>
-        where TTask : DaTask<TKey, TNullableKey>
+        where TTask : DaTask<TKey>
         where TDbContext : DbContext
     {
         public DaTaskRepository(TDbContext dbContext)

@@ -15,9 +15,9 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Files
 {
-    public interface IDaFileRepository<TKey, TNullableKey, TFile> : IDaEntityRepository<TKey, TFile>
+    public interface IDaFileRepository<TKey, TFile> : IDaEntityRepository<TKey, TFile>
         where TKey : IEquatable<TKey>
-        where TFile : IDaFile<TKey, TNullableKey>
+        where TFile : IDaFile<TKey>
     {
         Task CreateAsync(TFile file);
         Task<TFile> FindByIdAsync(TKey id);

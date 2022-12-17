@@ -9,7 +9,7 @@ using Ejyle.DevAccelerate.Lists.DateFormats;
 
 namespace Ejyle.DevAccelerate.Lists.EF.DateFormats
 {
-    public class DaDateFormatManager : DaDateFormatManager<int, DaDateFormat>
+    public class DaDateFormatManager : DaDateFormatManager<string, DaDateFormat>
     {
         public DaDateFormatManager(DaDateFormatRepository repository)
             : base(repository)

@@ -9,7 +9,7 @@ using Ejyle.DevAccelerate.Lists.Custom;
 
 namespace Ejyle.DevAccelerate.Lists.EF.Custom
 {
-    public class DaCustomListManager : DaCustomListManager<int, int?, DaCustomList>
+    public class DaCustomListManager : DaCustomListManager<string, DaCustomList>
     {
         public DaCustomListManager(DaCustomListRepository repository)
             : base(repository)

@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Forms.Fields
 {
-    public interface IDaFormField<TKey, TNullableKey> : IDaEntity<TKey>
+    public interface IDaFormField<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         TKey LayoutColumnId { get; set; }
@@ -25,6 +25,6 @@ namespace Ejyle.DevAccelerate.Forms.Fields
         bool IsRequired { get; set; }
         string HelpText { get; set; }
         DaFormFieldType FieldType { get; set; }
-        TNullableKey CustomListId { get; set; }
+        TKey CustomListId { get; set; }
     }
 }

@@ -13,10 +13,10 @@ using Ejyle.DevAccelerate.Core.Data;
 
 namespace Ejyle.DevAccelerate.Lists.Countries
 {
-    public interface IDaCountryRepository<TKey, TNullableKey, TCountry, TCountryRegion> : IDaEntityRepository<TKey, TCountry>
+    public interface IDaCountryRepository<TKey, TCountry, TCountryRegion> : IDaEntityRepository<TKey, TCountry>
         where TKey : IEquatable<TKey>
-        where TCountry : IDaCountry<TKey, TNullableKey>
-        where TCountryRegion : IDaCountryRegion<TKey, TNullableKey>
+        where TCountry : IDaCountry<TKey>
+        where TCountryRegion : IDaCountryRegion<TKey>
     {
         Task CreateAsync(TCountry country);
         Task UpdateAsync(TCountry country);

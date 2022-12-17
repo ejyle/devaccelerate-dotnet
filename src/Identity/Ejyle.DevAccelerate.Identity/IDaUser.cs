@@ -14,8 +14,8 @@ namespace Ejyle.DevAccelerate.Identity
     /// Represents the basic interface for a user.
     /// </summary>
     /// <typeparam name="TKey">The type of a nullable key of an entity.</typeparam>
-    /// <typeparam name="TNullableKey">The type of a nullable key of an entity.</typeparam>
-    public interface IDaUser<TKey, TNullableKey> : IDaEntity<TKey>
+    /// <typeparam name="TKey">The type of a nullable key of an entity.</typeparam>
+    public interface IDaUser<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         /// <summary>
@@ -85,7 +85,7 @@ namespace Ejyle.DevAccelerate.Identity
         /// <summary>
         /// The ID of the user account which deleted the user through a soft deletion mechanism.
         /// </summary>
-        TNullableKey DeletedBy { get; set; }
+        TKey DeletedBy { get; set; }
 
         /// <summary>
         /// Gets or sets the date and time when the user was deleted through a soft-deletion mechanism.

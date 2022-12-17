@@ -14,12 +14,12 @@ using System.Xml.Linq;
 
 namespace Ejyle.DevAccelerate.Messages
 {
-    public class DaMessageRecipientVariable : DaMessageRecipientVariable<int, int?, DaMessageRecipient>
+    public class DaMessageRecipientVariable : DaMessageRecipientVariable<string, DaMessageRecipient>
     { }
 
-    public class DaMessageRecipientVariable<TKey, TNullableKey, TMessageRecipient> : DaEntityBase<TKey>, IDaMessageRecipientVariable<TKey>
+    public class DaMessageRecipientVariable<TKey, TMessageRecipient> : DaEntityBase<TKey>, IDaMessageRecipientVariable<TKey>
         where TKey : IEquatable<TKey>
-        where TMessageRecipient : IDaMessageRecipient<TKey, TNullableKey>
+        where TMessageRecipient : IDaMessageRecipient<TKey>
     {
         public virtual TMessageRecipient MessageRecipient
         {

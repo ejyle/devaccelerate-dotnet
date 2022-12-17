@@ -14,7 +14,7 @@ using Ejyle.DevAccelerate.Profiles.UserProfiles;
 namespace Ejyle.DevAccelerate.Facades.Security.Registration
 {
     public class DaRegistrationInfo
-        : DaRegistrationInfo<int, int?, DaAddressRegistrationInfo,DaOrganizationRegistrationInfo, DaTenantRegistrationInfo, DaSubscriptionRegistrationInfo>
+        : DaRegistrationInfo<string, DaAddressRegistrationInfo,DaOrganizationRegistrationInfo, DaTenantRegistrationInfo, DaSubscriptionRegistrationInfo>
     {
         public DaRegistrationInfo()
             : base()
@@ -22,7 +22,6 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
     }
 
     public class DaRegistrationInfo<TKey,
-        TNullableKey,
         TAddressProfileRegistrationInfo,
         TOrganizationRegistrationInfo,
         TTenantRegistrationInfo,
@@ -31,7 +30,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
         where TAddressProfileRegistrationInfo : IDaAddressRegistrationInfo<TKey>
         where TTenantRegistrationInfo : IDaTenantRegistrationInfo
         where TOrganizationRegistrationInfo : IDaOrganizationRegistrationInfo
-        where TSubscriptionRegistrationInfo : IDaSubscriptionRegistrationInfo<TKey, TNullableKey>
+        where TSubscriptionRegistrationInfo : IDaSubscriptionRegistrationInfo<TKey>
     {
         public DaRegistrationInfo()
         {
@@ -56,7 +55,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
         public TSubscriptionRegistrationInfo Subscription { get; set; }
     }
 
-    public class DaAddressRegistrationInfo : DaAddressRegistrationInfo<int>
+    public class DaAddressRegistrationInfo : DaAddressRegistrationInfo<string>
     { }
 
     public class DaAddressRegistrationInfo<TKey> : IDaAddressRegistrationInfo<TKey>
@@ -98,15 +97,15 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
     }
 
     public class DaSubscriptionRegistrationInfo
-        : DaSubscriptionRegistrationInfo<int, int?>
+        : DaSubscriptionRegistrationInfo<string>
     {
         public DaSubscriptionRegistrationInfo()
             : base()
         { }
     }
 
-    public class DaSubscriptionRegistrationInfo<TKey, TNullableKey>
-        : IDaSubscriptionRegistrationInfo<TKey, TNullableKey>
+    public class DaSubscriptionRegistrationInfo<TKey>
+        : IDaSubscriptionRegistrationInfo<TKey>
         where TKey : IEquatable<TKey>
     {
         public DaSubscriptionRegistrationInfo()
@@ -116,7 +115,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
 
         public TKey SubscriptionPlanId { get; set; }
         public bool StartWithTrial { get; set; }
-        public TNullableKey BillingCycleOptionId { get; set; }
+        public TKey BillingCycleOptionId { get; set; }
         public Dictionary<string, string> SubscriptionAttributes { get; set; }
     }
 }

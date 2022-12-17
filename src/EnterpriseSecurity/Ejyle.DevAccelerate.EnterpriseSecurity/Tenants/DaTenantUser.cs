@@ -10,12 +10,12 @@ using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
 {
-    public class DaTenantUser : DaTenantUser<int, int?, DaTenant>
+    public class DaTenantUser : DaTenantUser<string, DaTenant>
     { }
 
-    public class DaTenantUser<TKey, TNullableKey, TTenant> : DaEntityBase<TKey>, IDaTenantUser<TKey>
+    public class DaTenantUser<TKey, TTenant> : DaEntityBase<TKey>, IDaTenantUser<TKey>
         where TKey : IEquatable<TKey>
-        where TTenant : IDaTenant<TKey, TNullableKey>
+        where TTenant : IDaTenant<TKey>
     {
 
         public TKey TenantId

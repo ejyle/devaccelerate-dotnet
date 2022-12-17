@@ -13,20 +13,20 @@ using Ejyle.DevAccelerate.Core.Data;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 {
-    public class DaSubscriptionManager<TKey, TNullableKey, TSubscription> : DaEntityManagerBase<TKey, TSubscription>
+    public class DaSubscriptionManager<TKey, TSubscription> : DaEntityManagerBase<TKey, TSubscription>
         where TKey : IEquatable<TKey>
-        where TSubscription : IDaSubscription<TKey, TNullableKey>
+        where TSubscription : IDaSubscription<TKey>
     {
-        public DaSubscriptionManager(IDaSubscriptionRepository<TKey, TNullableKey, TSubscription> repository)
+        public DaSubscriptionManager(IDaSubscriptionRepository<TKey, TSubscription> repository)
             : base(repository)
         {
         }
 
-        protected virtual IDaSubscriptionRepository<TKey, TNullableKey, TSubscription> Repository
+        protected virtual IDaSubscriptionRepository<TKey, TSubscription> Repository
         {
             get
             {
-                return GetRepository<IDaSubscriptionRepository<TKey, TNullableKey, TSubscription>>();
+                return GetRepository<IDaSubscriptionRepository<TKey, TSubscription>>();
             }
         }
 

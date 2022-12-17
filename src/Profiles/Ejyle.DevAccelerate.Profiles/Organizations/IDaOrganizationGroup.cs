@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Profiles.Organizations
 {
-    public interface IDaOrganizationGroup<TKey, TNullableKey> : IDaAuditedEntity<TKey>
+    public interface IDaOrganizationGroup<TKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         TKey OrganizationProfileId { get; set; }
-        TNullableKey ParentId { get; set; }
+        TKey ParentId { get; set; }
         TKey OwnerUserId { get; set; }
         string GroupName { get; set; }
         DaOrganizationGroupType GroupType { get; set; }

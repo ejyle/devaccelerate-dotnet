@@ -9,7 +9,7 @@ using Ejyle.DevAccelerate.Lists.Currencies;
 
 namespace Ejyle.DevAccelerate.Lists.EF.Currencies
 {
-    public class DaCurrencyManager : DaCurrencyManager<int, DaCurrency>
+    public class DaCurrencyManager : DaCurrencyManager<string, DaCurrency>
     {
         public DaCurrencyManager(DaCurrencyRepository repository)
             : base(repository)

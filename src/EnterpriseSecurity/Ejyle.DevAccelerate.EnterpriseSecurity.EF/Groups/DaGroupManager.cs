@@ -9,7 +9,7 @@ using Ejyle.DevAccelerate.EnterpriseSecurity.Groups;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Groups
 {
-    public class DaGroupManager : DaGroupManager<int, int?, DaGroup>
+    public class DaGroupManager : DaGroupManager<string, DaGroup>
     {
         public DaGroupManager(DaGroupRepository repository)
             : base(repository)

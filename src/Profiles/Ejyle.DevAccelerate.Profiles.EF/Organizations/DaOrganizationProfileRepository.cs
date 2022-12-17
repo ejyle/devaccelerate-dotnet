@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Profiles.EF.Organizations
 {
-    public class DaOrganizationProfileRepository : DaOrganizationProfileRepository<int,int?, DaOrganizationProfile, DaOrganizationProfileAttribute, DaOrganizationGroup, DbContext>
+    public class DaOrganizationProfileRepository : DaOrganizationProfileRepository<string, DaOrganizationProfile, DaOrganizationProfileAttribute, DaOrganizationGroup, DbContext>
     {
         public DaOrganizationProfileRepository(DbContext dbContext)
             : base(dbContext)
@@ -23,12 +23,12 @@ namespace Ejyle.DevAccelerate.Profiles.EF.Organizations
     }
 
 
-    public class DaOrganizationProfileRepository<TKey, TNullableKey, TOrganizationProfile, TOrganizationProfileAttribute, TOrganizationGroup, TDbContext>
-        : DaEntityRepositoryBase<TKey, TOrganizationProfile, TDbContext>, IDaOrganizationProfileRepository<TKey, TNullableKey, TOrganizationProfile, TOrganizationGroup>
+    public class DaOrganizationProfileRepository<TKey, TOrganizationProfile, TOrganizationProfileAttribute, TOrganizationGroup, TDbContext>
+        : DaEntityRepositoryBase<TKey, TOrganizationProfile, TDbContext>, IDaOrganizationProfileRepository<TKey, TOrganizationProfile, TOrganizationGroup>
         where TKey : IEquatable<TKey>
-        where TOrganizationProfile : DaOrganizationProfile<TKey, TNullableKey, TOrganizationProfile, TOrganizationProfileAttribute, TOrganizationGroup>
-        where TOrganizationProfileAttribute : DaOrganizationProfileAttribute<TKey, TNullableKey, TOrganizationProfile>
-        where TOrganizationGroup : DaOrganizationGroup<TKey, TNullableKey, TOrganizationGroup, TOrganizationProfile>
+        where TOrganizationProfile : DaOrganizationProfile<TKey, TOrganizationProfile, TOrganizationProfileAttribute, TOrganizationGroup>
+        where TOrganizationProfileAttribute : DaOrganizationProfileAttribute<TKey, TOrganizationProfile>
+        where TOrganizationGroup : DaOrganizationGroup<TKey, TOrganizationGroup, TOrganizationProfile>
         where TDbContext : DbContext
     {
         public DaOrganizationProfileRepository(TDbContext dbContext)

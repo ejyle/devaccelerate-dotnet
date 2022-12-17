@@ -11,13 +11,13 @@ using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 {
-    public class DaSubscriptionFeatureUser : DaSubscriptionFeatureUser<int, int?, DaSubscriptionFeature, DaSubscriptionFeatureUserAction>
+    public class DaSubscriptionFeatureUser : DaSubscriptionFeatureUser<string, DaSubscriptionFeature, DaSubscriptionFeatureUserAction>
     {
         public DaSubscriptionFeatureUser() : base()
         { }
     }
 
-    public class DaSubscriptionFeatureUser<TKey, TNullableKey, TSubscriptionFeature, TSubscriptionFeatureUserAction> : DaEntityBase<TKey>, IDaSubscriptionFeatureUser<TKey>
+    public class DaSubscriptionFeatureUser<TKey, TSubscriptionFeature, TSubscriptionFeatureUserAction> : DaEntityBase<TKey>, IDaSubscriptionFeatureUser<TKey>
         where TKey : IEquatable<TKey>
         where TSubscriptionFeature : IDaSubscriptionFeature<TKey>
         where TSubscriptionFeatureUserAction : IDaSubscriptionFeatureUserAction<TKey>

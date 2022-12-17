@@ -14,7 +14,7 @@ namespace Ejyle.DevAccelerate.Lists.Countries
     /// <summary>
     /// Represents a country entity.
     /// </summary>
-    public class DaCountry : DaCountry<int, int?, DaCurrency, DaCountryTimeZone, DaCountryRegion, DaCountrySystemLanguage, DaCountryDateFormat>
+    public class DaCountry : DaCountry<string, DaCurrency, DaCountryTimeZone, DaCountryRegion, DaCountrySystemLanguage, DaCountryDateFormat>
     {
         /// <summary>
         /// Creates an instance of the <see cref="DaCountry"/> entity.
@@ -41,22 +41,22 @@ namespace Ejyle.DevAccelerate.Lists.Countries
     /// Represents a country entity.
     /// </summary>
     /// <typeparam name="TKey">Represents a non-nullable type of an entity ID.</typeparam>
-    /// <typeparam name="TNullableKey">Represents a nullable type for an entity ID.</typeparam>
+    /// <typeparam name="TKey">Represents a nullable type for an entity ID.</typeparam>
     /// <typeparam name="TCurrency">Represents the type of a currency entity.</typeparam>
     /// <typeparam name="TCountryTimeZone">Represents the type of a time zone entity.</typeparam>
     /// <typeparam name="TCountryRegion">Represents the type of a country region entity.</typeparam>
     /// <typeparam name="TCountrySystemLanguage">Represents the type of a system language entity.</typeparam>
     /// <typeparam name="TCountryDateFormat">Represents the type of a date format entity.</typeparam> 
-    public class DaCountry<TKey, TNullableKey, TCurrency, TCountryTimeZone, TCountryRegion, TCountrySystemLanguage, TCountryDateFormat> : DaListItemBase<TKey>, IDaCountry<TKey, TNullableKey>
+    public class DaCountry<TKey, TCurrency, TCountryTimeZone, TCountryRegion, TCountrySystemLanguage, TCountryDateFormat> : DaListItemBase<TKey>, IDaCountry<TKey>
         where TKey : IEquatable<TKey>
         where TCurrency : IDaCurrency<TKey>
         where TCountryTimeZone : IDaCountryTimeZone<TKey>
-        where TCountryRegion : IDaCountryRegion<TKey, TNullableKey>
+        where TCountryRegion : IDaCountryRegion<TKey>
         where TCountrySystemLanguage : IDaCountrySystemLanguage<TKey>
         where TCountryDateFormat : IDaCountryDateFormat<TKey>
     {
         /// <summary>
-        /// Creates an instance of the <see cref="DaCountry{TKey, TNullableKey, TCurrency, TCountryTimeZone, TCountryRegion, TCountrySystemLanguage, TCountryDateFormat}"/> class.
+        /// Creates an instance of the <see cref="DaCountry{TKey, TCurrency, TCountryTimeZone, TCountryRegion, TCountrySystemLanguage, TCountryDateFormat}"/> class.
         /// </summary>
         public DaCountry()
         {
@@ -67,7 +67,7 @@ namespace Ejyle.DevAccelerate.Lists.Countries
         }
 
         /// <summary>
-        /// Creates an instance of the <see cref="DaCountry{TKey, TNullableKey, TCurrency, TCountryTimeZone, TCountryRegion, TCountrySystemLanguage, TCountryDateFormat}"/> class.
+        /// Creates an instance of the <see cref="DaCountry{TKey, TCurrency, TCountryTimeZone, TCountryRegion, TCountrySystemLanguage, TCountryDateFormat}"/> class.
         /// </summary>
         /// <param name="name">The name of the country.</param>
         /// <param name="twoLetterCode">The two-letter (alpha-2) ISO 3166 code of the country.</param>
@@ -114,22 +114,22 @@ namespace Ejyle.DevAccelerate.Lists.Countries
         /// <summary>
         /// The ID of the country's default currency.
         /// </summary>
-        public TNullableKey CurrencyId { get; set; }
+        public TKey CurrencyId { get; set; }
 
         /// <summary>
         /// The ID of the country's default time zone.
         /// </summary>
-        public TNullableKey DefaultTimeZoneId { get; set; }
+        public TKey DefaultTimeZoneId { get; set; }
 
         /// <summary>
         /// The ID of the country's default date format.
         /// </summary>
-        public TNullableKey DefaultDateFormatId { get; set; }
+        public TKey DefaultDateFormatId { get; set; }
 
         /// <summary>
         /// The ID of the country's default system language.
         /// </summary>
-        public TNullableKey DefaultSystemLanguageId { get; set; }
+        public TKey DefaultSystemLanguageId { get; set; }
 
         /// <summary>
         /// List of time zones the country comes under.

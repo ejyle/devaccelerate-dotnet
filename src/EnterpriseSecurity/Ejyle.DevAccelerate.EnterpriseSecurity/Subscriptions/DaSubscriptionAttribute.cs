@@ -10,16 +10,16 @@ using System;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 {
-    public class DaSubscriptionAttribute : DaSubscriptionAttribute<int, int?, DaSubscription>
+    public class DaSubscriptionAttribute : DaSubscriptionAttribute<string, DaSubscription>
     {
         public DaSubscriptionAttribute()
             : base()
         { }
     }
 
-    public class DaSubscriptionAttribute<TKey, TNullableKey, TSubscription> : DaEntityBase<TKey>, IDaSubscriptionAttribute<TKey>
+    public class DaSubscriptionAttribute<TKey, TSubscription> : DaEntityBase<TKey>, IDaSubscriptionAttribute<TKey>
         where TKey : IEquatable<TKey>
-        where TSubscription : IDaSubscription<TKey, TNullableKey>
+        where TSubscription : IDaSubscription<TKey>
     {
         public TKey SubscriptionId { get; set; }
         public string AttributeName { get; set; }

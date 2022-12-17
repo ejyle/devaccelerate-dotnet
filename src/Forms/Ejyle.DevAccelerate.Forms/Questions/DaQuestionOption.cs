@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Forms.Questions
 {
-    public class DaQuestionOption<TKey, TNullableKey, TQuestion> : DaAuditedEntityBase<TKey>, IDaQuestionOption<TKey>
+    public class DaQuestionOption<TKey, TQuestion> : DaAuditedEntityBase<TKey>, IDaQuestionOption<TKey>
         where TKey : IEquatable<TKey>
     {
         public TKey QuestionId { get; set; }

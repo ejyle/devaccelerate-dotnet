@@ -11,22 +11,22 @@ using System.Collections.Generic;
 
 namespace Ejyle.DevAccelerate.Identity.UserActivities
 {
-    public class DaUserActivityCategory : DaUserActivityCategory<int, int?, DaUserActivity>
+    public class DaUserActivityCategory : DaUserActivityCategory<string, DaUserActivity>
     {
         public DaUserActivityCategory() : base()
         { }
     }
 
-    public class DaUserActivityCategory<TKey, TNullableKey, TUserActivity> : DaEntityBase<TKey>, IDaUserActivityCategory<TKey, TNullableKey>
+    public class DaUserActivityCategory<TKey, TUserActivity> : DaEntityBase<TKey>, IDaUserActivityCategory<TKey>
         where TKey : IEquatable<TKey>
-        where TUserActivity : IDaUserActivity<TKey, TNullableKey>
+        where TUserActivity : IDaUserActivity<TKey>
     {
         public DaUserActivityCategory() : base()
         {
             UserActivities = new HashSet<TUserActivity>();
         }
 
-        public TNullableKey AppId { get; set; }
+        public TKey AppId { get; set; }
         public string UserActivityCategoryName { get; set; }
         public bool IsEnabled { get; set; }
         public virtual ICollection<TUserActivity> UserActivities { get; set; }

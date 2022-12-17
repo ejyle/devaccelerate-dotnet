@@ -13,7 +13,7 @@ namespace Ejyle.DevAccelerate.Core
     /// <summary>
     /// Represents the base class for an entity with basic auditing properties. The type of the entity ID is <see cref="System.Int32"/>.
     /// </summary>
-    public abstract class DaAuditedEntityBase : DaAuditedEntityBase<int>
+    public abstract class DaAuditedEntityBase : DaAuditedEntityBase<string>
     { }
 
     /// <summary>

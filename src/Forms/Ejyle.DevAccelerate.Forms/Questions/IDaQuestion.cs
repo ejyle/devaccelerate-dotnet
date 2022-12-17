@@ -14,10 +14,10 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Forms.Questions
 {
-    public interface IDaQuestion<TKey, TNullableKey> : IDaEntity<TKey>
+    public interface IDaQuestion<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {
-        TNullableKey TenantId { get; set; }
+        TKey TenantId { get; set; }
         string QuestionText { get; set; }
         DaQuestionType QuestionType { get; set; }
     }

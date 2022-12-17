@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Forms.Forms
 {
-    public class DaForm<TKey, TNullableKey, TFormSection> : DaAuditedEntityBase<TKey>, IDaForm<TKey, TNullableKey>
+    public class DaForm<TKey, TFormSection> : DaAuditedEntityBase<TKey>, IDaForm<TKey>
         where TKey : IEquatable<TKey>
         where TFormSection : IDaFormSection<TKey>
     {
@@ -23,7 +23,7 @@ namespace Ejyle.DevAccelerate.Forms.Forms
             Sections = new HashSet<TFormSection>();
         }
 
-        public TNullableKey TenantId { get; set; }
+        public TKey TenantId { get; set; }
         public string Name { get; set; }
         public string Key { get; set; }
         public string Title { get; set; }

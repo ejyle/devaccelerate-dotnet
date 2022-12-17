@@ -14,20 +14,20 @@ using Ejyle.DevAccelerate.Core.Utils;
 
 namespace Ejyle.DevAccelerate.Tasks
 {
-    public class DaTaskManager<TKey, TNullableKey, TTask> : DaEntityManagerBase<TKey, TTask>
+    public class DaTaskManager<TKey, TTask> : DaEntityManagerBase<TKey, TTask>
         where TKey : IEquatable<TKey>
-        where TTask : IDaTask<TKey, TNullableKey>
+        where TTask : IDaTask<TKey>
     {
-        public DaTaskManager(IDaTaskRepository<TKey, TNullableKey, TTask> repository)
+        public DaTaskManager(IDaTaskRepository<TKey, TTask> repository)
             : base(repository)
         {
         }
 
-        protected virtual IDaTaskRepository<TKey, TNullableKey, TTask> Repository
+        protected virtual IDaTaskRepository<TKey, TTask> Repository
         {
             get
             {
-                return GetRepository<IDaTaskRepository<TKey, TNullableKey, TTask>>();
+                return GetRepository<IDaTaskRepository<TKey, TTask>>();
             }
         }
 

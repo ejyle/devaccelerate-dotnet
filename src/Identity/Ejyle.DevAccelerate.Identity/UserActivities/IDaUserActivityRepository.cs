@@ -12,9 +12,9 @@ using Ejyle.DevAccelerate.Core.Data;
 
 namespace Ejyle.DevAccelerate.Identity.UserActivities
 {
-    public interface IDaUserActivityRepository<TKey, TNullableKey, TUserActivity> : IDaEntityRepository<TKey, TUserActivity>
+    public interface IDaUserActivityRepository<TKey, TUserActivity> : IDaEntityRepository<TKey, TUserActivity>
         where TKey : IEquatable<TKey>
-        where TUserActivity : IDaUserActivity<TKey, TNullableKey>
+        where TUserActivity : IDaUserActivity<TKey>
     {
         Task CreateAsync(TUserActivity userActivity);
         Task<TUserActivity> FindByIdAsync(TKey id);

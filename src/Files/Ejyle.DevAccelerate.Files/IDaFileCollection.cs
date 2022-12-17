@@ -14,15 +14,15 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Files
 {
-    public interface IDaFileCollection<TKey, TNullableKey> : IDaAuditedEntity<TKey>
+    public interface IDaFileCollection<TKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         string Name { get; set; }
-        TNullableKey ObjectInstanceId { get; set; }
+        TKey ObjectInstanceId { get; set; }
         TKey OwnerUserId { get; set; }
-        TNullableKey ParentId { get; set; }
-        TNullableKey TenantId { get; set; }
+        TKey ParentId { get; set; }
+        TKey TenantId { get; set; }
         bool IsUserDefined { get; set; }
-        TNullableKey FileStorageLocationId { get; set; }
+        TKey FileStorageLocationId { get; set; }
     }
 }

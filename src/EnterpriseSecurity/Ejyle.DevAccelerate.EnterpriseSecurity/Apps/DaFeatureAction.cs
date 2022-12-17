@@ -10,15 +10,15 @@ using System;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
 {
-    public class DaFeatureAction : DaFeatureAction<int, int?, DaFeature>
+    public class DaFeatureAction : DaFeatureAction<string, DaFeature>
     {
         public DaFeatureAction() : base()
         { }
     }
 
-    public class DaFeatureAction<TKey, TNullableKey, TFeature> : DaEntityBase<TKey>, IDaFeatureAction<TKey>
+    public class DaFeatureAction<TKey, TFeature> : DaEntityBase<TKey>, IDaFeatureAction<TKey>
         where TKey : IEquatable<TKey>
-        where TFeature : IDaFeature<TKey, TNullableKey>
+        where TFeature : IDaFeature<TKey>
     {
         public TKey FeatureId { get; set; }
 

@@ -15,7 +15,7 @@ using Ejyle.DevAccelerate.EnterpriseSecurity.Groups;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Groups
 {
-    public class DaGroupRepository : DaGroupRepository<int, int?, DaGroup, DaGroupRole, DaGroupUser, DbContext>
+    public class DaGroupRepository : DaGroupRepository<string, DaGroup, DaGroupRole, DaGroupUser, DbContext>
     {
         public DaGroupRepository(DbContext dbContext)
             : base(dbContext)
@@ -23,12 +23,12 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Groups
     }
 
 
-    public class DaGroupRepository<TKey, TNullableKey, TGroup, TGroupRole, TGroupUser, TDbContext>
-        : DaEntityRepositoryBase<TKey, TGroup, TDbContext>, IDaGroupRepository<TKey, TNullableKey, TGroup>
+    public class DaGroupRepository<TKey, TGroup, TGroupRole, TGroupUser, TDbContext>
+        : DaEntityRepositoryBase<TKey, TGroup, TDbContext>, IDaGroupRepository<TKey, TGroup>
         where TKey : IEquatable<TKey>
-        where TGroup : DaGroup<TKey, TNullableKey, TGroupRole, TGroupUser>
-        where TGroupRole : DaGroupRole<TKey, TNullableKey, TGroup>
-        where TGroupUser : DaGroupUser<TKey, TNullableKey, TGroup>
+        where TGroup : DaGroup<TKey, TGroupRole, TGroupUser>
+        where TGroupRole : DaGroupRole<TKey, TGroup>
+        where TGroupUser : DaGroupUser<TKey, TGroup>
         where TDbContext : DbContext
     {
         public DaGroupRepository(TDbContext dbContext)
@@ -60,12 +60,12 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Groups
                 .SingleOrDefaultAsync();
         }
 
-        public Task<List<TKey>> FindUserRolesByUserIdAsync(TNullableKey tenantId, TKey userId)
+        public Task<List<TKey>> FindUserRolesByUserIdAsync(TKey tenantId, TKey userId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> IsUserInRoleAsync(TNullableKey tenantId, TKey roleId, TKey userId)
+        public Task<bool> IsUserInRoleAsync(TKey tenantId, TKey roleId, TKey userId)
         {
             throw new NotImplementedException();
         }

@@ -76,6 +76,8 @@ namespace Ejyle.DevAccelerate.SystemTasks.EF
             {
                 entity.ToTable("SystemTaskDefinitions", SCHEMA_NAME);
 
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
                 entity.Property(e => e.SystemTaskType)
                     .IsRequired()
                     .HasMaxLength(500);
@@ -90,6 +92,8 @@ namespace Ejyle.DevAccelerate.SystemTasks.EF
             modelBuilder.Entity<TSystemTaskDefinitionAttribute>(entity =>
             {
                 entity.ToTable("SystemTaskDefinitionAttributes", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.AttributeName)
                     .IsRequired()

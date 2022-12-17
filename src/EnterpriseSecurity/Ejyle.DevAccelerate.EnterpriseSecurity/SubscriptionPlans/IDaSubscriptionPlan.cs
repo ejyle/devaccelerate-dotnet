@@ -10,7 +10,7 @@ using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
 {
-    public interface IDaSubscriptionPlan<TKey, TNullableKey> : IDaAuditedEntity<TKey>
+    public interface IDaSubscriptionPlan<TKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         string Name { get; set; }
@@ -28,8 +28,8 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
         bool IsFree { get; set; }
         DaBillingType BillingType { get; set; }
         DaSubscriptionPlanStatus Status { get; set; }
-        TNullableKey UserAgreementVersionId { get; set; }
-        TNullableKey DefaultBillingCycleId { get; set; }
+        TKey UserAgreementVersionId { get; set; }
+        TKey DefaultBillingCycleId { get; set; }
         DateTime? PublishedDateUtc { get; set; }
     }
 }

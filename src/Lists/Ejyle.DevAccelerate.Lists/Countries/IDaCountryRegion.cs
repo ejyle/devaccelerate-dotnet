@@ -13,14 +13,14 @@ namespace Ejyle.DevAccelerate.Lists.Countries
     /// Represents the basic interface of a country region entity.
     /// </summary>
     /// <typeparam name="TKey">Represents a non-nullable type of an entity ID.</typeparam>
-    /// <typeparam name="TNullableKey">Represents a nullable type for an entity ID.</typeparam>
-    public interface IDaCountryRegion<TKey, TNullableKey> : IDaListItem<TKey>
+    /// <typeparam name="TKey">Represents a nullable type for an entity ID.</typeparam>
+    public interface IDaCountryRegion<TKey> : IDaListItem<TKey>
         where TKey : IEquatable<TKey>
     {
         /// <summary>
         /// The ID of the parent region.
         /// </summary>
-        TNullableKey ParentId { get; set; }
+        TKey ParentId { get; set; }
 
         /// <summary>
         /// The ID of the region's country.

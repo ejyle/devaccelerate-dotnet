@@ -10,16 +10,16 @@ using System;
 
 namespace Ejyle.DevAccelerate.Profiles.Organizations
 {
-    public interface IDaOrganizationProfile<TKey, TNullableKey> : IDaAuditedEntity<TKey>
+    public interface IDaOrganizationProfile<TKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
 
-        TNullableKey TenantId { get; set; }
+        TKey TenantId { get; set; }
         TKey OwnerUserId { get; set; }
 
         string OrganizationName { get; set; }
-        public TNullableKey ParentId { get; set; }
+        public TKey ParentId { get; set; }
         DaOrganizationType OrganizationType { get; set; }
-        TNullableKey IndustryId { get; set; }
+        TKey IndustryId { get; set; }
     }
 }

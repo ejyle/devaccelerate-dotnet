@@ -3,7 +3,7 @@ using System;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.UserAgreements
 {
-    public class DaUserAgreementVersionAction : DaUserAgreementVersionAction<int, DaUserAgreementVersion>
+    public class DaUserAgreementVersionAction : DaUserAgreementVersionAction<string, DaUserAgreementVersion>
     {
         public DaUserAgreementVersionAction() : base()
         { }

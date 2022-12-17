@@ -14,7 +14,7 @@ namespace Ejyle.DevAccelerate.Lists.Currencies
     /// <summary>
     /// Represents a currency entity.
     /// </summary>
-    public class DaCurrency : DaCurrency<int, int?, DaCountry>
+    public class DaCurrency : DaCurrency<string, DaCountry>
     {
     }
 
@@ -22,14 +22,14 @@ namespace Ejyle.DevAccelerate.Lists.Currencies
     /// Represents a currency entity.
     /// </summary>
     /// <typeparam name="TKey">Represents a non-nullable type of an entity ID.</typeparam>
-    /// <typeparam name="TNullableKey">Represents a nullable type for an entity ID.</typeparam>
+    /// <typeparam name="TKey">Represents a nullable type for an entity ID.</typeparam>
     /// <typeparam name="TCountry">Represents the type of the currency's countries.</typeparam>
-    public class DaCurrency<TKey, TNullableKey, TCountry> : DaListItemBase<TKey>, IDaCurrency<TKey>
+    public class DaCurrency<TKey, TCountry> : DaListItemBase<TKey>, IDaCurrency<TKey>
         where TKey : IEquatable<TKey>
-        where TCountry : IDaCountry<TKey, TNullableKey>
+        where TCountry : IDaCountry<TKey>
     {
         /// <summary>
-        /// Creates an instance of the <see cref="DaCurrency{TKey, TNullableKey, TCountry}"/> entity.
+        /// Creates an instance of the <see cref="DaCurrency{TKey, TCountry}"/> entity.
         /// </summary>
         public DaCurrency()
         {

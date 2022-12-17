@@ -16,23 +16,23 @@ namespace Ejyle.DevAccelerate.Profiles.Addresses
         { }
     }
 
-    public class DaUserAddress<TAddressProfile> : DaUserAddress<int, int?, TAddressProfile>
-        where TAddressProfile : IDaAddressProfile<int, int?>
+    public class DaUserAddress<TAddressProfile> : DaUserAddress<string, TAddressProfile>
+        where TAddressProfile : IDaAddressProfile<string>
     {
         public DaUserAddress() : base()
         { }
     }
 
-    public class DaUserAddress<TKey, TNullableKey, TAddressProfile> : DaAuditedEntityBase<TKey>, IDaUserAddress<TKey, TNullableKey>
+    public class DaUserAddress<TKey, TAddressProfile> : DaAuditedEntityBase<TKey>, IDaUserAddress<TKey>
         where TKey : IEquatable<TKey>
-        where TAddressProfile : IDaAddressProfile<TKey, TNullableKey>
+        where TAddressProfile : IDaAddressProfile<TKey>
     {
         public DaUserAddress() : base()
         { }
 
         public TKey UserId { get; set; }
         public string Name { get; set; }
-        public TNullableKey TenantId { get; set; }
+        public TKey TenantId { get; set; }
         public DaAddressType AddressType { get; set; }
         public TKey AddressProfileId { get; set; }
         public virtual TAddressProfile AddressProfile { get; set; }

@@ -12,10 +12,10 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Profiles.Organizations
 {
-    public interface IDaOrganizationProfileRepository<TKey, TNullableKey, TOrganizationProfile, TOrganizationGroup> : IDaEntityRepository<TKey, TOrganizationProfile>
+    public interface IDaOrganizationProfileRepository<TKey, TOrganizationProfile, TOrganizationGroup> : IDaEntityRepository<TKey, TOrganizationProfile>
         where TKey : IEquatable<TKey>
-        where TOrganizationProfile : IDaOrganizationProfile<TKey, TNullableKey>
-        where TOrganizationGroup : IDaOrganizationGroup<TKey, TNullableKey>
+        where TOrganizationProfile : IDaOrganizationProfile<TKey>
+        where TOrganizationGroup : IDaOrganizationGroup<TKey>
 
     {
         Task CreateAsync(TOrganizationProfile organizationProfile);

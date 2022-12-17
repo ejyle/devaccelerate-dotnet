@@ -14,19 +14,19 @@ namespace Ejyle.DevAccelerate.Lists.Countries
     /// <summary>
     /// Represents the mapping of a country and a time zone.
     /// </summary>
-    public class DaCountryTimeZone : DaCountryTimeZone<int, int?, DaCountry, DaTimeZone>
+    public class DaCountryTimeZone : DaCountryTimeZone<string, DaCountry, DaTimeZone>
     { }
 
     /// <summary>
     /// Represents the mapping of a country and a time zone.
     /// </summary>
     /// <typeparam name="TKey">Represents a non-nullable type of an entity ID.</typeparam>
-    /// <typeparam name="TNullableKey">Represents a nullable type for an entity ID.</typeparam>
+    /// <typeparam name="TKey">Represents a nullable type for an entity ID.</typeparam>
     /// <typeparam name="TCountry">Represents the type of a country entity.</typeparam>
     /// <typeparam name="TTimeZone">Represents the type of a time zone entity.</typeparam>
-    public class DaCountryTimeZone<TKey, TNullableKey, TCountry, TTimeZone> : DaEntityBase<TKey>, IDaCountryTimeZone<TKey>
+    public class DaCountryTimeZone<TKey, TCountry, TTimeZone> : DaEntityBase<TKey>, IDaCountryTimeZone<TKey>
         where TKey : IEquatable<TKey>
-        where TCountry : IDaCountry<TKey, TNullableKey>
+        where TCountry : IDaCountry<TKey>
         where TTimeZone : IDaTimeZone<TKey>
     {
         /// <summary>

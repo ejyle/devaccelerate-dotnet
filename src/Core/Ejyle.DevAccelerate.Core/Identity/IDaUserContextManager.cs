@@ -12,7 +12,7 @@ namespace Ejyle.DevAccelerate.Core.Identity
     /// <summary>
     /// Provides abstraction for user context manager to retrieve and manage user context.
     /// </summary>
-    public interface IDaUserContextManager : IDaUserContextManager<int>
+    public interface IDaUserContextManager : IDaUserContextManager<string>
     {
     }
 

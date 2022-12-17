@@ -32,10 +32,12 @@ using Ejyle.DevAccelerate.Lists.EF.Countries;
 using Ejyle.DevAccelerate.Lists.EF.Currencies;
 using Ejyle.DevAccelerate.Lists.EF.SystemLanguages;
 using Ejyle.DevAccelerate.Lists.EF.TimeZones;
+using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Groups;
+using Ejyle.DevAccelerate.EnterpriseSecurity.Groups;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Authorization
 {
-    public class DaAuthorizationFacade : DaAuthorizationFacade<int, int?, DaAuthorizedFeatureInfo, DaAuthorizationInfo, DaAuthorizedActionInfo, UserManager<DaUser>, DaUser, RoleManager<DaRole>, DaRole, DaTenantManager, DaTenant, DaTenantUser, DaTenantAttribute, DaUserAgreementManager, DaUserAgreement, DaUserAgreementVersion, DaUserAgreementVersionAction, DaAppManager, DaApp, DaAppAttribute, DaFeatureManager, DaFeature, DaAppFeature, DaFeatureAction, DaSubscriptionPlanManager, DaSubscriptionPlan, DaSubscriptionPlanAttribute, DaBillingCycleOption, DaSubscriptionPlanApp, DaSubscriptionPlanFeature, DaSubscriptionPlanFeatureAttribute, DaSubscriptionManager, DaSubscription, DaSubscriptionAttribute, DaSubscriptionApp, DaSubscriptionFeature, DaSubscriptionFeatureAttribute, DaSubscriptionAppRole, DaSubscriptionAppUser, DaSubscriptionFeatureRole, DaSubscriptionFeatureRoleAction, DaSubscriptionFeatureUser, DaSubscriptionFeatureUserAction, DaBillingCycle, DaBillingCycleAttribute, DaBillingCycleFeatureUsage, DaCurrencyManager, DaCurrency, DaCountryManager, DaCountry, DaCountryRegion, DaCountryDateFormat, DaCountrySystemLanguage, DaCountryTimeZone, DaDateFormat, DaTimeZoneManager, DaTimeZone, DaSystemLanguageManager, DaSystemLanguage>
+    public class DaAuthorizationFacade : DaAuthorizationFacade<string, DaAuthorizedFeatureInfo, DaAuthorizationInfo, DaAuthorizedActionInfo, UserManager<DaUser>, DaUser, RoleManager<DaRole>, DaRole, DaTenantManager, DaTenant, DaTenantUser, DaTenantAttribute, DaUserAgreementManager, DaUserAgreement, DaUserAgreementVersion, DaUserAgreementVersionAction, DaGroupManager, DaGroup, DaGroupRole, DaGroupUser, DaAppManager, DaApp, DaAppAttribute, DaFeatureManager, DaFeature, DaAppFeature, DaFeatureAction, DaSubscriptionPlanManager, DaSubscriptionPlan, DaSubscriptionPlanAttribute, DaBillingCycleOption, DaSubscriptionPlanApp, DaSubscriptionPlanFeature, DaSubscriptionPlanFeatureAttribute, DaSubscriptionManager, DaSubscription, DaSubscriptionAttribute, DaSubscriptionApp, DaSubscriptionFeature, DaSubscriptionFeatureAttribute, DaSubscriptionAppRole, DaSubscriptionAppUser, DaSubscriptionFeatureRole, DaSubscriptionFeatureRoleAction, DaSubscriptionFeatureUser, DaSubscriptionFeatureUserAction, DaBillingCycle, DaBillingCycleAttribute, DaBillingCycleFeatureUsage, DaCurrencyManager, DaCurrency, DaCountryManager, DaCountry, DaCountryRegion, DaCountryDateFormat, DaCountrySystemLanguage, DaCountryTimeZone, DaDateFormat, DaTimeZoneManager, DaTimeZone, DaSystemLanguageManager, DaSystemLanguage>
     {
         public DaAuthorizationFacade(UserManager<DaUser> userManager, RoleManager<DaRole> roleManager, DaTenantManager tenantManager, DaAppManager appManager, DaFeatureManager featureManager, DaUserAgreementManager userAgreementManager, DaSubscriptionPlanManager subscriptionPlanManager, DaSubscriptionManager subscriptionManager, DaCurrencyManager currencyManager, DaCountryManager countryManager, DaTimeZoneManager timeZoneManager, DaSystemLanguageManager systemLanguageManager)
             : base(userManager, roleManager, tenantManager, appManager, featureManager, userAgreementManager, subscriptionPlanManager, subscriptionManager, currencyManager, countryManager, timeZoneManager, systemLanguageManager)
@@ -43,62 +45,66 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authorization
         }
     }
 
-    public class DaAuthorizationFacade<TKey, TNullableKey, TAuthorizedFeatureInfo, TAuthorizationInfo, TAuthorizedActionInfo, TUserManager, TUser, TRoleManager, TRole, TTenantManager, TTenant, TTenantUser, TTenantAttribute, TUserAgreementManager, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction, TAppManager, TApp, TAppAttribute, TFeatureManager, TFeature, TAppFeature, TFeatureAction, TSubscriptionPlanManager, TSubscriptionPlan, TSubscriptionPlanAttribute, TBillingCycleOption, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscriptionPlanFeatureAttribute, TSubscriptionManager, TSubscription, TSubscriptionAttribute, TSubscriptionApp, TSubscriptionFeature, TSubscriptionFeatureAttribute, TSubscriptionAppRole, TSubscriptionAppUser, TSubscriptionFeatureRole, TSubscriptionFeatureRoleAction, TSubscriptionFeatureUser, TSubscriptionFeatureUserAction, TBillingCycle, TBillingCycleAttribute, TBillingCycleFeatureUsage, TCurrencyManager, TCurrency, TCountryManager, TCountry, TCountryRegion, TCountryDateFormat, TCountrySystemLanguage, TCountryTimeZone, TDateFormat, TTimeZoneManager, TTimeZone, TSystemLanguageManager, TSystemLanguage>
+    public class DaAuthorizationFacade<TKey, TAuthorizedFeatureInfo, TAuthorizationInfo, TAuthorizedActionInfo, TUserManager, TUser, TRoleManager, TRole, TTenantManager, TTenant, TTenantUser, TTenantAttribute, TUserAgreementManager, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction, TGroupManager, TGroup, TGroupRole, TGroupUser, TAppManager, TApp, TAppAttribute, TFeatureManager, TFeature, TAppFeature, TFeatureAction, TSubscriptionPlanManager, TSubscriptionPlan, TSubscriptionPlanAttribute, TBillingCycleOption, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscriptionPlanFeatureAttribute, TSubscriptionManager, TSubscription, TSubscriptionAttribute, TSubscriptionApp, TSubscriptionFeature, TSubscriptionFeatureAttribute, TSubscriptionAppRole, TSubscriptionAppUser, TSubscriptionFeatureRole, TSubscriptionFeatureRoleAction, TSubscriptionFeatureUser, TSubscriptionFeatureUserAction, TBillingCycle, TBillingCycleAttribute, TBillingCycleFeatureUsage, TCurrencyManager, TCurrency, TCountryManager, TCountry, TCountryRegion, TCountryDateFormat, TCountrySystemLanguage, TCountryTimeZone, TDateFormat, TTimeZoneManager, TTimeZone, TSystemLanguageManager, TSystemLanguage>
         where TKey : IEquatable<TKey>
         where TAuthorizedFeatureInfo : DaAuthorizedFeatureInfo<TKey>, new()
         where TAuthorizationInfo : DaAuthorizationInfo<TKey, TAuthorizedActionInfo>, new()
         where TAuthorizedActionInfo : DaAuthorizedActionInfo<TKey>, new()
         where TUserManager : UserManager<TUser>
-        where TUser : DaUser<TKey, TNullableKey>, new()
+        where TUser : DaUser<TKey>, new()
         where TRoleManager : RoleManager<TRole>
         where TRole : DaRole<TKey>, new()
+        where TGroup : DaGroup<TKey, TGroupRole, TGroupUser>
+        where TGroupRole : DaGroupRole<TKey, TGroup>
+        where TGroupUser : DaGroupUser<TKey, TGroup>
+        where TGroupManager : DaGroupManager<TKey, TGroup>
         where TAppManager : DaAppManager<TKey, TApp>
-        where TApp : DaApp<TKey, TNullableKey, TAppAttribute, TFeature, TAppFeature, TSubscriptionApp, TSubscriptionPlanApp, TUserAgreement>
+        where TApp : DaApp<TKey, TAppAttribute, TFeature, TAppFeature, TSubscriptionApp, TSubscriptionPlanApp, TUserAgreement>
         where TAppAttribute : DaAppAttribute<TKey, TApp>
         where TAppFeature : DaAppFeature<TKey, TApp, TFeature>
-        where TBillingCycleOption : DaBillingCycleOption<TKey, TNullableKey, TSubscriptionPlan>
-        where TFeatureAction : DaFeatureAction<TKey, TNullableKey, TFeature>
-        where TFeatureManager : DaFeatureManager<TKey, TNullableKey, TFeature>
-        where TFeature : DaFeature<TKey, TNullableKey, TApp, TAppFeature, TFeatureAction, TSubscriptionFeature, TSubscriptionPlanFeature>
-        where TSubscriptionManager : DaSubscriptionManager<TKey, TNullableKey, TSubscription>
+        where TBillingCycleOption : DaBillingCycleOption<TKey, TSubscriptionPlan>
+        where TFeatureAction : DaFeatureAction<TKey, TFeature>
+        where TFeatureManager : DaFeatureManager<TKey, TFeature>
+        where TFeature : DaFeature<TKey, TApp, TAppFeature, TFeatureAction, TSubscriptionFeature, TSubscriptionPlanFeature>
+        where TSubscriptionManager : DaSubscriptionManager<TKey, TSubscription>
         where TSubscriptionAppRole : DaSubscriptionAppRole<TKey, TSubscriptionApp>
-        where TSubscriptionApp : DaSubscriptionApp<TKey, TNullableKey, TApp, TSubscriptionAppRole, TSubscription, TSubscriptionAppUser>, new()
+        where TSubscriptionApp : DaSubscriptionApp<TKey, TApp, TSubscriptionAppRole, TSubscription, TSubscriptionAppUser>, new()
         where TSubscriptionAppUser : DaSubscriptionAppUser<TKey, TSubscriptionApp>
         where TSubscriptionFeatureAttribute : DaSubscriptionFeatureAttribute<TKey, TSubscriptionFeature>, new()
         where TSubscriptionFeatureRoleAction : DaSubscriptionFeatureRoleAction<TKey, TSubscriptionFeatureRole>
         where TSubscriptionFeatureRole : DaSubscriptionFeatureRole<TKey, TSubscriptionFeatureRoleAction, TSubscriptionFeature>
-        where TSubscriptionFeature : DaSubscriptionFeature<TKey, TNullableKey, TFeature, TSubscriptionFeatureAttribute, TSubscriptionFeatureRole, TSubscription, TSubscriptionFeatureUser, TBillingCycleFeatureUsage>, new()
+        where TSubscriptionFeature : DaSubscriptionFeature<TKey, TFeature, TSubscriptionFeatureAttribute, TSubscriptionFeatureRole, TSubscription, TSubscriptionFeatureUser, TBillingCycleFeatureUsage>, new()
         where TSubscriptionFeatureUserAction : DaSubscriptionFeatureUserAction<TKey, TSubscriptionFeatureUser>
-        where TSubscriptionFeatureUser : DaSubscriptionFeatureUser<TKey, TNullableKey, TSubscriptionFeature, TSubscriptionFeatureUserAction>
-        where TSubscriptionPlanManager : DaSubscriptionPlanManager<TKey, TNullableKey, TSubscriptionPlan>
-        where TSubscriptionPlanApp : DaSubscriptionPlanApp<TKey, TNullableKey, TApp, TSubscriptionPlan>
+        where TSubscriptionFeatureUser : DaSubscriptionFeatureUser<TKey, TSubscriptionFeature, TSubscriptionFeatureUserAction>
+        where TSubscriptionPlanManager : DaSubscriptionPlanManager<TKey, TSubscriptionPlan>
+        where TSubscriptionPlanApp : DaSubscriptionPlanApp<TKey, TApp, TSubscriptionPlan>
         where TSubscriptionPlanFeatureAttribute : DaSubscriptionPlanFeatureAttribute<TKey, TSubscriptionPlanFeature>
-        where TSubscriptionPlanFeature : DaSubscriptionPlanFeature<TKey, TNullableKey, TFeature, TSubscriptionPlanFeatureAttribute, TSubscriptionPlan>
-        where TSubscriptionPlan : DaSubscriptionPlan<TKey, TNullableKey, TSubscriptionPlanAttribute, TBillingCycleOption, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscription>
-        where TSubscriptionPlanAttribute : DaSubscriptionPlanAttribute<TKey, TNullableKey, TSubscriptionPlan>
-        where TSubscription : DaSubscription<TKey, TNullableKey, TSubscriptionAttribute, TSubscriptionApp, TSubscriptionFeature, TSubscriptionPlan, TBillingCycle>, new()
-        where TBillingCycle : DaBillingCycle<TKey, TNullableKey, TBillingCycleAttribute, TSubscription, TBillingCycleFeatureUsage>
-        where TBillingCycleAttribute : DaBillingCycleAttribute<TKey, TNullableKey, TBillingCycle>
-        where TBillingCycleFeatureUsage : DaBillingCycleFeatureUsage<TKey, TNullableKey, TBillingCycle, TSubscriptionFeature>
-        where TSubscriptionAttribute : DaSubscriptionAttribute<TKey, TNullableKey, TSubscription>
-        where TTenantManager : DaTenantManager<TKey, TNullableKey, TTenant>
-        where TTenant : DaTenant<TKey, TNullableKey, TTenantUser, TTenantAttribute>, new()
-        where TTenantAttribute : DaTenantAttribute<TKey, TNullableKey, TTenant>
-        where TTenantUser : DaTenantUser<TKey, TNullableKey, TTenant>, new()
-        where TUserAgreementManager : DaUserAgreementManager<TKey, TNullableKey, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction>
-        where TUserAgreement : DaUserAgreement<TKey, TNullableKey, TApp, TUserAgreementVersion>
-        where TUserAgreementVersion : DaUserAgreementVersion<TKey, TNullableKey, TUserAgreement, TUserAgreementVersionAction>
+        where TSubscriptionPlanFeature : DaSubscriptionPlanFeature<TKey, TFeature, TSubscriptionPlanFeatureAttribute, TSubscriptionPlan>
+        where TSubscriptionPlan : DaSubscriptionPlan<TKey, TSubscriptionPlanAttribute, TBillingCycleOption, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscription>
+        where TSubscriptionPlanAttribute : DaSubscriptionPlanAttribute<TKey, TSubscriptionPlan>
+        where TSubscription : DaSubscription<TKey, TSubscriptionAttribute, TSubscriptionApp, TSubscriptionFeature, TSubscriptionPlan, TBillingCycle>, new()
+        where TBillingCycle : DaBillingCycle<TKey, TBillingCycleAttribute, TSubscription, TBillingCycleFeatureUsage>
+        where TBillingCycleAttribute : DaBillingCycleAttribute<TKey, TBillingCycle>
+        where TBillingCycleFeatureUsage : DaBillingCycleFeatureUsage<TKey, TBillingCycle, TSubscriptionFeature>
+        where TSubscriptionAttribute : DaSubscriptionAttribute<TKey, TSubscription>
+        where TTenantManager : DaTenantManager<TKey, TTenant>
+        where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute>, new()
+        where TTenantAttribute : DaTenantAttribute<TKey, TTenant>
+        where TTenantUser : DaTenantUser<TKey, TTenant>, new()
+        where TUserAgreementManager : DaUserAgreementManager<TKey, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction>
+        where TUserAgreement : DaUserAgreement<TKey, TApp, TUserAgreementVersion>
+        where TUserAgreementVersion : DaUserAgreementVersion<TKey, TUserAgreement, TUserAgreementVersionAction>
         where TUserAgreementVersionAction : DaUserAgreementVersionAction<TKey, TUserAgreementVersion>
         where TCurrencyManager : DaCurrencyManager<TKey, TCurrency>
-        where TCurrency : DaCurrency<TKey, TNullableKey, TCountry>
-        where TCountryManager : DaCountryManager<TKey, TNullableKey, TCountry, TCountryRegion>
-        where TCountry : DaCountry<TKey, TNullableKey, TCurrency, TCountryTimeZone, TCountryRegion, TCountrySystemLanguage, TCountryDateFormat>
-        where TCountryRegion : DaCountryRegion<TKey, TNullableKey, TCountryRegion, TCountry>
-        where TCountryDateFormat : DaCountryDateFormat<TKey, TNullableKey, TCountry, TDateFormat>
-        where TCountrySystemLanguage : DaCountrySystemLanguage<TKey, TNullableKey, TCountry, TSystemLanguage>
-        where TCountryTimeZone : DaCountryTimeZone<TKey, TNullableKey, TCountry, TTimeZone>
+        where TCurrency : DaCurrency<TKey, TCountry>
+        where TCountryManager : DaCountryManager<TKey, TCountry, TCountryRegion>
+        where TCountry : DaCountry<TKey, TCurrency, TCountryTimeZone, TCountryRegion, TCountrySystemLanguage, TCountryDateFormat>
+        where TCountryRegion : DaCountryRegion<TKey, TCountryRegion, TCountry>
+        where TCountryDateFormat : DaCountryDateFormat<TKey, TCountry, TDateFormat>
+        where TCountrySystemLanguage : DaCountrySystemLanguage<TKey, TCountry, TSystemLanguage>
+        where TCountryTimeZone : DaCountryTimeZone<TKey, TCountry, TTimeZone>
         where TDateFormat : DaDateFormat<TKey, TCountryDateFormat>
-        where TTimeZoneManager : DaTimeZoneManager<TKey, TNullableKey, TTimeZone>
+        where TTimeZoneManager : DaTimeZoneManager<TKey, TTimeZone>
         where TTimeZone : DaTimeZone<TKey, TCountryTimeZone>
         where TSystemLanguageManager : DaSystemLanguageManager<TKey, TSystemLanguage>
         where TSystemLanguage : DaSystemLanguage<TKey, TCountrySystemLanguage>
@@ -191,6 +197,11 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authorization
             private set;
         }
 
+        public TGroupManager GroupManager
+        {
+            get;
+            private set;
+        }
 
         public List<TAuthorizedFeatureInfo> GetAuthorizedFeatures(TKey userId, TKey subscriptionId)
         {
@@ -329,7 +340,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authorization
             {
                 if (!subscriptionFeatureUser.IsEnabled)
                 {
-                    return new DaAuthorizationResult<TKey, TAuthorizationInfo, TAuthorizedActionInfo>(DaAuthorizationStatus.FeatureDenidToUser);
+                    return new DaAuthorizationResult<TKey, TAuthorizationInfo, TAuthorizedActionInfo>(DaAuthorizationStatus.FeatureDeniedToUser);
                 }
             }
 

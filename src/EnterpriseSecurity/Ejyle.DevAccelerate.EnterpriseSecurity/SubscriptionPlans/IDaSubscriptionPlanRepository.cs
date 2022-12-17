@@ -12,10 +12,10 @@ using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
 {
-    public interface IDaSubscriptionPlanRepository<TKey, TNullableKey, TSubscriptionPlan>
+    public interface IDaSubscriptionPlanRepository<TKey, TSubscriptionPlan>
         : IDaEntityRepository<TKey, TSubscriptionPlan>
         where TKey : IEquatable<TKey>
-        where TSubscriptionPlan : IDaSubscriptionPlan<TKey, TNullableKey>
+        where TSubscriptionPlan : IDaSubscriptionPlan<TKey>
     {
         Task CreateAsync(TSubscriptionPlan subscriptionPlan);
         Task UpdateAsync(TSubscriptionPlan subscriptionPlan);

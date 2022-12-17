@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Ejyle.DevAccelerate.Comments.EF
 {
     public class DaCommentsDbContext
-        : DaCommentsDbContext<int,int?, DaCommentThread, DaComment>
+        : DaCommentsDbContext<string, DaCommentThread, DaComment>
     {
         public DaCommentsDbContext() : base()
         { }
@@ -28,10 +28,10 @@ namespace Ejyle.DevAccelerate.Comments.EF
         { }
     }
 
-    public class DaCommentsDbContext<TKey, TNullableKey, TCommentThread, TComment> : DbContext
+    public class DaCommentsDbContext<TKey, TCommentThread, TComment> : DbContext
         where TKey : IEquatable<TKey>
-        where TComment : DaComment<TKey, TNullableKey, TComment, TCommentThread>
-        where TCommentThread : DaCommentThread<TKey, TNullableKey, TComment>
+        where TComment : DaComment<TKey, TComment, TCommentThread>
+        where TCommentThread : DaCommentThread<TKey, TComment>
     {
         private const string SCHEMA_NAME = "Comments";
 
@@ -42,7 +42,7 @@ namespace Ejyle.DevAccelerate.Comments.EF
             : base(options)
         { }
 
-        public DaCommentsDbContext(DbContextOptions<DaCommentsDbContext<TKey, TNullableKey, TCommentThread, TComment>> options)
+        public DaCommentsDbContext(DbContextOptions<DaCommentsDbContext<TKey, TCommentThread, TComment>> options)
             : base(options)
         { }
 
@@ -50,9 +50,9 @@ namespace Ejyle.DevAccelerate.Comments.EF
             : base(GetOptions(connectionString))
         { }
 
-        private static DbContextOptions<DaCommentsDbContext<TKey, TNullableKey, TCommentThread, TComment>> GetOptions(string connectionString)
+        private static DbContextOptions<DaCommentsDbContext<TKey, TCommentThread, TComment>> GetOptions(string connectionString)
         {
-            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaCommentsDbContext<TKey, TNullableKey, TCommentThread, TComment>>(), connectionString).Options;
+            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaCommentsDbContext<TKey, TCommentThread, TComment>>(), connectionString).Options;
         }
 
         public virtual DbSet<TComment> Comments { get; set; }
@@ -76,6 +76,8 @@ namespace Ejyle.DevAccelerate.Comments.EF
             {
                 entity.ToTable("Comments", SCHEMA_NAME);
 
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
                 entity.Property(e => e.Message)
                     .IsRequired();
 
@@ -91,6 +93,8 @@ namespace Ejyle.DevAccelerate.Comments.EF
             modelBuilder.Entity<TCommentThread>(entity =>
             {
                 entity.ToTable("CommentThreads", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Format)
                     .HasMaxLength(256);

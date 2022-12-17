@@ -10,7 +10,7 @@ using Microsoft.Extensions.Options;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Apps
 {
-    public class DaAppManager : DaAppManager<int, DaApp>
+    public class DaAppManager : DaAppManager<string, DaApp>
     {
         public DaAppManager(IOptions<DaAppSettings> options, DaAppRepository repository)
             : base(options, repository)

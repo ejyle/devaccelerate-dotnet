@@ -17,7 +17,7 @@ using System.Xml.Linq;
 
 namespace Ejyle.DevAccelerate.Messages.EF
 {
-    public class DaMessageRepository : DaMessageRepository<int, int?, DaMessage, DaMessageVariable, DaMessageRecipient, DaMessageRecipientVariable, DbContext>
+    public class DaMessageRepository : DaMessageRepository<string, DaMessage, DaMessageVariable, DaMessageRecipient, DaMessageRecipientVariable, DbContext>
     {
         public DaMessageRepository(DbContext dbContext)
             : base(dbContext)
@@ -25,13 +25,13 @@ namespace Ejyle.DevAccelerate.Messages.EF
     }
 
 
-    public class DaMessageRepository<TKey, TNullableKey, TMessage, TMessageVariable, TMessageRecipient, TMessageRecipientVariable, TDbContext>
+    public class DaMessageRepository<TKey, TMessage, TMessageVariable, TMessageRecipient, TMessageRecipientVariable, TDbContext>
         : DaEntityRepositoryBase<TKey, TMessage, TDbContext>, IDaMessageRepository<TKey, TMessage>
         where TKey : IEquatable<TKey>
-        where TMessage : DaMessage<TKey, TNullableKey, TMessageVariable, TMessageRecipient>
+        where TMessage : DaMessage<TKey, TMessageVariable, TMessageRecipient>
         where TMessageVariable : DaMessageVariable<TKey, TMessage>
-        where TMessageRecipient : DaMessageRecipient<TKey, TNullableKey, TMessage, TMessageRecipientVariable>
-        where TMessageRecipientVariable : DaMessageRecipientVariable<TKey, TNullableKey, TMessageRecipient>
+        where TMessageRecipient : DaMessageRecipient<TKey, TMessage, TMessageRecipientVariable>
+        where TMessageRecipientVariable : DaMessageRecipientVariable<TKey, TMessageRecipient>
         where TDbContext : DbContext
     {
         public DaMessageRepository(TDbContext dbContext)

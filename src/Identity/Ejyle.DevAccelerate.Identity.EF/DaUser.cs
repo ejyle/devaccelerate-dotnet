@@ -13,15 +13,15 @@ namespace Ejyle.DevAccelerate.Identity.EF
     /// <summary>
     /// Represents a user with <see cref="int"/> as key type.
     /// </summary>
-    public class DaUser : DaUser<int, int?>
+    public class DaUser : DaUser<string>
     { }
 
     /// <summary>
     /// Represents a user.
     /// </summary>
     /// <typeparam name="TKey">The type of a non-nullable key of an entity.</typeparam>
-    /// <typeparam name="TNullableKey">The type of a nullable key of an entity.</typeparam>
-    public class DaUser<TKey, TNullableKey> : IdentityUser<TKey>, IDaUser<TKey, TNullableKey>
+    /// <typeparam name="TKey">The type of a nullable key of an entity.</typeparam>
+    public class DaUser<TKey> : IdentityUser<TKey>, IDaUser<TKey>
         where TKey : IEquatable<TKey>
     {
         public const string GLOBAL_SUPER_ADMIN = "GlobalSuperAdmin";
@@ -44,7 +44,7 @@ namespace Ejyle.DevAccelerate.Identity.EF
         /// <summary>
         /// The ID of the user account which deleted the user through a soft deletion mechanism.
         /// </summary>
-        public TNullableKey DeletedBy { get; set; }
+        public TKey DeletedBy { get; set; }
 
         /// <summary>
         /// Gets or sets the date and time when the user was deleted through a soft-deletion mechanism.

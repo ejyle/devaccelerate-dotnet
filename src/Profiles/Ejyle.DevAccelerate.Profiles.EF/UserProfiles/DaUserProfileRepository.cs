@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ejyle.DevAccelerate.Profiles.EF.UserProfiles
 {
-    public class DaUserProfileRepository : DaUserProfileRepository<int, DaUserProfile, DaUserProfileAttribute, DbContext>
+    public class DaUserProfileRepository : DaUserProfileRepository<string, DaUserProfile, DaUserProfileAttribute, DbContext>
     {
         public DaUserProfileRepository(DbContext dbContext)
             : base(dbContext)

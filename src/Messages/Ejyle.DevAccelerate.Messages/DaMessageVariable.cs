@@ -14,7 +14,7 @@ using System.Xml.Linq;
 
 namespace Ejyle.DevAccelerate.Messages
 {
-    public class DaMessageVariable : DaMessageVariable<int, DaMessage>
+    public class DaMessageVariable : DaMessageVariable<string, DaMessage>
     { }
 
     public class DaMessageVariable<TKey, TMessage> : DaEntityBase<TKey>, IDaMessageVariable<TKey>

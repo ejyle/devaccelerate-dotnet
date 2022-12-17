@@ -12,13 +12,13 @@ using System.Collections.Generic;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.UserAgreements
 {
-    public class DaUserAgreement : DaUserAgreement<int, int?, DaApp, DaUserAgreementVersion>
+    public class DaUserAgreement : DaUserAgreement<string, DaApp, DaUserAgreementVersion>
     {
         public DaUserAgreement() : base()
         { }
     }
 
-    public class DaUserAgreement<TKey, TNullableKey, TApp, TUserAgreementVersion> : DaAuditedEntityBase<TKey>, IDaUserAgreement<TKey, TNullableKey>
+    public class DaUserAgreement<TKey, TApp, TUserAgreementVersion> : DaAuditedEntityBase<TKey>, IDaUserAgreement<TKey>
         where TKey : IEquatable<TKey>
         where TApp : IDaApp<TKey>
         where TUserAgreementVersion : IDaUserAgreementVersion<TKey>
@@ -29,7 +29,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.UserAgreements
         }
         public string Name { get; set; }
         public string Key { get; set; }
-        public TNullableKey AppId { get; set; }
+        public TKey AppId { get; set; }
         public virtual TApp App { get; set; }
         public virtual ICollection<TUserAgreementVersion> UserAgreementVersions { get; set; }
     }

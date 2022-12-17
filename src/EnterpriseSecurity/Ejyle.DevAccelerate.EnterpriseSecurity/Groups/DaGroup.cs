@@ -14,13 +14,13 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Groups
 {
-    public class DaGroup : DaGroup<int, int?, DaGroupRole, DaGroupUser>
+    public class DaGroup : DaGroup<string, DaGroupRole, DaGroupUser>
     {
         public DaGroup() : base()
         { }
     }
 
-    public class DaGroup<TKey, TNullableKey, TGroupRole, TGroupUser> : DaAuditedEntityBase<TKey>, IDaGroup<TKey, TNullableKey>
+    public class DaGroup<TKey, TGroupRole, TGroupUser> : DaAuditedEntityBase<TKey>, IDaGroup<TKey>
         where TKey : IEquatable<TKey>
         where TGroupRole : IDaGroupRole<TKey>
         where TGroupUser : IDaGroupUser<TKey>
@@ -33,7 +33,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Groups
 
         public string Name { get; set; }
         public string Description { get; set; }
-        public TNullableKey TenantId { get; set; }
+        public TKey TenantId { get; set; }
         public virtual ICollection<TGroupRole> GroupRoles { get; set; }
         public virtual ICollection<TGroupUser> GroupUsers { get; set; }
     }

@@ -7,6 +7,6 @@
         SubscriptionNotActive = 2,
         NotAssociatedWithAnActiveTenant = 3,
         FeatureNotFoundInSubscription = 4,
-        FeatureDenidToUser = 5
+        FeatureDeniedToUser = 5
     }
 }

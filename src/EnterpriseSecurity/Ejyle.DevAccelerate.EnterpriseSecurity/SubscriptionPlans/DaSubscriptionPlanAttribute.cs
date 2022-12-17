@@ -10,15 +10,15 @@ using System;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans
 {
-    public class DaSubscriptionPlanAttribute : DaSubscriptionPlanAttribute<int, int?, DaSubscriptionPlan>
+    public class DaSubscriptionPlanAttribute : DaSubscriptionPlanAttribute<string, DaSubscriptionPlan>
     {
         public DaSubscriptionPlanAttribute() : base()
         { }
     }
 
-    public class DaSubscriptionPlanAttribute<TKey, TNullableKey, TSubscriptionPlan> : DaEntityBase<TKey>, IDaSubscriptionPlanAttribute<TKey>
+    public class DaSubscriptionPlanAttribute<TKey, TSubscriptionPlan> : DaEntityBase<TKey>, IDaSubscriptionPlanAttribute<TKey>
         where TKey : IEquatable<TKey>
-        where TSubscriptionPlan : IDaSubscriptionPlan<TKey, TNullableKey>
+        where TSubscriptionPlan : IDaSubscriptionPlan<TKey>
     {
         public TKey SubscriptionPlanId { get; set; }
         public string AttributeName { get; set; }

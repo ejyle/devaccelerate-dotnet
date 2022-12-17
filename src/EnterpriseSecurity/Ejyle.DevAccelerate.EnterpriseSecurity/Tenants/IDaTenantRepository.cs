@@ -16,11 +16,11 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
     /// Provides the interface for storing and retrieving tenants.
     /// </summary>
     /// <typeparam name="TKey">The type of an entity key.</typeparam>
-    /// <typeparam name="TNullableKey">The type of a nullable key.</typeparam>
+    /// <typeparam name="TKey">The type of a nullable key.</typeparam>
     /// <typeparam name="TTenant">The type of a tenant.</typeparam>
-    public interface IDaTenantRepository<TKey, TNullableKey, TTenant> : IDaEntityRepository<TKey, TTenant>
+    public interface IDaTenantRepository<TKey, TTenant> : IDaEntityRepository<TKey, TTenant>
         where TKey : IEquatable<TKey>
-        where TTenant : IDaTenant<TKey, TNullableKey>
+        where TTenant : IDaTenant<TKey>
     {
         /// <summary>
         /// Asynchronously creates a tenant in the tenant repository.

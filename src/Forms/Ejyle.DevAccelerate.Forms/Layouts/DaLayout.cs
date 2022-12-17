@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Forms.Layouts
 {
-    public class DaLayout<TKey, TNullableKey, TFormSection, TLayoutColumn, TTabPanelTab> : DaAuditedEntityBase<TKey>, IDaAuditedEntity<TKey>
+    public class DaLayout<TKey, TFormSection, TLayoutColumn, TTabPanelTab> : DaAuditedEntityBase<TKey>, IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         public DaLayout()
@@ -25,9 +25,9 @@ namespace Ejyle.DevAccelerate.Forms.Layouts
 
         string Name { get; set; }
         string Key { get; set; }
-        public TNullableKey FormSectionId { get; set; }
-        public TNullableKey ParentLayoutColumnId { get; set; }
-        public TNullableKey ParentTabPanelTabId { get; set; }
+        public TKey FormSectionId { get; set; }
+        public TKey ParentLayoutColumnId { get; set; }
+        public TKey ParentTabPanelTabId { get; set; }
         public virtual TFormSection FormSection { get; set; }
         public virtual TLayoutColumn ParentLayoutColumn { get; set; }
         public virtual TTabPanelTab ParentTabPanelTab { get; set; }

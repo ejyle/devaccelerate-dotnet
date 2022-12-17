@@ -10,16 +10,16 @@ using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
 {
-    public class DaTenantAttribute : DaTenantAttribute<int, int?, DaTenant>
+    public class DaTenantAttribute : DaTenantAttribute<string, DaTenant>
     {
         public DaTenantAttribute()
             : base()
         { }
     }
 
-    public class DaTenantAttribute<TKey, TNullableKey, TTenant> : DaEntityBase<TKey>, IDaTenantAttribute<TKey>
+    public class DaTenantAttribute<TKey, TTenant> : DaEntityBase<TKey>, IDaTenantAttribute<TKey>
         where TKey : IEquatable<TKey>
-        where TTenant : IDaTenant<TKey, TNullableKey>
+        where TTenant : IDaTenant<TKey>
     {
         public TKey TenantId { get; set; }
         public virtual TTenant Tenant { get; set; }

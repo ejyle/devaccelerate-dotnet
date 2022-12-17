@@ -14,21 +14,21 @@ using Ejyle.DevAccelerate.Core.Utils;
 
 namespace Ejyle.DevAccelerate.Comments
 {
-    public class DaCommentThreadManager<TKey, TNullableKey, TCommentThread, TComment> : DaEntityManagerBase<TKey, TCommentThread>
+    public class DaCommentThreadManager<TKey, TCommentThread, TComment> : DaEntityManagerBase<TKey, TCommentThread>
         where TKey : IEquatable<TKey>
         where TCommentThread : IDaCommentThread<TKey>
-        where TComment : IDaComment<TKey, TNullableKey>
+        where TComment : IDaComment<TKey>
     {
-        public DaCommentThreadManager(IDaCommentThreadRepository<TKey, TNullableKey, TCommentThread, TComment> repository)
+        public DaCommentThreadManager(IDaCommentThreadRepository<TKey, TCommentThread, TComment> repository)
             : base(repository)
         {
         }
 
-        protected virtual IDaCommentThreadRepository<TKey, TNullableKey, TCommentThread, TComment> Repository
+        protected virtual IDaCommentThreadRepository<TKey, TCommentThread, TComment> Repository
         {
             get
             {
-                return GetRepository<IDaCommentThreadRepository<TKey, TNullableKey, TCommentThread, TComment>>();
+                return GetRepository<IDaCommentThreadRepository<TKey, TCommentThread, TComment>>();
             }
         }
 

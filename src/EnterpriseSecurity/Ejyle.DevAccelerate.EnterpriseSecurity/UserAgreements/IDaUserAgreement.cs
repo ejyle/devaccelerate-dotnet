@@ -14,8 +14,8 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.UserAgreements
     /// Represents the interface for a user agreement.
     /// </summary>
     /// <typeparam name="TKey">The type of a non-nullable key of an entity.</typeparam>
-    /// <typeparam name="TNullableKey">The type of nullable key.</typeparam>
-    public interface IDaUserAgreement<TKey, TNullableKey> : IDaAuditedEntity<TKey>
+    /// <typeparam name="TKey">The type of nullable key.</typeparam>
+    public interface IDaUserAgreement<TKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         /// <summary>
@@ -31,6 +31,6 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.UserAgreements
         /// <summary>
         /// Gets or sets the ID of the app associated with the user agreement.
         /// </summary>
-        TNullableKey AppId { get; set; }
+        TKey AppId { get; set; }
     }
 }

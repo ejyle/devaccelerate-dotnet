@@ -10,7 +10,7 @@ using System;
 
 namespace Ejyle.DevAccelerate.Profiles.Addresses
 {
-    public interface IDaAddressProfile<TKey, TNullableKey> : IDaAuditedEntity<TKey>
+    public interface IDaAddressProfile<TKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         string Address1 { get; set; }

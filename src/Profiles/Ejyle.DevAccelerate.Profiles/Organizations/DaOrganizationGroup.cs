@@ -11,16 +11,16 @@ using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.Profiles.Organizations
 {
-    public class DaOrganizationGroup : DaOrganizationGroup<int, int?, DaOrganizationGroup, DaOrganizationProfile>
+    public class DaOrganizationGroup : DaOrganizationGroup<string, DaOrganizationGroup, DaOrganizationProfile>
     {
         public DaOrganizationGroup() : base()
         { }
     }
 
-    public class DaOrganizationGroup<TKey, TNullableKey, TOrganizationGroup, TOrganizationProfile> : DaAuditedEntityBase<TKey>, IDaOrganizationGroup<TKey, TNullableKey>
+    public class DaOrganizationGroup<TKey, TOrganizationGroup, TOrganizationProfile> : DaAuditedEntityBase<TKey>, IDaOrganizationGroup<TKey>
         where TKey : IEquatable<TKey>
-        where TOrganizationGroup : IDaOrganizationGroup<TKey, TNullableKey>
-        where TOrganizationProfile : IDaOrganizationProfile<TKey, TNullableKey>
+        where TOrganizationGroup : IDaOrganizationGroup<TKey>
+        where TOrganizationProfile : IDaOrganizationProfile<TKey>
     {
         public DaOrganizationGroup() : base()
         {
@@ -31,7 +31,7 @@ namespace Ejyle.DevAccelerate.Profiles.Organizations
         public TKey OwnerUserId { get; set; }
         public string GroupName { get; set; }
         public DaOrganizationGroupType GroupType { get; set; }
-        public TNullableKey ParentId { get; set; }
+        public TKey ParentId { get; set; }
         public TOrganizationGroup Parent { get; set; }
         public ICollection<TOrganizationGroup> Children { get; set; }
         public virtual TOrganizationProfile OrganizationProfile { get; set; }

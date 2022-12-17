@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Authorization
 {
-    public class DaAuthorizationInfo : DaAuthorizationInfo<int, DaAuthorizedActionInfo>
+    public class DaAuthorizationInfo : DaAuthorizationInfo<string, DaAuthorizedActionInfo>
     { }
 
     public class DaAuthorizationInfo<TKey, TAuthorizedActionInfo> : IDaAuthorizationInfo<TKey, TAuthorizedActionInfo>
@@ -22,7 +22,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authorization
         public List<TAuthorizedActionInfo> Actions {get; set;}
     }
 
-    public class DaAuthorizedActionInfo : DaAuthorizedActionInfo<int>
+    public class DaAuthorizedActionInfo : DaAuthorizedActionInfo<string>
     { }
 
     public class DaAuthorizedActionInfo<TKey> : IDaAuthorizedActionInfo<TKey>

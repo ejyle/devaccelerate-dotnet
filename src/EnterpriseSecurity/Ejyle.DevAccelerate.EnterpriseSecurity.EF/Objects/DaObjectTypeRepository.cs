@@ -20,7 +20,7 @@ using Ejyle.DevAccelerate.EnterpriseSecurity.Objects;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Objects
 {
-    public class DaObjectTypeRepository : DaObjectTypeRepository<int, DaObjectType, DaObjectInstance, DaObjectHistoryItem, DbContext>
+    public class DaObjectTypeRepository : DaObjectTypeRepository<string, DaObjectType, DaObjectInstance, DaObjectHistoryItem, DbContext>
     {
         public DaObjectTypeRepository(DbContext dbContext)
             : base(dbContext)

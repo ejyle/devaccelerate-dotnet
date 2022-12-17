@@ -15,10 +15,10 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Forms.Questions
 {
-    public class DaFormQuestion<TKey, TNullableKey, TLayoutColumn, TQuestion> : DaAuditedEntityBase<TKey>, IDaFormQuestion<TKey>
+    public class DaFormQuestion<TKey, TLayoutColumn, TQuestion> : DaAuditedEntityBase<TKey>, IDaFormQuestion<TKey>
         where TKey : IEquatable<TKey>
         where TLayoutColumn : IDaLayoutColumn<TKey>
-        where TQuestion : IDaQuestion<TKey, TNullableKey>
+        where TQuestion : IDaQuestion<TKey>
     {
         public TKey LayoutColumnId { get; set; }
         public TKey QuestionId { get; set; }

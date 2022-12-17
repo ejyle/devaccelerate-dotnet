@@ -14,13 +14,13 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Files
 {
-    public class DaFileCollection : DaFileCollection<int, int?, DaFileCollection, DaFile>
+    public class DaFileCollection : DaFileCollection<string, DaFileCollection, DaFile>
     { }
 
-    public class DaFileCollection<TKey, TNullableKey, TFileCollection, TFile> : DaAuditedEntityBase<TKey>, IDaFileCollection<TKey, TNullableKey>
+    public class DaFileCollection<TKey, TFileCollection, TFile> : DaAuditedEntityBase<TKey>, IDaFileCollection<TKey>
         where TKey : IEquatable<TKey>
-        where TFileCollection : IDaFileCollection<TKey, TNullableKey>
-        where TFile : IDaFile<TKey, TNullableKey>
+        where TFileCollection : IDaFileCollection<TKey>
+        where TFile : IDaFile<TKey>
     {
         public DaFileCollection() : base()
         {
@@ -29,14 +29,14 @@ namespace Ejyle.DevAccelerate.Files
         }
 
         public string Name { get; set; }
-        public TNullableKey ObjectInstanceId { get; set; }
+        public TKey ObjectInstanceId { get; set; }
         public bool IsUserDefined { get; set; }
         public TKey OwnerUserId { get; set; }
-        public TNullableKey ParentId { get; set; }
-        public TNullableKey TenantId { get; set; }
+        public TKey ParentId { get; set; }
+        public TKey TenantId { get; set; }
         public virtual TFileCollection Parent { get; set; }
         public virtual ICollection<TFileCollection> Children { get; set; }
         public virtual ICollection<TFile> Files { get; set; }
-        public TNullableKey FileStorageLocationId { get; set; }
+        public TKey FileStorageLocationId { get; set; }
     }
 }

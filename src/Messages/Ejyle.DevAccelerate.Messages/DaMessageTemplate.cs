@@ -14,7 +14,7 @@ using System.Xml.Linq;
 
 namespace Ejyle.DevAccelerate.Messages
 {
-    public class DaMessageTemplate : DaMessageTemplate<int>
+    public class DaMessageTemplate : DaMessageTemplate<string>
     {
         public DaMessageTemplate()
         { }

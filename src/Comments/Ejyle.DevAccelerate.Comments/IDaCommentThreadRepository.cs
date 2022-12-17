@@ -15,10 +15,10 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Comments
 {
-    public interface IDaCommentThreadRepository<TKey, TNullableKey, TCommentThread, TComment> : IDaEntityRepository<TKey, TCommentThread>
+    public interface IDaCommentThreadRepository<TKey, TCommentThread, TComment> : IDaEntityRepository<TKey, TCommentThread>
         where TKey : IEquatable<TKey>
         where TCommentThread : IDaCommentThread<TKey>
-        where TComment : IDaComment<TKey, TNullableKey>
+        where TComment : IDaComment<TKey>
     {
         Task CreateAsync(TCommentThread commentThread);
         Task<TCommentThread> FindByIdAsync(TKey id);

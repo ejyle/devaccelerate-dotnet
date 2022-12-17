@@ -10,15 +10,15 @@ using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.Identity.UserActivities
 {
-    public class DaUserActivity : DaUserActivity<int, int?, DaUserActivityCategory>
+    public class DaUserActivity : DaUserActivity<string, DaUserActivityCategory>
     {
         public DaUserActivity() : base()
         { }
     }
 
-    public class DaUserActivity<TKey, TNullableKey, TUserActivityCategory> : DaEntityBase<TKey>, IDaUserActivity<TKey, TNullableKey>
+    public class DaUserActivity<TKey, TUserActivityCategory> : DaEntityBase<TKey>, IDaUserActivity<TKey>
         where TKey : IEquatable<TKey>
-        where TUserActivityCategory : IDaUserActivityCategory<TKey, TNullableKey>
+        where TUserActivityCategory : IDaUserActivityCategory<TKey>
     {
         public TKey UserId { get; set; }
         public string UserName { get; set; }
@@ -28,7 +28,7 @@ namespace Ejyle.DevAccelerate.Identity.UserActivities
         public TKey UserSessionId { get; set; }
         public string IpAddress { get; set; }
         public string ActivityText { get; set; }
-        public TNullableKey ObjectId { get; set; }
+        public TKey ObjectId { get; set; }
         public DaUserActivityType UserActivityType { get; set; }
         public string ActualObject { get; set; }
         public string UpdatedObject { get; set; }

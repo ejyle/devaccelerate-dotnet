@@ -14,19 +14,19 @@ namespace Ejyle.DevAccelerate.Lists.Countries
     /// <summary>
     /// Represents the mapping of a country and a system language.
     /// </summary>
-    public class DaCountrySystemLanguage : DaCountrySystemLanguage<int, int?, DaCountry, DaSystemLanguage>
+    public class DaCountrySystemLanguage : DaCountrySystemLanguage<string, DaCountry, DaSystemLanguage>
     { }
 
     /// <summary>
     /// Represents the mapping of a country and a system language.
     /// </summary>
     /// <typeparam name="TKey">Represents a non-nullable type of an entity ID.</typeparam>
-    /// <typeparam name="TNullableKey">Represents a nullable type for an entity ID.</typeparam>
+    /// <typeparam name="TKey">Represents a nullable type for an entity ID.</typeparam>
     /// <typeparam name="TCountry">Represents the type of a country entity.</typeparam>
     /// <typeparam name="TSystemLanguage">Represents the type of a system language entity.</typeparam>
-    public class DaCountrySystemLanguage<TKey, TNullableKey, TCountry, TSystemLanguage> : DaEntityBase<TKey>, IDaCountrySystemLanguage<TKey>
+    public class DaCountrySystemLanguage<TKey, TCountry, TSystemLanguage> : DaEntityBase<TKey>, IDaCountrySystemLanguage<TKey>
         where TKey : IEquatable<TKey>
-        where TCountry : IDaCountry<TKey, TNullableKey>
+        where TCountry : IDaCountry<TKey>
         where TSystemLanguage : IDaSystemLanguage<TKey>
     {
         /// <summary>

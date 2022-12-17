@@ -12,13 +12,13 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Identity
 {
-    public interface IDaUserRepository<TKey, TNullableKey, TUser> : IDaEntityRepository<TKey, TUser>
+    public interface IDaUserRepository<TKey, TUser> : IDaEntityRepository<TKey, TUser>
         where TKey : IEquatable<TKey>
-        where TUser : class, IDaUser<TKey, TNullableKey>
+        where TUser : class, IDaUser<TKey>
     {
         Task AddToRoleAsync(TUser user, string roleName);
         Task<TUser> FindByEmailAsync(string email);
-        Task<int> GetAccessFailedCountAsync(TUser user);
+        Task<string> GetAccessFailedCountAsync(TUser user);
         Task<string> GetEmailAsync(TUser user);
         Task<bool> GetEmailConfirmedAsync(TUser user);
         Task<bool> GetLockoutEnabledAsync(TUser user);
@@ -30,7 +30,7 @@ namespace Ejyle.DevAccelerate.Identity
         Task<string> GetSecurityStampAsync(TUser user);
         Task<bool> GetTwoFactorEnabledAsync(TUser user);
         Task<bool> HasPasswordAsync(TUser user);
-        Task<int> IncrementAccessFailedCountAsync(TUser user);
+        Task<string> IncrementAccessFailedCountAsync(TUser user);
         Task<bool> IsInRoleAsync(TUser user, string roleName);
         Task RemoveFromRoleAsync(TUser user, string roleName);
         Task ResetAccessFailedCountAsync(TUser user);

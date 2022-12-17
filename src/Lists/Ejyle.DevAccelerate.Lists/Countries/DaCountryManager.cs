@@ -13,21 +13,21 @@ using Ejyle.DevAccelerate.Core.Data;
 
 namespace Ejyle.DevAccelerate.Lists.Countries
 {
-    public class DaCountryManager<TKey, TNullableKey, TCountry, TCountryRegion>
+    public class DaCountryManager<TKey, TCountry, TCountryRegion>
         : DaEntityManagerBase<TKey, TCountry>
         where TKey : IEquatable<TKey>
-        where TCountry : IDaCountry<TKey, TNullableKey>
-        where TCountryRegion : IDaCountryRegion<TKey, TNullableKey>
+        where TCountry : IDaCountry<TKey>
+        where TCountryRegion : IDaCountryRegion<TKey>
     {
-        public DaCountryManager(IDaCountryRepository<TKey, TNullableKey, TCountry, TCountryRegion> repository)
+        public DaCountryManager(IDaCountryRepository<TKey, TCountry, TCountryRegion> repository)
             : base(repository)
         { }
 
-        protected virtual IDaCountryRepository<TKey, TNullableKey, TCountry, TCountryRegion> Repository
+        protected virtual IDaCountryRepository<TKey, TCountry, TCountryRegion> Repository
         {
             get
             {
-                return GetRepository<IDaCountryRepository<TKey, TNullableKey, TCountry, TCountryRegion>>();
+                return GetRepository<IDaCountryRepository<TKey, TCountry, TCountryRegion>>();
             }
         }
 

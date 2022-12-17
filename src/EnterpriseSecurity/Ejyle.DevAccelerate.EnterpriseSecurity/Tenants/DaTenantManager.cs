@@ -12,18 +12,18 @@ using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
 {
-    public class DaTenantManager<TKey, TNullableKey, TTenant>
+    public class DaTenantManager<TKey, TTenant>
         : DaEntityManagerBase<TKey, TTenant>
         where TKey : IEquatable<TKey>
-        where TTenant : IDaTenant<TKey, TNullableKey>
+        where TTenant : IDaTenant<TKey>
     {
-        public DaTenantManager(IDaTenantRepository<TKey, TNullableKey, TTenant> repository)
+        public DaTenantManager(IDaTenantRepository<TKey, TTenant> repository)
             : base(repository)
         { }
 
-        private IDaTenantRepository<TKey, TNullableKey, TTenant> GetRepository()
+        private IDaTenantRepository<TKey, TTenant> GetRepository()
         {
-            return GetRepository<IDaTenantRepository<TKey, TNullableKey, TTenant>>();
+            return GetRepository<IDaTenantRepository<TKey, TTenant>>();
         }
 
         public Task CreateAsync(TTenant tenant)

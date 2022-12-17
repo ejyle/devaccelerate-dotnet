@@ -14,7 +14,6 @@ using Ejyle.DevAccelerate.Profiles.UserProfiles;
 namespace Ejyle.DevAccelerate.Facades.Security.Registration
 {
     public interface IDaRegistrationInfo<TKey,
-        TNullableKey,
         TAddressProfileRegistrationInfo,
         TOrganizationRegistrationInfo,
         TTenantRegistrationInfo,
@@ -23,7 +22,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
         where TAddressProfileRegistrationInfo : IDaAddressRegistrationInfo<TKey>
         where TTenantRegistrationInfo : IDaTenantRegistrationInfo
         where TOrganizationRegistrationInfo : IDaOrganizationRegistrationInfo
-        where TSubscriptionRegistrationInfo : IDaSubscriptionRegistrationInfo<TKey, TNullableKey>
+        where TSubscriptionRegistrationInfo : IDaSubscriptionRegistrationInfo<TKey>
     {
         string UserName { get; set; }
         string Roles { get; set; }
@@ -71,12 +70,12 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
         Dictionary<string, string> OrganizationProfileAttributes { get; set; }
     }
 
-    public interface IDaSubscriptionRegistrationInfo<TKey, TNullableKey>
+    public interface IDaSubscriptionRegistrationInfo<TKey>
         where TKey : IEquatable<TKey>
     {
         TKey SubscriptionPlanId { get; set; }
         bool StartWithTrial { get; set; }
-        TNullableKey BillingCycleOptionId { get; set; }
+        TKey BillingCycleOptionId { get; set; }
         Dictionary<string, string> SubscriptionAttributes { get; set; }
     }
 }

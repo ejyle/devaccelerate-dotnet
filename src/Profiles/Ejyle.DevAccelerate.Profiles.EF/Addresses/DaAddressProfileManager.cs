@@ -9,7 +9,7 @@ using Ejyle.DevAccelerate.Profiles.Addresses;
 
 namespace Ejyle.DevAccelerate.Profiles.EF.Addresses
 {
-    public class DaAddressProfileManager : DaAddressProfileManager<int, int?, DaAddressProfile>
+    public class DaAddressProfileManager : DaAddressProfileManager<string, DaAddressProfile>
     {
         public DaAddressProfileManager(DaAddressProfileRepository repository)
             : base(repository)

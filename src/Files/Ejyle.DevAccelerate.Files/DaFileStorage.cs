@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Files
 {
-    public class DaFileStorage : DaFileStorage<int, DaFileStorageLocation, DaFileStorageAttribute>
+    public class DaFileStorage : DaFileStorage<string, DaFileStorageLocation, DaFileStorageAttribute>
     { }
 
     public class DaFileStorage<TKey, TFileStorageLocation, TFileStorageAttribute> : DaEntityBase<TKey>, IDaFileStorage<TKey>

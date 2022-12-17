@@ -19,6 +19,7 @@ namespace Ejyle.DevAccelerate.Comments
         where TKey : IEquatable<TKey>
     {
         TKey ObjectInstanceId { get; set; }
+
         string Format
         {
             get;

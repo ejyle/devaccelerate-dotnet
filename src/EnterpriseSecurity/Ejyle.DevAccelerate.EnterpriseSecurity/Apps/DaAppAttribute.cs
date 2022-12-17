@@ -10,7 +10,7 @@ using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
 {
-    public class DaAppAttribute : DaAppAttribute<int, DaApp>
+    public class DaAppAttribute : DaAppAttribute<string, DaApp>
     {
         public DaAppAttribute() : base()
         { }

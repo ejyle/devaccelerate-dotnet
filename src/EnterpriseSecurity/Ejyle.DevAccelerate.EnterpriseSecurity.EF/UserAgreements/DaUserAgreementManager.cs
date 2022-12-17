@@ -9,7 +9,7 @@ using Ejyle.DevAccelerate.EnterpriseSecurity.UserAgreements;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.UserAgreements
 {
-    public class DaUserAgreementManager : DaUserAgreementManager<int,int?, DaUserAgreement, DaUserAgreementVersion, DaUserAgreementVersionAction>
+    public class DaUserAgreementManager : DaUserAgreementManager<string, DaUserAgreement, DaUserAgreementVersion, DaUserAgreementVersionAction>
     {
         public DaUserAgreementManager(DaUserAgreementRepository repository)
             : base(repository)

@@ -14,11 +14,11 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Groups
 {
-    public interface IDaGroup<TKey, TNullableKey> : IDaAuditedEntity<TKey>
+    public interface IDaGroup<TKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         string Name { get; set; }
         string Description { get; set; }
-        TNullableKey TenantId { get; set; }
+        TKey TenantId { get; set; }
     }
 }

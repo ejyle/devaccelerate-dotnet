@@ -10,7 +10,7 @@ using System;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 {
-    public class DaSubscriptionAppUser : DaSubscriptionAppUser<int, DaSubscriptionApp>
+    public class DaSubscriptionAppUser : DaSubscriptionAppUser<string, DaSubscriptionApp>
     {
         public DaSubscriptionAppUser() : base()
         { }

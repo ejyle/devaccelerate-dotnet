@@ -14,15 +14,15 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Groups
 {
-    public class DaGroupUser : DaGroupUser<int, int?, DaGroup>
+    public class DaGroupUser : DaGroupUser<string, DaGroup>
     {
         public DaGroupUser() : base()
         { }
     }
 
-    public class DaGroupUser<TKey, TNullableKey, TGroup> : DaEntityBase<TKey>, IDaGroupUser<TKey>
+    public class DaGroupUser<TKey, TGroup> : DaEntityBase<TKey>, IDaGroupUser<TKey>
         where TKey : IEquatable<TKey>
-        where TGroup : IDaGroup<TKey, TNullableKey>
+        where TGroup : IDaGroup<TKey>
     {
         public TKey GroupId { get; set; }
         public TKey UserId { get; set; }

@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace Ejyle.DevAccelerate.Profiles.UserProfiles
 {
-    public class DaUserProfile : DaUserProfile<int, DaUserProfileAttribute>
+    public class DaUserProfile : DaUserProfile<string, DaUserProfileAttribute>
     {
         public DaUserProfile() : base()
         { }

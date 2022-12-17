@@ -10,13 +10,13 @@ using System;
 
 namespace Ejyle.DevAccelerate.Profiles.Addresses
 {
-    public interface IDaUserAddress<TKey, TNullableKey> : IDaAuditedEntity<TKey>
+    public interface IDaUserAddress<TKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         TKey AddressProfileId { get; set; }
         TKey UserId { get; set; }
         string Name { get; set; }
-        TNullableKey TenantId { get; set; }
+        TKey TenantId { get; set; }
         DaAddressType AddressType { get; set; }
     }
 }

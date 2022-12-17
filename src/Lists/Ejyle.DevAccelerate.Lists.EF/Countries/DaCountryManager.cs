@@ -9,7 +9,7 @@ using Ejyle.DevAccelerate.Lists.Countries;
 
 namespace Ejyle.DevAccelerate.Lists.EF.Countries
 {
-    public class DaCountryManager : DaCountryManager<int, int?, DaCountry, DaCountryRegion>
+    public class DaCountryManager : DaCountryManager<string, DaCountry, DaCountryRegion>
     {
         public DaCountryManager(DaCountryRepository repository)
             : base(repository)

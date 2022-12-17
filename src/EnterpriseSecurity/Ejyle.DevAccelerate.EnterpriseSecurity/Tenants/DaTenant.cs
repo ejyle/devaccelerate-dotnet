@@ -11,13 +11,13 @@ using System.Collections.Generic;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
 {
-    public class DaTenant : DaTenant<int, int?, DaTenantUser, DaTenantAttribute>
+    public class DaTenant : DaTenant<string, DaTenantUser, DaTenantAttribute>
     {
         public DaTenant() : base()
         { }
     }
 
-    public class DaTenant<TKey, TNullableKey, TTenantUser, TTenantAttribute> : DaAuditedEntityBase<TKey>, IDaTenant<TKey, TNullableKey>
+    public class DaTenant<TKey, TTenantUser, TTenantAttribute> : DaAuditedEntityBase<TKey>, IDaTenant<TKey>
         where TKey : IEquatable<TKey>
         where TTenantUser : IDaTenantUser<TKey>
         where TTenantAttribute : IDaTenantAttribute<TKey>
@@ -36,11 +36,11 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
         public string Domain { get; set; }
         public bool IsDomainOwnershipVerified { get; set; }
         public DaTenantStatus Status { get; set; }
-        public TNullableKey CountryId { get; set; }
-        public TNullableKey CurrencyId { get; set; }
-        public TNullableKey TimeZoneId { get; set; }
+        public TKey CountryId { get; set; }
+        public TKey CurrencyId { get; set; }
+        public TKey TimeZoneId { get; set; }
         public string BillingEmail { get; set; }
-        public TNullableKey DateFormatId { get; set; }
-        public TNullableKey SystemLanguageId { get; set; }
+        public TKey DateFormatId { get; set; }
+        public TKey SystemLanguageId { get; set; }
     }
 }

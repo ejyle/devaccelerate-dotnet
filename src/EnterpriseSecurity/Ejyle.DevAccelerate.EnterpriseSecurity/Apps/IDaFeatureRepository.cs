@@ -13,15 +13,15 @@ using Ejyle.DevAccelerate.Core.Data;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Apps
 {
-    public interface IDaFeatureRepository<TKey, TNullableKey, TFeature> : IDaEntityRepository<TKey, TFeature>
+    public interface IDaFeatureRepository<TKey, TFeature> : IDaEntityRepository<TKey, TFeature>
         where TKey : IEquatable<TKey>
-        where TFeature : IDaFeature<TKey, TNullableKey>
+        where TFeature : IDaFeature<TKey>
     {
         Task CreateAsync(TFeature feature);
         Task<TFeature> FindByIdAsync(TKey id);
         Task<TFeature> FindByKeyAsync(string key);
         Task<DaPaginatedEntityList<TKey, TFeature>> FindAllAsync(DaDataPaginationCriteria paginationCriteria);
-        Task<List<TFeature>> FindByAppIdAsync(TNullableKey appId);
+        Task<List<TFeature>> FindByAppIdAsync(TKey appId);
         Task UpdateAsync(TFeature feature);
         Task DeleteAsync(TFeature feature);
     }

@@ -11,15 +11,15 @@ using System.Collections.Generic;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.UserAgreements
 {
-    public class DaUserAgreementVersion : DaUserAgreementVersion<int, int?, DaUserAgreement, DaUserAgreementVersionAction>
+    public class DaUserAgreementVersion : DaUserAgreementVersion<string, DaUserAgreement, DaUserAgreementVersionAction>
     {
         public DaUserAgreementVersion() : base()
         { }
     }
 
-    public class DaUserAgreementVersion<TKey, TNullableKey, TUserAgreement, TUserAgreementVersionAction> : DaAuditedEntityBase<TKey>, IDaUserAgreementVersion<TKey>
+    public class DaUserAgreementVersion<TKey, TUserAgreement, TUserAgreementVersionAction> : DaAuditedEntityBase<TKey>, IDaUserAgreementVersion<TKey>
         where TKey : IEquatable<TKey>
-        where TUserAgreement : IDaUserAgreement<TKey, TNullableKey>
+        where TUserAgreement : IDaUserAgreement<TKey>
         where TUserAgreementVersionAction : IDaUserAgreementVersionAction<TKey>
     {
         public DaUserAgreementVersion() 

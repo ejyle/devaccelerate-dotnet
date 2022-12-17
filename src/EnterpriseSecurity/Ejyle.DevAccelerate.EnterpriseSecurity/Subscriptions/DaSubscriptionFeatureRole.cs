@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions
 {
-    public class DaSubscriptionFeatureRole : DaSubscriptionFeatureRole<int, DaSubscriptionFeatureRoleAction, DaSubscriptionFeature>
+    public class DaSubscriptionFeatureRole : DaSubscriptionFeatureRole<string, DaSubscriptionFeatureRoleAction, DaSubscriptionFeature>
     {
         public DaSubscriptionFeatureRole() : base()
         { }

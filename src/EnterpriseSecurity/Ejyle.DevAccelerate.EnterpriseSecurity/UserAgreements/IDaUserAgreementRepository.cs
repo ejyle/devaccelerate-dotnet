@@ -15,12 +15,12 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.UserAgreements
     /// Provides an interface for storing and retrieving user agreements in the repository.
     /// </summary>
     /// <typeparam name="TKey">The type of an entity key.</typeparam>
-    /// <typeparam name="TNullableKey">The type of a nullable key.</typeparam>
-    /// <typeparam name="TUserAgreement">The type of <see cref="IDaUserAgreement{TKey, TNullableKey}"/>.</typeparam>
+    /// <typeparam name="TKey">The type of a nullable key.</typeparam>
+    /// <typeparam name="TUserAgreement">The type of <see cref="IDaUserAgreement{TKey}"/>.</typeparam>
     /// <typeparam name="TUserAgreementVersion">The type of <see cref="IDaUserAgreementVersion{TKey}"/>.</typeparam>
-    public interface IDaUserAgreementRepository<TKey, TNullableKey, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction> : IDaEntityRepository<TKey, TUserAgreement>
+    public interface IDaUserAgreementRepository<TKey, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction> : IDaEntityRepository<TKey, TUserAgreement>
         where TKey : IEquatable<TKey>
-        where TUserAgreement : IDaUserAgreement<TKey, TNullableKey>
+        where TUserAgreement : IDaUserAgreement<TKey>
         where TUserAgreementVersion : IDaUserAgreementVersion<TKey>
         where TUserAgreementVersionAction : IDaUserAgreementVersionAction<TKey>
     {

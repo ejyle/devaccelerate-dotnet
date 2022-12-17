@@ -14,12 +14,12 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Forms.Layouts
 {
-    public interface IDaLayout<TKey, TNullableKey> : IDaAuditedEntity<TKey>
+    public interface IDaLayout<TKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
-        TNullableKey FormSectionId { get; set; }
-        TNullableKey ParentLayoutColumnId { get; set; }
-        TNullableKey ParentTabPanelTabId { get; set; }
+        TKey FormSectionId { get; set; }
+        TKey ParentLayoutColumnId { get; set; }
+        TKey ParentTabPanelTabId { get; set; }
         string Name { get; set; }
         string Key { get; set; }
     }

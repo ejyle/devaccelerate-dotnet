@@ -13,8 +13,8 @@ namespace Ejyle.DevAccelerate.Lists.Countries
     /// Represents the basic interface of a country entity.
     /// </summary>
     /// <typeparam name="TKey">Represents a non-nullable type of an entity ID.</typeparam>
-    /// <typeparam name="TNullableKey">Represents a nullable type for an entity ID.</typeparam>
-    public interface IDaCountry<TKey, TNullableKey> : IDaListItem<TKey>
+    /// <typeparam name="TKey">Represents a nullable type for an entity ID.</typeparam>
+    public interface IDaCountry<TKey> : IDaListItem<TKey>
         where TKey : IEquatable<TKey>
     {
         /// <summary>
@@ -40,21 +40,21 @@ namespace Ejyle.DevAccelerate.Lists.Countries
         /// <summary>
         /// The ID of the country's currency.
         /// </summary>
-        TNullableKey CurrencyId { get; set; }
+        TKey CurrencyId { get; set; }
 
         /// <summary>
         /// The ID of the country's default time zone.
         /// </summary>
-        TNullableKey DefaultTimeZoneId { get; set; }
+        TKey DefaultTimeZoneId { get; set; }
 
         /// <summary>
         /// The ID of the country's default date format.
         /// </summary>
-        TNullableKey DefaultDateFormatId { get; set; }
+        TKey DefaultDateFormatId { get; set; }
 
         /// <summary>
         /// The ID of the country's default system language.
         /// </summary>
-        TNullableKey DefaultSystemLanguageId { get; set; }
+        TKey DefaultSystemLanguageId { get; set; }
     }
 }

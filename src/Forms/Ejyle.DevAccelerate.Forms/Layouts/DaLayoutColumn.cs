@@ -14,9 +14,9 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Forms.Layouts
 {
-    public class DaLayoutColumn<TKey, TNullableKey, TLayout> : DaAuditedEntityBase<TKey>, IDaLayoutColumn<TKey>
+    public class DaLayoutColumn<TKey, TLayout> : DaAuditedEntityBase<TKey>, IDaLayoutColumn<TKey>
         where TKey : IEquatable<TKey>
-        where TLayout : IDaLayout<TKey, TNullableKey>
+        where TLayout : IDaLayout<TKey>
     {
         public TKey LayoutId { get; set; }
         public string Name { get; set; }

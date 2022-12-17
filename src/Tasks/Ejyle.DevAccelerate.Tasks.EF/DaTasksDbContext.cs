@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Ejyle.DevAccelerate.Tasks.EF
 {
     public class DaTasksDbContext
-        : DaTasksDbContext<int, int?, DaTask>
+        : DaTasksDbContext<string, DaTask>
     {
         public DaTasksDbContext() : base()
         { }
@@ -29,9 +29,9 @@ namespace Ejyle.DevAccelerate.Tasks.EF
         { }
     }
 
-    public class DaTasksDbContext<TKey, TNullableKey, TTask> : DbContext
+    public class DaTasksDbContext<TKey, TTask> : DbContext
         where TKey : IEquatable<TKey>
-        where TTask : DaTask<TKey, TNullableKey>
+        where TTask : DaTask<TKey>
     {
         private const string SCHEMA_NAME = "Tasks";
 
@@ -42,7 +42,7 @@ namespace Ejyle.DevAccelerate.Tasks.EF
             : base(options)
         { }
 
-        public DaTasksDbContext(DbContextOptions<DaTasksDbContext<TKey, TNullableKey, TTask>> options)
+        public DaTasksDbContext(DbContextOptions<DaTasksDbContext<TKey, TTask>> options)
             : base(options)
         { }
 
@@ -50,9 +50,9 @@ namespace Ejyle.DevAccelerate.Tasks.EF
             : base(GetOptions(connectionString))
         { }
 
-        private static DbContextOptions<DaTasksDbContext<TKey, TNullableKey, TTask>> GetOptions(string connectionString)
+        private static DbContextOptions<DaTasksDbContext<TKey, TTask>> GetOptions(string connectionString)
         {
-            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaTasksDbContext<TKey, TNullableKey, TTask>>(), connectionString).Options;
+            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaTasksDbContext<TKey, TTask>>(), connectionString).Options;
         }
 
         public virtual DbSet<TTask> Tasks { get; set; }
@@ -74,6 +74,8 @@ namespace Ejyle.DevAccelerate.Tasks.EF
             modelBuilder.Entity<TTask>(entity =>
             {
                 entity.ToTable("Tasks", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Name)
                     .IsRequired()

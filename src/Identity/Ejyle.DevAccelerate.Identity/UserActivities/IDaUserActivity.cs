@@ -10,7 +10,7 @@ using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.Identity.UserActivities
 {
-    public interface IDaUserActivity<TKey, TNullableKey> : IDaEntity<TKey>
+    public interface IDaUserActivity<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         TKey UserId { get; set; }
@@ -18,7 +18,7 @@ namespace Ejyle.DevAccelerate.Identity.UserActivities
         string IpAddress { get; set; }
         string UserName { get; set; }
         string ActivityText { get; set; }
-        TNullableKey ObjectId { get; set; }
+        TKey ObjectId { get; set; }
         TKey UserActivityCategoryId { get; set; }
         DaUserActivityType UserActivityType { get; set; }
         string ActualObject { get; set; }

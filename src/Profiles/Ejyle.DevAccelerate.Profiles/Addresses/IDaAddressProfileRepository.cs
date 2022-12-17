@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Profiles.Addresses
 {
-    public interface IDaAddressProfileRepository<TKey, TNullableKey, TAddressProfile> : IDaEntityRepository<TKey, TAddressProfile>
+    public interface IDaAddressProfileRepository<TKey, TAddressProfile> : IDaEntityRepository<TKey, TAddressProfile>
         where TKey : IEquatable<TKey>
-        where TAddressProfile : IDaAddressProfile<TKey, TNullableKey>
+        where TAddressProfile : IDaAddressProfile<TKey>
     {
         Task CreateAsync(TAddressProfile addressProfile);
         Task<TAddressProfile> FindByIdAsync(TKey id);

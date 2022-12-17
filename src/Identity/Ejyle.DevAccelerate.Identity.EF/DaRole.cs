@@ -13,7 +13,7 @@ namespace Ejyle.DevAccelerate.Identity.EF
     /// <summary>
     /// Represents the non-generics version of the <see cref="DaRole{TKey, TUserRole}"/> class.
     /// </summary>
-    public class DaRole : DaRole<int>
+    public class DaRole : DaRole<string>
     {
         /// <summary>
         /// Creates an instance of the <see cref="DaRole"/> class.

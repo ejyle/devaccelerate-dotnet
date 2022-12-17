@@ -14,7 +14,7 @@ namespace Ejyle.DevAccelerate.Lists.TimeZones
     /// <summary>
     /// Represents a time zone entity.
     /// </summary>
-    public class DaTimeZone : DaTimeZone<int, DaCountryTimeZone>
+    public class DaTimeZone : DaTimeZone<string, DaCountryTimeZone>
     {
         /// <summary>
         /// Creates an instance of the <see cref="DaTimeZone"/> entity.
