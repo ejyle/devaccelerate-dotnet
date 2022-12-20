@@ -33,6 +33,11 @@ namespace Ejyle.DevAccelerate.Lists.Custom
         string Key { get; set; }
 
         /// <summary>
+        /// The ID of the list with which this list is linked to.
+        /// </summary>
+        TKey LinkedListId { get; set; }
+
+        /// <summary>
         /// The tenant ID associated with the custom list.
         /// </summary>
         TKey TenantId { get; set; }
