@@ -83,8 +83,18 @@ namespace Ejyle.DevAccelerate.Identity.EF
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<TUser>().ToTable("Users", SCHEMA_NAME);
-            modelBuilder.Entity<TRole>().ToTable("Roles", SCHEMA_NAME);
+            modelBuilder.Entity<TUser>(entity =>
+            {
+                entity.ToTable("Users", SCHEMA_NAME);
+                entity.Property("Id").ValueGeneratedOnAdd();
+            });
+
+            modelBuilder.Entity<TRole>(entity =>
+            {
+                entity.ToTable("Roles", SCHEMA_NAME);
+                entity.Property("Id").ValueGeneratedOnAdd();
+            });
+
             modelBuilder.Entity<IdentityUserClaim<TKey>>().ToTable("UserClaims", SCHEMA_NAME);
             modelBuilder.Entity<IdentityUserLogin<TKey>>().ToTable("UserLogins", SCHEMA_NAME);
             modelBuilder.Entity<IdentityUserRole<TKey>>().ToTable("UserRoles", SCHEMA_NAME);
