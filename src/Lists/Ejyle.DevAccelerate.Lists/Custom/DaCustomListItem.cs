@@ -43,6 +43,16 @@ namespace Ejyle.DevAccelerate.Lists.Custom
         public TKey ParentId { get; set; }
 
         /// <summary>
+        /// Gets or sets the color that best reprsents the list item.
+        /// </summary>
+        public string Color { get; set; }
+
+        /// <summary>
+        /// Gets or sets a numeric weightage of the list item if applicable.
+        /// </summary>
+        public double? Weightage { get; set; }
+
+        /// <summary>
         /// The parent of the list item.
         /// </summary>
         public virtual TCustomListItem Parent { get; set; }

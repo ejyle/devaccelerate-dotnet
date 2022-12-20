@@ -59,5 +59,20 @@ namespace Ejyle.DevAccelerate.Lists.Custom
         /// The tenant ID associated with the custom list.
         /// </summary>
         public TKey TenantId { get; set; }
+
+        /// <summary>
+        /// Determines if the weightage of a list item is required.
+        /// </summary>
+        public bool IsListItemWeightageRequired { get; set; }
+
+        /// <summary>
+        /// Determines if the weightage of the list items can be duplicate.
+        /// </summary>
+        public bool CanListItemWeightageBeDuplicate { get; set; }
+
+        /// <summary>
+        /// Determines if the names of the list items are required to be unique.
+        /// </summary>
+        public bool IsListItemNameUnique { get; set; }
     }
 }

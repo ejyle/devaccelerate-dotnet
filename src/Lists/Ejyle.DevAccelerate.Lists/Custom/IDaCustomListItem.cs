@@ -25,5 +25,15 @@ namespace Ejyle.DevAccelerate.Lists.Custom
         /// The ID of the parent list item.
         /// </summary>
         TKey ParentId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the color that best reprsents the list item.
+        /// </summary>
+        string Color { get; set; }
+
+        /// <summary>
+        /// Gets or sets a numeric weight of the list item.
+        /// </summary>
+        double? Weightage { get; set; }
     }
 }
