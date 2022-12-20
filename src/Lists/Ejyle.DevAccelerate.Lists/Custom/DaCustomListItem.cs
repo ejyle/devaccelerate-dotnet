@@ -6,24 +6,26 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 
 namespace Ejyle.DevAccelerate.Lists.Custom
 {
     /// <summary>
     /// Represents a custom list item entity.
     /// </summary>
-    public class DaCustomListItem : DaCustomListItem<string, DaCustomList>
+    public class DaCustomListItem : DaCustomListItem<string, DaCustomList, DaCustomListItem>
     { }
 
     /// <summary>
     /// Represents a custom list item entity.
     /// </summary>
-    /// <typeparam name="TKey">Represents a non-nullable type of an entity ID.</typeparam>
-    /// <typeparam name="TKey">Represents a non-nullable type of an entity ID.</typeparam>
+    /// <typeparam name="TKey">Represents the type of an entity ID.</typeparam>
     /// <typeparam name="TCustomList">The type of the list to which the list item belongs.</typeparam>
-    public class DaCustomListItem<TKey, TCustomList> : DaListItemBase<TKey>, IDaCustomListItem<TKey>
+    /// <typeparam name="TCustomListItem">The type of the parent or child list items.</typeparam>
+    public class DaCustomListItem<TKey, TCustomList, TCustomListItem> : DaListItemBase<TKey>, IDaCustomListItem<TKey>
         where TKey : IEquatable<TKey>
         where TCustomList : IDaCustomList<TKey>
+        where TCustomListItem : IDaCustomListItem<TKey>
     {
         /// <summary>
         /// The ID of the list to which the list item belongs.
@@ -34,5 +36,20 @@ namespace Ejyle.DevAccelerate.Lists.Custom
         /// The list to which the list item belongs.
         /// </summary>
         public virtual TCustomList List { get; set; }
+
+        /// <summary>
+        /// The ID of the parent list item.
+        /// </summary>
+        public TKey ParentId { get; set; }
+
+        /// <summary>
+        /// The parent of the list item.
+        /// </summary>
+        public virtual TCustomListItem Parent { get; set; }
+
+        /// <summary>
+        /// Gets or sets the collection of child list items.
+        /// </summary>
+        public virtual ICollection<TCustomListItem> Children { get; set; }
     }
 }

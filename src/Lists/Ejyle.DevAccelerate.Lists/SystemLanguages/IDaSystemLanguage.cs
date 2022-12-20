@@ -12,7 +12,7 @@ namespace Ejyle.DevAccelerate.Lists.SystemLanguages
     /// <summary>
     /// Represents the basic interface of a system language entity.
     /// </summary>
-    /// <typeparam name="TKey">Represents a non-nullable type of an entity ID.</typeparam>
+    /// <typeparam name="TKey">Represents the type of an entity ID.</typeparam>
     public interface IDaSystemLanguage<TKey> : IDaListItem<TKey>
         where TKey : IEquatable<TKey>
     {

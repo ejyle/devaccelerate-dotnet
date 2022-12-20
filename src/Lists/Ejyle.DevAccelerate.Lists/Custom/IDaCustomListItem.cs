@@ -12,7 +12,7 @@ namespace Ejyle.DevAccelerate.Lists.Custom
     /// <summary>
     /// Represents the basic interface of a custom list item.
     /// </summary>
-    /// <typeparam name="TKey">Represents a non-nullable type of an entity ID.</typeparam>
+    /// <typeparam name="TKey">Represents the type of an entity ID.</typeparam>
     public interface IDaCustomListItem<TKey> : IDaListItem<TKey>
         where TKey : IEquatable<TKey>
     {
@@ -20,5 +20,10 @@ namespace Ejyle.DevAccelerate.Lists.Custom
         /// The ID of the list to which the list item belongs.
         /// </summary>
         TKey ListId { get; set; }
+
+        /// <summary>
+        /// The ID of the parent list item.
+        /// </summary>
+        TKey ParentId { get; set; }
     }
 }

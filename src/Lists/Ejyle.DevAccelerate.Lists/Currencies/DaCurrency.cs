@@ -21,8 +21,7 @@ namespace Ejyle.DevAccelerate.Lists.Currencies
     /// <summary>
     /// Represents a currency entity.
     /// </summary>
-    /// <typeparam name="TKey">Represents a non-nullable type of an entity ID.</typeparam>
-    /// <typeparam name="TKey">Represents a nullable type for an entity ID.</typeparam>
+    /// <typeparam name="TKey">Represents the type of an entity ID.</typeparam>
     /// <typeparam name="TCountry">Represents the type of the currency's countries.</typeparam>
     public class DaCurrency<TKey, TCountry> : DaListItemBase<TKey>, IDaCurrency<TKey>
         where TKey : IEquatable<TKey>

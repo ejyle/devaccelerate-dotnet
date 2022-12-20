@@ -12,7 +12,7 @@ namespace Ejyle.DevAccelerate.Lists.Currencies
     /// <summary>
     /// Represents the basic interface of a currency entity.
     /// </summary>
-    /// <typeparam name="TKey">Represents a non-nullable type of an entity ID.</typeparam>
+    /// <typeparam name="TKey">Represents the type of an entity ID.</typeparam>
     public interface IDaCurrency<TKey> : IDaListItem<TKey>
         where TKey : IEquatable<TKey>
     {

@@ -20,7 +20,7 @@ namespace Ejyle.DevAccelerate.Lists.DateFormats
     /// <summary>
     /// Represents the format of a date.
     /// </summary>
-    /// <typeparam name="TKey">Represents a non-nullable type of an entity ID.</typeparam>
+    /// <typeparam name="TKey">Represents the type of an entity ID.</typeparam>
     /// <typeparam name="TCountryDateFormat">Represents the type for mapping applicable countries and date formats.</typeparam>
     public class DaDateFormat<TKey, TCountryDateFormat> : DaListItemBase<TKey>, IDaDateFormat<TKey>
         where TKey : IEquatable<TKey>

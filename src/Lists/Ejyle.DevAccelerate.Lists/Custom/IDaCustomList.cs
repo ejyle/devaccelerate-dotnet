@@ -13,8 +13,7 @@ namespace Ejyle.DevAccelerate.Lists.Custom
     /// <summary>
     /// Represents the basic interface of a custom list.
     /// </summary>
-    /// <typeparam name="TKey">Represents a non-nullable type of an entity ID.</typeparam>
-    /// <typeparam name="TKey">Represents a nullable type of an entity ID.</typeparam>
+    /// <typeparam name="TKey">Represents the type of an entity ID.</typeparam>
     public interface IDaCustomList<TKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {

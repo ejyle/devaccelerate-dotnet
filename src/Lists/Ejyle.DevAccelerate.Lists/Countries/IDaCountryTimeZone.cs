@@ -13,7 +13,7 @@ namespace Ejyle.DevAccelerate.Lists.Countries
     /// <summary>
     /// Represents the basic interface of a country and time zone mapping.
     /// </summary>
-    /// <typeparam name="TKey">Represents a non-nullable type of an entity ID.</typeparam>
+    /// <typeparam name="TKey">Represents the type of an entity ID.</typeparam>
     public interface IDaCountryTimeZone<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {

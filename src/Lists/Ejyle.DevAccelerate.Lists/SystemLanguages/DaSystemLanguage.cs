@@ -27,7 +27,7 @@ namespace Ejyle.DevAccelerate.Lists.SystemLanguages
     /// <summary>
     /// Presents a system language.
     /// </summary>
-    /// <typeparam name="TKey">Represents a non-nullable type of an entity ID.</typeparam>
+    /// <typeparam name="TKey">Represents the type of an entity ID.</typeparam>
     /// <typeparam name="TCountrySystemLanguage">Represents the type for mapping applicable countries and system languages.</typeparam>
     public class DaSystemLanguage<TKey, TCountrySystemLanguage> : DaListItemBase<TKey>, IDaSystemLanguage<TKey>
         where TKey : IEquatable<TKey>

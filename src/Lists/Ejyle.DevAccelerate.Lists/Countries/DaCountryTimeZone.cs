@@ -20,8 +20,7 @@ namespace Ejyle.DevAccelerate.Lists.Countries
     /// <summary>
     /// Represents the mapping of a country and a time zone.
     /// </summary>
-    /// <typeparam name="TKey">Represents a non-nullable type of an entity ID.</typeparam>
-    /// <typeparam name="TKey">Represents a nullable type for an entity ID.</typeparam>
+    /// <typeparam name="TKey">Represents the type of an entity ID.</typeparam>
     /// <typeparam name="TCountry">Represents the type of a country entity.</typeparam>
     /// <typeparam name="TTimeZone">Represents the type of a time zone entity.</typeparam>
     public class DaCountryTimeZone<TKey, TCountry, TTimeZone> : DaEntityBase<TKey>, IDaCountryTimeZone<TKey>

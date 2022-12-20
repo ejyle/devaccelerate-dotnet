@@ -44,8 +44,7 @@ namespace Ejyle.DevAccelerate.Lists.EF
     /// <summary>
     /// Represents the database context for list entities.
     /// </summary>
-    /// <typeparam name="TKey">Represents a non-nullable type of an entity ID.</typeparam>
-    /// <typeparam name="TKey">Represents a nullable type for an entity ID.</typeparam>
+    /// <typeparam name="TKey">Represents the type of an entity ID.</typeparam>
     /// <typeparam name="TTimeZone">Represents the type of the time zone entity.</typeparam>
     /// <typeparam name="TDateFormat">Represents the type of the date format entity.</typeparam>
     /// <typeparam name="TSystemLanguage">Represents the type of the system language entity.</typeparam>
@@ -66,7 +65,7 @@ namespace Ejyle.DevAccelerate.Lists.EF
         where TCountryDateFormat : DaCountryDateFormat<TKey, TCountry, TDateFormat>
         where TCountrySystemLanguage : DaCountrySystemLanguage<TKey, TCountry, TSystemLanguage>
         where TCustomList : DaCustomList<TKey, TCustomListItem>
-        where TCustomListItem : DaCustomListItem<TKey, TCustomList>
+        where TCustomListItem : DaCustomListItem<TKey, TCustomList, TCustomListItem>
     {
         private const string SCHEMA_NAME = "Lists";
 
@@ -328,6 +327,10 @@ namespace Ejyle.DevAccelerate.Lists.EF
                 entity.HasOne(d => d.List)
                     .WithMany(p => p.ListItems)
                     .HasForeignKey(d => d.ListId);
+
+                entity.HasOne(d => d.Parent)
+                    .WithMany(p => p.Children)
+                    .HasForeignKey(d => d.ParentId);
             });
 
             modelBuilder.Entity<TCustomList>(entity =>

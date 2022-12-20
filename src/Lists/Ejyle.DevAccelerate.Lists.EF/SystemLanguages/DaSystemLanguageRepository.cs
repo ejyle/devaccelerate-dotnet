@@ -41,7 +41,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.SystemLanguages
         where TCountryDateFormat : DaCountryDateFormat<TKey, TCountry, TDateFormat>
         where TCountrySystemLanguage : DaCountrySystemLanguage<TKey, TCountry, TSystemLanguage>
         where TCustomList : DaCustomList<TKey, TCustomListItem>
-        where TCustomListItem : DaCustomListItem<TKey, TCustomList>
+        where TCustomListItem : DaCustomListItem<TKey, TCustomList, TCustomListItem>
         where TDbContext : DaListsDbContext<TKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem>
     {
         public DaSystemLanguageRepository(TDbContext dbContext)

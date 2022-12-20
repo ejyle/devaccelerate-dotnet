@@ -40,8 +40,7 @@ namespace Ejyle.DevAccelerate.Lists.Countries
     /// <summary>
     /// Represents a country entity.
     /// </summary>
-    /// <typeparam name="TKey">Represents a non-nullable type of an entity ID.</typeparam>
-    /// <typeparam name="TKey">Represents a nullable type for an entity ID.</typeparam>
+    /// <typeparam name="TKey">Represents the type of an entity ID.</typeparam>
     /// <typeparam name="TCurrency">Represents the type of a currency entity.</typeparam>
     /// <typeparam name="TCountryTimeZone">Represents the type of a time zone entity.</typeparam>
     /// <typeparam name="TCountryRegion">Represents the type of a country region entity.</typeparam>

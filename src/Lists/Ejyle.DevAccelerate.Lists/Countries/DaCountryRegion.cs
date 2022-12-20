@@ -26,8 +26,7 @@ namespace Ejyle.DevAccelerate.Lists.Countries
     /// <summary>
     /// Represents a region or a sub-region of a country entity.
     /// </summary>
-    /// <typeparam name="TKey">Represents a non-nullable type of an entity ID.</typeparam>
-    /// <typeparam name="TKey">Represents a nullable type for an entity ID.</typeparam>
+    /// <typeparam name="TKey">Represents the type of an entity ID.</typeparam>
     /// <typeparam name="TCountryRegion">Represents the type of the region's sub-regions.</typeparam>
     /// <typeparam name="TCountry">Represents the type of the region's country.</typeparam>
     public class DaCountryRegion<TKey, TCountryRegion, TCountry> : DaListItemBase<TKey>, IDaCountryRegion<TKey>

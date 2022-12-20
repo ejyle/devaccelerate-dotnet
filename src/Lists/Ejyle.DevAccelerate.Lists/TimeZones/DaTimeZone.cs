@@ -27,7 +27,7 @@ namespace Ejyle.DevAccelerate.Lists.TimeZones
     /// <summary>
     /// Represents a time zone entity.
     /// </summary>
-    /// <typeparam name="TKey">Represents a non-nullable type of an entity ID.</typeparam>
+    /// <typeparam name="TKey">Represents the type of an entity ID.</typeparam>
     /// <typeparam name="TCountryTimeZone">Represents the type for mapping of applicable countries and time zones.</typeparam>
     public class DaTimeZone<TKey, TCountryTimeZone> : DaListItemBase<TKey>, IDaTimeZone<TKey>
         where TKey : IEquatable<TKey>
