@@ -24,6 +24,9 @@ namespace Ejyle.DevAccelerate.Lists.Custom
         Task<TCustomList> FindByIdAsync(TKey id);
         Task<List<TCustomList>> FindAllAsync();
         Task<DaPaginatedEntityList<TKey, TCustomList>> FindAllAsync(DaDataPaginationCriteria paginationCriteria);
+
+        Task<List<TCustomList>> FindAllAsync(TKey tenantId);
+        Task<DaPaginatedEntityList<TKey, TCustomList>> FindAllAsync(TKey tenantId, DaDataPaginationCriteria paginationCriteria);
         Task<TCustomList> FindByKeyAsync(string key);
     }
 }

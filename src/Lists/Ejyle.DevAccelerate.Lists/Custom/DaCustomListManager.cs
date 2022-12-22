@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
 using Ejyle.DevAccelerate.Core.Data;
@@ -14,7 +15,7 @@ using Ejyle.DevAccelerate.Core.Utils;
 
 namespace Ejyle.DevAccelerate.Lists.Custom
 {
-    public class DaCustomListManager<TKey, TCustomList> : DaEntityManagerBase<TKey, TCustomList>
+    public abstract class DaCustomListManager<TKey, TCustomList> : DaEntityManagerBase<TKey, TCustomList>
         where TKey : IEquatable<TKey>
         where TCustomList : IDaCustomList<TKey>
     {
@@ -40,7 +41,29 @@ namespace Ejyle.DevAccelerate.Lists.Custom
             ThrowIfDisposed();
             ThrowIfArgumentIsNull(customList, nameof(customList));
 
-            customList.Key = await CreateValidKeyAsync(customList);            
+            customList.Key = CreateKey(customList);    
+            
+            if(await IsKeyExistsAsync(customList.Key))
+            {
+                throw new DaDuplicateKeyException("The key already exists.");
+            }
+
+            if (customList.IsListItemNameUnique)
+            {
+                if (IsListNameUnique(customList))
+                {
+                    throw new DaListItemNameDuplicateException("Each list item in a list must have a unique name.");
+                }
+            }
+
+            if (customList.CanListItemWeightageBeDuplicate)
+            {
+                if (IsWeightageDuplicate(customList))
+                {
+                    throw new DaDuplicateListItemWeightageException("List items in a list must have unique weigtage.");
+                }
+            }
+
             await Repository.CreateAsync(customList);
         }
 
@@ -49,12 +72,25 @@ namespace Ejyle.DevAccelerate.Lists.Custom
             DaAsyncHelper.RunSync(() => UpdateAsync(customList));
         }
 
-        public Task UpdateAsync(TCustomList customList)
+        public async Task UpdateAsync(TCustomList customList)
         {
             ThrowIfDisposed();
             ThrowIfArgumentIsNull(customList, nameof(customList));
 
-            return Repository.UpdateAsync(customList);
+            if (await IsKeyExistsAsync(customList.Key, customList.Id))
+            {
+                throw new DaDuplicateKeyException("The key already exists.");
+            }
+
+            if (customList.CanListItemWeightageBeDuplicate)
+            {
+                if (IsWeightageDuplicate(customList))
+                {
+                    throw new DaDuplicateListItemWeightageException("List items in a list must have unique weigtage.");
+                }
+            }
+
+            await Repository.UpdateAsync(customList);
         }
 
         public void Delete(TCustomList customList)
@@ -92,6 +128,28 @@ namespace Ejyle.DevAccelerate.Lists.Custom
             return Repository.FindAllAsync(paginationCriteria);
         }
 
+        public List<TCustomList> FindAll(TKey tenantId)
+        {
+            return DaAsyncHelper.RunSync<List<TCustomList>>(() => FindAllAsync(tenantId));
+        }
+
+        public Task<List<TCustomList>> FindAllAsync(TKey tenantId)
+        {
+            ThrowIfDisposed();
+            return Repository.FindAllAsync(tenantId);
+        }
+
+        public DaPaginatedEntityList<TKey, TCustomList> FindAll(TKey tenantId, DaDataPaginationCriteria paginationCriteria)
+        {
+            return DaAsyncHelper.RunSync<DaPaginatedEntityList<TKey, TCustomList>>(() => FindAllAsync(tenantId, paginationCriteria));
+        }
+
+        public Task<DaPaginatedEntityList<TKey, TCustomList>> FindAllAsync(TKey tenantId, DaDataPaginationCriteria paginationCriteria)
+        {
+            ThrowIfDisposed();
+            return Repository.FindAllAsync(tenantId, paginationCriteria);
+        }
+
         public TCustomList FindById(TKey id)
         {
             return DaAsyncHelper.RunSync<TCustomList>(() => FindByIdAsync(id));
@@ -116,36 +174,36 @@ namespace Ejyle.DevAccelerate.Lists.Custom
             return Repository.FindByKeyAsync(key);
         }
 
-        public virtual async Task<string> CreateValidKeyAsync(TCustomList customList)
+        private string CreateKey(TCustomList customList)
         {
-            if(!string.IsNullOrEmpty(customList.Key))
-            {
-                if(await IsKeyExistsAsync(customList.Key) == false)
-                {
-                    return customList.Key;
-                }
-            }
+            return CreateKey(customList.Name, customList.TenantId);
+        }
 
-            var key = customList.Name;
-            if(customList.TenantId != null)
+        public virtual string CreateKey(string name, TKey tenantId)
+        {
+            var key = name;
+            if(tenantId != null)
             {
-                key = key + "_" + customList.TenantId.ToString();
+                key = key + "_" + tenantId.ToString();
             }
 
             key = key.Replace(" ", "_").ToLower();
-
-            if (await IsKeyExistsAsync(key))
-            {
-                key = key + "_" + DaRandomNumberUtil.GenerateInt().ToString();
-            }
-
             return key;
         }
+
+        protected abstract bool IsWeightageDuplicate(TCustomList customList);
+        protected abstract bool IsListNameUnique(TCustomList customList);
 
         private async Task<bool> IsKeyExistsAsync(string key)
         {
             var customList = await FindByKeyAsync(key);
             return (customList != null);
+        }
+
+        private async Task<bool> IsKeyExistsAsync(string key, TKey id)
+        {
+            var customList = await FindByKeyAsync(key);
+            return (customList != null && !customList.Id.Equals(id));
         }
     }
 }

@@ -52,6 +52,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
         {
             return DbContext.CustomLists
                 .Include(m => m.ListItems)
+                .ThenInclude(m => m.Children)
                 .ToListAsync();
         }
 
@@ -68,6 +69,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
                 .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
                 .Take(paginationCriteria.PageSize)
                 .Include(m => m.ListItems)
+                .ThenInclude(m => m.Children)
                 .AsQueryable();
 
             var result = await query.ToListAsync();
@@ -81,6 +83,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
             return DbContext.CustomLists
                 .Where(m => m.Id.Equals(id))
                 .Include(m => m.ListItems)
+                .ThenInclude(m => m.Children)
                 .SingleOrDefaultAsync();
         }
 
@@ -89,6 +92,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
             return DbContext.CustomLists
                 .Where(m => m.Key == key)
                 .Include(m => m.ListItems)
+                .ThenInclude(m => m.Children)
                 .SingleOrDefaultAsync();
         }
 
@@ -108,6 +112,38 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
         {
             DbContext.CustomLists.Remove(list);
             return DbContext.SaveChangesAsync();
+        }
+
+        public Task<List<TCustomList>> FindAllAsync(TKey tenantId)
+        {
+            return DbContext.CustomLists
+                .Where(m => m.TenantId.Equals(tenantId))
+                .Include(m => m.ListItems)
+                .ThenInclude(m => m.Children)
+                .ToListAsync();
+        }
+
+        public async Task<DaPaginatedEntityList<TKey, TCustomList>> FindAllAsync(TKey tenantId, DaDataPaginationCriteria paginationCriteria)
+        {
+            var totalCount = await DbContext.CustomLists.CountAsync();
+
+            if (totalCount <= 0)
+            {
+                return null;
+            }
+
+            var query = DbContext.CustomLists
+                .Where(m => m.TenantId.Equals(m.TenantId))
+                .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
+                .Take(paginationCriteria.PageSize)
+                .Include(m => m.ListItems)
+                .ThenInclude(m => m.Children)
+                .AsQueryable();
+
+            var result = await query.ToListAsync();
+
+            return new DaPaginatedEntityList<TKey, TCustomList>(result
+                , new DaDataPaginationResult(paginationCriteria, totalCount));
         }
     }
 }

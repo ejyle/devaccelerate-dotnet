@@ -23,6 +23,16 @@ namespace Ejyle.DevAccelerate.Lists.Custom
         string Name { get; set; }
 
         /// <summary>
+        /// The singular name of the custom list for display purposes.
+        /// </summary>
+        string DisplayName { get; set; }
+
+        /// <summary>
+        /// The plural name of the custom list for display purposes.
+        /// </summary>
+        string PluralDisplayName { get; set; }
+
+        /// <summary>
         /// The description of the custom list.
         /// </summary>
         string Description { get; set; }
@@ -43,6 +53,11 @@ namespace Ejyle.DevAccelerate.Lists.Custom
         TKey TenantId { get; set; }
 
         /// <summary>
+        /// Determines if the color of a list item is required.
+        /// </summary>
+        bool IsListItemColorRequired { get; set; }
+
+        /// <summary>
         /// Determines if the weightage of a list item is required.
         /// </summary>
         bool IsListItemWeightageRequired { get; set; }
@@ -56,5 +71,10 @@ namespace Ejyle.DevAccelerate.Lists.Custom
         /// Determines if the names of the list items are required to be unique.
         /// </summary>
         bool IsListItemNameUnique { get; set; }
+
+        /// <summary>
+        /// Used to track the use of the list in the system.
+        /// </summary>
+        long? UsageCount { get; set; }
     }
 }
