@@ -144,6 +144,19 @@ namespace Ejyle.DevAccelerate.Lists.Custom
             return Repository.DeleteAsync(customList);
         }
 
+        public void DeleteListItem(TCustomListItem customListItem)
+        {
+            DaAsyncHelper.RunSync(() => DeleteListItemAsync(customListItem));
+        }
+
+        public Task DeleteListItemAsync(TCustomListItem customListItem)
+        {
+            ThrowIfDisposed();
+            ThrowIfArgumentIsNull(customListItem, nameof(customListItem));
+
+            return Repository.DeleteListItemAsync(customListItem);
+        }
+
         public List<TCustomList> FindWithoutTenantId()
         {
             return DaAsyncHelper.RunSync<List<TCustomList>>(() => FindWithoutTenantIdAsync());

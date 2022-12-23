@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ejyle.DevAccelerate.Core;
 using Ejyle.DevAccelerate.Core.Data;
 using Ejyle.DevAccelerate.Core.EF;
 using Ejyle.DevAccelerate.Lists.Countries;
@@ -156,9 +157,17 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
         {
             return DbContext.CustomListItems
                 .Where(m => m.Id.Equals(listItemId))
+                .Include(m => m.List)
                 .Include(m => m.Children)
                 .Include(m => m.Parent)
                 .SingleOrDefaultAsync();
+        }
+
+        public Task DeleteListItemAsync(TCustomListItem customListItem)
+        {
+            customListItem.List.ListItems.Remove(customListItem);
+            DbContext.CustomListItems.Remove(customListItem);
+            return DbContext.SaveChangesAsync();
         }
     }
 }

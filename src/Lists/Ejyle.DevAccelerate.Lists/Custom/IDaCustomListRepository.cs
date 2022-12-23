@@ -22,6 +22,7 @@ namespace Ejyle.DevAccelerate.Lists.Custom
         Task CreateAsync(TCustomList[] customList);
         Task UpdateAsync(TCustomList customList);
         Task DeleteAsync(TCustomList customList);
+        Task DeleteListItemAsync(TCustomListItem customListItem);
 
         Task<TCustomList> FindByIdAsync(TKey id);
         Task<List<TCustomList>> FindWithoutTenantIdAsync();

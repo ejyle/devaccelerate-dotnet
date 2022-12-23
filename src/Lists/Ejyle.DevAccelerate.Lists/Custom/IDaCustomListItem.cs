@@ -35,5 +35,10 @@ namespace Ejyle.DevAccelerate.Lists.Custom
         /// Gets or sets a numeric weight of the list item.
         /// </summary>
         double? Weightage { get; set; }
+
+        /// <summary>
+        /// Used to track the use of the list item in the system.
+        /// </summary>
+        long? UsageCount { get; set; }
     }
 }
