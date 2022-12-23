@@ -15,19 +15,20 @@ using Ejyle.DevAccelerate.Core.Utils;
 
 namespace Ejyle.DevAccelerate.Lists.Custom
 {
-    public abstract class DaCustomListManager<TKey, TCustomList> : DaEntityManagerBase<TKey, TCustomList>
+    public abstract class DaCustomListManager<TKey, TCustomList, TCustomListItem> : DaEntityManagerBase<TKey, TCustomList>
         where TKey : IEquatable<TKey>
         where TCustomList : IDaCustomList<TKey>
+        where TCustomListItem : IDaCustomListItem<TKey>
     {
-        public DaCustomListManager(IDaCustomListRepository<TKey, TCustomList> repository)
+        public DaCustomListManager(IDaCustomListRepository<TKey, TCustomList, TCustomListItem> repository)
             : base(repository)
         { }
 
-        protected virtual IDaCustomListRepository<TKey, TCustomList> Repository
+        protected virtual IDaCustomListRepository<TKey, TCustomList, TCustomListItem> Repository
         {
             get
             {
-                return GetRepository<IDaCustomListRepository<TKey, TCustomList>>();
+                return GetRepository<IDaCustomListRepository<TKey, TCustomList, TCustomListItem>>();
             }
         }
 
@@ -65,6 +66,43 @@ namespace Ejyle.DevAccelerate.Lists.Custom
             }
 
             await Repository.CreateAsync(customList);
+        }
+
+        public void Create(TCustomList[] customLists)
+        {
+            DaAsyncHelper.RunSync(() => CreateAsync(customLists));
+        }
+
+        public async Task CreateAsync(TCustomList[] customLists)
+        {
+            ThrowIfDisposed();
+            foreach(var customList in customLists)
+            {
+                customList.Key = CreateKey(customList);
+
+                if (await IsKeyExistsAsync(customList.Key))
+                {
+                    throw new DaDuplicateKeyException("The key already exists.");
+                }
+
+                if (customList.IsListItemNameUnique)
+                {
+                    if (IsListNameUnique(customList))
+                    {
+                        throw new DaListItemNameDuplicateException("Each list item in a list must have a unique name.");
+                    }
+                }
+
+                if (customList.CanListItemWeightageBeDuplicate)
+                {
+                    if (IsWeightageDuplicate(customList))
+                    {
+                        throw new DaDuplicateListItemWeightageException("List items in a list must have unique weigtage.");
+                    }
+                }
+            }
+
+            await Repository.CreateAsync(customLists);
         }
 
         public void Update(TCustomList customList)
@@ -106,48 +144,48 @@ namespace Ejyle.DevAccelerate.Lists.Custom
             return Repository.DeleteAsync(customList);
         }
 
-        public List<TCustomList> FindAll()
+        public List<TCustomList> FindWithoutTenantId()
         {
-            return DaAsyncHelper.RunSync<List<TCustomList>>(() => FindAllAsync());
+            return DaAsyncHelper.RunSync<List<TCustomList>>(() => FindWithoutTenantIdAsync());
         }
 
-        public Task<List<TCustomList>> FindAllAsync()
+        public Task<List<TCustomList>> FindWithoutTenantIdAsync()
         {
             ThrowIfDisposed();
-            return Repository.FindAllAsync();
+            return Repository.FindWithoutTenantIdAsync();
         }
 
-        public DaPaginatedEntityList<TKey, TCustomList> FindAll(DaDataPaginationCriteria paginationCriteria)
+        public DaPaginatedEntityList<TKey, TCustomList> FindWithoutTenantId(DaDataPaginationCriteria paginationCriteria)
         {
-            return DaAsyncHelper.RunSync<DaPaginatedEntityList<TKey, TCustomList>>(() => FindAllAsync(paginationCriteria));
+            return DaAsyncHelper.RunSync<DaPaginatedEntityList<TKey, TCustomList>>(() => FindWithoutTenantIdAsync(paginationCriteria));
         }
 
-        public Task<DaPaginatedEntityList<TKey, TCustomList>> FindAllAsync(DaDataPaginationCriteria paginationCriteria)
-        {
-            ThrowIfDisposed();
-            return Repository.FindAllAsync(paginationCriteria);
-        }
-
-        public List<TCustomList> FindAll(TKey tenantId)
-        {
-            return DaAsyncHelper.RunSync<List<TCustomList>>(() => FindAllAsync(tenantId));
-        }
-
-        public Task<List<TCustomList>> FindAllAsync(TKey tenantId)
+        public Task<DaPaginatedEntityList<TKey, TCustomList>> FindWithoutTenantIdAsync(DaDataPaginationCriteria paginationCriteria)
         {
             ThrowIfDisposed();
-            return Repository.FindAllAsync(tenantId);
+            return Repository.FindWithoutTenantIdAsync(paginationCriteria);
         }
 
-        public DaPaginatedEntityList<TKey, TCustomList> FindAll(TKey tenantId, DaDataPaginationCriteria paginationCriteria)
+        public List<TCustomList> FindWithTenantId(TKey tenantId)
         {
-            return DaAsyncHelper.RunSync<DaPaginatedEntityList<TKey, TCustomList>>(() => FindAllAsync(tenantId, paginationCriteria));
+            return DaAsyncHelper.RunSync<List<TCustomList>>(() => FindWithTenantIdAsync(tenantId));
         }
 
-        public Task<DaPaginatedEntityList<TKey, TCustomList>> FindAllAsync(TKey tenantId, DaDataPaginationCriteria paginationCriteria)
+        public Task<List<TCustomList>> FindWithTenantIdAsync(TKey tenantId)
         {
             ThrowIfDisposed();
-            return Repository.FindAllAsync(tenantId, paginationCriteria);
+            return Repository.FindWithTenantIdAsync(tenantId);
+        }
+
+        public DaPaginatedEntityList<TKey, TCustomList> FindWithTenantId(TKey tenantId, DaDataPaginationCriteria paginationCriteria)
+        {
+            return DaAsyncHelper.RunSync<DaPaginatedEntityList<TKey, TCustomList>>(() => FindWithTenantIdAsync(tenantId, paginationCriteria));
+        }
+
+        public Task<DaPaginatedEntityList<TKey, TCustomList>> FindWithTenantIdAsync(TKey tenantId, DaDataPaginationCriteria paginationCriteria)
+        {
+            ThrowIfDisposed();
+            return Repository.FindWithTenantIdAsync(tenantId, paginationCriteria);
         }
 
         public TCustomList FindById(TKey id)
@@ -189,6 +227,17 @@ namespace Ejyle.DevAccelerate.Lists.Custom
 
             key = key.Replace(" ", "_").ToLower();
             return key;
+        }
+
+        public TCustomListItem FindListItemById(TKey listItemId)
+        {
+            return DaAsyncHelper.RunSync<TCustomListItem>(() => FindListItemByIdAsync(listItemId));
+        }
+
+        public Task<TCustomListItem> FindListItemByIdAsync(TKey listItemId)
+        {
+            ThrowIfDisposed();
+            return Repository.FindListItemByIdAsync(listItemId);
         }
 
         protected abstract bool IsWeightageDuplicate(TCustomList customList);

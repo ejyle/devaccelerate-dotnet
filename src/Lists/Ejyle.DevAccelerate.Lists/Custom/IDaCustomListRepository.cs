@@ -13,20 +13,23 @@ using Ejyle.DevAccelerate.Core.Data;
 
 namespace Ejyle.DevAccelerate.Lists.Custom
 {
-    public interface IDaCustomListRepository<TKey, TCustomList> : IDaEntityRepository<TKey, TCustomList>
+    public interface IDaCustomListRepository<TKey, TCustomList, TCustomListItem> : IDaEntityRepository<TKey, TCustomList>
         where TKey : IEquatable<TKey>
         where TCustomList : IDaCustomList<TKey>
+        where TCustomListItem: IDaCustomListItem<TKey>
     {
         Task CreateAsync(TCustomList customList);
+        Task CreateAsync(TCustomList[] customList);
         Task UpdateAsync(TCustomList customList);
         Task DeleteAsync(TCustomList customList);
 
         Task<TCustomList> FindByIdAsync(TKey id);
-        Task<List<TCustomList>> FindAllAsync();
-        Task<DaPaginatedEntityList<TKey, TCustomList>> FindAllAsync(DaDataPaginationCriteria paginationCriteria);
+        Task<List<TCustomList>> FindWithoutTenantIdAsync();
+        Task<DaPaginatedEntityList<TKey, TCustomList>> FindWithoutTenantIdAsync(DaDataPaginationCriteria paginationCriteria);
 
-        Task<List<TCustomList>> FindAllAsync(TKey tenantId);
-        Task<DaPaginatedEntityList<TKey, TCustomList>> FindAllAsync(TKey tenantId, DaDataPaginationCriteria paginationCriteria);
+        Task<List<TCustomList>> FindWithTenantIdAsync(TKey tenantId);
+        Task<DaPaginatedEntityList<TKey, TCustomList>> FindWithTenantIdAsync(TKey tenantId, DaDataPaginationCriteria paginationCriteria);
         Task<TCustomList> FindByKeyAsync(string key);
+        Task<TCustomListItem> FindListItemByIdAsync(TKey listItemId);
     }
 }

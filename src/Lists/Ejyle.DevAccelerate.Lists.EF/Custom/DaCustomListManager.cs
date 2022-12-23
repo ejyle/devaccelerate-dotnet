@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace Ejyle.DevAccelerate.Lists.EF.Custom
 {
-    public class DaCustomListManager : DaCustomListManager<string, DaCustomList>
+    public class DaCustomListManager : DaCustomListManager<string, DaCustomList, DaCustomListItem>
     {
         public DaCustomListManager(DaCustomListRepository repository)
             : base(repository)

@@ -29,7 +29,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
     }
 
     public class DaCustomListRepository<TKey, TCustomList, TCustomListItem, TCountry, TCountryRegion, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TDbContext>
-        : DaEntityRepositoryBase<TKey, TCountry, TDbContext>, IDaCustomListRepository<TKey, TCustomList>
+        : DaEntityRepositoryBase<TKey, TCountry, TDbContext>, IDaCustomListRepository<TKey, TCustomList, TCustomListItem>
         where TKey : IEquatable<TKey>
         where TTimeZone : DaTimeZone<TKey, TCountryTimeZone>
         where TDateFormat : DaDateFormat<TKey, TCountryDateFormat>
@@ -48,7 +48,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
             : base(dbContext)
         { }
 
-        public Task<List<TCustomList>> FindAllAsync()
+        public Task<List<TCustomList>> FindWithoutTenantIdAsync()
         {
             return DbContext.CustomLists
                 .Include(m => m.ListItems)
@@ -56,7 +56,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
                 .ToListAsync();
         }
 
-        public async Task<DaPaginatedEntityList<TKey, TCustomList>> FindAllAsync(DaDataPaginationCriteria paginationCriteria)
+        public async Task<DaPaginatedEntityList<TKey, TCustomList>> FindWithoutTenantIdAsync(DaDataPaginationCriteria paginationCriteria)
         {
             var totalCount = await DbContext.CustomLists.CountAsync();
 
@@ -102,6 +102,12 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
             return DbContext.SaveChangesAsync();
         }
 
+        public Task CreateAsync(TCustomList[] lists)
+        {
+            DbContext.CustomLists.AddRange(lists);
+            return DbContext.SaveChangesAsync();
+        }
+
         public Task UpdateAsync(TCustomList list)
         {
             DbContext.Entry(list).State = EntityState.Modified;
@@ -114,7 +120,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
             return DbContext.SaveChangesAsync();
         }
 
-        public Task<List<TCustomList>> FindAllAsync(TKey tenantId)
+        public Task<List<TCustomList>> FindWithTenantIdAsync(TKey tenantId)
         {
             return DbContext.CustomLists
                 .Where(m => m.TenantId.Equals(tenantId))
@@ -123,7 +129,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
                 .ToListAsync();
         }
 
-        public async Task<DaPaginatedEntityList<TKey, TCustomList>> FindAllAsync(TKey tenantId, DaDataPaginationCriteria paginationCriteria)
+        public async Task<DaPaginatedEntityList<TKey, TCustomList>> FindWithTenantIdAsync(TKey tenantId, DaDataPaginationCriteria paginationCriteria)
         {
             var totalCount = await DbContext.CustomLists.CountAsync();
 
@@ -144,6 +150,15 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
 
             return new DaPaginatedEntityList<TKey, TCustomList>(result
                 , new DaDataPaginationResult(paginationCriteria, totalCount));
+        }
+
+        public Task<TCustomListItem> FindListItemByIdAsync(TKey listItemId)
+        {
+            return DbContext.CustomListItems
+                .Where(m => m.Id.Equals(listItemId))
+                .Include(m => m.Children)
+                .Include(m => m.Parent)
+                .SingleOrDefaultAsync();
         }
     }
 }

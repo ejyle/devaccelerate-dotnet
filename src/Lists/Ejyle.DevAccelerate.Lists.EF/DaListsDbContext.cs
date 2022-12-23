@@ -130,6 +130,11 @@ namespace Ejyle.DevAccelerate.Lists.EF
         /// </summary>
         public virtual DbSet<TCustomList> CustomLists { get; set; }
 
+        /// <summary>
+        /// Gets or sets the <see cref="DbSet{TCustomListItem}"/> of custom list items.
+        /// </summary>
+        public virtual DbSet<TCustomListItem> CustomListItems { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             string connectionString = "Server=(localdb)\\mssqllocaldb;Database=Ejyle.DevAccelerate;Trusted_Connection = True;MultipleActiveResultSets=True";
