@@ -5,13 +5,13 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-using Ejyle.DevAccelerate.EnterpriseSecurity.Objects;
+using Ejyle.DevAccelerate.Core.Objects;
 
-namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Objects
+namespace Ejyle.DevAccelerate.Core.EF.Objects
 {
-    public class DaObjectInstanceManager : DaObjectInstanceManager<string, DaObjectInstance, DaObjectHistoryItem>
+    public class DaObjectTypeManager : DaObjectTypeManager<string, DaObjectType>
     {
-        public DaObjectInstanceManager(DaObjectInstanceRepository repository)
+        public DaObjectTypeManager(DaObjectTypeRepository repository)
             : base(repository)
         { }
     }

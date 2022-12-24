@@ -5,20 +5,27 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-using Ejyle.DevAccelerate.Core;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Ejyle.DevAccelerate.EnterpriseSecurity.Objects
+namespace Ejyle.DevAccelerate.Core.Objects
 {
-    public interface IDaObjectType<TKey> : IDaEntity<TKey>
-        where TKey : IEquatable<TKey>
+    public class DaObjectDependency : DaObjectDependency<string, DaObjectInstance>
     {
-        TKey AppId { get; set; }
-        string Name { get; set; }
-        string Description { get; set; }
+        public DaObjectDependency() : base()
+        { }
+    }
+
+    public class DaObjectDependency<TKey, TObjectInstance>
+        : DaAuditedEntityBase<TKey>, IDaObjectDependency<TKey>
+        where TKey : IEquatable<TKey>
+        where TObjectInstance : IDaObjectInstance<TKey>
+    {
+        public TKey ObjectInstanceId { get; set; }
+
+        public TKey PrimaryObjectId { get; set; }
+
+        public TKey DependentObjectId { get; set; }
+
+        public virtual TObjectInstance ObjectInstance { get; set; }
     }
 }

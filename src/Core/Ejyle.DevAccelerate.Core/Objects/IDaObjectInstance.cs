@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ejyle.DevAccelerate.EnterpriseSecurity.Objects
+namespace Ejyle.DevAccelerate.Core.Objects
 {
     public interface IDaObjectInstance<TKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>

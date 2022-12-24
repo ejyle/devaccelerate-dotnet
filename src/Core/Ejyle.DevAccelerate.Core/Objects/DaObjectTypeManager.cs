@@ -12,27 +12,26 @@ using Ejyle.DevAccelerate.Core;
 using Ejyle.DevAccelerate.Core.Data;
 using Ejyle.DevAccelerate.Core.Utils;
 
-namespace Ejyle.DevAccelerate.EnterpriseSecurity.Objects
+namespace Ejyle.DevAccelerate.Core.Objects
 {
-    public class DaObjectInstanceManager<TKey, TObjectInstance, TObjectHistoryItem> : DaEntityManagerBase<TKey, TObjectInstance>
+    public class DaObjectTypeManager<TKey, TObjectType> : DaEntityManagerBase<TKey, TObjectType>
         where TKey : IEquatable<TKey>
-        where TObjectInstance : IDaObjectInstance<TKey>
-        where TObjectHistoryItem : IDaObjectHistoryItem<TKey>
+        where TObjectType : IDaObjectType<TKey>
     {
-        public DaObjectInstanceManager(IDaObjectInstanceRepository<TKey, TObjectInstance, TObjectHistoryItem> repository)
+        public DaObjectTypeManager(IDaObjectTypeRepository<TKey, TObjectType> repository)
             : base(repository)
         {
         }
 
-        protected virtual IDaObjectInstanceRepository<TKey, TObjectInstance, TObjectHistoryItem> Repository
+        protected virtual IDaObjectTypeRepository<TKey, TObjectType> Repository
         {
             get
             {
-                return GetRepository<IDaObjectInstanceRepository<TKey, TObjectInstance, TObjectHistoryItem>>();
+                return GetRepository<IDaObjectTypeRepository<TKey, TObjectType>>();
             }
         }
 
-        public virtual async Task CreateAsync(TObjectInstance objType)
+        public virtual async Task CreateAsync(TObjectType objType)
         {
             ThrowIfDisposed();
             ThrowIfArgumentIsNull(objType, nameof(objType));
@@ -40,25 +39,25 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Objects
             await Repository.CreateAsync(objType);
         }
 
-        public virtual void Create(TObjectInstance objType)
+        public virtual void Create(TObjectType objType)
         {
             DaAsyncHelper.RunSync(() => CreateAsync(objType));
         }
 
-        public virtual async Task CreateObjectHistoryItemAsync(TKey id, TObjectHistoryItem objectHistoryItem)
+        public virtual async Task UpdateAsync(TObjectType objType)
         {
             ThrowIfDisposed();
-            ThrowIfArgumentIsNull(objectHistoryItem, nameof(objectHistoryItem));
+            ThrowIfArgumentIsNull(objType, nameof(objType));
 
-            await Repository.CreateObjectHistoryItemAsync(id, objectHistoryItem);
+            await Repository.UpdateAsync(objType);
         }
 
-        public virtual void CreateObjectHistoryItem(TKey id, TObjectHistoryItem objectHistoryItem)
+        public virtual void Update(TObjectType objType)
         {
-            DaAsyncHelper.RunSync(() => CreateObjectHistoryItemAsync(id, objectHistoryItem));
+            DaAsyncHelper.RunSync(() => UpdateAsync(objType));
         }
 
-        public virtual async Task DeleteAsync(TObjectInstance objType)
+        public virtual async Task DeleteAsync(TObjectType objType)
         {
             ThrowIfDisposed();
             ThrowIfArgumentIsNull(objType, nameof(objType));
@@ -66,17 +65,17 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Objects
             await Repository.DeleteAsync(objType);
         }
 
-        public virtual void Delete(TObjectInstance objType)
+        public virtual void Delete(TObjectType objType)
         {
             DaAsyncHelper.RunSync(() => DeleteAsync(objType));
         }
 
-        public virtual TObjectInstance FindById(TKey id)
+        public virtual TObjectType FindById(TKey id)
         {
-            return DaAsyncHelper.RunSync<TObjectInstance>(() => FindByIdAsync(id));
+            return DaAsyncHelper.RunSync<TObjectType>(() => FindByIdAsync(id));
         }
 
-        public virtual Task<TObjectInstance> FindByIdAsync(TKey id)
+        public virtual Task<TObjectType> FindByIdAsync(TKey id)
         {
             ThrowIfDisposed();
             return Repository.FindByIdAsync(id);

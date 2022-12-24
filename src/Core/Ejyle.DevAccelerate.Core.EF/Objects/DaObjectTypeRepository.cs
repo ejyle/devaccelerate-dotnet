@@ -10,17 +10,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Ejyle.DevAccelerate.Core.EF;
-using Ejyle.DevAccelerate.EnterpriseSecurity.Apps;
-using Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions;
-using Ejyle.DevAccelerate.EnterpriseSecurity.UserAgreements;
-using Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans;
 using Microsoft.EntityFrameworkCore;
 using Ejyle.DevAccelerate.Core.Data;
-using Ejyle.DevAccelerate.EnterpriseSecurity.Objects;
+using Ejyle.DevAccelerate.Core.Objects;
 
-namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Objects
+namespace Ejyle.DevAccelerate.Core.EF.Objects
 {
-    public class DaObjectTypeRepository : DaObjectTypeRepository<string, DaObjectType, DaObjectInstance, DaObjectHistoryItem, DbContext>
+    public class DaObjectTypeRepository : DaObjectTypeRepository<string, DaObjectType, DaObjectInstance, DaObjectHistoryItem, DaObjectDependency, DbContext>
     {
         public DaObjectTypeRepository(DbContext dbContext)
             : base(dbContext)
@@ -28,12 +24,13 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Objects
     }
 
 
-    public class DaObjectTypeRepository<TKey, TObjectType, TObjectInstance, TObjectHistoryItem, TDbContext>
+    public class DaObjectTypeRepository<TKey, TObjectType, TObjectInstance, TObjectHistoryItem, TObjectDependency, TDbContext>
         : DaEntityRepositoryBase<TKey, TObjectType, TDbContext>, IDaObjectTypeRepository<TKey, TObjectType>
         where TKey : IEquatable<TKey>
         where TObjectType : DaObjectType<TKey, TObjectInstance>
-        where TObjectInstance : DaObjectInstance<TKey, TObjectType, TObjectHistoryItem>
+        where TObjectInstance : DaObjectInstance<TKey, TObjectType, TObjectHistoryItem, TObjectDependency>
         where TObjectHistoryItem : DaObjectHistoryItem<TKey, TObjectInstance>
+        where TObjectDependency : DaObjectDependency<TKey, TObjectInstance>
         where TDbContext : DbContext
     {
         public DaObjectTypeRepository(TDbContext dbContext)

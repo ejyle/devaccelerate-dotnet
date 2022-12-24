@@ -5,22 +5,14 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-using Ejyle.DevAccelerate.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Ejyle.DevAccelerate.Core.Objects;
 
-namespace Ejyle.DevAccelerate.EnterpriseSecurity.Objects
+namespace Ejyle.DevAccelerate.Core.EF.Objects
 {
-    public interface IDaObjectHistoryItem<TKey> : IDaAuditedEntity<TKey>
-        where TKey : IEquatable<TKey>
+    public class DaObjectInstanceManager : DaObjectInstanceManager<string, DaObjectInstance, DaObjectHistoryItem, DaObjectDependency>
     {
-        TKey ObjectInstanceId { get; set; }
-        DaObjectActionType Action { get; set; }
-        string Note { get; set; }
-        bool IsNoteHtml { get; set; }
-        DateTime? DeleteDateUtc { get; set; }
+        public DaObjectInstanceManager(DaObjectInstanceRepository repository)
+            : base(repository)
+        { }
     }
 }

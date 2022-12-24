@@ -7,20 +7,17 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using Ejyle.DevAccelerate.Core;
-using Ejyle.DevAccelerate.Core.Data;
 
-namespace Ejyle.DevAccelerate.EnterpriseSecurity.Objects
+namespace Ejyle.DevAccelerate.Core.Objects
 {
-    public interface IDaObjectInstanceRepository<TKey, TObjectInstance, TObjectHistoryItem> : IDaEntityRepository<TKey, TObjectInstance>
-        where TKey : IEquatable<TKey>
-        where TObjectInstance : IDaObjectInstance<TKey>
-        where TObjectHistoryItem : IDaObjectHistoryItem<TKey>
+    public enum DaObjectActionType
     {
-        Task CreateAsync(TObjectInstance obj);
-        Task<TObjectInstance> FindByIdAsync(TKey id);
-        Task CreateObjectHistoryItemAsync(TKey id, TObjectHistoryItem objHistoryItem);
-        Task DeleteAsync(TObjectInstance obj);
+        Create = 0,
+        Read = 1,
+        Update = 2,
+        Delete = 3
     }
 }

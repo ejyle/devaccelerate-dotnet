@@ -5,19 +5,21 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
+using Ejyle.DevAccelerate.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ejyle.DevAccelerate.EnterpriseSecurity.Objects
+namespace Ejyle.DevAccelerate.Core.Objects
 {
-    public enum DaObjectActionType
+    public interface IDaObjectHistoryItem<TKey> : IDaAuditedEntity<TKey>
+        where TKey : IEquatable<TKey>
     {
-        Create = 0,
-        Read = 1,
-        Update = 2,
-        Delete = 3
+        TKey ObjectInstanceId { get; set; }
+        DaObjectActionType Action { get; set; }
+        string Note { get; set; }
+        bool IsNoteHtml { get; set; }
     }
 }
