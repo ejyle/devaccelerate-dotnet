@@ -53,11 +53,6 @@ namespace Ejyle.DevAccelerate.Lists.Custom
         public double? Weightage { get; set; }
 
         /// <summary>
-        /// Used to track the use of the list item in the system.
-        /// </summary>
-        public long? UsageCount { get; set; }
-
-        /// <summary>
         /// The parent of the list item.
         /// </summary>
         public virtual TCustomListItem Parent { get; set; }

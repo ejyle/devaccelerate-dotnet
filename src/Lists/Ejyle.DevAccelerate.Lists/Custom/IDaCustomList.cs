@@ -71,10 +71,5 @@ namespace Ejyle.DevAccelerate.Lists.Custom
         /// Determines if the names of the list items are required to be unique.
         /// </summary>
         bool IsListItemNameUnique { get; set; }
-
-        /// <summary>
-        /// Used to track the use of the list in the system.
-        /// </summary>
-        long? UsageCount { get; set; }
     }
 }
