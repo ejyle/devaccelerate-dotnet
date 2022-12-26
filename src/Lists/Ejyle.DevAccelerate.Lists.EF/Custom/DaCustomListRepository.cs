@@ -54,6 +54,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
             return DbContext.CustomLists
                 .Include(m => m.ListItems)
                 .ThenInclude(m => m.Children)
+                .OrderBy(m => m.Name)
                 .ToListAsync();
         }
 
@@ -71,6 +72,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
                 .Take(paginationCriteria.PageSize)
                 .Include(m => m.ListItems)
                 .ThenInclude(m => m.Children)
+                .OrderBy(m => m.Name)
                 .AsQueryable();
 
             var result = await query.ToListAsync();
@@ -127,6 +129,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
                 .Where(m => m.TenantId.Equals(tenantId))
                 .Include(m => m.ListItems)
                 .ThenInclude(m => m.Children)
+                .OrderBy(m => m.Name)
                 .ToListAsync();
         }
 
@@ -145,6 +148,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
                 .Take(paginationCriteria.PageSize)
                 .Include(m => m.ListItems)
                 .ThenInclude(m => m.Children)
+                .OrderBy(m => m.Name)
                 .AsQueryable();
 
             var result = await query.ToListAsync();

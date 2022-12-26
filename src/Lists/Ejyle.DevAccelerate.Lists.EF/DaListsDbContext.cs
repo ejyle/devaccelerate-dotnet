@@ -348,7 +348,7 @@ namespace Ejyle.DevAccelerate.Lists.EF
                     .IsRequired()
                     .HasMaxLength(256);
 
-                entity.HasIndex(e => e.Name)
+                entity.HasIndex(e => e.Key)
                     .IsUnique(true);
             });
 
