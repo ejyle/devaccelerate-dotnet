@@ -44,7 +44,7 @@ namespace Ejyle.DevAccelerate.Core.Caching
         /// <returns>Returns the cache entry as an <see cref="object"/> type.</returns>
         public object GetData(string key)
         {
-            return cache[key] as string;
+            return cache.Get(key);
         }
 
         /// <summary>
