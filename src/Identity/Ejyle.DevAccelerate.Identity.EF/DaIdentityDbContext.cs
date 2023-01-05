@@ -41,7 +41,7 @@ namespace Ejyle.DevAccelerate.Identity.EF
         where TUserActivity : DaUserActivity<TKey, TUserActivityCategory>
         where TUserSetting : DaUserSetting<TKey>
     {
-        private const string SCHEMA_NAME = "Identity";
+        private const string SCHEMA_NAME = "Da.Identity";
 
         public DaIdentityDbContext(DbContextOptions<DaIdentityDbContext<TKey, TUser, TRole, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting>> options)
             : base(options)

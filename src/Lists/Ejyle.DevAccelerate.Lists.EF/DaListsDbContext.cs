@@ -67,7 +67,7 @@ namespace Ejyle.DevAccelerate.Lists.EF
         where TCustomList : DaCustomList<TKey, TCustomListItem>
         where TCustomListItem : DaCustomListItem<TKey, TCustomList, TCustomListItem>
     {
-        private const string SCHEMA_NAME = "Lists";
+        private const string SCHEMA_NAME = "Da.Lists";
 
         /// <summary>
         /// Creates an instance of the <see cref="DaListsDbContext{TKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem}"/> class.

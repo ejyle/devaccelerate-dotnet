@@ -33,7 +33,7 @@ namespace Ejyle.DevAccelerate.SystemTasks.EF
         where TSystemTaskDefinition : DaSystemTaskDefinition<TKey, TSystemTaskDefinitionAttribute>
         where TSystemTaskDefinitionAttribute : DaSystemTaskAttribute<TKey, TSystemTaskDefinition>
     {
-        private const string SCHEMA_NAME = "SystemTasks";
+        private const string SCHEMA_NAME = "Da.SystemTasks";
 
         public DaSystemTasksDbContext() : base()
         { }

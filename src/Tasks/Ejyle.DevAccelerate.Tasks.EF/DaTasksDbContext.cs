@@ -33,7 +33,7 @@ namespace Ejyle.DevAccelerate.Tasks.EF
         where TKey : IEquatable<TKey>
         where TTask : DaTask<TKey>
     {
-        private const string SCHEMA_NAME = "Tasks";
+        private const string SCHEMA_NAME = "Da.Tasks";
 
         public DaTasksDbContext() : base()
         { }

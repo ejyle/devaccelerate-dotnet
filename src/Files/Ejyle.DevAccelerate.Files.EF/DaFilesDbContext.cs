@@ -38,7 +38,7 @@ namespace Ejyle.DevAccelerate.Comments.EF
         where TFile : DaFile<TKey, TFileCollection>
         where TFileCollection : DaFileCollection<TKey, TFileCollection, TFile>
     {
-        private const string SCHEMA_NAME = "Files";
+        private const string SCHEMA_NAME = "Da.Files";
 
         public DaFilesDbContext() : base()
         { }

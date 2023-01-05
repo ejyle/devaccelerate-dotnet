@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CommandLine;
 using Ejyle.DevAccelerate.Comments.EF;
+using Ejyle.DevAccelerate.Core.EF;
 using Ejyle.DevAccelerate.EnterpriseSecurity.Apps;
 using Ejyle.DevAccelerate.EnterpriseSecurity.EF;
 using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Apps;
@@ -36,12 +37,12 @@ namespace Ejyle.DevAccelerate.Tools.Commands
 
         public override void Execute()
         {
-            using (var listsDbContext = new DaListsDbContext(GetConnectionString()))
+            using (var coreDbContext = new DaCoreDbContext(GetConnectionString()))
             {
                 try
                 {
-                    listsDbContext.Database.EnsureCreated();
-                    var databaseCreator = listsDbContext.GetService<IRelationalDatabaseCreator>();
+                    coreDbContext.Database.EnsureCreated();
+                    var databaseCreator = coreDbContext.GetService<IRelationalDatabaseCreator>();
                     databaseCreator.CreateTables();
                 }
                 catch(Exception)
@@ -51,6 +52,20 @@ namespace Ejyle.DevAccelerate.Tools.Commands
             }
 
             EnsureConnectionIsValid();
+
+            using (var listsDbContext = new DaListsDbContext(GetConnectionString()))
+            {
+                try
+                {
+                    listsDbContext.Database.EnsureCreated();
+                    var databaseCreator = listsDbContext.GetService<IRelationalDatabaseCreator>();
+                    databaseCreator.CreateTables();
+                }
+                catch (Exception)
+                {
+                    // Ignore the error
+                }
+            }
 
             using (var systemTasksDbContext = new DaSystemTasksDbContext(GetConnectionString()))
             {

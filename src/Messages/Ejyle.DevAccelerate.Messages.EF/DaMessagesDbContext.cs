@@ -37,7 +37,7 @@ namespace Ejyle.DevAccelerate.Messages.EF
         where TMessageRecipient : DaMessageRecipient<TKey, TMessage, TMessageRecipientVariable>
         where TMessageRecipientVariable : DaMessageRecipientVariable<TKey, TMessageRecipient>
     {
-        private const string SCHEMA_NAME = "Messages";
+        private const string SCHEMA_NAME = "Da.Messages";
 
         public DaMessagesDbContext() : base()
         { }

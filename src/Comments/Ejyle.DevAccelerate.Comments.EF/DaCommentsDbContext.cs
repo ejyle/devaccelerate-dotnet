@@ -33,7 +33,7 @@ namespace Ejyle.DevAccelerate.Comments.EF
         where TComment : DaComment<TKey, TComment, TCommentThread>
         where TCommentThread : DaCommentThread<TKey, TComment>
     {
-        private const string SCHEMA_NAME = "Comments";
+        private const string SCHEMA_NAME = "Da.Comments";
 
         public DaCommentsDbContext() : base()
         { }

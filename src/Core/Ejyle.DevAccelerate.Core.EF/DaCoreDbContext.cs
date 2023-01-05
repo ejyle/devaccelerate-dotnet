@@ -33,7 +33,7 @@ namespace Ejyle.DevAccelerate.Core.EF
         where TObjectHistoryItem : DaObjectHistoryItem<TKey, TObjectInstance>
         where TObjectDependency : DaObjectDependency<TKey, TObjectInstance>
     {
-        private const string SCHEMA_NAME = "Core";
+        private const string SCHEMA_NAME = "Da.Core";
 
         public DaCoreDbContext()
             : base()

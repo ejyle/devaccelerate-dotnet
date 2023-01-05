@@ -68,7 +68,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF
         where TGroupRole : DaGroupRole<TKey, TGroup>
         where TGroupUser : DaGroupUser<TKey, TGroup>
     {
-        private const string SCHEMA_NAME = "EnterpriseSecurity";
+        private const string SCHEMA_NAME = "Da.EnterpriseSecurity";
 
         public DaEnterpriseSecurityDbContext()
             : base()

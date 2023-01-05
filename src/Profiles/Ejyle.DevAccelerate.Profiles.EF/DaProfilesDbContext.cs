@@ -38,7 +38,7 @@ namespace Ejyle.DevAccelerate.Profiles.EF
         where TAddressProfile : DaAddressProfile<TKey, TUserAddress>
         where TUserAddress : DaUserAddress<TKey, TAddressProfile>
     {
-        private const string SCHEMA_NAME = "Profiles";
+        private const string SCHEMA_NAME = "Da.Profiles";
 
         public DaProfilesDbContext()
             : base()
