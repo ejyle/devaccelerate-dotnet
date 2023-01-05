@@ -8,6 +8,7 @@
 using System;
 using CommandLine;
 using Ejyle.DevAccelerate.Tools.Commands;
+using Ejyle.DevAccelerate.Tools.Commands.Core;
 using Ejyle.DevAccelerate.Tools.Commands.EnterpriseSecurity;
 using Ejyle.DevAccelerate.Tools.Commands.Files;
 using Ejyle.DevAccelerate.Tools.Commands.Identity;
@@ -24,6 +25,7 @@ namespace Ejyle.DevAccelerate.Tools
                 Parser.Default.ParseArguments<
                     DaSetConnectionCommand,
                     DaCreateDatabaseCommand,
+                    DaCreateObjectTypesCommand,
                     DaCreateAppCommand,
                     DaCreateAppFeatureCommand,
                     DaCreateDefaultListsCommand,
