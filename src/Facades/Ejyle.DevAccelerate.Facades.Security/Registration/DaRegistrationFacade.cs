@@ -100,7 +100,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
         where TBillingCycleAttribute : DaBillingCycleAttribute<TKey, TBillingCycle>, new()
         where TBillingCycleFeatureUsage : DaBillingCycleFeatureUsage<TKey, TBillingCycle, TSubscriptionFeature>, new()
         where TSubscriptionAttribute : DaSubscriptionAttribute<TKey, TSubscription>, new()
-        where TTenantManager : DaTenantManager<TKey, TTenant>
+        where TTenantManager : DaTenantManager<TKey, TTenant, TTenantUser>
         where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute>, new()
         where TTenantAttribute : DaTenantAttribute<TKey, TTenant>, new()
         where TTenantUser : DaTenantUser<TKey, TTenant>, new()

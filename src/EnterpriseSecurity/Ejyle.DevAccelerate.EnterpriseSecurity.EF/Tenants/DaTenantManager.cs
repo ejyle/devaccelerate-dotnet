@@ -9,7 +9,7 @@ using Ejyle.DevAccelerate.EnterpriseSecurity.Tenants;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Tenants
 {
-    public class DaTenantManager : DaTenantManager<string, DaTenant>
+    public class DaTenantManager : DaTenantManager<string, DaTenant, DaTenantUser>
     {
         public DaTenantManager(DaTenantRepository repository)
             : base(repository)

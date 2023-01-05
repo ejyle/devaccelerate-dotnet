@@ -23,7 +23,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Tenants
     }
 
     public class DaTenantRepository<TKey, TTenant, TTenantUser, TTenantAttribute, TDbContext>
-         : DaEntityRepositoryBase<TKey, TTenant, DbContext>, IDaTenantRepository<TKey, TTenant>
+         : DaEntityRepositoryBase<TKey, TTenant, DbContext>, IDaTenantRepository<TKey, TTenant, TTenantUser>
          where TKey : IEquatable<TKey>
          where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute>
          where TTenantUser : DaTenantUser<TKey, TTenant>
@@ -33,18 +33,22 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Tenants
             : base(dbContext)
         { }
 
-        private DbSet<TTenant> Tenants { get { return DbContext.Set<TTenant>(); } }
-        private DbSet<TTenantUser> TenantUsers { get { return DbContext.Set<TTenantUser>(); } }
+        private DbSet<TTenant> TenantsSet { get { return DbContext.Set<TTenant>(); } }
+        private DbSet<TTenantUser> TenantUsersSet { get { return DbContext.Set<TTenantUser>(); } }
+
+        public IQueryable<TTenant> Tenants => TenantsSet.AsQueryable();
+
+        public IQueryable<TTenantUser> TenantUsers => TenantUsersSet.AsQueryable();
 
         public Task CreateAsync(TTenant tenant)
         {
-            Tenants.Add(tenant);
+            TenantsSet.Add(tenant);
             return SaveChangesAsync();
         }
 
         public Task<TTenant> FindByIdAsync(TKey tenantId)
         {
-            return Tenants.Where(m => m.Id.Equals(tenantId))
+            return TenantsSet.Where(m => m.Id.Equals(tenantId))
                 .Include(x => x.TenantUsers)
                 .Include(x => x.Attributes)
                 .SingleOrDefaultAsync();
@@ -58,13 +62,13 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Tenants
 
         public Task CreateTenantUserAsync(TTenantUser tenantUser)
         {
-            TenantUsers.Add(tenantUser);
+            TenantUsersSet.Add(tenantUser);
             return SaveChangesAsync();
         }
 
         public Task<List<TTenant>> FindByUserIdAsync(TKey userId)
         {
-            return Tenants.Where(m => m.TenantUsers.Any(x => x.UserId.Equals(userId)))
+            return TenantsSet.Where(m => m.TenantUsers.Any(x => x.UserId.Equals(userId)))
                 .Include(x => x.TenantUsers)
                 .Include(x => x.Attributes)
                 .ToListAsync();
@@ -72,7 +76,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Tenants
 
         public async Task<bool> CheckTenantUserActiveAssociationAsync(TKey tenantId, TKey userId)
         {
-            var tenantUser = await TenantUsers.Where(m => m.TenantId.Equals(tenantId) && m.UserId.Equals(userId)).SingleOrDefaultAsync();
+            var tenantUser = await TenantUsersSet.Where(m => m.TenantId.Equals(tenantId) && m.UserId.Equals(userId)).SingleOrDefaultAsync();
 
             if (!tenantUser.IsActive)
             {
@@ -84,7 +88,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Tenants
 
         public Task<List<TTenant>> FindByAttributeAsync(string attributeName, string attributeValue)
         {
-            return Tenants.Where(m => m.Attributes.Any(x => x.AttributeName == attributeName && x.AttributeValue == attributeValue))
+            return TenantsSet.Where(m => m.Attributes.Any(x => x.AttributeName == attributeName && x.AttributeValue == attributeValue))
                 .Include(x => x.TenantUsers)
                 .Include(x => x.Attributes)
                 .ToListAsync();
@@ -92,7 +96,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF.Tenants
 
         public Task<TTenant> FindByNameAsync(string name)
         {
-            return Tenants.Where(m => m.Name == name)
+            return TenantsSet.Where(m => m.Name == name)
                 .Include(x => x.TenantUsers)
                 .Include(x => x.Attributes)
                 .SingleOrDefaultAsync();

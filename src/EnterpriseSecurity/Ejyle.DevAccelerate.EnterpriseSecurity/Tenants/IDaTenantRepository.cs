@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
 
@@ -16,11 +17,12 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
     /// Provides the interface for storing and retrieving tenants.
     /// </summary>
     /// <typeparam name="TKey">The type of an entity key.</typeparam>
-    /// <typeparam name="TKey">The type of a nullable key.</typeparam>
     /// <typeparam name="TTenant">The type of a tenant.</typeparam>
-    public interface IDaTenantRepository<TKey, TTenant> : IDaEntityRepository<TKey, TTenant>
+    /// <typeparam name="TTenantUser">The type of a tenant user.</typeparam>
+    public interface IDaTenantRepository<TKey, TTenant, TTenantUser> : IDaEntityRepository<TKey, TTenant>
         where TKey : IEquatable<TKey>
         where TTenant : IDaTenant<TKey>
+        where TTenantUser : IDaTenantUser<TKey>
     {
         /// <summary>
         /// Asynchronously creates a tenant in the tenant repository.
@@ -54,8 +56,18 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
         /// Asynchronously finds and returns tenants associated with a given user.
         /// </summary>
         /// <param name="userId">The ID of the user.</param>
-        /// <returns>The Task that represents the asynchronous operation containing the matching tenant.</returns>
+        /// <returns>The Task that represents the asynchronous operation containing the matching tenants.</returns>
         Task<List<TTenant>> FindByUserIdAsync(TKey userId);
+
+        /// <summary>
+        /// Returns an IQueryable of tenants.
+        /// </summary>
+        IQueryable<TTenant> Tenants { get; }
+
+        /// <summary>
+        /// Returns an IQueryable of tenant users.
+        /// </summary>
+        IQueryable<TTenantUser> TenantUsers { get; }
 
         /// <summary>
         /// Asynchronously finds if a user has an active association with a tenant. 

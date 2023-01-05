@@ -34,29 +34,36 @@ namespace Ejyle.DevAccelerate.Profiles.EF.UserProfiles
             : base(dbContext)
         { }
 
-        private DbSet<TUserProfile> UserProfiles { get { return DbContext.Set<TUserProfile>(); } }
-        
+        private DbSet<TUserProfile> UserProfilesSet { get { return DbContext.Set<TUserProfile>(); } }
+
+        public IQueryable<TUserProfile> UserProfiles => UserProfilesSet.AsQueryable();
+
         public Task CreateAsync(TUserProfile userProfile)
         {
-            UserProfiles.Add(userProfile);
+            UserProfilesSet.Add(userProfile);
             return SaveChangesAsync();
         }
 
         public Task DeleteAsync(TUserProfile userProfile)
         {
-            UserProfiles.Remove(userProfile);
+            UserProfilesSet.Remove(userProfile);
             return SaveChangesAsync();
+        }
+
+        public Task<List<TUserProfile>> FindAllAsync()
+        {
+            return UserProfilesSet.ToListAsync();
         }
 
         public Task<TUserProfile> FindByIdAsync(TKey id)
         {
-            return UserProfiles.Where(m => m.Id.Equals(id))
+            return UserProfilesSet.Where(m => m.Id.Equals(id))
                 .Include(m => m.Attributes).SingleOrDefaultAsync();
         }
 
         public Task<List<TUserProfile>> FindByUserIdAsync(TKey userId)
         {
-            return UserProfiles.Where(m => m.OwnerUserId.Equals(userId))
+            return UserProfilesSet.Where(m => m.OwnerUserId.Equals(userId))
                 .Include(m => m.Attributes).ToListAsync();
         }
 

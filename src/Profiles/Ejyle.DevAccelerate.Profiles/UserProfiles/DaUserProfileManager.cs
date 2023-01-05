@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
 
@@ -70,6 +71,14 @@ namespace Ejyle.DevAccelerate.Profiles.UserProfiles
         public virtual void Delete(TUserProfile userProfile)
         {
             DaAsyncHelper.RunSync(() => DeleteAsync(userProfile));
+        }
+
+        public IQueryable<TUserProfile> UserProfiles
+        {
+            get
+            {
+                return Repository.UserProfiles;
+            }
         }
 
         public virtual TUserProfile FindById(TKey id)

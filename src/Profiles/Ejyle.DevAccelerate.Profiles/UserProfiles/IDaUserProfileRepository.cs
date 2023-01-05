@@ -8,6 +8,7 @@
 using Ejyle.DevAccelerate.Core;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Profiles.UserProfiles
@@ -18,6 +19,7 @@ namespace Ejyle.DevAccelerate.Profiles.UserProfiles
     {
         Task CreateAsync(TUserProfile userProfile);
         Task<TUserProfile> FindByIdAsync(TKey id);
+        IQueryable<TUserProfile> UserProfiles { get; }
         Task<List<TUserProfile>> FindByUserIdAsync(TKey userId);
         Task UpdateAsync(TUserProfile userProfile);
         Task DeleteAsync(TUserProfile userProfile);

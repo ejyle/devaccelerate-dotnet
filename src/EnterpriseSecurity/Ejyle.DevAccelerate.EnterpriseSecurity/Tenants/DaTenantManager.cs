@@ -9,21 +9,23 @@ using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Ejyle.DevAccelerate.Core;
+using System.Linq;
 
 namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
 {
-    public class DaTenantManager<TKey, TTenant>
+    public class DaTenantManager<TKey, TTenant, TTenantUser>
         : DaEntityManagerBase<TKey, TTenant>
         where TKey : IEquatable<TKey>
         where TTenant : IDaTenant<TKey>
+        where TTenantUser : IDaTenantUser<TKey>
     {
-        public DaTenantManager(IDaTenantRepository<TKey, TTenant> repository)
+        public DaTenantManager(IDaTenantRepository<TKey, TTenant, TTenantUser> repository)
             : base(repository)
         { }
 
-        private IDaTenantRepository<TKey, TTenant> GetRepository()
+        private IDaTenantRepository<TKey, TTenant, TTenantUser> GetRepository()
         {
-            return GetRepository<IDaTenantRepository<TKey, TTenant>>();
+            return GetRepository<IDaTenantRepository<TKey, TTenant, TTenantUser>>();
         }
 
         public Task CreateAsync(TTenant tenant)
@@ -84,6 +86,22 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Tenants
         public List<TTenant> FindByUserId(TKey userId)
         {
             return DaAsyncHelper.RunSync<List<TTenant>>(() => FindByUserIdAsync(userId));
+        }
+
+        public IQueryable<TTenant> Tenants
+        {
+            get
+            {
+                return GetRepository().Tenants;
+            }
+        }
+
+        public IQueryable<TTenantUser> TenantUsers
+        {
+            get
+            {
+                return GetRepository().TenantUsers;
+            }
         }
 
         public Task<bool> CheckTenantUserActiveAssociationAsync(TKey tenantId, TKey userId)
