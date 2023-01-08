@@ -167,7 +167,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.EF
 
                 entity.HasOne(d => d.Feature)
                     .WithMany(p => p.AppFeatures)
-                    .HasForeignKey(d => d.AppId);
+                    .HasForeignKey(d => d.FeatureId);
             });
 
             modelBuilder.Entity<TApp>(entity =>
