@@ -58,8 +58,13 @@ namespace Ejyle.DevAccelerate.Core.Utils
             return resourceKey;
         }
 
-        public static string GetDisplayValue(T value)
+        public static string GetDisplayValue(T? value)
         {
+            if (value == null)
+            {
+                return null;
+            }
+
             var fieldInfo = value.GetType().GetField(value.ToString());
 
             var descriptionAttributes = fieldInfo.GetCustomAttributes(
