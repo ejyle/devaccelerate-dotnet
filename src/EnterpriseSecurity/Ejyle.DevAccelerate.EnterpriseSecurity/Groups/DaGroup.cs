@@ -32,7 +32,7 @@ namespace Ejyle.DevAccelerate.EnterpriseSecurity.Groups
         }
 
         public string Name { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
         public TKey TenantId { get; set; }
         public virtual ICollection<TGroupRole> GroupRoles { get; set; }
         public virtual ICollection<TGroupUser> GroupUsers { get; set; }

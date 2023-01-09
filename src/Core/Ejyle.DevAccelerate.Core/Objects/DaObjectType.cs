@@ -28,7 +28,7 @@ namespace Ejyle.DevAccelerate.Core.Objects
         }
 
         public string Name { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
         public virtual ICollection<TObjectInstance> ObjectInstances { get; set; }
     }
 }

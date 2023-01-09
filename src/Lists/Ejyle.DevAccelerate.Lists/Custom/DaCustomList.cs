@@ -53,7 +53,7 @@ namespace Ejyle.DevAccelerate.Lists.Custom
         /// <summary>
         /// The description of the custom list.
         /// </summary>
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         /// <summary>
         /// The collection of list items of the custom list.
