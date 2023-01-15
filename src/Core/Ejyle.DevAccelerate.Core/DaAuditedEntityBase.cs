@@ -20,14 +20,23 @@ namespace Ejyle.DevAccelerate.Core
     /// Represents the base class for an entity with basic auditing properties.
     /// </summary>
     /// <typeparam name="TKey">The type of the entity's ID.</typeparam>
-    public abstract class DaAuditedEntityBase<TKey> : DaEntityBase<TKey>, IDaAuditedEntity<TKey>
+    public abstract class DaAuditedEntityBase<TKey> : DaAuditedEntityBase<TKey, TKey>
         where TKey : IEquatable<TKey>
+    { }
+
+    /// <summary>
+    /// Represents the base class for an entity with basic auditing properties.
+    /// </summary>
+    /// <typeparam name="TKey">The type of the entity's ID.</typeparam>
+    public abstract class DaAuditedEntityBase<TKey, TIdentityKey> : DaEntityBase<TKey>, IDaAuditedEntity<TKey, TIdentityKey>
+        where TKey : IEquatable<TKey>
+        where TIdentityKey: IEquatable<TIdentityKey>
     {
         /// <summary>
         /// Gets or sets the ID of the user who created the entity.
         /// </summary>
         [Required]
-        public TKey CreatedBy { get; set; }
+        public TIdentityKey CreatedBy { get; set; }
 
         /// <summary>
         /// Gets or sets the created UTC date and time of the entity.
@@ -39,7 +48,7 @@ namespace Ejyle.DevAccelerate.Core
         /// Gets or sets the ID of the user who last updated the entity.
         /// </summary>
         [Required]
-        public TKey LastUpdatedBy { get; set; }
+        public TIdentityKey LastUpdatedBy { get; set; }
 
         /// <summary>
         /// Gets or sets the last updated UTC date and time of the entity.
