@@ -39,5 +39,7 @@ namespace Ejyle.DevAccelerate.Core.Objects
         public virtual ICollection<TObjectHistoryItem> ObjectHistoryItems { get; set; }
 
         public virtual ICollection<TObjectDependency> ObjectDependencies { get; set; }
+
+        public DaSourceObjectIdType SourceObjectIdType { get; set; }
     }
 }

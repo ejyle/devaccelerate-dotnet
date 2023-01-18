@@ -19,5 +19,6 @@ namespace Ejyle.DevAccelerate.Core.Objects
     {
         TKey ObjectTypeId { get; set; }
         TKey SourceObjectId { get; set; }
+        DaSourceObjectIdType SourceObjectIdType { get; set; }
     }
 }
