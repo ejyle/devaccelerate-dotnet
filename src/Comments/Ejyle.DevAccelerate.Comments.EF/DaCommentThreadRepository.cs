@@ -16,7 +16,7 @@ using Ejyle.DevAccelerate.Core.Data;
 
 namespace Ejyle.DevAccelerate.Comments.EF
 {
-    public class DaCommentThreadRepository : DaCommentThreadRepository<string, DaCommentThread, DaComment, DbContext>
+    public class DaCommentThreadRepository : DaCommentThreadRepository<string, DaCommentThread, DaComment, DaCommentFlag, DaCommentFile, DbContext>
     {
         public DaCommentThreadRepository(DbContext dbContext)
             : base(dbContext)
@@ -24,11 +24,13 @@ namespace Ejyle.DevAccelerate.Comments.EF
     }
 
 
-    public class DaCommentThreadRepository<TKey, TCommentThread, TComment, TDbContext>
+    public class DaCommentThreadRepository<TKey, TCommentThread, TComment, TCommentFlag, TCommentFile, TDbContext>
         : DaEntityRepositoryBase<TKey, TCommentThread, TDbContext>, IDaCommentThreadRepository<TKey, TCommentThread, TComment>
         where TKey : IEquatable<TKey>
         where TCommentThread : DaCommentThread<TKey, TComment>
-        where TComment : DaComment<TKey, TComment, TCommentThread>
+        where TComment : DaComment<TKey, TComment, TCommentFlag, TCommentFile, TCommentThread>
+        where TCommentFlag : DaCommentFlag<TKey, TComment>
+        where TCommentFile : DaCommentFile<TKey, TComment>
         where TDbContext : DbContext
     {
         public DaCommentThreadRepository(TDbContext dbContext)

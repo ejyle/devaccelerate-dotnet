@@ -14,19 +14,23 @@ using System.Text;
 
 namespace Ejyle.DevAccelerate.Comments
 {
-    public class DaComment : DaComment<string, DaComment, DaCommentThread>
+    public class DaComment : DaComment<string, DaComment, DaCommentFlag, DaCommentFile, DaCommentThread>
     {
         public DaComment()
         { }
     }
 
-    public class DaComment<TKey, TComment, TCommentThread> : DaAuditedEntityBase<TKey>, IDaComment<TKey>
+    public class DaComment<TKey, TComment, TCommentFlag, TCommentFile, TCommentThread> : DaAuditedEntityBase<TKey>, IDaComment<TKey>
         where TKey : IEquatable<TKey>
         where TComment : IDaComment<TKey>
+        where TCommentFlag : IDaCommentFlag<TKey>
+        where TCommentFile : IDaCommentFile<TKey>
         where TCommentThread : IDaCommentThread<TKey>
     {
         public DaComment() : base()
         {
+            Flags = new HashSet<TCommentFlag>();
+            Files = new HashSet<TCommentFile>();
             Children = new HashSet<TComment>();
         }
 
@@ -61,6 +65,18 @@ namespace Ejyle.DevAccelerate.Comments
         }
 
         public virtual ICollection<TComment> Children
+        {
+            get;
+            set;
+        }
+
+        public virtual ICollection<TCommentFlag> Flags
+        {
+            get;
+            set;
+        }
+
+        public virtual ICollection<TCommentFile> Files
         {
             get;
             set;
