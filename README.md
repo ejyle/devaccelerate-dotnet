@@ -2,6 +2,17 @@
 
 **DevAccelerate for .NET** is a comprehensive and well-designed development accelerator for Microsoft .NET Framework. It is free and open source. It contains common components and functionalities that allow developers to build real-world .NET apps rapidly. It is broken up into individual modules and therefore allows developers to use only what is needed. The usage of the framework is governed by the terms and conditions of its [License](https://github.com/devaccelerate/DevAccelerateNet/blob/master/LICENSE).
 
+## 7.0.1 Preview Changes
+DevAccelerate for .NET 7.0 is a major release and has new many new APIs and some of the older APIs have been removed. The following are the highlights:
+* Added object types, object instances, object history and object dependencies to the Core module.
+* Removed caching, exception management, and logging APIs.
+* Moved tenant, address profile and organization profile related types to a new project called Ejyle.DevAccelerate.MultiTenancy.
+* Moved subscription and subscription related types to a new project called Ejyle.DevAccelerate.Subscriptions.
+* Moved apps and features related types to a new project called Ejyle.DevAccelerate.Platform.
+* Moved user profile related types to Ejyle.DevAccelerate.Identity project.
+* Removed Ejyle.DevAccelerate.EnterpriseSecurity and Ejyle.DevAccelerate.Profiles projects.
+* General design and code improvements.
+
 ## 6.5.0 Changes
 Some new modules have been added and few older modules have also been migrated to the latest code base. The following are the highlights:
 * Added Comments module to create and manage comments.
@@ -36,15 +47,18 @@ The following is the list of DevAccelerate modules with corresponding NuGet pack
 #### Identity
 * [DevAccelerateIdentity](https://www.nuget.org/packages/DevAccelerateIdentity/)
 * [DevAccelerateIdentityEF](https://www.nuget.org/packages/DevAccelerateIdentityEF/)
+#### Platform
+* [DevAcceleratePlatform](https://www.nuget.org/packages/DevAcceleratePlatform)
+* [DevAcceleratePlatformEF](https://www.nuget.org/packages/DevAcceleratePlatformEF)
+#### MultiTenancy
+* [DevAccelerateMultiTenancy](https://www.nuget.org/packages/DevAccelerateMultiTenancy/)
+* [DevAccelerateMultiTenancyEF](https://www.nuget.org/packages/DevAccelerateMultiTenancyEF/)
+#### Subscriptions
+* [DevAccelerateSubscriptions](https://www.nuget.org/packages/DevAccelerateSubscriptions/)
+* [DevAccelerateSubscriptionsEF](https://www.nuget.org/packages/DevAccelerateSubscriptionsEF/)
 #### Messages
 * [DevAccelerateMessages](https://www.nuget.org/packages/DevAccelerateMessages)
 * [DevAccelerateMessagesEF](https://www.nuget.org/packages/DevAccelerateMessagesEF)
-#### Profiles
-* [DevAccelerateProfiles](https://www.nuget.org/packages/DevAccelerateProfiles/)
-* [DevAccelerateProfilesEF](https://www.nuget.org/packages/DevAccelerateProfilesEF/)
-#### Enterprise Security
-* [DevAccelerateEnterpriseSecurity](https://www.nuget.org/packages/DevAccelerateEnterpriseSecurity/)
-* [DevAccelerateEnterpriseSecurityEF](https://www.nuget.org/packages/DevAccelerateEnterpriseSecurityEF/)
 #### Mail and SMS
 * [DevAccelerateMail](https://www.nuget.org/packages/DevAccelerateMail/)
 * [DevAccelerateMailSendGrid](https://www.nuget.org/packages/DevAccelerateMailSendGrid/)
@@ -76,14 +90,16 @@ dotnet add package DevAccelerateLists
 dotnet add package DevAccelerateListsEF
 dotnet add package DevAccelerateIdentity
 dotnet add package DevAccelerateIdentityEF
-dotnet add package DevAccelerateMessages
-dotnet add package DevAccelerateMessagesEF
-dotnet add package DevAccelerateProfiles
-dotnet add package DevAccelerateProfilesEF
-dotnet add package DevAccelerateEnterpriseSecurity
-dotnet add package DevAccelerateEnterpriseSecurityEF
+dotnet add package DevAcceleratePlatform
+dotnet add package DevAcceleratePlatformEF
+dotnet add package DevAccelerateMultiTenancy
+dotnet add package DevAccelerateMultiTenancyEF
+dotnet add package DevAccelerateSubscriptions
+dotnet add package DevAccelerateSubscriptionsEF
 dotnet add package DevAccelerateTasks
 dotnet add package DevAccelerateTasksEF
+dotnet add package DevAccelerateMessages
+dotnet add package DevAccelerateMessagesEF
 dotnet add package DevAccelerateMail
 dotnet add package DevAccelerateMailSendGrid
 dotnet add package DevAccelerateSms
