@@ -7,8 +7,6 @@
 
 using System;
 using System.Threading.Tasks;
-using Ejyle.DevAccelerate.EnterpriseSecurity.Tenants;
-using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Tenants;
 using Ejyle.DevAccelerate.Identity.EF;
 using Ejyle.DevAccelerate.Identity.EF.UserSessions;
 using Ejyle.DevAccelerate.Identity.UserSessions;
@@ -23,6 +21,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Net;
 using System.Security.Claims;
 using System.ComponentModel.DataAnnotations;
+using Ejyle.DevAccelerate.MultiTenancy.Tenants;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Authentication
 {

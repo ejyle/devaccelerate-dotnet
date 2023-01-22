@@ -10,24 +10,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Identity;
 using Ejyle.DevAccelerate.Identity.EF;
-using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Tenants;
-using Ejyle.DevAccelerate.EnterpriseSecurity.Tenants;
-using Ejyle.DevAccelerate.EnterpriseSecurity.EF.SubscriptionPlans;
-using Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans;
-using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Subscriptions;
-using Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions;
-using Ejyle.DevAccelerate.EnterpriseSecurity.Apps;
-using Ejyle.DevAccelerate.EnterpriseSecurity.UserAgreements;
-using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Apps;
-using Ejyle.DevAccelerate.EnterpriseSecurity.EF.UserAgreements;
 using System.Collections.Generic;
 using Ejyle.DevAccelerate.Core;
-using Ejyle.DevAccelerate.Profiles.EF.UserProfiles;
-using Ejyle.DevAccelerate.Profiles.UserProfiles;
-using Ejyle.DevAccelerate.Profiles.EF.Organizations;
-using Ejyle.DevAccelerate.Profiles.Organizations;
-using Ejyle.DevAccelerate.Profiles.Addresses;
-using Ejyle.DevAccelerate.Profiles.EF.Addresses;
 using Microsoft.AspNetCore.Identity;
 using Ejyle.DevAccelerate.Core.Utils;
 using System.Text.RegularExpressions;
@@ -41,6 +25,26 @@ using Ejyle.DevAccelerate.Lists.EF.Currencies;
 using Ejyle.DevAccelerate.Lists.EF.DateFormats;
 using Ejyle.DevAccelerate.Lists.EF.SystemLanguages;
 using Ejyle.DevAccelerate.Lists.EF.TimeZones;
+using Ejyle.DevAccelerate.Identity.Groups;
+using Ejyle.DevAccelerate.Platform.Apps;
+using Ejyle.DevAccelerate.Subscriptions.SubscriptionPlans;
+using Ejyle.DevAccelerate.Platform.Features;
+using Ejyle.DevAccelerate.Subscriptions.Subscriptions;
+using Ejyle.DevAccelerate.MultiTenancy.Tenants;
+using Ejyle.DevAccelerate.Identity.UserAgreements;
+using Ejyle.DevAccelerate.Identity.EF.Groups;
+using Ejyle.DevAccelerate.Platform.EF.Apps;
+using Ejyle.DevAccelerate.Subscriptions.EF.SubscriptionPlans;
+using Ejyle.DevAccelerate.Platform.EF.Features;
+using Ejyle.DevAccelerate.Subscriptions.EF.Subscriptions;
+using Ejyle.DevAccelerate.MultiTenancy.EF.Tenants;
+using Ejyle.DevAccelerate.Identity.EF.UserAgreements;
+using Ejyle.DevAccelerate.Identity.UserProfiles;
+using Ejyle.DevAccelerate.Identity.EF.UserProfiles;
+using Ejyle.DevAccelerate.MultiTenancy.Organizations;
+using Ejyle.DevAccelerate.MultiTenancy.EF.Organizations;
+using Ejyle.DevAccelerate.MultiTenancy.Addresses;
+using Ejyle.DevAccelerate.MultiTenancy.EF.Addresses;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Registration
 {
@@ -72,27 +76,27 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
         where TAddressProfile : DaAddressProfile<TKey, TUserAddress>, new()
         where TUserAddress : DaUserAddress<TKey, TAddressProfile>, new()
         where TAppManager : DaAppManager<TKey, TApp>
-        where TApp : DaApp<TKey, TAppAttribute, TFeature, TAppFeature, TSubscriptionApp, TSubscriptionPlanApp, TUserAgreement>
+        where TApp : DaApp<TKey, TAppAttribute, TFeature, TAppFeature>
         where TAppAttribute : DaAppAttribute<TKey, TApp>
         where TAppFeature : DaAppFeature<TKey, TApp, TFeature>
         where TBillingCycleOption : DaBillingCycleOption<TKey, TSubscriptionPlan>
         where TFeatureAction : DaFeatureAction<TKey, TFeature>
         where TFeatureManager : DaFeatureManager<TKey, TFeature>
-        where TFeature : DaFeature<TKey, TApp, TAppFeature, TFeatureAction, TSubscriptionFeature, TSubscriptionPlanFeature>
+        where TFeature : DaFeature<TKey, TApp, TAppFeature, TFeatureAction>
         where TSubscriptionManager : DaSubscriptionManager<TKey, TSubscription>
         where TSubscriptionAppRole : DaSubscriptionAppRole<TKey, TSubscriptionApp>
-        where TSubscriptionApp : DaSubscriptionApp<TKey, TApp, TSubscriptionAppRole, TSubscription, TSubscriptionAppUser>, new()
+        where TSubscriptionApp : DaSubscriptionApp<TKey, TSubscriptionAppRole, TSubscription, TSubscriptionAppUser>, new()
         where TSubscriptionAppUser : DaSubscriptionAppUser<TKey, TSubscriptionApp>
         where TSubscriptionFeatureAttribute : DaSubscriptionFeatureAttribute<TKey, TSubscriptionFeature>, new()
         where TSubscriptionFeatureRoleAction : DaSubscriptionFeatureRoleAction<TKey, TSubscriptionFeatureRole>
         where TSubscriptionFeatureRole : DaSubscriptionFeatureRole<TKey, TSubscriptionFeatureRoleAction, TSubscriptionFeature>
-        where TSubscriptionFeature : DaSubscriptionFeature<TKey, TFeature, TSubscriptionFeatureAttribute, TSubscriptionFeatureRole, TSubscription, TSubscriptionFeatureUser, TBillingCycleFeatureUsage>, new()
+        where TSubscriptionFeature : DaSubscriptionFeature<TKey, TSubscriptionFeatureAttribute, TSubscriptionFeatureRole, TSubscription, TSubscriptionFeatureUser, TBillingCycleFeatureUsage>, new()
         where TSubscriptionFeatureUserAction : DaSubscriptionFeatureUserAction<TKey, TSubscriptionFeatureUser>
         where TSubscriptionFeatureUser : DaSubscriptionFeatureUser<TKey, TSubscriptionFeature, TSubscriptionFeatureUserAction>
         where TSubscriptionPlanManager : DaSubscriptionPlanManager<TKey, TSubscriptionPlan>
-        where TSubscriptionPlanApp : DaSubscriptionPlanApp<TKey, TApp, TSubscriptionPlan>
+        where TSubscriptionPlanApp : DaSubscriptionPlanApp<TKey, TSubscriptionPlan>
         where TSubscriptionPlanFeatureAttribute : DaSubscriptionPlanFeatureAttribute<TKey, TSubscriptionPlanFeature>
-        where TSubscriptionPlanFeature : DaSubscriptionPlanFeature<TKey, TFeature, TSubscriptionPlanFeatureAttribute, TSubscriptionPlan>
+        where TSubscriptionPlanFeature : DaSubscriptionPlanFeature<TKey, TSubscriptionPlanFeatureAttribute, TSubscriptionPlan>
         where TSubscriptionPlan : DaSubscriptionPlan<TKey, TSubscriptionPlanAttribute, TBillingCycleOption, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscription>
         where TSubscriptionPlanAttribute : DaSubscriptionPlanAttribute<TKey, TSubscriptionPlan>
         where TSubscription : DaSubscription<TKey, TSubscriptionAttribute, TSubscriptionApp, TSubscriptionFeature, TSubscriptionPlan, TBillingCycle>, new()
@@ -105,7 +109,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
         where TTenantAttribute : DaTenantAttribute<TKey, TTenant>, new()
         where TTenantUser : DaTenantUser<TKey, TTenant>, new()
         where TUserAgreementManager : DaUserAgreementManager<TKey, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction>
-        where TUserAgreement : DaUserAgreement<TKey, TApp, TUserAgreementVersion>
+        where TUserAgreement : DaUserAgreement<TKey, TUserAgreementVersion>
         where TUserAgreementVersion : DaUserAgreementVersion<TKey, TUserAgreement, TUserAgreementVersionAction>
         where TUserAgreementVersionAction : DaUserAgreementVersionAction<TKey, TUserAgreementVersion>
         where TCurrencyManager : DaCurrencyManager<TKey, TCurrency>

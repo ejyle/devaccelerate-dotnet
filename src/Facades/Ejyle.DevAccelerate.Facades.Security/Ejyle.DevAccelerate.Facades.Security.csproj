@@ -62,14 +62,16 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\Core\Ejyle.DevAccelerate.Core.EF\Ejyle.DevAccelerate.Core.EF.csproj" />
 		<ProjectReference Include="..\..\Core\Ejyle.DevAccelerate.Core\Ejyle.DevAccelerate.Core.csproj" />
-		<ProjectReference Include="..\..\EnterpriseSecurity\Ejyle.DevAccelerate.EnterpriseSecurity.EF\Ejyle.DevAccelerate.EnterpriseSecurity.EF.csproj" />
-		<ProjectReference Include="..\..\EnterpriseSecurity\Ejyle.DevAccelerate.EnterpriseSecurity\Ejyle.DevAccelerate.EnterpriseSecurity.csproj" />
 		<ProjectReference Include="..\..\Identity\Ejyle.DevAccelerate.Identity.EF\Ejyle.DevAccelerate.Identity.EF.csproj" />
 		<ProjectReference Include="..\..\Identity\Ejyle.DevAccelerate.Identity\Ejyle.DevAccelerate.Identity.csproj" />
 		<ProjectReference Include="..\..\Lists\Ejyle.DevAccelerate.Lists.EF\Ejyle.DevAccelerate.Lists.EF.csproj" />
 		<ProjectReference Include="..\..\Lists\Ejyle.DevAccelerate.Lists\Ejyle.DevAccelerate.Lists.csproj" />
-		<ProjectReference Include="..\..\Profiles\Ejyle.DevAccelerate.Profiles.EF\Ejyle.DevAccelerate.Profiles.EF.csproj" />
-		<ProjectReference Include="..\..\Profiles\Ejyle.DevAccelerate.Profiles\Ejyle.DevAccelerate.Profiles.csproj" />
+		<ProjectReference Include="..\..\MultiTenancy\Ejyle.DevAccelerate.MultiTenancy.EF\Ejyle.DevAccelerate.MultiTenancy.EF.csproj" />
+		<ProjectReference Include="..\..\MultiTenancy\Ejyle.DevAccelerate.MultiTenancy\Ejyle.DevAccelerate.MultiTenancy.csproj" />
+		<ProjectReference Include="..\..\Platform\Ejyle.DevAccelerate.Platform.EF\Ejyle.DevAccelerate.Platform.EF.csproj" />
+		<ProjectReference Include="..\..\Platform\Ejyle.DevAccelerate.Platform\Ejyle.DevAccelerate.Platform.csproj" />
+		<ProjectReference Include="..\..\Subscriptions\Ejyle.DevAccelerate.Subscriptions.EF\Ejyle.DevAccelerate.Subscriptions.EF.csproj" />
+		<ProjectReference Include="..\..\Subscriptions\Ejyle.DevAccelerate.Subscriptions\Ejyle.DevAccelerate.Subscriptions.csproj" />
 	</ItemGroup>
 
 </Project>

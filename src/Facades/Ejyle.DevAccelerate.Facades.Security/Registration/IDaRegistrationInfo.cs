@@ -7,9 +7,9 @@
 
 using System;
 using System.Collections.Generic;
-using Ejyle.DevAccelerate.EnterpriseSecurity.Tenants;
-using Ejyle.DevAccelerate.Profiles.Organizations;
-using Ejyle.DevAccelerate.Profiles.UserProfiles;
+using Ejyle.DevAccelerate.Identity.UserProfiles;
+using Ejyle.DevAccelerate.MultiTenancy.Organizations;
+using Ejyle.DevAccelerate.MultiTenancy.Tenants;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Registration
 {

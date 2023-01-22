@@ -7,8 +7,6 @@
 
 using System;
 using System.Threading.Tasks;
-using Ejyle.DevAccelerate.EnterpriseSecurity.Tenants;
-using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Tenants;
 using Ejyle.DevAccelerate.Identity.EF;
 using Ejyle.DevAccelerate.Identity.EF.UserSessions;
 using Ejyle.DevAccelerate.Identity.UserSessions;
@@ -22,6 +20,8 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 using System.Security.Claims;
+using Ejyle.DevAccelerate.MultiTenancy.Tenants;
+using Ejyle.DevAccelerate.MultiTenancy.EF.Tenants;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Authentication
 {

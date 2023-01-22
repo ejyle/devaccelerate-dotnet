@@ -10,16 +10,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Identity;
 using Ejyle.DevAccelerate.Identity.EF;
-using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Tenants;
-using Ejyle.DevAccelerate.EnterpriseSecurity.Tenants;
-using Ejyle.DevAccelerate.EnterpriseSecurity.EF.SubscriptionPlans;
-using Ejyle.DevAccelerate.EnterpriseSecurity.SubscriptionPlans;
-using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Subscriptions;
-using Ejyle.DevAccelerate.EnterpriseSecurity.Subscriptions;
-using Ejyle.DevAccelerate.EnterpriseSecurity.Apps;
-using Ejyle.DevAccelerate.EnterpriseSecurity.UserAgreements;
-using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Apps;
-using Ejyle.DevAccelerate.EnterpriseSecurity.EF.UserAgreements;
 using System.Collections.Generic;
 using Ejyle.DevAccelerate.Core;
 using Microsoft.AspNetCore.Identity;
@@ -32,8 +22,20 @@ using Ejyle.DevAccelerate.Lists.EF.Countries;
 using Ejyle.DevAccelerate.Lists.EF.Currencies;
 using Ejyle.DevAccelerate.Lists.EF.SystemLanguages;
 using Ejyle.DevAccelerate.Lists.EF.TimeZones;
-using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Groups;
-using Ejyle.DevAccelerate.EnterpriseSecurity.Groups;
+using Ejyle.DevAccelerate.Identity.Groups;
+using Ejyle.DevAccelerate.Platform.Apps;
+using Ejyle.DevAccelerate.Subscriptions.SubscriptionPlans;
+using Ejyle.DevAccelerate.Platform.Features;
+using Ejyle.DevAccelerate.Subscriptions.Subscriptions;
+using Ejyle.DevAccelerate.MultiTenancy.Tenants;
+using Ejyle.DevAccelerate.Identity.UserAgreements;
+using Ejyle.DevAccelerate.Identity.EF.Groups;
+using Ejyle.DevAccelerate.Platform.EF.Apps;
+using Ejyle.DevAccelerate.Subscriptions.EF.SubscriptionPlans;
+using Ejyle.DevAccelerate.Platform.EF.Features;
+using Ejyle.DevAccelerate.Subscriptions.EF.Subscriptions;
+using Ejyle.DevAccelerate.MultiTenancy.EF.Tenants;
+using Ejyle.DevAccelerate.Identity.EF.UserAgreements;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Authorization
 {
@@ -59,27 +61,27 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authorization
         where TGroupUser : DaGroupUser<TKey, TGroup>
         where TGroupManager : DaGroupManager<TKey, TGroup>
         where TAppManager : DaAppManager<TKey, TApp>
-        where TApp : DaApp<TKey, TAppAttribute, TFeature, TAppFeature, TSubscriptionApp, TSubscriptionPlanApp, TUserAgreement>
+        where TApp : DaApp<TKey, TAppAttribute, TFeature, TAppFeature>
         where TAppAttribute : DaAppAttribute<TKey, TApp>
         where TAppFeature : DaAppFeature<TKey, TApp, TFeature>
         where TBillingCycleOption : DaBillingCycleOption<TKey, TSubscriptionPlan>
         where TFeatureAction : DaFeatureAction<TKey, TFeature>
         where TFeatureManager : DaFeatureManager<TKey, TFeature>
-        where TFeature : DaFeature<TKey, TApp, TAppFeature, TFeatureAction, TSubscriptionFeature, TSubscriptionPlanFeature>
+        where TFeature : DaFeature<TKey, TApp, TAppFeature, TFeatureAction>
         where TSubscriptionManager : DaSubscriptionManager<TKey, TSubscription>
         where TSubscriptionAppRole : DaSubscriptionAppRole<TKey, TSubscriptionApp>
-        where TSubscriptionApp : DaSubscriptionApp<TKey, TApp, TSubscriptionAppRole, TSubscription, TSubscriptionAppUser>, new()
+        where TSubscriptionApp : DaSubscriptionApp<TKey, TSubscriptionAppRole, TSubscription, TSubscriptionAppUser>, new()
         where TSubscriptionAppUser : DaSubscriptionAppUser<TKey, TSubscriptionApp>
         where TSubscriptionFeatureAttribute : DaSubscriptionFeatureAttribute<TKey, TSubscriptionFeature>, new()
         where TSubscriptionFeatureRoleAction : DaSubscriptionFeatureRoleAction<TKey, TSubscriptionFeatureRole>
         where TSubscriptionFeatureRole : DaSubscriptionFeatureRole<TKey, TSubscriptionFeatureRoleAction, TSubscriptionFeature>
-        where TSubscriptionFeature : DaSubscriptionFeature<TKey, TFeature, TSubscriptionFeatureAttribute, TSubscriptionFeatureRole, TSubscription, TSubscriptionFeatureUser, TBillingCycleFeatureUsage>, new()
+        where TSubscriptionFeature : DaSubscriptionFeature<TKey, TSubscriptionFeatureAttribute, TSubscriptionFeatureRole, TSubscription, TSubscriptionFeatureUser, TBillingCycleFeatureUsage>, new()
         where TSubscriptionFeatureUserAction : DaSubscriptionFeatureUserAction<TKey, TSubscriptionFeatureUser>
         where TSubscriptionFeatureUser : DaSubscriptionFeatureUser<TKey, TSubscriptionFeature, TSubscriptionFeatureUserAction>
         where TSubscriptionPlanManager : DaSubscriptionPlanManager<TKey, TSubscriptionPlan>
-        where TSubscriptionPlanApp : DaSubscriptionPlanApp<TKey, TApp, TSubscriptionPlan>
+        where TSubscriptionPlanApp : DaSubscriptionPlanApp<TKey, TSubscriptionPlan>
         where TSubscriptionPlanFeatureAttribute : DaSubscriptionPlanFeatureAttribute<TKey, TSubscriptionPlanFeature>
-        where TSubscriptionPlanFeature : DaSubscriptionPlanFeature<TKey, TFeature, TSubscriptionPlanFeatureAttribute, TSubscriptionPlan>
+        where TSubscriptionPlanFeature : DaSubscriptionPlanFeature<TKey, TSubscriptionPlanFeatureAttribute, TSubscriptionPlan>
         where TSubscriptionPlan : DaSubscriptionPlan<TKey, TSubscriptionPlanAttribute, TBillingCycleOption, TSubscriptionPlanApp, TSubscriptionPlanFeature, TSubscription>
         where TSubscriptionPlanAttribute : DaSubscriptionPlanAttribute<TKey, TSubscriptionPlan>
         where TSubscription : DaSubscription<TKey, TSubscriptionAttribute, TSubscriptionApp, TSubscriptionFeature, TSubscriptionPlan, TBillingCycle>, new()
@@ -92,7 +94,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authorization
         where TTenantAttribute : DaTenantAttribute<TKey, TTenant>
         where TTenantUser : DaTenantUser<TKey, TTenant>, new()
         where TUserAgreementManager : DaUserAgreementManager<TKey, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction>
-        where TUserAgreement : DaUserAgreement<TKey, TApp, TUserAgreementVersion>
+        where TUserAgreement : DaUserAgreement<TKey, TUserAgreementVersion>
         where TUserAgreementVersion : DaUserAgreementVersion<TKey, TUserAgreement, TUserAgreementVersionAction>
         where TUserAgreementVersionAction : DaUserAgreementVersionAction<TKey, TUserAgreementVersion>
         where TCurrencyManager : DaCurrencyManager<TKey, TCurrency>
@@ -262,12 +264,15 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authorization
 
             var result = new List<TAuthorizedFeatureInfo>();
 
-            foreach (var feature in subscription.SubscriptionFeatures)
+            foreach (var subscriptionFeature in subscription.SubscriptionFeatures)
             {
                 var subscriptionFeatureInfo = new TAuthorizedFeatureInfo();
-                subscriptionFeatureInfo.Id = feature.Feature.Id;
-                subscriptionFeatureInfo.Name = feature.Feature.Name;
-                subscriptionFeatureInfo.Key = feature.Feature.Key;
+
+                var feature = await FeatureManager.FindByIdAsync(subscriptionFeature.FeatureId);
+
+                subscriptionFeatureInfo.Id = feature.Id;
+                subscriptionFeatureInfo.Name = feature.Name;
+                subscriptionFeatureInfo.Key = feature.Key;
 
                 result.Add(subscriptionFeatureInfo);
             }
@@ -306,6 +311,13 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authorization
                 return new DaAuthorizationResult<TKey, TAuthorizationInfo, TAuthorizedActionInfo>(DaAuthorizationStatus.SubscriptionNotActive);
             }
 
+            var feature = await FeatureManager.FindByKeyAsync(featureKey);
+
+            if (feature == null)
+            {
+                return new DaAuthorizationResult<TKey, TAuthorizationInfo, TAuthorizedActionInfo>(DaAuthorizationStatus.FeatureNotFoundInSubscription);
+            }
+
             var tenants = await TenantManager.FindByUserIdAsync(userId);
             TTenant tenant = null;
 
@@ -327,14 +339,14 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authorization
                 return new DaAuthorizationResult<TKey, TAuthorizationInfo, TAuthorizedActionInfo>(DaAuthorizationStatus.NotAssociatedWithAnActiveTenant);
             }
 
-            var feature = subscription.SubscriptionFeatures.Where(m => m.Feature.Key == featureKey).SingleOrDefault();
+            var subscriptionFeature = subscription.SubscriptionFeatures.Where(m => m.FeatureId.Equals(feature.Id)).SingleOrDefault();
 
-            if (feature == null)
+            if (subscriptionFeature == null)
             {
                 return new DaAuthorizationResult<TKey, TAuthorizationInfo, TAuthorizedActionInfo>(DaAuthorizationStatus.FeatureNotFoundInSubscription);
             }
 
-            var subscriptionFeatureUser = feature.SubscriptionFeatureUsers.Where(m => m.UserId.Equals(userId)).SingleOrDefault();
+            var subscriptionFeatureUser = subscriptionFeature.SubscriptionFeatureUsers.Where(m => m.UserId.Equals(userId)).SingleOrDefault();
 
             if (subscriptionFeatureUser != null)
             {
@@ -345,17 +357,17 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authorization
             }
 
             var authorizationInfo = new TAuthorizationInfo();
-            authorizationInfo.Id = feature.Id;
-            authorizationInfo.Key = feature.Feature.Key;
+            authorizationInfo.Id = subscriptionFeature.Id;
+            authorizationInfo.Key = feature.Key;
 
             var authorizedActions = new List<TAuthorizedActionInfo>();
 
-            if (feature.SubscriptionFeatureRoles != null && feature.SubscriptionFeatureRoles.Count > 0)
+            if (subscriptionFeature.SubscriptionFeatureRoles != null && subscriptionFeature.SubscriptionFeatureRoles.Count > 0)
             {
                 foreach (var roleName in await UserManager.GetRolesAsync(user))
                 {
                     var role = await RoleManager.FindByNameAsync(roleName);
-                    var featureRoles = feature.SubscriptionFeatureRoles.Where(m => m.RoleId.Equals(role.Id)).ToList();
+                    var featureRoles = subscriptionFeature.SubscriptionFeatureRoles.Where(m => m.RoleId.Equals(role.Id)).ToList();
 
                     foreach (var featureRole in featureRoles)
                     {
@@ -393,9 +405,9 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authorization
                 }
             }
 
-            if (feature.SubscriptionFeatureUsers != null && feature.SubscriptionFeatureUsers.Count > 0)
+            if (subscriptionFeature.SubscriptionFeatureUsers != null && subscriptionFeature.SubscriptionFeatureUsers.Count > 0)
             {
-                var featureUsers = feature.SubscriptionFeatureUsers.Where(m => m.UserId.Equals(userId)).ToList();
+                var featureUsers = subscriptionFeature.SubscriptionFeatureUsers.Where(m => m.UserId.Equals(userId)).ToList();
 
                 foreach (var featureUser in featureUsers)
                 {
