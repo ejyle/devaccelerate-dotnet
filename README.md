@@ -4,13 +4,13 @@
 
 ## 7.0.1 Preview Changes
 DevAccelerate for .NET 7.0 is a major release and has new many new APIs and some of the older APIs have been removed. The following are the highlights:
-* Added object types, object instances, object history and object dependencies to the Core module.
+* Added object types, object instances, object history and object dependencies to the core module.
 * Removed caching, exception management, and logging APIs.
-* Moved tenant, address profile and organization profile related types to a new project called Ejyle.DevAccelerate.MultiTenancy.
-* Moved subscription and subscription related types to a new project called Ejyle.DevAccelerate.Subscriptions.
-* Moved apps and features related types to a new project called Ejyle.DevAccelerate.Platform.
-* Moved user profile related types to Ejyle.DevAccelerate.Identity project.
-* Removed Ejyle.DevAccelerate.EnterpriseSecurity and Ejyle.DevAccelerate.Profiles projects.
+* Moved tenant, address profile and organization profile related types to a new module called multiTenancy.
+* Moved subscription and subscription related types to a new module called subscriptions.
+* Moved apps and features related types to a new module called platform.
+* Moved user profile related types to identity module.
+* Removed enterprise security and profiles modules.
 * General design and code improvements.
 
 ## 6.5.0 Changes
