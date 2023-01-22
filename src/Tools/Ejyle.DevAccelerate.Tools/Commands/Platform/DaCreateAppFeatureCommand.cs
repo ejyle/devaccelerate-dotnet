@@ -14,11 +14,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Microsoft.Extensions.Logging;
-using Ejyle.DevAccelerate.EnterpriseSecurity.EF;
-using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Apps;
-using Ejyle.DevAccelerate.EnterpriseSecurity.Apps;
+using Ejyle.DevAccelerate.Platform.EF;
+using Ejyle.DevAccelerate.Platform.EF.Apps;
+using Ejyle.DevAccelerate.Platform.EF.Features;
+using Ejyle.DevAccelerate.Platform.Apps;
+using Ejyle.DevAccelerate.Platform.Features;
 
-namespace Ejyle.DevAccelerate.Tools.Commands.EnterpriseSecurity
+namespace Ejyle.DevAccelerate.Tools.Commands.Platform
 {
     [Verb("createappfeature", HelpText = "Creates an app feature.")]
     public class DaCreateAppFeatureCommand : DaDatabaseCommand
@@ -44,7 +46,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.EnterpriseSecurity
         {
             EnsureConnectionIsValid();
 
-            using (var context = new DaEnterpriseSecurityDbContext(GetConnectionString()))
+            using (var context = new DaPlatformDbContext(GetConnectionString()))
             {
                 DaApp app = null;
 

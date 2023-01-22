@@ -14,11 +14,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Microsoft.Extensions.Logging;
-using Ejyle.DevAccelerate.EnterpriseSecurity.EF;
-using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Apps;
-using Ejyle.DevAccelerate.EnterpriseSecurity.Apps;
+using Ejyle.DevAccelerate.Platform.EF;
+using Ejyle.DevAccelerate.Platform.EF.Apps;
+using Ejyle.DevAccelerate.Platform.Apps;
 
-namespace Ejyle.DevAccelerate.Tools.Commands.EnterpriseSecurity
+namespace Ejyle.DevAccelerate.Tools.Commands.Platform
 {
     [Verb("createapp", HelpText = "Creates a DevAccelerate app.")]
     public class DaCreateAppCommand : DaDatabaseCommand
@@ -41,7 +41,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.EnterpriseSecurity
         {
             EnsureConnectionIsValid();
 
-            using (var context = new DaEnterpriseSecurityDbContext(GetConnectionString()))
+            using (var context = new DaPlatformDbContext(GetConnectionString()))
             {
                 var appManager = new DaAppManager(new DaAppRepository(context));
                 var app = new DaApp()

@@ -9,7 +9,7 @@ using System;
 using CommandLine;
 using Ejyle.DevAccelerate.Tools.Commands;
 using Ejyle.DevAccelerate.Tools.Commands.Core;
-using Ejyle.DevAccelerate.Tools.Commands.EnterpriseSecurity;
+using Ejyle.DevAccelerate.Tools.Commands.Platform;
 using Ejyle.DevAccelerate.Tools.Commands.Files;
 using Ejyle.DevAccelerate.Tools.Commands.Identity;
 using Ejyle.DevAccelerate.Tools.Commands.Lists;
