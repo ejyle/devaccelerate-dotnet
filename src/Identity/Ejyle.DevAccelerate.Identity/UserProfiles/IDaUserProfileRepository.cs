@@ -5,25 +5,23 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-using System;
 using Ejyle.DevAccelerate.Core;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Ejyle.DevAccelerate.MultiTenancy
+namespace Ejyle.DevAccelerate.Identity.UserProfiles
 {
-    public class DaTenantAttribute : DaTenantAttribute<string, DaTenant>
-    {
-        public DaTenantAttribute()
-            : base()
-        { }
-    }
-
-    public class DaTenantAttribute<TKey, TTenant> : DaEntityBase<TKey>, IDaTenantAttribute<TKey>
+    public interface IDaUserProfileRepository<TKey, TUserProfile> : IDaEntityRepository<TKey, TUserProfile>
         where TKey : IEquatable<TKey>
-        where TTenant : IDaTenant<TKey>
+        where TUserProfile : IDaUserProfile<TKey>
     {
-        public TKey TenantId { get; set; }
-        public virtual TTenant Tenant { get; set; }
-        public string AttributeName { get; set; }
-        public string AttributeValue { get; set; }
+        Task CreateAsync(TUserProfile userProfile);
+        Task<TUserProfile> FindByIdAsync(TKey id);
+        IQueryable<TUserProfile> UserProfiles { get; }
+        Task<List<TUserProfile>> FindByUserIdAsync(TKey userId);
+        Task UpdateAsync(TUserProfile userProfile);
+        Task DeleteAsync(TUserProfile userProfile);
     }
 }

@@ -8,7 +8,7 @@
 using System;
 using Ejyle.DevAccelerate.Core;
 
-namespace Ejyle.DevAccelerate.MultiTenancy
+namespace Ejyle.DevAccelerate.MultiTenancy.Tenants
 {
     /// <summary>
     /// Represents the core interface for a tenant.

@@ -5,33 +5,22 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-using System;
 using Ejyle.DevAccelerate.Core;
+using System;
 
-namespace Ejyle.DevAccelerate.MultiTenancy
+namespace Ejyle.DevAccelerate.Identity.UserProfiles
 {
-    public class DaTenantUser : DaTenantUser<string, DaTenant>
-    { }
-
-    public class DaTenantUser<TKey, TTenant> : DaEntityBase<TKey>, IDaTenantUser<TKey>
+    public interface IDaUserProfile<TKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
-        where TTenant : IDaTenant<TKey>
     {
-
-        public TKey TenantId
-        {
-            get;
-            set;
-        }
-
-
-        public TKey UserId
-        {
-            get;
-            set;
-        }
-
-        public virtual TTenant Tenant { get; set; }
-        public bool IsActive { get; set; }
+        TKey OwnerUserId { get; set; }
+        string Salutation { get; set; }
+        string FirstName { get; set; }
+        string MiddleName { get; set; }
+        string LastName { get; set; }
+        string JobTitle { get; set; }
+        string OrganizationName { get; set; }
+        DateTime? Dob { get; set; }
+        DaGender? Gender { get; set; }
     }
 }

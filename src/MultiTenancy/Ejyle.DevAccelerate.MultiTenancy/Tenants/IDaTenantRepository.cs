@@ -11,7 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
 
-namespace Ejyle.DevAccelerate.MultiTenancy
+namespace Ejyle.DevAccelerate.MultiTenancy.Tenants
 {
     /// <summary>
     /// Provides the interface for storing and retrieving tenants.

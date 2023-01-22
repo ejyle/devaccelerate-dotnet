@@ -5,16 +5,25 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-using Ejyle.DevAccelerate.Core;
 using System;
+using Ejyle.DevAccelerate.Core;
 
-namespace Ejyle.DevAccelerate.MultiTenancy
+namespace Ejyle.DevAccelerate.MultiTenancy.Tenants
 {
-    public interface IDaTenantAttribute<TKey> : IDaEntity<TKey>
-        where TKey : IEquatable<TKey>
+    public class DaTenantAttribute : DaTenantAttribute<string, DaTenant>
     {
-        TKey TenantId { get; set; }
-        string AttributeName { get; set; }
-        string AttributeValue { get; set; }
+        public DaTenantAttribute()
+            : base()
+        { }
+    }
+
+    public class DaTenantAttribute<TKey, TTenant> : DaEntityBase<TKey>, IDaTenantAttribute<TKey>
+        where TKey : IEquatable<TKey>
+        where TTenant : IDaTenant<TKey>
+    {
+        public TKey TenantId { get; set; }
+        public virtual TTenant Tenant { get; set; }
+        public string AttributeName { get; set; }
+        public string AttributeValue { get; set; }
     }
 }

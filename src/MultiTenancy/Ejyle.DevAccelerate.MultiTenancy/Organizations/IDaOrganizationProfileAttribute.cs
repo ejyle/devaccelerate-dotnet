@@ -8,28 +8,13 @@
 using Ejyle.DevAccelerate.Core;
 using System;
 
-namespace Ejyle.DevAccelerate.MultiTenancy
+namespace Ejyle.DevAccelerate.MultiTenancy.Organizations
 {
-    /// <summary>
-    /// Represents the association of a user with a tenant.
-    /// </summary>
-    /// <typeparam name="TKey">The type of a non-nullable key of an entity.</typeparam>
-    public interface IDaTenantUser<TKey> : IDaEntity<TKey>
+    public interface IDaOrganizationProfileAttribute<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {
-        /// <summary>
-        /// Gets or sets the ID of the user.
-        /// </summary>
-        TKey UserId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the ID of the tenant.
-        /// </summary>
-        TKey TenantId { get; set; }
-
-        /// <summary>
-        /// Determines if the tenant and user association is active.
-        /// </summary>
-        bool IsActive { get; set; }
+        TKey OrganizationProfileId { get; set; }
+        string AttributeName { get; set; }
+        string AttributeValue { get; set; }
     }
 }

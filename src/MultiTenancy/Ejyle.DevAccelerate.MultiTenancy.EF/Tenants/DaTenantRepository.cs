@@ -10,10 +10,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Ejyle.DevAccelerate.Core.EF;
-using Ejyle.DevAccelerate.MultiTenancy;
 using Microsoft.EntityFrameworkCore;
 
-namespace Ejyle.DevAccelerate.MultiTenancy.EF
+/* Unmerged change from project 'Ejyle.DevAccelerate.MultiTenancy.EF (net7.0)'
+Before:
+using Ejyle.DevAccelerate.MultiTenancy.Tenants;
+After:
+using Ejyle.DevAccelerate.MultiTenancy.Tenants;
+using Ejyle;
+using Ejyle.DevAccelerate;
+using Ejyle.DevAccelerate.MultiTenancy;
+using Ejyle.DevAccelerate.MultiTenancy.EF;
+using Ejyle.DevAccelerate.MultiTenancy.EF.Tenants;
+*/
+using Ejyle.DevAccelerate.MultiTenancy.Tenants;
+
+namespace Ejyle.DevAccelerate.MultiTenancy.EF.Tenants
 {
     public class DaTenantRepository : DaTenantRepository<string, DaTenant, DaTenantUser, DaTenantAttribute, DbContext>
     {
@@ -56,7 +68,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
 
         public Task UpdateAsync(TTenant tenant)
         {
-            DbContext.Entry<TTenant>(tenant).State = EntityState.Modified;
+            DbContext.Entry(tenant).State = EntityState.Modified;
             return SaveChangesAsync();
         }
 
@@ -83,7 +95,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
                 return false;
             }
 
-            return (tenantUser != null);
+            return tenantUser != null;
         }
 
         public Task<List<TTenant>> FindByAttributeAsync(string attributeName, string attributeValue)

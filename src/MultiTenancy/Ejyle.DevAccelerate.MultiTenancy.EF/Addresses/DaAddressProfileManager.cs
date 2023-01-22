@@ -5,11 +5,13 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-namespace Ejyle.DevAccelerate.MultiTenancy.EF
+using Ejyle.DevAccelerate.MultiTenancy.Addresses;
+
+namespace Ejyle.DevAccelerate.MultiTenancy.EF.Addresses
 {
-    public class DaTenantManager : DaTenantManager<string, DaTenant, DaTenantUser>
+    public class DaAddressProfileManager : DaAddressProfileManager<string, DaAddressProfile>
     {
-        public DaTenantManager(DaTenantRepository repository)
+        public DaAddressProfileManager(DaAddressProfileRepository repository)
             : base(repository)
         { }
     }

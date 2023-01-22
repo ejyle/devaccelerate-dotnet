@@ -5,28 +5,18 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-namespace Ejyle.DevAccelerate.MultiTenancy
+using Ejyle.DevAccelerate.Core;
+using System;
+
+namespace Ejyle.DevAccelerate.MultiTenancy.Addresses
 {
-    /// <summary>
-    /// Represents the status of a tenant account.
-    /// </summary>
-    public enum DaTenantStatus
+    public interface IDaUserAddress<TKey> : IDaAuditedEntity<TKey>
+        where TKey : IEquatable<TKey>
     {
-        /// <summary>
-        /// Tenant is not activve.
-        /// </summary>
-        Inactive = 0,
-        /// <summary>
-        /// Tenant is active.
-        /// </summary>
-        Active = 1,
-        /// <summary>
-        /// Tenant is suspended.
-        /// </summary>
-        Suspended = 2,
-        /// <summary>
-        /// Tenant is closed.
-        /// </summary>
-        Closed = 3
+        TKey AddressProfileId { get; set; }
+        TKey UserId { get; set; }
+        string Name { get; set; }
+        TKey TenantId { get; set; }
+        DaAddressType AddressType { get; set; }
     }
 }

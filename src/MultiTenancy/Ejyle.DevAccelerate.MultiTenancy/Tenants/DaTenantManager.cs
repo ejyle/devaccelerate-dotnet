@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using Ejyle.DevAccelerate.Core;
 using System.Linq;
 
-namespace Ejyle.DevAccelerate.MultiTenancy
+namespace Ejyle.DevAccelerate.MultiTenancy.Tenants
 {
     public class DaTenantManager<TKey, TTenant, TTenantUser>
         : DaEntityManagerBase<TKey, TTenant>
@@ -55,7 +55,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy
 
         public TTenant FindById(TKey tenantId)
         {
-            return DaAsyncHelper.RunSync<TTenant>(() => FindByIdAsync(tenantId));
+            return DaAsyncHelper.RunSync(() => FindByIdAsync(tenantId));
         }
 
         public Task<TTenant> FindByNameAsync(string name)
@@ -67,7 +67,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy
 
         public TTenant FindByUniqueName(string uniqueName)
         {
-            return DaAsyncHelper.RunSync<TTenant>(() => FindByNameAsync(uniqueName));
+            return DaAsyncHelper.RunSync(() => FindByNameAsync(uniqueName));
         }
 
         public Task UpdateAsync(TTenant tenant)
@@ -85,7 +85,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy
 
         public List<TTenant> FindByUserId(TKey userId)
         {
-            return DaAsyncHelper.RunSync<List<TTenant>>(() => FindByUserIdAsync(userId));
+            return DaAsyncHelper.RunSync(() => FindByUserIdAsync(userId));
         }
 
         public IQueryable<TTenant> Tenants
@@ -112,7 +112,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy
 
         public bool CheckTenantUserActiveAssociation(TKey tenantId, TKey userId)
         {
-            return DaAsyncHelper.RunSync<bool>(() => CheckTenantUserActiveAssociationAsync(tenantId, userId));
+            return DaAsyncHelper.RunSync(() => CheckTenantUserActiveAssociationAsync(tenantId, userId));
         }
     }
 }

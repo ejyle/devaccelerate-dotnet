@@ -9,7 +9,7 @@ using Ejyle.DevAccelerate.Core;
 using System;
 using System.Collections.Generic;
 
-namespace Ejyle.DevAccelerate.MultiTenancy
+namespace Ejyle.DevAccelerate.MultiTenancy.Tenants
 {
     public class DaTenant : DaTenant<string, DaTenantUser, DaTenantAttribute>
     {

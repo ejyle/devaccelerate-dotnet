@@ -9,6 +9,7 @@ using System;
 using Ejyle.DevAccelerate.Identity.Groups;
 using Ejyle.DevAccelerate.Identity.UserActivities;
 using Ejyle.DevAccelerate.Identity.UserAgreements;
+using Ejyle.DevAccelerate.Identity.UserProfiles;
 using Ejyle.DevAccelerate.Identity.UserSessions;
 using Ejyle.DevAccelerate.Identity.UserSettings;
 using Microsoft.AspNetCore.Identity;
@@ -18,7 +19,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Ejyle.DevAccelerate.Identity.EF
 {
     public class DaIdentityDbContext
-    : DaIdentityDbContext<string, DaUser, DaRole, DaGroup, DaGroupRole, DaGroupUser, DaUserSession, DaUserActivityCategory, DaUserActivity, DaUserSetting, DaUserAgreement, DaUserAgreementVersion, DaUserAgreementVersionAction>
+    : DaIdentityDbContext<string, DaUser, DaUserProfile, DaUserProfileAttribute, DaRole, DaGroup, DaGroupRole, DaGroupUser, DaUserSession, DaUserActivityCategory, DaUserActivity, DaUserSetting, DaUserAgreement, DaUserAgreementVersion, DaUserAgreementVersionAction>
     {
         public DaIdentityDbContext(DbContextOptions<DaIdentityDbContext> options)
             : base(options)
@@ -33,10 +34,12 @@ namespace Ejyle.DevAccelerate.Identity.EF
         { }
     }
 
-    public class DaIdentityDbContext<TKey, TUser, TRole, TGroup, TGroupRole, TGroupUser, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction>
+    public class DaIdentityDbContext<TKey, TUser, TUserProfile, TUserProfileAttribute, TRole, TGroup, TGroupRole, TGroupUser, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction>
         : IdentityDbContext<TUser, TRole, TKey>
         where TKey : IEquatable<TKey>
         where TUser: IdentityUser<TKey>
+        where TUserProfile : DaUserProfile<TKey, TUserProfileAttribute>
+        where TUserProfileAttribute : DaUserProfileAttribute<TKey, TUserProfile>
         where TRole : IdentityRole<TKey>
         where TGroup : DaGroup<TKey, TGroupRole, TGroupUser>
         where TGroupRole : DaGroupRole<TKey, TGroup>
@@ -51,7 +54,7 @@ namespace Ejyle.DevAccelerate.Identity.EF
     {
         private const string SCHEMA_NAME = "Da.Identity";
 
-        public DaIdentityDbContext(DbContextOptions<DaIdentityDbContext<TKey, TUser, TRole, TGroup, TGroupRole, TGroupUser, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction>> options)
+        public DaIdentityDbContext(DbContextOptions<DaIdentityDbContext<TKey, TUser, TUserProfile, TUserProfileAttribute, TRole, TGroup, TGroupRole, TGroupUser, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction>> options)
             : base(options)
         { }
 
@@ -67,11 +70,13 @@ namespace Ejyle.DevAccelerate.Identity.EF
             : base(GetOptions(connectionString))
         { }
 
-        private static DbContextOptions<DaIdentityDbContext<TKey, TUser, TRole, TGroup, TGroupRole, TGroupUser, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction>> GetOptions(string connectionString)
+        private static DbContextOptions<DaIdentityDbContext<TKey, TUser, TUserProfile, TUserProfileAttribute, TRole, TGroup, TGroupRole, TGroupUser, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction>> GetOptions(string connectionString)
         {
-            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaIdentityDbContext<TKey, TUser, TRole, TGroup, TGroupRole, TGroupUser, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction>>(), connectionString).Options;
+            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaIdentityDbContext<TKey, TUser, TUserProfile, TUserProfileAttribute, TRole, TGroup, TGroupRole, TGroupUser, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction>>(), connectionString).Options;
         }
 
+        public virtual DbSet<TUserProfile> UserProfiles { get; set; }
+        public virtual DbSet<TUserProfileAttribute> UserProfileAttributes { get; set; }
         public virtual DbSet<DaGroup> Groups { get; set; }
         public virtual DbSet<DaGroupRole> GroupRoles { get; set; }
         public virtual DbSet<DaGroupUser> GroupUsers { get; set; }
@@ -114,6 +119,42 @@ namespace Ejyle.DevAccelerate.Identity.EF
             modelBuilder.Entity<IdentityUserRole<TKey>>().ToTable("UserRoles", SCHEMA_NAME);
             modelBuilder.Entity<IdentityRoleClaim<TKey>>().ToTable("RoleClaims", SCHEMA_NAME);
             modelBuilder.Entity<IdentityUserToken<TKey>>().ToTable("UserTokens", SCHEMA_NAME);
+
+            modelBuilder.Entity<TUserProfileAttribute>(entity =>
+            {
+                entity.ToTable("UserProfileAttributes", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.AttributeName)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.HasOne(d => d.UserProfile)
+                    .WithMany(p => p.Attributes)
+                    .HasForeignKey(d => d.UserProfileId);
+            });
+
+            modelBuilder.Entity<TUserProfile>(entity =>
+            {
+                entity.ToTable("UserProfiles", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Dob).HasColumnType("date");
+
+                entity.Property(e => e.FirstName).HasMaxLength(100);
+
+                entity.Property(e => e.JobTitle).HasMaxLength(256);
+
+                entity.Property(e => e.LastName).HasMaxLength(100);
+
+                entity.Property(e => e.MiddleName).HasMaxLength(100);
+
+                entity.Property(e => e.OrganizationName).HasMaxLength(256);
+
+                entity.Property(e => e.Salutation).HasMaxLength(50);
+            });
 
             modelBuilder.Entity<TGroup>(entity =>
             {

@@ -5,20 +5,13 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-namespace Ejyle.DevAccelerate.MultiTenancy
+namespace Ejyle.DevAccelerate.MultiTenancy.Organizations
 {
-    /// <summary>
-    /// Represents the type of a tenant.
-    /// </summary>
-    public enum DaTenantType
+    public enum DaOrganizationType
     {
-        /// <summary>
-        /// Represents an individual
-        /// </summary>
-        Individual = 0,
-        /// <summary>
-        /// Represents an organization
-        /// </summary>
-        Organization = 1
+        Company = 0,
+        Government = 1,
+        Charity = 2,
+        Other = 100
     }
 }
