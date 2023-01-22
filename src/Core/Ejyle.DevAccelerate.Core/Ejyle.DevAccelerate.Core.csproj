@@ -4,7 +4,7 @@
 		<VersionSuffix>preview1.8</VersionSuffix>
 		<TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
 		<PlatformTarget>anycpu</PlatformTarget>
-		<GenerateDocumentationFile>true</GenerateDocumentationFile>		
+		<GenerateDocumentationFile>false</GenerateDocumentationFile>		
 		<OutputType>Library</OutputType>
 		<SignAssembly>true</SignAssembly>
 		<AssemblyOriginatorKeyFile>../../../assets/devaccelerate.snk</AssemblyOriginatorKeyFile>		

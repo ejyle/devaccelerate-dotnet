@@ -51,6 +51,11 @@ namespace Ejyle.DevAccelerate.Core.EF.Objects
             return SaveChangesAsync();
         }
 
+        public Task<List<TObjectType>> FindAllAsync()
+        {
+            return ObjectTypes.ToListAsync();
+        }
+
         public Task<TObjectType> FindByIdAsync(TKey id)
         {
             return ObjectTypes.Where(m => m.Id.Equals(id))

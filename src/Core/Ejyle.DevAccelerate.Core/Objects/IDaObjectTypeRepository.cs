@@ -19,6 +19,7 @@ namespace Ejyle.DevAccelerate.Core.Objects
     {
         Task CreateAsync(TObjectType objType);
         Task<TObjectType> FindByIdAsync(TKey id);
+        Task<List<TObjectType>> FindAllAsync();
         Task UpdateAsync(TObjectType objType);
         Task DeleteAsync(TObjectType objType);
     }
