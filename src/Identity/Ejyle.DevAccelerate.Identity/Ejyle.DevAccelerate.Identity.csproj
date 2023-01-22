@@ -35,8 +35,17 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<Compile Remove="Apps\**" />
+		<Compile Remove="SubscriptionPlans\**" />
+		<Compile Remove="Subscriptions\**" />
 		<Compile Remove="Tools\**" />
+		<EmbeddedResource Remove="Apps\**" />
+		<EmbeddedResource Remove="SubscriptionPlans\**" />
+		<EmbeddedResource Remove="Subscriptions\**" />
 		<EmbeddedResource Remove="Tools\**" />
+		<None Remove="Apps\**" />
+		<None Remove="SubscriptionPlans\**" />
+		<None Remove="Subscriptions\**" />
 		<None Remove="Tools\**" />
 	</ItemGroup>
 	<ItemGroup>

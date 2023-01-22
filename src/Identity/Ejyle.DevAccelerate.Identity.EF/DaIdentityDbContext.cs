@@ -6,7 +6,9 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using System;
+using Ejyle.DevAccelerate.Identity.Groups;
 using Ejyle.DevAccelerate.Identity.UserActivities;
+using Ejyle.DevAccelerate.Identity.UserAgreements;
 using Ejyle.DevAccelerate.Identity.UserSessions;
 using Ejyle.DevAccelerate.Identity.UserSettings;
 using Microsoft.AspNetCore.Identity;
@@ -16,7 +18,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Ejyle.DevAccelerate.Identity.EF
 {
     public class DaIdentityDbContext
-    : DaIdentityDbContext<string, DaUser, DaRole, DaUserSession, DaUserActivityCategory, DaUserActivity, DaUserSetting>
+    : DaIdentityDbContext<string, DaUser, DaRole, DaGroup, DaGroupRole, DaGroupUser, DaUserSession, DaUserActivityCategory, DaUserActivity, DaUserSetting, DaUserAgreement, DaUserAgreementVersion, DaUserAgreementVersionAction>
     {
         public DaIdentityDbContext(DbContextOptions<DaIdentityDbContext> options)
             : base(options)
@@ -31,19 +33,25 @@ namespace Ejyle.DevAccelerate.Identity.EF
         { }
     }
 
-    public class DaIdentityDbContext<TKey, TUser, TRole, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting>
+    public class DaIdentityDbContext<TKey, TUser, TRole, TGroup, TGroupRole, TGroupUser, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction>
         : IdentityDbContext<TUser, TRole, TKey>
         where TKey : IEquatable<TKey>
         where TUser: IdentityUser<TKey>
         where TRole : IdentityRole<TKey>
+        where TGroup : DaGroup<TKey, TGroupRole, TGroupUser>
+        where TGroupRole : DaGroupRole<TKey, TGroup>
+        where TGroupUser : DaGroupUser<TKey, TGroup>
         where TUserSession : DaUserSession<TKey>
         where TUserActivityCategory : DaUserActivityCategory<TKey, TUserActivity>
         where TUserActivity : DaUserActivity<TKey, TUserActivityCategory>
         where TUserSetting : DaUserSetting<TKey>
+        where TUserAgreement : DaUserAgreement<TKey, TUserAgreementVersion>
+        where TUserAgreementVersion : DaUserAgreementVersion<TKey, TUserAgreement, TUserAgreementVersionAction>
+        where TUserAgreementVersionAction : DaUserAgreementVersionAction<TKey, TUserAgreementVersion>
     {
         private const string SCHEMA_NAME = "Da.Identity";
 
-        public DaIdentityDbContext(DbContextOptions<DaIdentityDbContext<TKey, TUser, TRole, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting>> options)
+        public DaIdentityDbContext(DbContextOptions<DaIdentityDbContext<TKey, TUser, TRole, TGroup, TGroupRole, TGroupUser, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction>> options)
             : base(options)
         { }
 
@@ -59,15 +67,21 @@ namespace Ejyle.DevAccelerate.Identity.EF
             : base(GetOptions(connectionString))
         { }
 
-        private static DbContextOptions<DaIdentityDbContext<TKey, TUser, TRole, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting>> GetOptions(string connectionString)
+        private static DbContextOptions<DaIdentityDbContext<TKey, TUser, TRole, TGroup, TGroupRole, TGroupUser, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction>> GetOptions(string connectionString)
         {
-            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaIdentityDbContext<TKey, TUser, TRole, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting>>(), connectionString).Options;
+            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaIdentityDbContext<TKey, TUser, TRole, TGroup, TGroupRole, TGroupUser, TUserSession, TUserActivityCategory, TUserActivity, TUserSetting, TUserAgreement, TUserAgreementVersion, TUserAgreementVersionAction>>(), connectionString).Options;
         }
 
+        public virtual DbSet<DaGroup> Groups { get; set; }
+        public virtual DbSet<DaGroupRole> GroupRoles { get; set; }
+        public virtual DbSet<DaGroupUser> GroupUsers { get; set; }
         public virtual DbSet<TUserSession> UserSessions { get; set; }
         public virtual DbSet<TUserActivityCategory> UserActivityCategories { get; set; }
         public virtual DbSet<TUserActivity> UserActivities { get; set; }
         public virtual DbSet<TUserSetting> UserSettings { get; set; }
+        public virtual DbSet<TUserAgreement> UserAgreements { get; set; }
+        public virtual DbSet<TUserAgreementVersion> UserAgreementVersions { get; set; }
+        public virtual DbSet<TUserAgreementVersionAction> UserAgreementVersionActions { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -100,6 +114,39 @@ namespace Ejyle.DevAccelerate.Identity.EF
             modelBuilder.Entity<IdentityUserRole<TKey>>().ToTable("UserRoles", SCHEMA_NAME);
             modelBuilder.Entity<IdentityRoleClaim<TKey>>().ToTable("RoleClaims", SCHEMA_NAME);
             modelBuilder.Entity<IdentityUserToken<TKey>>().ToTable("UserTokens", SCHEMA_NAME);
+
+            modelBuilder.Entity<TGroup>(entity =>
+            {
+                entity.ToTable("Groups", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(256);
+            });
+
+            modelBuilder.Entity<TGroupRole>(entity =>
+            {
+                entity.ToTable("GroupRoles", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.HasOne(d => d.Group)
+                    .WithMany(p => p.GroupRoles)
+                    .HasForeignKey(d => d.GroupId);
+            });
+
+            modelBuilder.Entity<TGroupUser>(entity =>
+            {
+                entity.ToTable("GroupUsers", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.HasOne(d => d.Group)
+                    .WithMany(p => p.GroupUsers)
+                    .HasForeignKey(d => d.GroupId);
+            });
 
             modelBuilder.Entity<TUserActivity>(entity =>
             {
@@ -137,6 +184,43 @@ namespace Ejyle.DevAccelerate.Identity.EF
                 entity.ToTable("UserSettings", SCHEMA_NAME);
 
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            });
+
+            modelBuilder.Entity<TUserAgreementVersionAction>(entity =>
+            {
+                entity.ToTable("UserAgreementVersionActions", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.HasOne(d => d.UserAgreementVersion)
+                    .WithMany(p => p.Actions)
+                    .HasForeignKey(d => d.UserAgreementVersionId);
+            });
+
+            modelBuilder.Entity<TUserAgreementVersion>(entity =>
+            {
+                entity.ToTable("UserAgreementVersions", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.HasOne(d => d.UserAgreement)
+                    .WithMany(p => p.UserAgreementVersions)
+                    .HasForeignKey(d => d.UserAgreementId);
+            });
+
+            modelBuilder.Entity<TUserAgreement>(entity =>
+            {
+                entity.ToTable("UserAgreements", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Key)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(256);
             });
         }
     }

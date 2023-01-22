@@ -33,6 +33,17 @@
 		<PackageOutputPath>../../../nupkg</PackageOutputPath>
 	</PropertyGroup>
 	<ItemGroup>
+	  <Compile Remove="Apps\**" />
+	  <Compile Remove="SubscriptionPlans\**" />
+	  <Compile Remove="Subscriptions\**" />
+	  <EmbeddedResource Remove="Apps\**" />
+	  <EmbeddedResource Remove="SubscriptionPlans\**" />
+	  <EmbeddedResource Remove="Subscriptions\**" />
+	  <None Remove="Apps\**" />
+	  <None Remove="SubscriptionPlans\**" />
+	  <None Remove="Subscriptions\**" />
+	</ItemGroup>
+	<ItemGroup>
 		<None Include="..\..\..\assets\logo.png">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>

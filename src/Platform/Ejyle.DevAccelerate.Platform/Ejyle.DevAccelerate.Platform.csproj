@@ -1,0 +1,53 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<VersionPrefix>7.0.1</VersionPrefix>
+		<VersionSuffix>preview1.8</VersionSuffix>
+		<TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
+		<PlatformTarget>anycpu</PlatformTarget>
+		<GenerateDocumentationFile>false</GenerateDocumentationFile>
+		<OutputType>Library</OutputType>
+		<SignAssembly>true</SignAssembly>
+		<AssemblyOriginatorKeyFile>../../../assets/devaccelerate.snk</AssemblyOriginatorKeyFile>
+		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb;.xml</AllowedOutputExtensionsInPackageBuildOutputFolder>
+	</PropertyGroup>
+	<PropertyGroup>
+		<RootNamespace>Ejyle.DevAccelerate.Platform</RootNamespace>
+		<AssemblyName>Ejyle.DevAccelerate.Platform</AssemblyName>
+		<ApplicationIcon>da.ico</ApplicationIcon>
+		<Company>Ejyle Technologies (P) Ltd</Company>
+		<Authors>Tanveer Yousuf</Authors>
+		<Copyright>Copyright © Ejyle Technologies (P) Ltd. All rights reserved.</Copyright>
+		<PackageProjectUrl>https://devaccelerate.github.io</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/devaccelerate/DevAccelerateNet.git</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageId>DevAcceleratePlatform</PackageId>
+		<Product>DevAcceleratePlatform</Product>
+		<Description>DevAcceleratePlatform library provides APIs for creating and managing information about apps and app features. Ideal for developing a platform.</Description>
+		<PackageTags>DevAccelerate;Platform-Development;Apps;Features;App-Features;SaaS</PackageTags>
+		<Nullable>disable</Nullable>
+
+		<PackageReleaseNotes>Please see https://github.com/devaccelerate/devacceleratenet/releases</PackageReleaseNotes>
+		<PackageIcon>logo.png</PackageIcon>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<PackageOutputPath>../../../nupkg</PackageOutputPath>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="..\..\..\assets\logo.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Options" Version="7.0.*" Condition="'$(TargetFramework)' == 'net7.0'" />
+		<PackageReference Include="Microsoft.Extensions.Options" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
+		<PackageReference Include="Microsoft.Extensions.Options" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
+		<PackageReference Include="Microsoft.Extensions.Options" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Core\Ejyle.DevAccelerate.Core\Ejyle.DevAccelerate.Core.csproj" />
+	</ItemGroup>
+
+</Project>
