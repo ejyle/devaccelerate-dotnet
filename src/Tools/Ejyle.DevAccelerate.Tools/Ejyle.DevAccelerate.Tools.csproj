@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<VersionPrefix>7.0.1</VersionPrefix>
-		<VersionSuffix>preview1.8</VersionSuffix>
+		<VersionSuffix>preview1.9</VersionSuffix>
 		<TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
 		<PlatformTarget>anycpu</PlatformTarget>
 		<GenerateDocumentationFile>false</GenerateDocumentationFile>
@@ -34,17 +34,6 @@
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageOutputPath>../../../nupkg</PackageOutputPath>    
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Remove="Apps\**" />
-    <Compile Remove="SubscriptionPlans\**" />
-    <Compile Remove="Subscriptions\**" />
-    <EmbeddedResource Remove="Apps\**" />
-    <EmbeddedResource Remove="SubscriptionPlans\**" />
-    <EmbeddedResource Remove="Subscriptions\**" />
-    <None Remove="Apps\**" />
-    <None Remove="SubscriptionPlans\**" />
-    <None Remove="Subscriptions\**" />
-  </ItemGroup>
 
   <ItemGroup>
     <None Include="..\..\..\assets\logo.png">
