@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Messages
 {
-    public interface IDaMessage<TKey> : IDaEntity<TKey>
+    public interface IDaMessage<TKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         string Subject { get; set; }

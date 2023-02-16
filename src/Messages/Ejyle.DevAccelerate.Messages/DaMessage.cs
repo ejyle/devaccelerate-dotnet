@@ -20,7 +20,7 @@ namespace Ejyle.DevAccelerate.Messages
         { }
     }
 
-    public class DaMessage<TKey, TMessageVariable, TMessageRecipient> : DaEntityBase<TKey>, IDaMessage<TKey>
+    public class DaMessage<TKey, TMessageVariable, TMessageRecipient> : DaAuditedEntityBase<TKey>, IDaMessage<TKey>
         where TKey : IEquatable<TKey>
         where TMessageVariable : IDaMessageVariable<TKey>
         where TMessageRecipient : IDaMessageRecipient<TKey>
