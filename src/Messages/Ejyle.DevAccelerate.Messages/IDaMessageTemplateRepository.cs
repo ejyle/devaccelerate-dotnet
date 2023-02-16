@@ -21,6 +21,7 @@ namespace Ejyle.DevAccelerate.Messages
     {
         Task CreateAsync(TMessageTemplate messageTemplate);
         Task<TMessageTemplate> FindByIdAsync(TKey id);
+        Task<TMessageTemplate> FindByKeyAsync(string key);
         Task UpdateAsync(TMessageTemplate messageTemplate);
         Task DeleteAsync(TMessageTemplate messageTemplate);
     }

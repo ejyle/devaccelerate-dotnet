@@ -80,5 +80,16 @@ namespace Ejyle.DevAccelerate.Messages
             ThrowIfDisposed();
             return Repository.FindByIdAsync(id);
         }
+
+        public virtual TMessageTemplate FindByKey(string key)
+        {
+            return DaAsyncHelper.RunSync(() => FindByKeyAsync(key));
+        }
+
+        public virtual Task<TMessageTemplate> FindByKeyAsync(string key)
+        {
+            ThrowIfDisposed();
+            return Repository.FindByKeyAsync(key);
+        }
     }
 }

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Messages
 {
-    public class DaMessagesService<TKey, TMessageManager, TMessage, TMessageVariable, TMessageRecipientVariable, TMessageRecipient, TMessageTemplateManager, TMessageTemplate>
+    public class DaMessagesService<TKey, TMessageManager, TMessage, TMessageVariable, TMessageRecipient, TMessageRecipientVariable, TMessageTemplateManager, TMessageTemplate>
         where TKey : IEquatable<TKey>
         where TMessageManager : DaMessageManager<TKey, TMessage>
         where TMessage : DaMessage<TKey, TMessageVariable, TMessageRecipient>, new ()
@@ -41,9 +41,9 @@ namespace Ejyle.DevAccelerate.Messages
             _messageTemplateManager = messageTemplateManager;
         }
 
-        public virtual async Task CreateMessageAsync(TKey messageTemplateId, TKey userId, List<DaMessageVariableInfo> messageVariables, List<DaMessageRecipientInfo> recipients)
+        public virtual async Task CreateMessageAsync(string messageTemplateName, TKey userId, List<DaMessageVariableInfo> messageVariables, List<DaMessageRecipientInfo> recipients)
         {
-            var messageTemplate = await _messageTemplateManager.FindByIdAsync(messageTemplateId);
+            var messageTemplate = await _messageTemplateManager.FindByKeyAsync(messageTemplateName);
 
             var message = new TMessage()
             {
@@ -108,9 +108,9 @@ namespace Ejyle.DevAccelerate.Messages
             await _messageManager.CreateAsync(message);
         }
 
-        public virtual void CreateMessage(TKey messageTemplateId, TKey userId, List<DaMessageVariableInfo> variables, List<DaMessageRecipientInfo> recipients)
+        public virtual void CreateMessage(string key, TKey userId, List<DaMessageVariableInfo> variables, List<DaMessageRecipientInfo> recipients)
         {
-            DaAsyncHelper.RunSync(() => CreateMessageAsync(messageTemplateId, userId, variables, recipients));
+            DaAsyncHelper.RunSync(() => CreateMessageAsync(key, userId, variables, recipients));
         }
     }
 

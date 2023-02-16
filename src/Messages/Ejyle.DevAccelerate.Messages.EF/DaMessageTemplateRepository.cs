@@ -54,6 +54,11 @@ namespace Ejyle.DevAccelerate.Messages.EF
             return MessageTemplates.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
         }
 
+        public Task<TMessageTemplate> FindByKeyAsync(string key)
+        {
+            return MessageTemplates.Where(m => m.Key == key).SingleOrDefaultAsync();
+        }
+
         public Task UpdateAsync(TMessageTemplate messageTemplate)
         {
             DbContext.Entry<TMessageTemplate>(messageTemplate).State = EntityState.Modified;

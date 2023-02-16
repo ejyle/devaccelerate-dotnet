@@ -4,24 +4,13 @@
 // Copyright © Ejyle Technologies (P) Ltd. All rights reserved.
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
-using Ejyle.DevAccelerate.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Ejyle.DevAccelerate.Messages
+namespace Ejyle.DevAccelerate.Messages.EF
 {
-    public interface IDaMessageTemplate<TKey> : IDaEntity<TKey>
-        where TKey : IEquatable<TKey>
+    public class DaMessagesService : DaMessagesService<string, DaMessageManager, DaMessage, DaMessageVariable, DaMessageRecipient, DaMessageRecipientVariable, DaMessageTemplateManager, DaMessageTemplate>
     {
-        string Name { get; set; }
-        string Key { get; set; }
-        string Subject { get; set; }
-        string Message { get; set; }
-        string Description { get; set; }
-        string Category { get; set; }
-        string Format { get; set; }
+        public DaMessagesService(DaMessageManager messageManager, DaMessageTemplateManager messageTemplateManager)
+            : base(messageManager, messageTemplateManager) { 
+        }
     }
 }
