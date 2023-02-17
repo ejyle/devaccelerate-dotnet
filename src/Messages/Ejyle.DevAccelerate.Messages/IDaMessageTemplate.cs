@@ -23,5 +23,6 @@ namespace Ejyle.DevAccelerate.Messages
         string Description { get; set; }
         string Category { get; set; }
         string Format { get; set; }
+        string VariableDelimiter { get; set; }
     }
 }

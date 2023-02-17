@@ -93,6 +93,9 @@ namespace Ejyle.DevAccelerate.Messages.EF
                     .HasMaxLength(128)
                     .IsRequired();
 
+                entity.Property(e => e.VariableDelimiter)
+                    .HasMaxLength(5);
+
                 entity.HasIndex(e => e.Key).IsUnique();
 
                 entity.Property(e => e.Message)
@@ -116,6 +119,9 @@ namespace Ejyle.DevAccelerate.Messages.EF
 
                 entity.Property(e => e.Message)
                     .IsRequired();
+
+                entity.Property(e => e.VariableDelimiter)
+                    .HasMaxLength(5);
 
                 entity.Property(e => e.Format)
                     .HasMaxLength(256);

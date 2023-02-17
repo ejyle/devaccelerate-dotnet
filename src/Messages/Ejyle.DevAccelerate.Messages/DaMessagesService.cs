@@ -41,9 +41,24 @@ namespace Ejyle.DevAccelerate.Messages
             _messageTemplateManager = messageTemplateManager;
         }
 
-        public virtual async Task CreateMessageAsync(string messageTemplateName, TKey userId, List<DaMessageVariableInfo> messageVariables, List<DaMessageRecipientInfo> recipients)
+        public virtual async Task CreateMessageAsync(string messageTemplateKey, TKey userId, List<DaMessageRecipientInfo> recipients, List<DaMessageVariableInfo> messageVariables)
         {
-            var messageTemplate = await _messageTemplateManager.FindByKeyAsync(messageTemplateName);
+            if(string.IsNullOrEmpty(messageTemplateKey))
+            {
+                throw new ArgumentNullException(nameof(messageTemplateKey));
+            }
+
+            if(recipients == null)
+            {
+                throw new ArgumentNullException(nameof(recipients));
+            }
+
+            var messageTemplate = await _messageTemplateManager.FindByKeyAsync(messageTemplateKey);
+
+            if(messageTemplate == null)
+            {
+                throw new DaNotFoundException($"Message template key {messageTemplateKey} not found.");
+            }
 
             var message = new TMessage()
             {
@@ -90,16 +105,19 @@ namespace Ejyle.DevAccelerate.Messages
                     Variables = new List<TMessageRecipientVariable>()
                 };
 
-                foreach(var variable in recipientInfo.Variables)
+                if (recipientInfo.Variables != null)
                 {
-                    recipient.Variables.Add(new TMessageRecipientVariable()
+                    foreach (var variable in recipientInfo.Variables)
                     {
-                        ForMessage = variable.ForMessage,
-                        Name = variable.Name,
-                        ForSubject = variable.ForSubject,
-                        Value = variable.Value,
-                        MessageRecipient = recipient
-                    });
+                        recipient.Variables.Add(new TMessageRecipientVariable()
+                        {
+                            ForMessage = variable.ForMessage,
+                            Name = variable.Name,
+                            ForSubject = variable.ForSubject,
+                            Value = variable.Value,
+                            MessageRecipient = recipient
+                        });
+                    }
                 }
 
                 message.Recipients.Add(recipient);
@@ -108,9 +126,9 @@ namespace Ejyle.DevAccelerate.Messages
             await _messageManager.CreateAsync(message);
         }
 
-        public virtual void CreateMessage(string key, TKey userId, List<DaMessageVariableInfo> variables, List<DaMessageRecipientInfo> recipients)
+        public virtual void CreateMessage(string key, TKey userId, List<DaMessageRecipientInfo> recipients, List<DaMessageVariableInfo> variables)
         {
-            DaAsyncHelper.RunSync(() => CreateMessageAsync(key, userId, variables, recipients));
+            DaAsyncHelper.RunSync(() => CreateMessageAsync(key, userId, recipients, variables));
         }
     }
 
