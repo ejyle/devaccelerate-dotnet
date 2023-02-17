@@ -19,6 +19,7 @@ namespace Ejyle.DevAccelerate.Messages
         where TKey : IEquatable<TKey>
         where TMessage : IDaMessage<TKey>
     {
+        IQueryable<TMessage> Messages { get; }
         Task CreateAsync(TMessage message);
         Task<TMessage> FindByIdAsync(TKey id);
         Task UpdateAsync(TMessage message);

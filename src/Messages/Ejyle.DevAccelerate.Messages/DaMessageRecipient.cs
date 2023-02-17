@@ -46,6 +46,7 @@ namespace Ejyle.DevAccelerate.Messages
         public string RecipientAddress { get; set; }
         public DaMessageStatus Status { get; set; }
         public string FailureMessage { get; set; }
+        public int AttemptCount { get; set; }
         public TKey UserId { get; set; }
     }
 }

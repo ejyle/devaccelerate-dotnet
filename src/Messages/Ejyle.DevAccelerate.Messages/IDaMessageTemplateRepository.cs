@@ -20,6 +20,7 @@ namespace Ejyle.DevAccelerate.Messages
         where TMessageTemplate : IDaMessageTemplate<TKey>
     {
         Task CreateAsync(TMessageTemplate messageTemplate);
+        Task<List<TMessageTemplate>> FindAllAsync();
         Task<TMessageTemplate> FindByIdAsync(TKey id);
         Task<TMessageTemplate> FindByKeyAsync(string key);
         Task UpdateAsync(TMessageTemplate messageTemplate);

@@ -50,6 +50,8 @@ namespace Ejyle.DevAccelerate.Messages
         public TKey MessageTemplateId { get; set; }
         public DaMessageStatus Status { get; set; }
         public string FailureMessage { get; set; }
+        public int RecipientsCount { get; set; }
         public string VariableDelimiter { get; set; }
+        public int RecipientsProcessedCount { get; set; }
     }
 }

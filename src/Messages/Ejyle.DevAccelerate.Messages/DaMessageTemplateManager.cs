@@ -70,6 +70,17 @@ namespace Ejyle.DevAccelerate.Messages
             DaAsyncHelper.RunSync(() => DeleteAsync(messageTemplate));
         }
 
+        public virtual List<TMessageTemplate> FindAll()
+        {
+            return DaAsyncHelper.RunSync(() => FindAllAsync());
+        }
+
+        public virtual Task<List<TMessageTemplate>> FindAllAsync()
+        {
+            ThrowIfDisposed();
+            return Repository.FindAllAsync();
+        }
+
         public virtual TMessageTemplate FindById(TKey id)
         {
             return DaAsyncHelper.RunSync(() => FindByIdAsync(id));

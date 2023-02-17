@@ -38,23 +38,25 @@ namespace Ejyle.DevAccelerate.Messages.EF
             : base(dbContext)
         { }
 
-        private DbSet<TMessage> Messages { get { return DbContext.Set<TMessage>(); } }
+        private DbSet<TMessage> MessagesSet { get { return DbContext.Set<TMessage>(); } }
+
+        public IQueryable<TMessage> Messages => MessagesSet.AsQueryable();
 
         public Task CreateAsync(TMessage message)
         {
-            Messages.Add(message);
+            MessagesSet.Add(message);
             return SaveChangesAsync();
         }
 
         public Task DeleteAsync(TMessage message)
         {
-            Messages.Remove(message);
+            MessagesSet.Remove(message);
             return SaveChangesAsync();
         }
 
         public Task<TMessage> FindByIdAsync(TKey id)
         {
-            return Messages.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
+            return MessagesSet.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
         }
 
         public Task UpdateAsync(TMessage messageTemplate)
@@ -66,14 +68,14 @@ namespace Ejyle.DevAccelerate.Messages.EF
 
         public async Task<DaPaginatedEntityList<TKey, TMessage>> FindByStatusAsync(DaMessageStatus status, DaDataPaginationCriteria paginationCriteria)
         {
-            var totalCount = await Messages.Where(m => m.Status.Equals(status)).CountAsync();
+            var totalCount = await MessagesSet.Where(m => m.Status.Equals(status)).CountAsync();
 
             if (totalCount <= 0)
             {
                 return null;
             }
 
-            var query = Messages
+            var query = MessagesSet
                 .Where(m => m.Status.Equals(status))
                 .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
                 .Take(paginationCriteria.PageSize)

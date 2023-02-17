@@ -6,13 +6,29 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using Ejyle.DevAccelerate.Core;
+using Ejyle.DevAccelerate.Mail;
+using Ejyle.DevAccelerate.Mail.SendGrid;
+using Ejyle.DevAccelerate.Messages;
+using Ejyle.DevAccelerate.Messages.EF;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net.Mail;
 using System.Threading.Tasks;
 
-namespace Ejyle.DevAccelerate.Messages
+namespace Ejyle.DevAccelerate.Facades.Messages
 {
-    public class DaMessagesService<TKey, TMessageManager, TMessage, TMessageVariable, TMessageRecipient, TMessageRecipientVariable, TMessageTemplateManager, TMessageTemplate>
+    public class DaMessagesFacade : DaMessagesFacade<string, DaMessageManager, DaMessage, DaMessageVariable, DaMessageRecipient, DaMessageRecipientVariable, DaMessageTemplateManager, DaMessageTemplate>
+    {
+        public DaMessagesFacade(DaMessageManager messageManager, DaMessageTemplateManager messageTemplateManager)
+            : base(messageManager, messageTemplateManager)
+        {
+        }
+    }
+
+    public class DaMessagesFacade<TKey, TMessageManager, TMessage, TMessageVariable, TMessageRecipient, TMessageRecipientVariable, TMessageTemplateManager, TMessageTemplate>
         where TKey : IEquatable<TKey>
         where TMessageManager : DaMessageManager<TKey, TMessage>
         where TMessage : DaMessage<TKey, TMessageVariable, TMessageRecipient>, new ()
@@ -25,7 +41,7 @@ namespace Ejyle.DevAccelerate.Messages
         private TMessageManager _messageManager;
         private TMessageTemplateManager _messageTemplateManager;
 
-        public DaMessagesService(TMessageManager messageManager, TMessageTemplateManager messageTemplateManager)
+        public DaMessagesFacade(TMessageManager messageManager, TMessageTemplateManager messageTemplateManager)
         {
             if (messageManager == null)
             {
@@ -130,6 +146,112 @@ namespace Ejyle.DevAccelerate.Messages
         {
             DaAsyncHelper.RunSync(() => CreateMessageAsync(key, userId, recipients, variables));
         }
+
+        public async Task<DaMessageProcessingResult> ProcessMessagesAsync(IOptions<DaMailSettings> options, int processCount = 100, DaProcessMessagesFlag flag = DaProcessMessagesFlag.New)
+        {
+            if(processCount > 1000)
+            {
+                throw new InvalidOperationException("Process count cannot exceed 10000.");
+            }
+
+            if(processCount < 1)
+            {
+                throw new InvalidOperationException("Process count cannot be less than 1.");
+            }
+
+            DaMessageStatus? status = null;
+            
+            if(flag == DaProcessMessagesFlag.New)
+            {
+                status = DaMessageStatus.New;
+            }
+            else if(flag == DaProcessMessagesFlag.Failed)
+            {
+                status = DaMessageStatus.Failed;
+            }
+
+            List<TMessage> messages = null;
+
+            var result = new DaMessageProcessingResult();
+
+            if (status != null)
+            {
+                messages = await _messageManager.Messages
+                    .Include(m => m.Variables)
+                    .Include(m => m.Recipients)
+                    .ThenInclude(m => m.Variables)
+                    .Where(m => m.Status == DaMessageStatus.New && m.RecipientsCount < m.RecipientsProcessedCount)
+                    .Take(processCount)
+                    .ToListAsync();
+            }
+            else
+            {
+                messages = await _messageManager.Messages
+                    .Include(m => m.Variables)
+                    .Include(m => m.Recipients)
+                    .ThenInclude(m => m.Variables)
+                    .Take(processCount)
+                    .Where(m => (m.Status == DaMessageStatus.New || m.Status == DaMessageStatus.Failed) && m.RecipientsCount < m.RecipientsProcessedCount).ToListAsync();
+            }
+
+            if (messages == null)
+            {
+                return result;
+            }
+
+            var messageTemplates = await _messageTemplateManager.FindAllAsync();
+            var mailSender = new DaSendGridMailProvider(options);
+           
+            foreach (var message in messages)
+            {
+                TMessageTemplate messageTemplate = null;
+                result.ProcessingCount = result.ProcessingCount + 1;
+
+                if (message.MessageTemplateId != null)
+                {
+                    messageTemplate = messageTemplates.Where(m => m.Id.Equals(message.MessageTemplateId)).SingleOrDefault();
+
+                    if(messageTemplate == null)
+                    {
+                        message.FailureMessage = "Invalid message template.";
+                        message.Status= DaMessageStatus.Failed;
+                        message.RecipientsCount = message.RecipientsCount + 1;
+                        result.MessageFailureCount = result.MessageFailureCount + 1;
+                        await _messageManager.UpdateAsync(message);
+                        continue;
+                    }
+                }
+
+                var from = mailSender.Settings.DefaultSenderEmail;
+
+                if(messageTemplate != null)
+                {
+                    if (!string.IsNullOrEmpty(messageTemplate.FromAddress))
+                    {
+                        from = messageTemplate.FromAddress;
+                    }
+                }
+
+                foreach(var recipient in message.Recipients)
+                {
+                    message.RecipientsProcessedCount = message.RecipientsProcessedCount + 1;
+
+                    await mailSender.SendAsync(recipient.RecipientAddress, from, message.Subject, message.Message);
+                    recipient.Status = DaMessageStatus.Completed;
+                }
+            }
+
+            return result;
+        }
+    }
+
+    public class DaMessageProcessingResult
+    {
+        public long ProcessingCount { get; set; }
+        public long SentCount { get; set; }
+        public int RecipientCount { get; set; }
+        public long MessageFailureCount { get; set; }
+        public long RecipientFailureCount { get; set; }
     }
 
     public class DaMessageRecipientInfo
@@ -145,5 +267,12 @@ namespace Ejyle.DevAccelerate.Messages
         public string Value { get; set; }
         public bool ForSubject { get; set; }
         public bool ForMessage { get; set; }
+    }
+
+    public enum DaProcessMessagesFlag
+    {
+        New = 0,
+        Failed = 1,
+        All = 10
     }
 }

@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
 using Ejyle.DevAccelerate.Core.Data;
@@ -28,6 +29,14 @@ namespace Ejyle.DevAccelerate.Messages
             get
             {
                 return GetRepository<IDaMessageRepository<TKey, TMessage>>();
+            }
+        }
+
+        public IQueryable<TMessage> Messages
+        {
+            get
+            {
+                return Repository.Messages;
             }
         }
 

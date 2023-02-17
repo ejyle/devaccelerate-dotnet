@@ -71,7 +71,7 @@
     <ProjectReference Include="..\..\Comments\Ejyle.DevAccelerate.Comments\Ejyle.DevAccelerate.Comments.csproj" />
     <ProjectReference Include="..\..\Core\Ejyle.DevAccelerate.Core.EF\Ejyle.DevAccelerate.Core.EF.csproj" />
     <ProjectReference Include="..\..\Core\Ejyle.DevAccelerate.Core\Ejyle.DevAccelerate.Core.csproj" />
-    <ProjectReference Include="..\..\Facades\Ejyle.DevAccelerate.Facades.Security\Ejyle.DevAccelerate.Facades.Security.csproj" />
+    <ProjectReference Include="..\..\Facades\Ejyle.DevAccelerate.Facades\Ejyle.DevAccelerate.Facades.csproj" />
     <ProjectReference Include="..\..\Files\Ejyle.DevAccelerate.Files.EF\Ejyle.DevAccelerate.Files.EF.csproj" />
     <ProjectReference Include="..\..\Files\Ejyle.DevAccelerate.Files\Ejyle.DevAccelerate.Files.csproj" />
     <ProjectReference Include="..\..\Identity\Ejyle.DevAccelerate.Identity.EF\Ejyle.DevAccelerate.Identity.EF.csproj" />

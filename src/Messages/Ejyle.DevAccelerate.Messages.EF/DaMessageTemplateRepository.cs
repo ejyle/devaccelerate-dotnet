@@ -49,6 +49,11 @@ namespace Ejyle.DevAccelerate.Messages.EF
             return SaveChangesAsync();
         }
 
+        public Task<List<TMessageTemplate>> FindAllAsync()
+        {
+            return MessageTemplates.ToListAsync();
+        }
+
         public Task<TMessageTemplate> FindByIdAsync(TKey id)
         {
             return MessageTemplates.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();

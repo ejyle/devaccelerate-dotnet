@@ -16,7 +16,7 @@ namespace Ejyle.DevAccelerate.Messages
     public enum DaMessageStatus
     {
         New = 0,
-        Sent = 1,
+        Completed = 1,
         Failed = 2,
         Cancelled = 3
     }

@@ -11,8 +11,8 @@
 		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb;.xml</AllowedOutputExtensionsInPackageBuildOutputFolder>		
 	</PropertyGroup>
 	<PropertyGroup>
-		<RootNamespace>Ejyle.DevAccelerate.Facades.Security</RootNamespace>
-		<AssemblyName>Ejyle.DevAccelerate.Facades.Security</AssemblyName>
+		<RootNamespace>Ejyle.DevAccelerate.Facades</RootNamespace>
+		<AssemblyName>Ejyle.DevAccelerate.Facades</AssemblyName>
 		<ApplicationIcon>da.ico</ApplicationIcon>
 		<Company>Ejyle Technologies (P) Ltd</Company>
 		<Authors>Tanveer Yousuf</Authors>
@@ -21,10 +21,10 @@
 		<RepositoryUrl>https://github.com/devaccelerate/DevAccelerateNet.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<PackageId>DevAccelerateSecurityFacade</PackageId>
-		<Product>DevAccelerateSecurityFacade</Product>
-		<Description>A facade library that simplifies security APIs. It works on top of DeAaccelerateIdenitty and DevAccelerateEnterpriseSecurity.</Description>
-		<PackageTags>DevAccelerate;Subscriptions;Identity;Security;Facades</PackageTags>
+		<PackageId>DevAccelerateFacades</PackageId>
+		<Product>DevAccelerateFacades</Product>
+		<Description>A facade library that integrates various DevAccelerate APIs for simplicity and ease of use. It works on top of most of the DevAccelerate libraries.</Description>
+		<PackageTags>DevAccelerate;Facades</PackageTags>
 		<Nullable>disable</Nullable>
 		
 		<PackageReleaseNotes>Please see https://github.com/devaccelerate/devacceleratenet/releases</PackageReleaseNotes>
@@ -33,11 +33,6 @@
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<PackageOutputPath>../../../nupkg</PackageOutputPath>
 	</PropertyGroup>
-	<ItemGroup>
-	  <Compile Remove="Apps\**" />
-	  <EmbeddedResource Remove="Apps\**" />
-	  <None Remove="Apps\**" />
-	</ItemGroup>
 	<ItemGroup>
 		<None Include="..\..\..\assets\logo.png">
 			<Pack>True</Pack>
@@ -66,6 +61,10 @@
 		<ProjectReference Include="..\..\Identity\Ejyle.DevAccelerate.Identity\Ejyle.DevAccelerate.Identity.csproj" />
 		<ProjectReference Include="..\..\Lists\Ejyle.DevAccelerate.Lists.EF\Ejyle.DevAccelerate.Lists.EF.csproj" />
 		<ProjectReference Include="..\..\Lists\Ejyle.DevAccelerate.Lists\Ejyle.DevAccelerate.Lists.csproj" />
+		<ProjectReference Include="..\..\Mail\Ejyle.DevAccelerate.Mail.SendGrid\Ejyle.DevAccelerate.Mail.SendGrid.csproj" />
+		<ProjectReference Include="..\..\Mail\Ejyle.DevAccelerate.Mail\Ejyle.DevAccelerate.Mail.csproj" />
+		<ProjectReference Include="..\..\Messages\Ejyle.DevAccelerate.Messages.EF\Ejyle.DevAccelerate.Messages.EF.csproj" />
+		<ProjectReference Include="..\..\Messages\Ejyle.DevAccelerate.Messages\Ejyle.DevAccelerate.Messages.csproj" />
 		<ProjectReference Include="..\..\MultiTenancy\Ejyle.DevAccelerate.MultiTenancy.EF\Ejyle.DevAccelerate.MultiTenancy.EF.csproj" />
 		<ProjectReference Include="..\..\MultiTenancy\Ejyle.DevAccelerate.MultiTenancy\Ejyle.DevAccelerate.MultiTenancy.csproj" />
 		<ProjectReference Include="..\..\Platform\Ejyle.DevAccelerate.Platform.EF\Ejyle.DevAccelerate.Platform.EF.csproj" />
