@@ -89,6 +89,12 @@ namespace Ejyle.DevAccelerate.Messages.EF
                     .HasMaxLength(256)
                     .IsRequired();
 
+                entity.Property(e => e.Key)
+                    .HasMaxLength(128)
+                    .IsRequired();
+
+                entity.HasIndex(e => e.Key).IsUnique();
+
                 entity.Property(e => e.Message)
                     .IsRequired();
 
