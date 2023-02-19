@@ -16,21 +16,45 @@ using System.Linq;
 using Microsoft.Extensions.Logging;
 using Ejyle.DevAccelerate.Messages.EF;
 using Ejyle.DevAccelerate.Messages;
-using Ejyle.DevAccelerate.Facades.Messages;
+using Ejyle.DevAccelerate.Facades.MailMessages;
+using Ejyle.DevAccelerate.Mail;
 
-namespace Ejyle.DevAccelerate.Tools.Commands.Messages
+namespace Ejyle.DevAccelerate.Tools.Commands.MailMessages
 {
-    [Verb("processmessages", HelpText = "Process messages and send them if required.")]
+    [Verb("processmailmessages", HelpText = "Process and send mail messages.")]
     public class DaProcessMessagesCommand : DaDatabaseCommand
     {
+        [Option('s', "sender", Required = false, HelpText = "Email of the sender.")]
+        public string Sender
+        {
+            get;
+            set;
+        }
+
+        [Option('k', "apikey", Required = true, HelpText = "SendGrid API key.")]
+        public string ApiKey
+        {
+            get;
+            set;
+        }
+
         public override void Execute()
         {
             EnsureConnectionIsValid();
 
             using (var context = new DaMessagesDbContext(GetConnectionString()))
             {
+                var settings = new DaMailSettings()
+                {
+                    DefaultSenderEmail = Sender,
+                    SmtpSettings = new DaSmtpSettings()
+                    {
+                        ApiKey = ApiKey
+                    }
+                };
+
                 var messagesService = new DaMessagesFacade(new DaMessageManager(new DaMessageRepository(context)), new DaMessageTemplateManager(new DaMessageTemplateRepository(context)));
-                messagesService.ProcessMessagesAsync(null, 1000, DaProcessMessagesFlag.New);
+                messagesService.ProcessMessages(settings, 1000, DaProcessMessagesFlag.New);
 
                 Console.WriteLine($"{0} messages processed.");
             }

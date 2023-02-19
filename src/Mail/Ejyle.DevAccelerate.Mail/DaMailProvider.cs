@@ -15,23 +15,24 @@ namespace Ejyle.DevAccelerate.Mail
     /// <summary>
     /// Represents the mail provider that sends emails using local Microsoft IIS.
     /// </summary>
-    public class DaMailProvider : DaMailProviderBase
+    public class DaMailProvider : DaMailProviderBase<bool>
     {
         /// <summary>
         /// Creates an instance of the <see cref="DaMailProvider"/> class.
         /// </summary>
-        public DaMailProvider(IOptions<DaMailSettings> options) : base(options)
+        public DaMailProvider(DaMailSettings settings) : base(settings)
         { }
 
         /// <summary>
         /// Sends a mail.
         /// </summary>
         /// <param name="message">The mail message object.</param>
-        public override void Send(MailMessage mail)
+        public override bool Send(MailMessage mail)
         {
             var smtpClient = new SmtpClient();
             smtpClient.DeliveryMethod = SmtpDeliveryMethod.PickupDirectoryFromIis;
             smtpClient.Send(mail);
+            return true;
         }
 
         /// <summary>
@@ -41,7 +42,7 @@ namespace Ejyle.DevAccelerate.Mail
         /// <param name="from">The sender of the mail.</param>
         /// <param name="subject">The subject of the mail</param>
         /// <param name="body">The body of the mail message.</param>
-        public override void Send(string to, string from, string subject, string body)
+        public override bool Send(string to, string from, string subject, string body)
         {
             var message = new MailMessage()
             {
@@ -50,7 +51,25 @@ namespace Ejyle.DevAccelerate.Mail
                 Body = body
             };
 
-            Send(message);
+            return Send(message);
+        }
+
+        /// <summary>
+        /// Sends a mail.
+        /// </summary>
+        /// <param name="to">The recipient of the mail.</param>
+        /// <param name="subject">The subject of the mail</param>
+        /// <param name="body">The body of the mail message.</param>
+        public override bool Send(string to, string subject, string body)
+        {
+            var message = new MailMessage()
+            {
+                From = new MailAddress(Settings.DefaultSenderEmail, Settings.DefaultSenderName),
+                Subject = subject,
+                Body = body
+            };
+
+            return Send(message);
         }
 
         /// <summary>
@@ -58,7 +77,7 @@ namespace Ejyle.DevAccelerate.Mail
         /// </summary>
         /// <param name="message">The mail message object.</param>
         /// <returns>A task that represents the asynchronous save operation.</returns>
-        public override Task SendAsync(MailMessage message)
+        public override async Task<bool> SendAsync(MailMessage message)
         {
             if(message == null)
             {
@@ -77,7 +96,8 @@ namespace Ejyle.DevAccelerate.Mail
 
             var smtpClient = new SmtpClient();
             smtpClient.DeliveryMethod = SmtpDeliveryMethod.PickupDirectoryFromIis;
-            return smtpClient.SendMailAsync(message);
+            await smtpClient.SendMailAsync(message);
+            return true;
         }
 
         /// <summary>
@@ -88,11 +108,30 @@ namespace Ejyle.DevAccelerate.Mail
         /// <param name="subject">The subject of the mail</param>
         /// <param name="body">The body of the mail message.</param>
         /// <returns>A task that represents the asynchronous save operation.</returns>
-        public override Task SendAsync(string to, string from, string subject, string body)
+        public override Task<bool> SendAsync(string to, string from, string subject, string body)
         {
             var message = new MailMessage()
             {
                 From = new MailAddress(from),
+                Subject = subject,
+                Body = body
+            };
+
+            return SendAsync(message);
+        }
+
+        /// <summary>
+        /// Asynchronously sends a mail.
+        /// </summary>
+        /// <param name="to">The recipient of the mail.</param>
+        /// <param name="subject">The subject of the mail</param>
+        /// <param name="body">The body of the mail message.</param>
+        /// <returns>A task that represents the asynchronous save operation.</returns>
+        public override Task<bool> SendAsync(string to, string subject, string body)
+        {
+            var message = new MailMessage()
+            {
+                From = new MailAddress(Settings.DefaultSenderEmail, Settings.DefaultSenderName),
                 Subject = subject,
                 Body = body
             };

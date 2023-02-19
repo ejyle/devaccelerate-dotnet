@@ -11,6 +11,7 @@ using Ejyle.DevAccelerate.Mail.SendGrid;
 using Ejyle.DevAccelerate.Messages;
 using Ejyle.DevAccelerate.Messages.EF;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
-namespace Ejyle.DevAccelerate.Facades.Messages
+namespace Ejyle.DevAccelerate.Facades.MailMessages
 {
     public class DaMessagesFacade : DaMessagesFacade<string, DaMessageManager, DaMessage, DaMessageVariable, DaMessageRecipient, DaMessageRecipientVariable, DaMessageTemplateManager, DaMessageTemplate>
     {
@@ -147,7 +148,12 @@ namespace Ejyle.DevAccelerate.Facades.Messages
             DaAsyncHelper.RunSync(() => CreateMessageAsync(key, userId, recipients, variables));
         }
 
-        public async Task<DaMessageProcessingResult> ProcessMessagesAsync(IOptions<DaMailSettings> options, int processCount = 100, DaProcessMessagesFlag flag = DaProcessMessagesFlag.New)
+        public DaMessageProcessingResult ProcessMessages(DaMailSettings settings, int processCount = 100, DaProcessMessagesFlag flag = DaProcessMessagesFlag.New)
+        {
+            return DaAsyncHelper.RunSync(() => ProcessMessagesAsync(settings, processCount, flag));
+        }
+
+        public async Task<DaMessageProcessingResult> ProcessMessagesAsync(DaMailSettings settings, int processCount = 100, DaProcessMessagesFlag flag = DaProcessMessagesFlag.New)
         {
             if(processCount > 1000)
             {
@@ -200,7 +206,7 @@ namespace Ejyle.DevAccelerate.Facades.Messages
             }
 
             var messageTemplates = await _messageTemplateManager.FindAllAsync();
-            var mailSender = new DaSendGridMailProvider(options);
+            var mailSender = new DaSendGridMailProvider(settings);
            
             foreach (var message in messages)
             {
