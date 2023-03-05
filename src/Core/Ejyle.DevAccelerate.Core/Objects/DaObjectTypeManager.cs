@@ -80,5 +80,16 @@ namespace Ejyle.DevAccelerate.Core.Objects
             ThrowIfDisposed();
             return Repository.FindByIdAsync(id);
         }
+
+        public virtual List<TObjectType> FindAll()
+        {
+            return DaAsyncHelper.RunSync<List<TObjectType>>(() => FindAllAsync());
+        }
+
+        public virtual Task<List<TObjectType>> FindAllAsync()
+        {
+            ThrowIfDisposed();
+            return Repository.FindAllAsync();
+        }
     }
 }
