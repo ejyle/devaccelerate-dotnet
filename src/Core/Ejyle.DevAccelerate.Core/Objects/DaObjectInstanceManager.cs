@@ -84,6 +84,17 @@ namespace Ejyle.DevAccelerate.Core.Objects
             return Repository.FindByIdAsync(id);
         }
 
+        public virtual TObjectInstance FindBySourceObjectId(string objectTypeId, string sourceObjectId)
+        {
+            return DaAsyncHelper.RunSync<TObjectInstance>(() => FindBySourceObjectIdAsync(objectTypeId, sourceObjectId));
+        }
+
+        public virtual Task<TObjectInstance> FindBySourceObjectIdAsync(string objectTypeId, string sourceObjectId)
+        {
+            ThrowIfDisposed();
+            return Repository.FindBySourceObjectIdAsync(objectTypeId, sourceObjectId);
+        }
+
         public virtual Task<long> FindDepdencyCountAsync(TKey id)
         {
             ThrowIfDisposed();

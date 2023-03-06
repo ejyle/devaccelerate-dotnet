@@ -122,5 +122,10 @@ namespace Ejyle.DevAccelerate.Core.EF.Objects
         {
             return ObjectDependencies.Where(m => m.ObjectInstanceId.Equals(id)).LongCountAsync();
         }
+
+        public Task<TObjectInstance> FindBySourceObjectIdAsync(string objectTypeId, string sourceObjectId)
+        {
+            return ObjectInstances.Where(m => m.ObjectTypeId.Equals(objectTypeId) && m.SourceObjectId.Equals(sourceObjectId)).SingleOrDefaultAsync();   
+        }
     }
 }

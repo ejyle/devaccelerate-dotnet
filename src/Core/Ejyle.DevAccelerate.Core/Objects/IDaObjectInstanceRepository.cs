@@ -30,5 +30,6 @@ namespace Ejyle.DevAccelerate.Core.Objects
         Task CreateDependencyAsync(TKey id, TObjectDependency[] dependencies);
         Task DeleteDependenciesAsync(TKey[] objectDependencyId);
         Task DeleteAsync(TObjectInstance obj);
+        Task<TObjectInstance> FindBySourceObjectIdAsync(string objectTypeId, string sourceObjectId);
     }
 }

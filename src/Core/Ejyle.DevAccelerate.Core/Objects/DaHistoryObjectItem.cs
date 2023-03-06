@@ -23,7 +23,7 @@ namespace Ejyle.DevAccelerate.Core.Objects
     {
         public TKey ObjectInstanceId { get; set; }
         public DaObjectActionType Action { get; set; }
-        public string Note { get; set; }
+        public string Message { get; set; }
         public bool IsNoteHtml { get; set; }
         public virtual TObjectInstance ObjectInstance { get; set; }
     }
