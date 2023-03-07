@@ -24,5 +24,6 @@ namespace Ejyle.DevAccelerate.Files
         Task<TFileStorage> FindByNameAsync(string name);
         Task UpdateAsync(TFileStorage fileStorage);
         Task DeleteAsync(TFileStorage fileStorage);
+        IQueryable<TFileStorage> FileStorages { get; }
     }
 }

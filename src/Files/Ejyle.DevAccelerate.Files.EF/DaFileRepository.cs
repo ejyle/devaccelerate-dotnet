@@ -14,6 +14,7 @@ using Ejyle.DevAccelerate.Files;
 using Microsoft.EntityFrameworkCore;
 using Ejyle.DevAccelerate.Core.Data;
 using System.Xml.Linq;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Ejyle.DevAccelerate.Files.EF
 {
@@ -36,40 +37,42 @@ namespace Ejyle.DevAccelerate.Files.EF
             : base(dbContext)
         { }
 
-        private DbSet<TFile> Files { get { return DbContext.Set<TFile>(); } }
+        private DbSet<TFile> FilesDbSet { get { return DbContext.Set<TFile>(); } }
+
+        public IQueryable<TFile> Files => FilesDbSet.AsQueryable();
 
         public Task CreateAsync(TFile file)
         {
-            Files.Add(file);
+            FilesDbSet.Add(file);
             return SaveChangesAsync();
         }
 
         public Task DeleteAsync(TFile file)
         {
-            Files.Remove(file);
+            FilesDbSet.Remove(file);
             return SaveChangesAsync();
         }
 
         public Task<TFile> FindByIdAsync(TKey id)
         {
-            return Files.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
+            return FilesDbSet.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
         }
 
         public Task<TFile> FindByGuidFileNameAsync(string guidFileName)
         {
-            return Files.Where(m => m.GuidFileName.Equals(guidFileName)).SingleOrDefaultAsync();
+            return FilesDbSet.Where(m => m.GuidFileName.Equals(guidFileName)).SingleOrDefaultAsync();
         }
 
         public async Task<DaPaginatedEntityList<TKey, TFile>> FindByFileCollectionIdAsync(TKey fileCollectionId, DaDataPaginationCriteria paginationCriteria)
         {
-            var totalCount = await Files.Where(m => m.FileCollectionId.Equals(fileCollectionId)).CountAsync();
+            var totalCount = await FilesDbSet.Where(m => m.FileCollectionId.Equals(fileCollectionId)).CountAsync();
 
             if (totalCount <= 0)
             {
                 return null;
             }
 
-            var query = Files
+            var query = FilesDbSet
                 .Where(m => m.FileCollectionId.Equals(fileCollectionId))
                 .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
                 .Take(paginationCriteria.PageSize)
@@ -83,14 +86,14 @@ namespace Ejyle.DevAccelerate.Files.EF
 
         public async Task<DaPaginatedEntityList<TKey, TFile>> FindByObjectInstanceIdAsync(TKey objectInstanceId, DaDataPaginationCriteria paginationCriteria)
         {
-            var totalCount = await Files.Where(m => m.ObjectInstanceId.Equals(objectInstanceId)).CountAsync();
+            var totalCount = await FilesDbSet.Where(m => m.ObjectInstanceId.Equals(objectInstanceId)).CountAsync();
 
             if (totalCount <= 0)
             {
                 return null;
             }
 
-            var query = Files
+            var query = FilesDbSet
                 .Where(m => m.ObjectInstanceId.Equals(objectInstanceId))
                 .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
                 .Take(paginationCriteria.PageSize)
@@ -104,7 +107,7 @@ namespace Ejyle.DevAccelerate.Files.EF
 
         public async Task RenameAsync(TKey id, string newName)
         {
-            var file = await Files.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
+            var file = await FilesDbSet.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
             file.FileName = newName;
 
             DbContext.Entry<TFile>(file).State = EntityState.Modified;

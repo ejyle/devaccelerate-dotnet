@@ -37,23 +37,25 @@ namespace Ejyle.DevAccelerate.Files.EF
             : base(dbContext)
         { }
 
-        private DbSet<TFileStorage> FileStorages { get { return DbContext.Set<TFileStorage>(); } }
+        private DbSet<TFileStorage> FileStoragesDbSet { get { return DbContext.Set<TFileStorage>(); } }
+
+        public IQueryable<TFileStorage> FileStorages => FileStoragesDbSet.AsQueryable();
 
         public Task CreateAsync(TFileStorage fileStorage)
         {
-            FileStorages.Add(fileStorage);
+            FileStoragesDbSet.Add(fileStorage);
             return SaveChangesAsync();
         }
 
         public Task DeleteAsync(TFileStorage fileStorage)
         {
-            FileStorages.Remove(fileStorage);
+            FileStoragesDbSet.Remove(fileStorage);
             return SaveChangesAsync();
         }
 
         public Task<TFileStorage> FindByIdAsync(TKey id)
         {
-            return FileStorages.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
+            return FileStoragesDbSet.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
         }
 
         public async Task UpdateAsync(TFileStorage fileStorage)
@@ -64,7 +66,7 @@ namespace Ejyle.DevAccelerate.Files.EF
 
         public Task<TFileStorage> FindByNameAsync(string name)
         {
-            return FileStorages.Where(m => m.Name.Equals(name)).SingleOrDefaultAsync();
+            return FileStoragesDbSet.Where(m => m.Name.Equals(name)).SingleOrDefaultAsync();
         }
     }
 }

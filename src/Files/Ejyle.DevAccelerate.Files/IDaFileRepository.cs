@@ -19,6 +19,7 @@ namespace Ejyle.DevAccelerate.Files
         where TKey : IEquatable<TKey>
         where TFile : IDaFile<TKey>
     {
+        IQueryable<TFile> Files { get; }
         Task CreateAsync(TFile file);
         Task<TFile> FindByIdAsync(TKey id);
         Task<TFile> FindByGuidFileNameAsync(string guidFileName);
