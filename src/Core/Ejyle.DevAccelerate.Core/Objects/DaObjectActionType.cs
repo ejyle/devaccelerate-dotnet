@@ -15,9 +15,9 @@ namespace Ejyle.DevAccelerate.Core.Objects
 {
     public enum DaObjectActionType
     {
-        Create = 0,
+        Created = 0,
         Read = 1,
-        Update = 2,
-        Delete = 3
+        Updated = 2,
+        Deleted = 3
     }
 }

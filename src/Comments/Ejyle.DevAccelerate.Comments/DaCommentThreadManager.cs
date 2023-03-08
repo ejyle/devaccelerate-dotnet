@@ -82,6 +82,17 @@ namespace Ejyle.DevAccelerate.Comments
             return Repository.FindByIdAsync(id);
         }
 
+        public virtual List<TCommentThread> FindByObjectInstanceId(TKey objectInstanceId)
+        {
+            return DaAsyncHelper.RunSync<List<TCommentThread>>(() => FindByObjectInstanceIdAsync(objectInstanceId));
+        }
+
+        public virtual Task<List<TCommentThread>> FindByObjectInstanceIdAsync(TKey objectInstanceId)
+        {
+            ThrowIfDisposed();
+            return Repository.FindByObjectInstanceIdAsync(objectInstanceId);
+        }
+
         public virtual DaPaginatedEntityList<TKey, TComment> FindComments(TKey commentThreadId, DaDataPaginationCriteria paginationCriteria)
         {
             return DaAsyncHelper.RunSync<DaPaginatedEntityList<TKey, TComment>>(() => FindCommentsAsync(commentThreadId, paginationCriteria));
@@ -91,6 +102,17 @@ namespace Ejyle.DevAccelerate.Comments
         {
             ThrowIfDisposed();
             return Repository.FindCommentsAsync(commentThreadId, paginationCriteria);
+        }
+
+        public virtual List<TComment> FindComments(TKey commentThreadId)
+        {
+            return DaAsyncHelper.RunSync<List<TComment>>(() => FindCommentsAsync(commentThreadId));
+        }
+
+        public virtual Task<List<TComment>> FindCommentsAsync(TKey commentThreadId)
+        {
+            ThrowIfDisposed();
+            return Repository.FindCommentsAsync(commentThreadId);
         }
     }
 }

@@ -20,6 +20,6 @@ namespace Ejyle.DevAccelerate.Core.Objects
         TKey ObjectInstanceId { get; set; }
         DaObjectActionType Action { get; set; }
         string Message { get; set; }
-        bool IsNoteHtml { get; set; }
+        bool IsMessageHtml { get; set; }
     }
 }

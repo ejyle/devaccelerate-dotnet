@@ -71,7 +71,7 @@ namespace Ejyle.DevAccelerate.Core.EF
         {
             var entityType = typeof(TSource);
 
-            //Create x=>x.PropName
+            //Created x=>x.PropName
             var propertyInfo = entityType.GetProperty(propertyName);
             ParameterExpression arg = Expression.Parameter(entityType, "x");
             MemberExpression property = Expression.Property(arg, propertyName);

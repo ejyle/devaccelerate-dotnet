@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
 using Ejyle.DevAccelerate.Core.Data;
@@ -22,5 +23,6 @@ namespace Ejyle.DevAccelerate.Core.Objects
         Task<List<TObjectType>> FindAllAsync();
         Task UpdateAsync(TObjectType objType);
         Task DeleteAsync(TObjectType objType);
+        IQueryable<TObjectType> ObjectTypes { get; }
     }
 }

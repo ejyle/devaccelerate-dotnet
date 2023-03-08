@@ -37,28 +37,30 @@ namespace Ejyle.DevAccelerate.Core.EF.Objects
             : base(dbContext)
         { }
 
-        private DbSet<TObjectType> ObjectTypes { get { return DbContext.Set<TObjectType>(); } }
+        private DbSet<TObjectType> ObjectTypesSet { get { return DbContext.Set<TObjectType>(); } }
+
+        public IQueryable<TObjectType> ObjectTypes { get { return ObjectTypesSet.AsQueryable(); } }
 
         public Task CreateAsync(TObjectType objectType)
         {
-            ObjectTypes.Add(objectType);
+            ObjectTypesSet.Add(objectType);
             return SaveChangesAsync();
         }
 
         public Task DeleteAsync(TObjectType objectType)
         {
-            ObjectTypes.Remove(objectType);
+            ObjectTypesSet.Remove(objectType);
             return SaveChangesAsync();
         }
 
         public Task<List<TObjectType>> FindAllAsync()
         {
-            return ObjectTypes.ToListAsync();
+            return ObjectTypesSet.ToListAsync();
         }
 
         public Task<TObjectType> FindByIdAsync(TKey id)
         {
-            return ObjectTypes.Where(m => m.Id.Equals(id))
+            return ObjectTypesSet.Where(m => m.Id.Equals(id))
                 .SingleOrDefaultAsync();
         }
 

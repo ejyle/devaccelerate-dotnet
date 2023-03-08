@@ -84,5 +84,15 @@ namespace Ejyle.DevAccelerate.Comments.EF
             return new DaPaginatedEntityList<TKey, TComment>(result
                 , new DaDataPaginationResult(paginationCriteria, totalCount));
         }
+
+        public Task<List<TCommentThread>> FindByObjectInstanceIdAsync(TKey objectInstanceId)
+        {
+            return CommentThreads.Where(m => m.ObjectInstanceId.Equals(objectInstanceId)).ToListAsync();    
+        }
+
+        public Task<List<TComment>> FindCommentsAsync(TKey commentThreadId)
+        {
+            return Comments.Where(m => m.CommentThreadId.Equals(commentThreadId)).ToListAsync();
+        }
     }
 }

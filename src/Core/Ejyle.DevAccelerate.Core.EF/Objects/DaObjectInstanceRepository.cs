@@ -125,7 +125,7 @@ namespace Ejyle.DevAccelerate.Core.EF.Objects
 
         public Task<TObjectInstance> FindBySourceObjectIdAsync(string objectTypeId, string sourceObjectId)
         {
-            return ObjectInstances.Where(m => m.ObjectTypeId.Equals(objectTypeId) && m.SourceObjectId.Equals(sourceObjectId)).SingleOrDefaultAsync();   
+            return ObjectInstances.Where(m => m.ObjectTypeId.Equals(objectTypeId) && m.SourceObjectId.Equals(sourceObjectId)).Include(m => m.ObjectHistoryItems).SingleOrDefaultAsync();   
         }
     }
 }

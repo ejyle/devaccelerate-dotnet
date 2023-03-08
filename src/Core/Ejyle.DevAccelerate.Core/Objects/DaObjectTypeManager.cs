@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
 using Ejyle.DevAccelerate.Core.Data;
@@ -81,15 +82,12 @@ namespace Ejyle.DevAccelerate.Core.Objects
             return Repository.FindByIdAsync(id);
         }
 
-        public virtual List<TObjectType> FindAll()
+        public IQueryable<TObjectType> ObjectTypes
         {
-            return DaAsyncHelper.RunSync<List<TObjectType>>(() => FindAllAsync());
-        }
-
-        public virtual Task<List<TObjectType>> FindAllAsync()
-        {
-            ThrowIfDisposed();
-            return Repository.FindAllAsync();
+            get
+            {
+                return Repository.ObjectTypes;
+            }
         }
     }
 }
