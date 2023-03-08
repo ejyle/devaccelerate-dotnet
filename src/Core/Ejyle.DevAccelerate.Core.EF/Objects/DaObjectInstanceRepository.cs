@@ -46,10 +46,13 @@ namespace Ejyle.DevAccelerate.Core.EF.Objects
             return SaveChangesAsync();
         }
 
-        public Task DeleteAsync(TObjectInstance objectInstance)
+        public async Task DeleteAsync(TObjectInstance objectInstance)
         {
+            var historyItems = await ObjectHistoryItems.Where(m => m.ObjectInstanceId.Equals(objectInstance.Id)).ToListAsync();
+
+            ObjectHistoryItems.RemoveRange(historyItems);
             ObjectInstances.Remove(objectInstance);
-            return SaveChangesAsync();
+            await SaveChangesAsync();
         }
 
         public Task<TObjectInstance> FindByIdAsync(TKey id)
