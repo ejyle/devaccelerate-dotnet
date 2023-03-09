@@ -43,22 +43,36 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Core
                 arrObjectTypes[i] = arrObjectTypes[i].Trim();
             }
 
-            using(var coreDbContext = new DaCoreDbContext(GetConnectionString()))
+            using (var coreDbContext = new DaCoreDbContext(GetConnectionString()))
             {
+                var existingObjectTypes = coreDbContext.ObjectTypes.ToList();
                 var objecTypes = new List<DaObjectType>();
 
-               foreach(var ot in arrObjectTypes)
+                foreach (var ot in arrObjectTypes)
                 {
-                    var obectType = new DaObjectType()
-                    {
-                         Name = ot
-                    };
+                    DaObjectType existingObjectType = null;
 
-                    objecTypes.Add(obectType);
+                    if (existingObjectTypes != null && existingObjectTypes.Count > 0)
+                    {
+                        existingObjectType = existingObjectTypes.Where(m => m.Name == ot).FirstOrDefault();
+                    }
+
+                    if (existingObjectType == null)
+                    {
+                        var obectType = new DaObjectType()
+                        {
+                            Name = ot
+                        };
+
+                        objecTypes.Add(obectType);
+                    }
                 }
 
-               coreDbContext.AddRange(objecTypes);
-                coreDbContext.SaveChanges();
+                if (objecTypes.Count > 0)
+                {
+                    coreDbContext.AddRange(objecTypes);
+                    coreDbContext.SaveChanges();
+                }
             }
         }
     }
