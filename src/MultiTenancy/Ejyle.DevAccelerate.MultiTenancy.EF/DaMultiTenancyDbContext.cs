@@ -10,10 +10,11 @@ using Microsoft.EntityFrameworkCore;
 using Ejyle.DevAccelerate.MultiTenancy.Tenants;
 using Ejyle.DevAccelerate.MultiTenancy.Addresses;
 using Ejyle.DevAccelerate.MultiTenancy.Organizations;
+using Ejyle.DevAccelerate.MultiTenancy.ApiManagement;
 
 namespace Ejyle.DevAccelerate.MultiTenancy.EF
 {
-    public class DaMultiTenancyDbContext : DaMultiTenancyDbContext<string, DaTenant, DaTenantUser, DaTenantAttribute, DaOrganizationProfile, DaOrganizationProfileAttribute, DaOrganizationGroup, DaAddressProfile, DaUserAddress>
+    public class DaMultiTenancyDbContext : DaMultiTenancyDbContext<string, DaTenant, DaTenantUser, DaTenantAttribute, DaApiKey, DaOrganizationProfile, DaOrganizationProfileAttribute, DaOrganizationGroup, DaAddressProfile, DaUserAddress>
     {
         public DaMultiTenancyDbContext()
             : base()
@@ -28,11 +29,12 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
         { }
     }
 
-    public class DaMultiTenancyDbContext<TKey, TTenant, TTenantUser, TTenantAttribute, TOrganizationProfile, TOrganizationProfileAttribute, TOrganizationGroup, TAddressProfile, TUserAddress> : DbContext
+    public class DaMultiTenancyDbContext<TKey, TTenant, TTenantUser, TTenantAttribute, TApiKey, TOrganizationProfile, TOrganizationProfileAttribute, TOrganizationGroup, TAddressProfile, TUserAddress> : DbContext
         where TKey : IEquatable<TKey>
         where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute>
         where TTenantAttribute : DaTenantAttribute<TKey, TTenant>
         where TTenantUser : DaTenantUser<TKey, TTenant>
+        where TApiKey : DaApiKey<TKey>
         where TOrganizationProfile : DaOrganizationProfile<TKey, TOrganizationProfile, TOrganizationProfileAttribute, TOrganizationGroup>
         where TOrganizationGroup : DaOrganizationGroup<TKey, TOrganizationGroup, TOrganizationProfile>
         where TOrganizationProfileAttribute : DaOrganizationProfileAttribute<TKey, TOrganizationProfile>
@@ -49,7 +51,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
             : base(options)
         { }
 
-        public DaMultiTenancyDbContext(DbContextOptions<DaMultiTenancyDbContext<TKey, TTenant, TTenantUser, TTenantAttribute, TOrganizationProfile, TOrganizationProfileAttribute, TOrganizationGroup, TAddressProfile, TUserAddress>> options)
+        public DaMultiTenancyDbContext(DbContextOptions<DaMultiTenancyDbContext<TKey, TTenant, TTenantUser, TTenantAttribute, TApiKey, TOrganizationProfile, TOrganizationProfileAttribute, TOrganizationGroup, TAddressProfile, TUserAddress>> options)
             : base(options)
         { }
 
@@ -57,9 +59,9 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
             : base(GetOptions(connectionString))
         { }
 
-        private static DbContextOptions<DaMultiTenancyDbContext<TKey, TTenant, TTenantUser, TTenantAttribute, TOrganizationProfile, TOrganizationProfileAttribute, TOrganizationGroup, TAddressProfile, TUserAddress>> GetOptions(string connectionString)
+        private static DbContextOptions<DaMultiTenancyDbContext<TKey, TTenant, TTenantUser, TTenantAttribute, TApiKey, TOrganizationProfile, TOrganizationProfileAttribute, TOrganizationGroup, TAddressProfile, TUserAddress>> GetOptions(string connectionString)
         {
-            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaMultiTenancyDbContext<TKey, TTenant, TTenantUser, TTenantAttribute, TOrganizationProfile, TOrganizationProfileAttribute, TOrganizationGroup, TAddressProfile, TUserAddress>>(), connectionString).Options;
+            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaMultiTenancyDbContext<TKey, TTenant, TTenantUser, TTenantAttribute, TApiKey, TOrganizationProfile, TOrganizationProfileAttribute, TOrganizationGroup, TAddressProfile, TUserAddress>>(), connectionString).Options;
         }
 
         public virtual DbSet<TTenant> Tenants { get; set; }
@@ -137,6 +139,18 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
                 entity.ToTable("AddressProfiles", SCHEMA_NAME);
 
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            });
+
+            modelBuilder.Entity<TApiKey>(entity =>
+            {
+                entity.ToTable("ApiKeys", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+                entity.Property(e => e.Salt).HasMaxLength(128).IsRequired();
+                entity.Property(e => e.HashedSecretKey).HasMaxLength(1000).IsRequired();
+                entity.Property(e => e.ApiKey).HasMaxLength(128).IsRequired();
+
+                entity.HasIndex(e => e.ApiKey).IsUnique();
             });
 
             modelBuilder.Entity<TOrganizationProfileAttribute>(entity =>
