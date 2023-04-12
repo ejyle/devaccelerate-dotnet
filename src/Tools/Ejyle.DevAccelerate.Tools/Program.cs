@@ -13,14 +13,6 @@ using Ejyle.DevAccelerate.Tools.Commands.Platform;
 using Ejyle.DevAccelerate.Tools.Commands.Files;
 using Ejyle.DevAccelerate.Tools.Commands.Identity;
 using Ejyle.DevAccelerate.Tools.Commands.Lists;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System.IO;
-using Microsoft.Extensions.PlatformAbstractions;
-using Ejyle.DevAccelerate.Identity.EF;
-using Microsoft.EntityFrameworkCore;
 
 namespace Ejyle.DevAccelerate.Tools
 {
