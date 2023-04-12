@@ -23,6 +23,7 @@ namespace Ejyle.DevAccelerate.Tasks
         Task<TTask> FindByIdAsync(TKey id);
         Task UpdateAsync(TTask task);
         Task DeleteAsync(TTask task);
+        IQueryable<TTask> Tasks { get; }
         Task<DaPaginatedEntityList<TKey, TTask>> FindByObjectInstanceIdAsync(TKey objectInstanceId, DaDataPaginationCriteria paginationCriteria);
         Task<DaPaginatedEntityList<TKey, TTask>> FindByAssignedToAsync(TKey assignedTo, DaDataPaginationCriteria paginationCriteria);
         Task<DaPaginatedEntityList<TKey, TTask>> FindByTenantIdAsync(TKey tenantId, DaDataPaginationCriteria paginationCriteria);

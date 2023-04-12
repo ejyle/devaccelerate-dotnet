@@ -84,6 +84,12 @@ namespace Ejyle.DevAccelerate.Tasks.EF
                 entity.Property(e => e.Category)
                     .HasMaxLength(256);
 
+                entity.Property(e => e.ApiUrl)
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.PageUrl)
+                    .HasMaxLength(500);
+
                 entity.Property(e => e.StatusReason)
                     .HasMaxLength(500);
             });

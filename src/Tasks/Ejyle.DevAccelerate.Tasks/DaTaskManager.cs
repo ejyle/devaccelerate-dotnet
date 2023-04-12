@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
 using Ejyle.DevAccelerate.Core.Data;
@@ -112,6 +113,14 @@ namespace Ejyle.DevAccelerate.Tasks
         {
             ThrowIfDisposed();
             return Repository.FindByTenantIdAsync(tenantId, paginationCriteria);
+        }
+
+        public IQueryable<TTask> Tasks
+        {
+            get
+            {
+                return Repository.Tasks;
+            }
         }
     }
 }
