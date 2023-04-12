@@ -81,6 +81,9 @@ namespace Ejyle.DevAccelerate.Tasks.EF
                     .IsRequired()
                     .HasMaxLength(256);
 
+                entity.Property(e => e.Category)
+                    .HasMaxLength(256);
+
                 entity.Property(e => e.StatusReason)
                     .HasMaxLength(500);
             });

@@ -4,12 +4,9 @@
 // Copyright © Ejyle Technologies (P) Ltd. All rights reserved.
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
-using Ejyle.DevAccelerate.Core;
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.Tasks
 {
@@ -24,6 +21,7 @@ namespace Ejyle.DevAccelerate.Tasks
         TKey AssignedTo { get; set; }
         TKey OwnerUserId { get; set; }
         TKey TenantId { get; set; }
+        string Category { get; set; }
         TKey ObjectInstanceId { get; set; }
     }
 }

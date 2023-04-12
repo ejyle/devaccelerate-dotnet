@@ -28,6 +28,7 @@ namespace Ejyle.DevAccelerate.Tasks
         public TKey AssignedTo { get; set; }
         public TKey OwnerUserId { get; set; }
         public TKey TenantId { get; set; }
+        public string Category { get; set; }
         public TKey ObjectInstanceId { get; set; }
     }
 }
