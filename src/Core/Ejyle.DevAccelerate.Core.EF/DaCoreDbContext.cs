@@ -95,6 +95,10 @@ namespace Ejyle.DevAccelerate.Core.EF
 
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
+                entity.Property(e => e.TenantId).HasMaxLength(450);
+                entity.Property(e => e.OwnerUserId).HasMaxLength(450);
+                entity.Property(e => e.Category).HasMaxLength(256);
+
                 entity.HasOne(d => d.ObjectType)
                     .WithMany(p => p.ObjectInstances)
                     .HasForeignKey(d => d.ObjectTypeId);

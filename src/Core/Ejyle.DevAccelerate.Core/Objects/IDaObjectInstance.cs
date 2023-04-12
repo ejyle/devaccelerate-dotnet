@@ -17,6 +17,9 @@ namespace Ejyle.DevAccelerate.Core.Objects
     public interface IDaObjectInstance<TKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
+        string TenantId { get; set; }
+        string OwnerUserId { get; set; }
+        string Category { get; set; }
         TKey ObjectTypeId { get; set; }
         TKey SourceObjectId { get; set; }
         DaSourceObjectIdType SourceObjectIdType { get; set; }

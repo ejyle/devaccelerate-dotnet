@@ -32,6 +32,12 @@ namespace Ejyle.DevAccelerate.Core.Objects
 
         public TKey ObjectTypeId { get; set; }
 
+        public string TenantId { get; set; }
+        
+        public string OwnerUserId { get; set; }
+        
+        public string Category { get; set; }
+
         public TKey SourceObjectId { get; set; }
 
         public virtual TObjectType ObjectType { get; set; }
