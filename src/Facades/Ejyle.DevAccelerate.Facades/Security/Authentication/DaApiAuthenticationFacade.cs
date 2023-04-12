@@ -25,20 +25,19 @@ using Ejyle.DevAccelerate.MultiTenancy.EF.Tenants;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Authentication
 {
-    public class DaApiAuthenticationFacade : DaApiAuthenticationFacade<string, DaUser, UserManager<DaUser>, SignInManager<DaUser>, DaTenant, DaTenantUser, DaTenantAttribute, DaTenantManager, DaUserSession, DaUserSessionManager, DaAuthenticationResult>
+    public class DaApiAuthenticationFacade : DaApiAuthenticationFacade<string, DaUser, UserManager<DaUser>, DaTenant, DaTenantUser, DaTenantAttribute, DaTenantManager, DaUserSession, DaUserSessionManager, DaAuthenticationResult>
     {
-        public DaApiAuthenticationFacade(UserManager<DaUser> userManager, SignInManager<DaUser> signInManager, DaTenantManager tenantManager, DaUserSessionManager userSessionManager)
-            : base(userManager, signInManager, tenantManager, userSessionManager)
+        public DaApiAuthenticationFacade(UserManager<DaUser> userManager, DaTenantManager tenantManager, DaUserSessionManager userSessionManager)
+            : base(userManager, tenantManager, userSessionManager)
         {
         }
     }
 
-    public class DaApiAuthenticationFacade<TKey, TUser, TUserManager, TSignInManager, TTenant, TTenantUser, TTenantAttribute, TTenantManager, TUserSession, TUserSessionManager, TAuthenticationResult>
-        : DaAuthenticationFacadeBase<TKey, TUser, TUserManager, TSignInManager, TTenant, TTenantUser, TTenantAttribute, TTenantManager, TUserSession, TUserSessionManager, TAuthenticationResult>
+    public class DaApiAuthenticationFacade<TKey, TUser, TUserManager, TTenant, TTenantUser, TTenantAttribute, TTenantManager, TUserSession, TUserSessionManager, TAuthenticationResult>
+        : DaAuthenticationFacadeBase<TKey, TUser, TUserManager, TTenant, TTenantUser, TTenantAttribute, TTenantManager, TUserSession, TUserSessionManager, TAuthenticationResult>
         where TKey : IEquatable<TKey>
         where TUser : DaUser<TKey>
         where TUserManager : UserManager<TUser>
-        where TSignInManager : SignInManager<TUser>
         where TTenantManager : DaTenantManager<TKey, TTenant, TTenantUser>
         where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute>, new()
         where TTenantAttribute : DaTenantAttribute<TKey, TTenant>
@@ -47,8 +46,8 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
         where TUserSessionManager : DaUserSessionManager<TKey, TUserSession>
         where TAuthenticationResult : DaAuthenticationResult<TKey>, new()
     {
-        public DaApiAuthenticationFacade(UserManager<TUser> userManager, SignInManager<TUser> signInManager, TTenantManager tenantManager, TUserSessionManager userSessionManager)
-            : base(userManager, signInManager, tenantManager, userSessionManager)
+        public DaApiAuthenticationFacade(UserManager<TUser> userManager, TTenantManager tenantManager, TUserSessionManager userSessionManager)
+            : base(userManager, tenantManager, userSessionManager)
         { }
 
         public DaAuthenticationResult<TKey> CreateAccessToken(string userName, string password, string ipAddress, string deviceAgent, int? expiryTimeInMinutes = null)
@@ -102,33 +101,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
             }
         }
 
-        public async Task<DaAuthenticationResult<TKey>> GetOrCreateAccessToken(ClaimsPrincipal principal, string deviceAgent = null, string ipAddress = null, int? expiryTimeInMinutes = null)
-        {
-            var signedIn = SignInManager.IsSignedIn(principal);
-
-            if (!signedIn)
-            {
-                return DaAuthenticationResult<TKey>.Failed;
-            }
-
-            var validationResult = await ValidateUserCredentialsAsync(principal.Identity.Name, null, false);
-
-            if (!validationResult.Result.IsSuccess)
-            {
-                return validationResult.Result;
-            }
-
-            var userSession = await UserSessionManager.FindLatestByUserIdAsync(validationResult.User.Id);
-
-            if (userSession == null)
-            {
-                await CreateUserSessionAsync(validationResult.User.Id, null, ipAddress, null, expiryTimeInMinutes);
-            }
-
-            return DaAuthenticationResult<TKey>.Success(userSession.AccessToken);
-        }
-
-        public async Task<bool> ValidateAccessToken(string accessToken)
+        public async Task<bool> ValidateAccessTokenAsync(string accessToken)
         {
             var userSession = await UserSessionManager.FindByAccessTokenAsync(accessToken);
 
@@ -173,6 +146,11 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
             }
 
             return true;
+        }
+
+        public bool ValidateAccessToken(string accessToken)
+        {
+            return DaAsyncHelper.RunSync<bool>(() => ValidateAccessTokenAsync(accessToken));
         }
     }
 }

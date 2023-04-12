@@ -34,7 +34,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
     }
 
     public class DaAuthenticationFacade<TKey, TUser, TUserManager, TSignInManager, TTenant, TTenantUser, TTenantAttribute, TTenantManager, TUserSession, TUserSessionManager, TAuthenticationResult>
-        : DaAuthenticationFacadeBase<TKey, TUser, TUserManager, TSignInManager, TTenant, TTenantUser, TTenantAttribute, TTenantManager, TUserSession, TUserSessionManager, TAuthenticationResult>
+        : DaAuthenticationFacadeBase<TKey, TUser, TUserManager, TTenant, TTenantUser, TTenantAttribute, TTenantManager, TUserSession, TUserSessionManager, TAuthenticationResult>
         where TKey : IEquatable<TKey>
         where TUser : DaUser<TKey>
         where TUserManager : UserManager<TUser>
@@ -48,10 +48,12 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
         where TAuthenticationResult : DaAuthenticationResult<TKey>, new()
     {
         private const string USER_SESSION_KEY_SESSION_NAME = "DaAuthenticationFacade_SessionKey";
-
-        public DaAuthenticationFacade(UserManager<TUser> userManager, SignInManager<TUser> signInManager, TTenantManager tenantManager, TUserSessionManager userSessionManager)
-            : base(userManager, signInManager, tenantManager, userSessionManager)
-        { }
+        private TSignInManager _signInManager = null;
+        public DaAuthenticationFacade(UserManager<TUser> userManager, TSignInManager signInManager, TTenantManager tenantManager, TUserSessionManager userSessionManager)
+            : base(userManager, tenantManager, userSessionManager)
+        {
+            _signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
+        }
 
         public DaAuthenticationResult<TKey> SignIn(HttpRequest request, ISession session, ConnectionInfo connection, DaUserAccountCredentialsInfo credentials, int expiryTimeInMinutes = 30)
         {
@@ -68,7 +70,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
                 return validationResult.Result;
             }
 
-            var result = await SignInManager.PasswordSignInAsync(credentials.Username, credentials.Password, credentials.RememberUser, lockoutOnFailure: false);
+            var result = await _signInManager.PasswordSignInAsync(credentials.Username, credentials.Password, credentials.RememberUser, lockoutOnFailure: false);
 
             if (!result.Succeeded)
             {
@@ -155,7 +157,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
                 userSession = await UserSessionManager.FindByAccessTokenAsync(userSessionKey);
             }
 
-            await SignInManager.SignOutAsync();
+            await _signInManager.SignOutAsync();
 
             if (userSession != null)
             {

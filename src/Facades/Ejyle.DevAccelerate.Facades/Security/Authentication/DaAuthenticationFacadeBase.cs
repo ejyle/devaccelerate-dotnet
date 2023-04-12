@@ -8,28 +8,18 @@
 using System;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Identity.EF;
-using Ejyle.DevAccelerate.Identity.EF.UserSessions;
 using Ejyle.DevAccelerate.Identity.UserSessions;
 using Ejyle.DevAccelerate.Identity;
-using Ejyle.DevAccelerate.Core;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using System.Net;
-using System.Security.Claims;
-using System.ComponentModel.DataAnnotations;
 using Ejyle.DevAccelerate.MultiTenancy.Tenants;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Authentication
 {
-    public abstract class DaAuthenticationFacadeBase<TKey, TUser, TUserManager, TSignInManager, TTenant, TTenantUser, TTenantAttribute, TTenantManager, TUserSession, TUserSessionManager, TAuthenticationResult>
+    public abstract class DaAuthenticationFacadeBase<TKey, TUser, TUserManager, TTenant, TTenantUser, TTenantAttribute, TTenantManager, TUserSession, TUserSessionManager, TAuthenticationResult>
         where TKey : IEquatable<TKey>
         where TUser : DaUser<TKey>
         where TUserManager : UserManager<TUser>
-        where TSignInManager : SignInManager<TUser>
         where TTenantManager : DaTenantManager<TKey, TTenant, TTenantUser>
         where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute>, new()
         where TTenantAttribute : DaTenantAttribute<TKey, TTenant>
@@ -38,11 +28,10 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
         where TUserSessionManager : DaUserSessionManager<TKey, TUserSession>
         where TAuthenticationResult : DaAuthenticationResult<TKey>, new()
     {
-        public DaAuthenticationFacadeBase(UserManager<TUser> userManager, SignInManager<TUser> signInManager, TTenantManager tenantManager, TUserSessionManager userSessionManager)
+        public DaAuthenticationFacadeBase(UserManager<TUser> userManager, TTenantManager tenantManager, TUserSessionManager userSessionManager)
         {
             UserManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
             TenantManager = tenantManager ?? throw new ArgumentNullException(nameof(tenantManager));
-            SignInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
             UserSessionManager = userSessionManager ?? throw new ArgumentNullException(nameof(userSessionManager));
         }
 
@@ -53,12 +42,6 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
         }
 
         protected TTenantManager TenantManager
-        {
-            get;
-            private set;
-        }
-
-        protected SignInManager<TUser> SignInManager
         {
             get;
             private set;
