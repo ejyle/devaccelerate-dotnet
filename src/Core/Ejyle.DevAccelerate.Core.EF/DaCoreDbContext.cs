@@ -7,11 +7,12 @@
 
 using System;
 using Ejyle.DevAccelerate.Core.Objects;
+using Ejyle.DevAccelerate.Core.Posts;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ejyle.DevAccelerate.Core.EF
 {
-    public class DaCoreDbContext : DaCoreDbContext<string, DaObjectType, DaObjectInstance, DaObjectHistoryItem, DaObjectDependency>
+    public class DaCoreDbContext : DaCoreDbContext<string, DaObjectType, DaObjectInstance, DaObjectHistoryItem, DaObjectDependency, DaPost, DaPostRole, DaPostOrganizationGroup>
     {
         public DaCoreDbContext()
             : base()
@@ -26,12 +27,15 @@ namespace Ejyle.DevAccelerate.Core.EF
         { }
     }
 
-    public class DaCoreDbContext<TKey, TObjectType, TObjectInstance, TObjectHistoryItem, TObjectDependency> : DbContext
+    public class DaCoreDbContext<TKey, TObjectType, TObjectInstance, TObjectHistoryItem, TObjectDependency, TPost, TPostRole, TPostOrganizationGroup> : DbContext
         where TKey : IEquatable<TKey>
         where TObjectType : DaObjectType<TKey, TObjectInstance>
         where TObjectInstance : DaObjectInstance<TKey, TObjectType, TObjectHistoryItem, TObjectDependency>
         where TObjectHistoryItem : DaObjectHistoryItem<TKey, TObjectInstance>
         where TObjectDependency : DaObjectDependency<TKey, TObjectInstance>
+        where TPost : DaPost<TKey, TPostRole, TPostOrganizationGroup>
+        where TPostRole : DaPostRole<TKey, TPost>
+        where TPostOrganizationGroup : DaPostOrganizationGroup<TKey, TPost>
     {
         private const string SCHEMA_NAME = "Da.Core";
 
@@ -43,7 +47,7 @@ namespace Ejyle.DevAccelerate.Core.EF
             : base(options)
         { }
 
-        public DaCoreDbContext(DbContextOptions<DaCoreDbContext<TKey, TObjectType, TObjectInstance, TObjectHistoryItem, TObjectDependency>> options)
+        public DaCoreDbContext(DbContextOptions<DaCoreDbContext<TKey, TObjectType, TObjectInstance, TObjectHistoryItem, TObjectDependency, TPost, TPostRole, TPostOrganizationGroup>> options)
             : base(options)
         { }
 
@@ -51,15 +55,18 @@ namespace Ejyle.DevAccelerate.Core.EF
             : base(GetOptions(connectionString))
         { }
 
-        private static DbContextOptions<DaCoreDbContext<TKey, TObjectType, TObjectInstance, TObjectHistoryItem, TObjectDependency>> GetOptions(string connectionString)
+        private static DbContextOptions<DaCoreDbContext<TKey, TObjectType, TObjectInstance, TObjectHistoryItem, TObjectDependency, TPost, TPostRole, TPostOrganizationGroup>> GetOptions(string connectionString)
         {
-            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaCoreDbContext<TKey, TObjectType, TObjectInstance, TObjectHistoryItem, TObjectDependency>>(), connectionString).Options;
+            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaCoreDbContext<TKey, TObjectType, TObjectInstance, TObjectHistoryItem, TObjectDependency, TPost, TPostRole, TPostOrganizationGroup>>(), connectionString).Options;
         }
 
         public virtual DbSet<TObjectType> ObjectTypes { get; set; }
         public virtual DbSet<TObjectInstance> ObjectInstances { get; set; }
         public virtual DbSet<TObjectHistoryItem> ObjectHistoryItems { get; set; }
         public virtual DbSet<TObjectDependency> ObjectDependencies { get; set; }
+        public virtual DbSet<TPost> Posts { get; set; }
+        public virtual DbSet<TPostOrganizationGroup> OrganizationGroups { get; set; }
+        public virtual DbSet<TPostRole> Roles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -124,6 +131,53 @@ namespace Ejyle.DevAccelerate.Core.EF
                 entity.HasOne(d => d.ObjectInstance)
                     .WithMany(p => p.ObjectDependencies)
                     .HasForeignKey(d => d.ObjectInstanceId);
+            });
+
+            modelBuilder.Entity<TPost>(entity =>
+            {
+                entity.ToTable("Posts", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Link)
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.ActualLink)
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.Text)
+                    .HasMaxLength(1000);
+
+                entity.Property(e => e.MediaExtension)
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.MediaUrl)
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.MediaFileId)
+                    .HasMaxLength(450);
+            });
+
+            modelBuilder.Entity<TPostRole>(entity =>
+            {
+                entity.ToTable("PostRoles", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.HasOne(d => d.Post)
+                    .WithMany(p => p.Roles)
+                    .HasForeignKey(d => d.PostId);
+            });
+
+            modelBuilder.Entity<TPostOrganizationGroup>(entity =>
+            {
+                entity.ToTable("OrganizationGroups", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.HasOne(d => d.Post)
+                    .WithMany(p => p.OrganizationGroups)
+                    .HasForeignKey(d => d.PostId);
             });
         }
     }
