@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<VersionPrefix>7.0.1</VersionPrefix>
-		<VersionSuffix>preview2.3</VersionSuffix>
+		<VersionSuffix>preview3.0</VersionSuffix>
 		<TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
 		<PlatformTarget>anycpu</PlatformTarget>
 		<GenerateDocumentationFile>false</GenerateDocumentationFile>
@@ -18,7 +18,7 @@
 		<Authors>Tanveer Yousuf</Authors>
 		<Copyright>Copyright © Ejyle Technologies (P) Ltd. All rights reserved.</Copyright>
 		<PackageProjectUrl>https://devaccelerate.github.io</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/devaccelerate/DevAccelerateNet.git</RepositoryUrl>
+		<RepositoryUrl>https://github.com/ejyle/devaccelerate-dotnet.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageId>DevAccelerateMultiTenancy</PackageId>
@@ -26,13 +26,19 @@
 		<Description>DevAccelerateMultiTenancy provides APIs for creating and managing multiple tenants. Ideal for SaaS-based and cloud-based application development.</Description>
 		<PackageTags>DevAccelerate;Multi-Tenancy;Tenants;SaaS</PackageTags>
 		<Nullable>disable</Nullable>
-
 		<PackageReleaseNotes>Please see https://github.com/devaccelerate/devacceleratenet/releases</PackageReleaseNotes>
 		<PackageIcon>logo.png</PackageIcon>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<PackageOutputPath>../../../nupkg</PackageOutputPath>
 	</PropertyGroup>
+	<PropertyGroup>
+		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>	
 	<ItemGroup>
 		<None Include="..\..\..\assets\logo.png">
 			<Pack>True</Pack>
@@ -44,6 +50,10 @@
 		<PackageReference Include="Microsoft.Extensions.Options" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
 		<PackageReference Include="Microsoft.Extensions.Options" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
 		<PackageReference Include="Microsoft.Extensions.Options" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 	</ItemGroup>
 
 	<ItemGroup>
