@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<VersionPrefix>7.0.1</VersionPrefix>
 		<VersionSuffix>preview3.0</VersionSuffix>
@@ -11,21 +11,21 @@
 		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb;.xml</AllowedOutputExtensionsInPackageBuildOutputFolder>		
 	</PropertyGroup>
 	<PropertyGroup>
-		<RootNamespace>Ejyle.DevAccelerate.Core.EF</RootNamespace>
-		<AssemblyName>Ejyle.DevAccelerate.Core.EF</AssemblyName>
+		<RootNamespace>Ejyle.DevAccelerate.Social.EF</RootNamespace>
+		<AssemblyName>Ejyle.DevAccelerate.Social.EF</AssemblyName>
 		<ApplicationIcon>da.ico</ApplicationIcon>
-		<Nullable>disable</Nullable>
-		<PackageId>DevAccelerateCoreEF</PackageId>
-		<Authors>Tanveer Yousuf</Authors>
 		<Company>Ejyle Technologies (P) Ltd</Company>
-		<Product>DevAccelerateCoreEF</Product>
-		<Description>DevAccelerateCoreEF provides common classes for using Microsoft EntityFrameworkCore in DevAccelerate.</Description>
-		<Copyright>© Ejyle Technologies (P) Ltd. All rights reserved.</Copyright>
-		<PackageProjectUrl>https://devaccelerate.github.io/</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/devaccelerate/DevAccelerateNet</RepositoryUrl>
+		<Authors>Tanveer Yousuf</Authors>
+		<Copyright>Copyright © Ejyle Technologies (P) Ltd. All rights reserved.</Copyright>
+		<PackageProjectUrl>https://devaccelerate.github.io</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/ejyle/devaccelerate-dotnet.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<PackageTags>DevAccelerate;Entity;Repository;DbContext;EntityFrameworkCore;EF</PackageTags>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageId>DevAccelerateSocialEF</PackageId>
+		<Product>DevAccelerateSocialEF</Product>
+		<Description>Provides EntityFrameworkCore implementation of the DevAccelerateSocial library.</Description>
+		<PackageTags>DevAccelerate;Social;Social-Media;Post;Posts;EntityFrameworkCore;EF</PackageTags>
+		<Nullable>disable</Nullable>	
 		<PackageReleaseNotes>Please see https://github.com/devaccelerate/devacceleratenet/releases</PackageReleaseNotes>
 		<PackageIcon>logo.png</PackageIcon>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -38,13 +38,25 @@
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-	</PropertyGroup>
+	</PropertyGroup>	
+	<ItemGroup>
+	  <Compile Remove="Apps\**" />
+	  <Compile Remove="SubscriptionPlans\**" />
+	  <Compile Remove="Subscriptions\**" />
+	  <EmbeddedResource Remove="Apps\**" />
+	  <EmbeddedResource Remove="SubscriptionPlans\**" />
+	  <EmbeddedResource Remove="Subscriptions\**" />
+	  <None Remove="Apps\**" />
+	  <None Remove="SubscriptionPlans\**" />
+	  <None Remove="Subscriptions\**" />
+	</ItemGroup>
 	<ItemGroup>
 		<None Include="..\..\..\assets\logo.png">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
 	</ItemGroup>
+
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.*" Condition="'$(TargetFramework)' == 'net7.0'" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
@@ -58,9 +70,13 @@
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>		
+		</PackageReference>
 	</ItemGroup>
+
 	<ItemGroup>
-		<ProjectReference Include="..\Ejyle.DevAccelerate.Core\Ejyle.DevAccelerate.Core.csproj" />
+		<ProjectReference Include="..\..\Core\Ejyle.DevAccelerate.Core.EF\Ejyle.DevAccelerate.Core.EF.csproj" />
+		<ProjectReference Include="..\..\Core\Ejyle.DevAccelerate.Core\Ejyle.DevAccelerate.Core.csproj" />
+		<ProjectReference Include="..\Ejyle.DevAccelerate.Social\Ejyle.DevAccelerate.Social.csproj" />
 	</ItemGroup>
+
 </Project>

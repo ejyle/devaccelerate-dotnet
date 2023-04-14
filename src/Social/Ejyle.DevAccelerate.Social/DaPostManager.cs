@@ -13,7 +13,7 @@ using Ejyle.DevAccelerate.Core;
 using Ejyle.DevAccelerate.Core.Data;
 using Ejyle.DevAccelerate.Core.Utils;
 
-namespace Ejyle.DevAccelerate.Core.Posts
+namespace Ejyle.DevAccelerate.Social
 {
     public class DaPostManager<TKey, TPost> : DaEntityManagerBase<TKey, TPost>
         where TKey : IEquatable<TKey>

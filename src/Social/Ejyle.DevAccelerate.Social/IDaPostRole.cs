@@ -5,14 +5,15 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-using Ejyle.DevAccelerate.Core.Posts;
+using Ejyle.DevAccelerate.Core;
+using System;
 
-namespace Ejyle.DevAccelerate.Core.EF.Posts
+namespace Ejyle.DevAccelerate.Social
 {
-    public class DaPostManager : DaPostManager<string, DaPost>
+    public interface IDaPostRole<TKey> : IDaEntity<TKey>
+        where TKey : IEquatable<TKey>
     {
-        public DaPostManager(DaPostRepository repository)
-            : base(repository)
-        { }
+        string RoleId { get; set; }
+        TKey PostId { get; set; }
     }
 }

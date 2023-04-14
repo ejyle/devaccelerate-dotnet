@@ -5,19 +5,20 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
+using Ejyle.DevAccelerate.Core;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Ejyle.DevAccelerate.Core.Posts
+namespace Ejyle.DevAccelerate.Social
 {
-    public enum DaPostMediaType
+    public class DaPostRole : DaPostRole<string, DaPost>
+    { }
+
+    public class DaPostRole<TKey, TPost> : DaEntityBase<TKey>, IDaPostRole<TKey>
+        where TKey : IEquatable<TKey>
+        where TPost : IDaPost<TKey>
     {
-        Image = 0,
-        Video = 1,
-        Audio = 2,
-        File = 3
+        public string RoleId { get; set; }
+        public TKey PostId { get; set; }
+        public virtual TPost Post { get; set; }
     }
 }

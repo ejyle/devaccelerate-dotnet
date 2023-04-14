@@ -6,18 +6,19 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Ejyle.DevAccelerate.Core.Posts
+namespace Ejyle.DevAccelerate.Social
 {
-    public class DaPostRole : DaPostRole<string, DaPost>
-    { }
-
-    public class DaPostRole<TKey, TPost> : DaEntityBase<TKey>, IDaPostRole<TKey>
-        where TKey : IEquatable<TKey>
-        where TPost : IDaPost<TKey>
+    public enum DaPostVisibility
     {
-        public string RoleId { get; set; }
-        public TKey PostId { get; set; }
-        public virtual TPost Post { get; set; }
+        Private = 0,
+        SpecificRoles = 1,
+        EveryoneWithinTenant = 2,
+        EveryoneWithinOrganizationGroup = 3,
+        Public = 4
     }
 }

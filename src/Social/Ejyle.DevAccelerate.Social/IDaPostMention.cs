@@ -5,20 +5,16 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
+using Ejyle.DevAccelerate.Core;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Ejyle.DevAccelerate.Core.Posts
+namespace Ejyle.DevAccelerate.Social
 {
-    public enum DaPostVisibility
+    public interface IDaPostMention<TKey> : IDaEntity<TKey>
+        where TKey : IEquatable<TKey>
     {
-        Private = 0,
-        SpecificRoles = 1,
-        EveryoneWithinTenant = 2,
-        EveryoneWithinOrganizationGroup = 3,
-        Public = 4
+        TKey PostId { get; set; }
+        string Mention { get; set; }
+        DaPostMediaType MentionType { get; set; }
     }
 }

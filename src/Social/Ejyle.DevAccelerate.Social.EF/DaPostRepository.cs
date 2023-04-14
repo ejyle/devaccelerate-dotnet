@@ -12,11 +12,11 @@ using System.Collections.Generic;
 using Ejyle.DevAccelerate.Core.EF;
 using Microsoft.EntityFrameworkCore;
 using Ejyle.DevAccelerate.Core.Data;
-using Ejyle.DevAccelerate.Core.Posts;
+using Ejyle.DevAccelerate.Social;
 
-namespace Ejyle.DevAccelerate.Core.EF.Posts
+namespace Ejyle.DevAccelerate.Social.EF
 {
-    public class DaPostRepository : DaPostRepository<string, DaPost, DaPostRole, DaPostOrganizationGroup, DbContext>
+    public class DaPostRepository : DaPostRepository<string, DaPost, DaPostRole, DaPostOrganizationGroup, DaPostMention, DaPostTag, DbContext>
     {
         public DaPostRepository(DbContext dbContext)
             : base(dbContext)
@@ -24,12 +24,14 @@ namespace Ejyle.DevAccelerate.Core.EF.Posts
     }
 
 
-    public class DaPostRepository<TKey, TPost, TPostRole, TPostOrganizationGroup, TDbContext>
+    public class DaPostRepository<TKey, TPost, TPostRole, TPostOrganizationGroup, TPostMention, TPostTag, TDbContext>
         : DaEntityRepositoryBase<TKey, TPost, TDbContext>, IDaPostRepository<TKey, TPost>
         where TKey : IEquatable<TKey>
-        where TPost : DaPost<TKey, TPostRole, TPostOrganizationGroup>
+        where TPost : DaPost<TKey, TPostRole, TPostOrganizationGroup, TPostMention, TPostTag>
         where TPostRole : DaPostRole<TKey, TPost>
         where TPostOrganizationGroup : DaPostOrganizationGroup<TKey, TPost>
+        where TPostMention : DaPostMention<TKey, TPost>
+        where TPostTag : DaPostTag<TKey, TPost>
         where TDbContext : DbContext
     {
         public DaPostRepository(TDbContext dbContext)

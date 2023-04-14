@@ -5,15 +5,12 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-using System;
-
-namespace Ejyle.DevAccelerate.Core.Posts
+namespace Ejyle.DevAccelerate.Social
 {
-    public interface IDaPostOrganizationGroup<TKey>
-        : IDaEntity<TKey>
-        where TKey : IEquatable<TKey>
+    public enum DaPostMentionType
     {
-        string OrganizationGroupId { get; set; }
-        TKey PostId { get; set; }
+        User = 0,
+        UserGroup = 1,
+        OrganizationGroup = 2
     }
 }

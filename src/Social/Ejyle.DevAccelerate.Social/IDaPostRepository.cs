@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
 using Ejyle.DevAccelerate.Core.Data;
 
-namespace Ejyle.DevAccelerate.Core.Posts
+namespace Ejyle.DevAccelerate.Social
 {
     public interface IDaPostRepository<TKey, TPost> : IDaEntityRepository<TKey, TPost>
         where TKey : IEquatable<TKey>

@@ -11,24 +11,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ejyle.DevAccelerate.Core.Posts
+namespace Ejyle.DevAccelerate.Social
 {
-    public interface IDaPost<TKey> : IDaAuditedEntity<TKey>
-        where TKey : IEquatable<TKey>
+    public enum DaPostMediaType
     {
-        string UserId { get; set; }
-        string TenantId { get; set; }
-        DaPostVisibility PostVisibility { get; set; }
-        bool IsSystemPost { get; set; }
-        string Text { get; set; }
-        bool IsTextHtml { get; set; }
-        string Link { get; set; }
-        string ActualLink { get; set; }
-        bool IsLinkSortened { get; set; }
-        string MediaUrl { get; set; }
-        string MediaFileId { get; set; }
-        DaPostMediaType MediaType { get; set; }
-        string MediaExtension { get; set; }
-        bool IsMediaUrlDownloadLink { get; set; }
+        Image = 0,
+        Video = 1,
+        Audio = 2,
+        File = 3
     }
 }
