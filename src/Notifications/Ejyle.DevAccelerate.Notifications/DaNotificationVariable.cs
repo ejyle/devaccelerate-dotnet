@@ -6,24 +6,30 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using Ejyle.DevAccelerate.Core;
-using Ejyle.DevAccelerate.Core.Data;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
-using System.Threading.Tasks;
+using System.Xml.Linq;
 
-namespace Ejyle.DevAccelerate.Messages
+namespace Ejyle.DevAccelerate.Notifications
 {
-    public interface IDaMessageTemplateRepository<TKey, TMessageTemplate> : IDaEntityRepository<TKey, TMessageTemplate>
+    public class DaNotificationVariable : DaNotificationVariable<string, DaNotification>
+    { }
+
+    public class DaNotificationVariable<TKey, TNotification> : DaEntityBase<TKey>, IDaNotificationVariable<TKey>
         where TKey : IEquatable<TKey>
-        where TMessageTemplate : IDaMessageTemplate<TKey>
+        where TNotification : IDaNotification<TKey>
     {
-        Task CreateAsync(TMessageTemplate messageTemplate);
-        Task<List<TMessageTemplate>> FindAllAsync();
-        Task<TMessageTemplate> FindByIdAsync(TKey id);
-        Task<TMessageTemplate> FindByKeyAsync(string key);
-        Task UpdateAsync(TMessageTemplate messageTemplate);
-        Task DeleteAsync(TMessageTemplate messageTemplate);
+        public virtual TNotification Notification
+        {
+            get;
+            set;
+        }
+        public TKey NotificationId { get; set; }
+        public string Name { get; set; }
+        public string Value { get; set; }
+        public bool ForSubject { get; set; }
+        public bool ForNotification { get; set; }
     }
 }

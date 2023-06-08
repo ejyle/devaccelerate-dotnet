@@ -14,15 +14,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Microsoft.Extensions.Logging;
-using Ejyle.DevAccelerate.Messages.EF;
-using Ejyle.DevAccelerate.Messages;
-using Ejyle.DevAccelerate.Facades.MailMessages;
+using Ejyle.DevAccelerate.Notifications.EF;
+using Ejyle.DevAccelerate.Notifications;
+using Ejyle.DevAccelerate.Facades.Notifications;
 using Ejyle.DevAccelerate.Mail;
 
-namespace Ejyle.DevAccelerate.Tools.Commands.MailMessages
+namespace Ejyle.DevAccelerate.Tools.Commands.Notifications
 {
-    [Verb("processmailmessages", HelpText = "Process and send mail messages.")]
-    public class DaProcessMessagesCommand : DaDatabaseCommand
+    [Verb("processnotifications", HelpText = "Process and send notificaitons.")]
+    public class DaProcessNotificationsCommand : DaDatabaseCommand
     {
         [Option('s', "sender", Required = false, HelpText = "Email of the sender.")]
         public string Sender
@@ -42,7 +42,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.MailMessages
         {
             EnsureConnectionIsValid();
 
-            using (var context = new DaMessagesDbContext(GetConnectionString()))
+            using (var context = new DaNotificationsDbContext(GetConnectionString()))
             {
                 var settings = new DaMailSettings()
                 {
@@ -53,10 +53,10 @@ namespace Ejyle.DevAccelerate.Tools.Commands.MailMessages
                     }
                 };
 
-                var messagesService = new DaMessagesFacade(new DaMessageManager(new DaMessageRepository(context)), new DaMessageTemplateManager(new DaMessageTemplateRepository(context)));
-                messagesService.ProcessMessages(settings, 1000, DaProcessMessagesFlag.New);
+                var messagesService = new DaNotificationsFacade(new DaNotificationManager(new DaNotificationRepository(context)), new DaNotificationTemplateManager(new DaNotificationTemplateRepository(context)));
+                messagesService.ProcessNotifications(settings, 1000, DaProcessNotificationsFlag.New);
 
-                Console.WriteLine($"{0} messages processed.");
+                Console.WriteLine($"{0} notifications processed.");
             }
         }
     }

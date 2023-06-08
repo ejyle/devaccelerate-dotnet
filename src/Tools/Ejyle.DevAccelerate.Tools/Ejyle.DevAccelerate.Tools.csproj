@@ -87,8 +87,6 @@
     <ProjectReference Include="..\..\Identity\Ejyle.DevAccelerate.Identity\Ejyle.DevAccelerate.Identity.csproj" />
     <ProjectReference Include="..\..\Lists\Ejyle.DevAccelerate.Lists.EF\Ejyle.DevAccelerate.Lists.EF.csproj" />
     <ProjectReference Include="..\..\Lists\Ejyle.DevAccelerate.Lists\Ejyle.DevAccelerate.Lists.csproj" />
-    <ProjectReference Include="..\..\Messages\Ejyle.DevAccelerate.Messages.EF\Ejyle.DevAccelerate.Messages.EF.csproj" />
-    <ProjectReference Include="..\..\Messages\Ejyle.DevAccelerate.Messages\Ejyle.DevAccelerate.Messages.csproj" />
     <ProjectReference Include="..\..\MultiTenancy\Ejyle.DevAccelerate.MultiTenancy.EF\Ejyle.DevAccelerate.MultiTenancy.EF.csproj" />
     <ProjectReference Include="..\..\MultiTenancy\Ejyle.DevAccelerate.MultiTenancy\Ejyle.DevAccelerate.MultiTenancy.csproj" />
     <ProjectReference Include="..\..\Platform\Ejyle.DevAccelerate.Platform.EF\Ejyle.DevAccelerate.Platform.EF.csproj" />

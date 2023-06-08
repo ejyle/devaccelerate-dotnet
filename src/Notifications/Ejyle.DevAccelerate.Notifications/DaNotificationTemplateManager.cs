@@ -9,65 +9,63 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
-using Ejyle.DevAccelerate.Core.Data;
-using Ejyle.DevAccelerate.Core.Utils;
 
-namespace Ejyle.DevAccelerate.Messages
+namespace Ejyle.DevAccelerate.Notifications
 {
-    public class DaMessageTemplateManager<TKey, TMessageTemplate> : DaEntityManagerBase<TKey, TMessageTemplate>
+    public class DaNotificationTemplateManager<TKey, TMessageTemplate> : DaEntityManagerBase<TKey, TMessageTemplate>
         where TKey : IEquatable<TKey>
-        where TMessageTemplate : IDaMessageTemplate<TKey>
+        where TMessageTemplate : IDaNotificationTemplate<TKey>
     {
-        public DaMessageTemplateManager(IDaMessageTemplateRepository<TKey, TMessageTemplate> repository)
+        public DaNotificationTemplateManager(IDaNotificationTemplateRepository<TKey, TMessageTemplate> repository)
             : base(repository)
         {
         }
 
-        protected virtual IDaMessageTemplateRepository<TKey, TMessageTemplate> Repository
+        protected virtual IDaNotificationTemplateRepository<TKey, TMessageTemplate> Repository
         {
             get
             {
-                return GetRepository<IDaMessageTemplateRepository<TKey, TMessageTemplate>>();
+                return GetRepository<IDaNotificationTemplateRepository<TKey, TMessageTemplate>>();
             }
         }
 
-        public virtual async Task CreateAsync(TMessageTemplate messageTemplate)
+        public virtual async Task CreateAsync(TMessageTemplate notificationTemplate)
         {
             ThrowIfDisposed();
-            ThrowIfArgumentIsNull(messageTemplate, nameof(messageTemplate));
+            ThrowIfArgumentIsNull(notificationTemplate, nameof(notificationTemplate));
 
-            await Repository.CreateAsync(messageTemplate);
+            await Repository.CreateAsync(notificationTemplate);
         }
 
-        public virtual void Create(TMessageTemplate messageTemplate)
+        public virtual void Create(TMessageTemplate notificationTemplate)
         {
-            DaAsyncHelper.RunSync(() => CreateAsync(messageTemplate));
+            DaAsyncHelper.RunSync(() => CreateAsync(notificationTemplate));
         }
 
-        public virtual async Task UpdateAsync(TMessageTemplate messageTemplate)
-        {
-            ThrowIfDisposed();
-            ThrowIfArgumentIsNull(messageTemplate, nameof(messageTemplate));
-
-            await Repository.UpdateAsync(messageTemplate);
-        }
-
-        public virtual void Update(TMessageTemplate messageTemplate)
-        {
-            DaAsyncHelper.RunSync(() => UpdateAsync(messageTemplate));
-        }
-
-        public virtual async Task DeleteAsync(TMessageTemplate messageTemplate)
+        public virtual async Task UpdateAsync(TMessageTemplate notificationTemplate)
         {
             ThrowIfDisposed();
-            ThrowIfArgumentIsNull(messageTemplate, nameof(messageTemplate));
+            ThrowIfArgumentIsNull(notificationTemplate, nameof(notificationTemplate));
 
-            await Repository.DeleteAsync(messageTemplate);
+            await Repository.UpdateAsync(notificationTemplate);
         }
 
-        public virtual void Delete(TMessageTemplate messageTemplate)
+        public virtual void Update(TMessageTemplate notificationTemplate)
         {
-            DaAsyncHelper.RunSync(() => DeleteAsync(messageTemplate));
+            DaAsyncHelper.RunSync(() => UpdateAsync(notificationTemplate));
+        }
+
+        public virtual async Task DeleteAsync(TMessageTemplate notificationTemplate)
+        {
+            ThrowIfDisposed();
+            ThrowIfArgumentIsNull(notificationTemplate, nameof(notificationTemplate));
+
+            await Repository.DeleteAsync(notificationTemplate);
+        }
+
+        public virtual void Delete(TMessageTemplate notificationTemplate)
+        {
+            DaAsyncHelper.RunSync(() => DeleteAsync(notificationTemplate));
         }
 
         public virtual List<TMessageTemplate> FindAll()

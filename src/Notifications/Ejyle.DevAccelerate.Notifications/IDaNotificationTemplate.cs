@@ -11,20 +11,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ejyle.DevAccelerate.Messages
+namespace Ejyle.DevAccelerate.Notifications
 {
-    public interface IDaMessage<TKey> : IDaAuditedEntity<TKey>
+    public interface IDaNotificationTemplate<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {
+        string Name { get; set; }
+        string Key { get; set; }
         string Subject { get; set; }
-        string Message { get; set; }
+        string Body { get; set; }
+        string Description { get; set; }
+        DaNotificationChannel Channel { get; set; }
         string Format { get; set; }
-        string Category { get; set; }
-        TKey MessageTemplateId { get; set; }
-        DaMessageStatus Status { get; set; }
-        string FailureMessage { get; set; }
-        int RecipientsCount { get; set; }
-        int RecipientsProcessedCount { get; set; }
+        string FromAddress { get; set; }
+        string FromName { get; set; }
         string VariableDelimiter { get; set; }
     }
 }

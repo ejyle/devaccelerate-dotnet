@@ -5,30 +5,27 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-using System;
 using Ejyle.DevAccelerate.Core;
+using System;
 
-namespace Ejyle.DevAccelerate.Messages
+namespace Ejyle.DevAccelerate.Notifications
 {
-    public class DaMessageTemplate : DaMessageTemplate<string>
-    {
-        public DaMessageTemplate()
-        { 
-        }
-    }
+    public class DaNotificationRecipientVariable : DaNotificationRecipientVariable<string, DaNotificationRecipient>
+    { }
 
-    public class DaMessageTemplate<TKey> : DaEntityBase<TKey>, IDaMessageTemplate<TKey>
+    public class DaNotificationRecipientVariable<TKey, TNotificationRecipient> : DaEntityBase<TKey>, IDaNotificationRecipientVariable<TKey>
         where TKey : IEquatable<TKey>
+        where TNotificationRecipient : IDaNotificationRecipient<TKey>
     {
+        public virtual TNotificationRecipient NotificationRecipient
+        {
+            get;
+            set;
+        }
+        public TKey NotificationRecipientId { get; set; }
         public string Name { get; set; }
-        public string Key { get; set; }
-        public string Description { get; set; }
-        public string Message { get; set; }
-        public string Format { get; set; }
-        public string Category { get; set; }
-        public string Subject { get; set; }
-        public string VariableDelimiter { get; set; }
-        public string FromAddress { get; set; }
-        public string FromName { get; set; }
+        public string Value { get; set; }
+        public bool ForSubject { get; set; }
+        public bool ForNotification { get; set; }
     }
 }

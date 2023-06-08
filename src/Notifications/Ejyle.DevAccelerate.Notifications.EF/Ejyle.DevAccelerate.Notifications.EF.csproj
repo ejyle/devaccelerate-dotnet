@@ -11,8 +11,8 @@
 		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb;.xml</AllowedOutputExtensionsInPackageBuildOutputFolder>		
 	</PropertyGroup>
 	<PropertyGroup>
-		<RootNamespace>Ejyle.DevAccelerate.Messages</RootNamespace>
-		<AssemblyName>Ejyle.DevAccelerate.Messages</AssemblyName>
+		<RootNamespace>Ejyle.DevAccelerate.Notifications.EF</RootNamespace>
+		<AssemblyName>Ejyle.DevAccelerate.Notifications.EF</AssemblyName>
 		<ApplicationIcon>da.ico</ApplicationIcon>
 		<Company>Ejyle Technologies (P) Ltd</Company>
 		<Authors>Tanveer Yousuf</Authors>
@@ -21,11 +21,11 @@
 		<RepositoryUrl>https://github.com/ejyle/devaccelerate-dotnet.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<PackageId>DevAccelerateMessages</PackageId>
-		<Product>DevAccelerateMessages</Product>
-		<Description>Provides interfaces and base functionality for creating and managing message templates and messages.</Description>
-		<PackageTags>DevAccelerate;Messages;Message-Templates</PackageTags>
-		<Nullable>disable</Nullable>
+		<PackageId>DevAccelerateNotificationsEF</PackageId>
+		<Product>DevAccelerateNotificationsEF</Product>
+		<Description>Provides EntityFrameworkCore implementation of the DevAccelerateNotifications library.</Description>
+		<PackageTags>DevAccelerate;Notifications;Notification-Templates;Notification-Recipients;Notification-Variables;EntityFrameworkCore;EF</PackageTags>
+		<Nullable>disable</Nullable>		
 		<PackageReleaseNotes>Please see https://github.com/devaccelerate/devacceleratenet/releases</PackageReleaseNotes>
 		<PackageIcon>logo.png</PackageIcon>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -56,15 +56,28 @@
 			<PackagePath>\</PackagePath>
 		</None>
 	</ItemGroup>
+
 	<ItemGroup>
-	  <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
-	    <PrivateAssets>all</PrivateAssets>
-	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-	  </PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.*" Condition="'$(TargetFramework)' == 'net7.0'" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
+
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.*" Condition="'$(TargetFramework)' == 'net7.0'" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.*" Condition="'$(TargetFramework)' == 'net6.0'" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.*" Condition="'$(TargetFramework)' == 'net5.0'" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.*" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\Core\Ejyle.DevAccelerate.Core.EF\Ejyle.DevAccelerate.Core.EF.csproj" />
 		<ProjectReference Include="..\..\Core\Ejyle.DevAccelerate.Core\Ejyle.DevAccelerate.Core.csproj" />
+		<ProjectReference Include="..\Ejyle.DevAccelerate.Notifications\Ejyle.DevAccelerate.Notifications.csproj" />
+		<ProjectReference Include="..\Ejyle.DevAccelerate.Notifications\Ejyle.DevAccelerate.Notifications.csproj" />
 	</ItemGroup>
 
 </Project>

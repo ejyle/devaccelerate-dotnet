@@ -5,19 +5,9 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Ejyle.DevAccelerate.Messages
+namespace Ejyle.DevAccelerate.Notifications
 {
-    public enum DaMessageStatus
+    public interface IDaNotificationTemplateChannel
     {
-        New = 0,
-        Completed = 1,
-        Failed = 2,
-        Cancelled = 3
     }
 }

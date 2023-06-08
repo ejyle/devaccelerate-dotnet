@@ -5,53 +5,51 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-using Ejyle.DevAccelerate.Core;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using System.Xml.Linq;
+using Ejyle.DevAccelerate.Core;
 
-namespace Ejyle.DevAccelerate.Messages
+namespace Ejyle.DevAccelerate.Notifications
 {
-    public class DaMessage : DaMessage<string, DaMessageVariable, DaMessageRecipient>
+    public class DaNotification : DaNotification<string, DaNotificationVariable, DaNotificationRecipient>
     {
-        public DaMessage()
+        public DaNotification()
         { }
     }
 
-    public class DaMessage<TKey, TMessageVariable, TMessageRecipient> : DaAuditedEntityBase<TKey>, IDaMessage<TKey>
+    public class DaNotification<TKey, TNotificationVariable, TNotificationRecipient> : DaAuditedEntityBase<TKey>, IDaNotification<TKey>
         where TKey : IEquatable<TKey>
-        where TMessageVariable : IDaMessageVariable<TKey>
-        where TMessageRecipient : IDaMessageRecipient<TKey>
+        where TNotificationVariable : IDaNotificationVariable<TKey>
+        where TNotificationRecipient : IDaNotificationRecipient<TKey>
     {
-        public DaMessage()
+        public DaNotification()
         {
-            Variables = new HashSet<TMessageVariable>();
-            Recipients = new HashSet<TMessageRecipient>();
+            Variables = new HashSet<TNotificationVariable>();
+            Recipients = new HashSet<TNotificationRecipient>();
         }
 
-        public virtual ICollection<TMessageVariable> Variables
-        {
-            get;
-            set;
-        }
-
-        public virtual ICollection<TMessageRecipient> Recipients
+        public virtual ICollection<TNotificationVariable> Variables
         {
             get;
             set;
         }
 
-        public string Category { get; set; }
+        public virtual ICollection<TNotificationRecipient> Recipients
+        {
+            get;
+            set;
+        }
+
+        public DaNotificationChannel Channel { get; set; }
         public string Subject { get; set; }
-        public string Message { get; set; }
+        public string Body { get; set; }
         public string Format { get; set; }
-        public TKey MessageTemplateId { get; set; }
-        public DaMessageStatus Status { get; set; }
+        public TKey NotificationTemplateId { get; set; }
+        public DaNotificationStatus Status { get; set; }
         public string FailureMessage { get; set; }
         public int RecipientsCount { get; set; }
         public string VariableDelimiter { get; set; }
         public int RecipientsProcessedCount { get; set; }
+        public string ObjectIdentifier { get; set; }
     }
 }

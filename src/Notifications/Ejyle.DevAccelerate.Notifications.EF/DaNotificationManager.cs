@@ -5,14 +5,14 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-using Ejyle.DevAccelerate.Messages;
+using Ejyle.DevAccelerate.Notifications;
 using System.Xml.Linq;
 
-namespace Ejyle.DevAccelerate.Messages.EF
+namespace Ejyle.DevAccelerate.Notifications.EF
 {
-    public class DaMessageManager : DaMessageManager<string, DaMessage>
+    public class DaNotificationManager : DaNotificationManager<string, DaNotification>
     {
-        public DaMessageManager(DaMessageRepository repository)
+        public DaNotificationManager(DaNotificationRepository repository)
             : base(repository)
         { }
     }

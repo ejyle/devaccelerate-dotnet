@@ -18,7 +18,7 @@ using Ejyle.DevAccelerate.Platform.EF;
 using Ejyle.DevAccelerate.Platform.EF.Apps;
 using Ejyle.DevAccelerate.Identity.EF;
 using Ejyle.DevAccelerate.Lists.EF;
-using Ejyle.DevAccelerate.Messages.EF;
+using Ejyle.DevAccelerate.Notifications.EF;
 using Ejyle.DevAccelerate.SystemTasks.EF;
 using Ejyle.DevAccelerate.Tasks.EF;
 using Microsoft.Data.SqlClient;
@@ -166,12 +166,12 @@ namespace Ejyle.DevAccelerate.Tools.Commands
                 }
             }
 
-            using (var messagesDbContext = new DaMessagesDbContext(GetConnectionString()))
+            using (var notificationsDbContext = new DaNotificationsDbContext(GetConnectionString()))
             {
                 try
                 {
-                    messagesDbContext.Database.EnsureCreated();
-                    var databaseCreator = messagesDbContext.GetService<IRelationalDatabaseCreator>();
+                    notificationsDbContext.Database.EnsureCreated();
+                    var databaseCreator = notificationsDbContext.GetService<IRelationalDatabaseCreator>();
                     databaseCreator.CreateTables();
                 }
                 catch (Exception)

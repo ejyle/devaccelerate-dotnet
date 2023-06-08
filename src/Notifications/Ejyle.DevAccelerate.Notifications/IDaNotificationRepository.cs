@@ -4,24 +4,26 @@
 // Copyright © Ejyle Technologies (P) Ltd. All rights reserved.
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
+
 using Ejyle.DevAccelerate.Core;
+using Ejyle.DevAccelerate.Core.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ejyle.DevAccelerate.Messages
+namespace Ejyle.DevAccelerate.Notifications
 {
-    public interface IDaMessageRecipient<TKey> : IDaEntity<TKey>
+    public interface IDaNotificationRepository<TKey, TMessage> : IDaEntityRepository<TKey, TMessage>
         where TKey : IEquatable<TKey>
+        where TMessage : IDaNotification<TKey>
     {
-        TKey MessageId { get; set; }
-        string RecipientName { get; set; }
-        string RecipientAddress { get; set; }
-        DaMessageStatus Status { get; set; }
-        string FailureMessage { get; set; }
-        int AttemptCount { get; set; }
-        TKey UserId { get; set; }
+        IQueryable<TMessage> Messages { get; }
+        Task CreateAsync(TMessage message);
+        Task<TMessage> FindByIdAsync(TKey id);
+        Task UpdateAsync(TMessage message);
+        Task DeleteAsync(TMessage message);
+        Task<DaPaginatedEntityList<TKey, TMessage>> FindByStatusAsync(DaNotificationStatus status, DaDataPaginationCriteria paginationCriteria);
     }
 }
