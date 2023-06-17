@@ -6,6 +6,7 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
@@ -52,6 +53,19 @@ namespace Ejyle.DevAccelerate.Notifications.Delivery
             DaAsyncHelper.RunSync(() => CreateAsync(notification));
         }
 
+        public virtual async Task CreateAsync(List<TNotification> notifications)
+        {
+            ThrowIfDisposed();
+            ThrowIfArgumentIsNull(notifications, nameof(notifications));
+
+            await Repository.CreateAsync(notifications);
+        }
+
+        public virtual void Create(List<TNotification> notifications)
+        {
+            DaAsyncHelper.RunSync(() => CreateAsync(notifications));
+        }
+
         public virtual async Task UpdateAsync(TNotification notification)
         {
             ThrowIfDisposed();
@@ -63,6 +77,19 @@ namespace Ejyle.DevAccelerate.Notifications.Delivery
         public virtual void Update(TNotification notification)
         {
             DaAsyncHelper.RunSync(() => UpdateAsync(notification));
+        }
+
+        public virtual async Task UpdateAsync(List<TNotification> notifications)
+        {
+            ThrowIfDisposed();
+            ThrowIfArgumentIsNull(notifications, nameof(notifications));
+
+            await Repository.UpdateAsync(notifications);
+        }
+
+        public virtual void Update(List<TNotification> notifications)
+        {
+            DaAsyncHelper.RunSync(() => UpdateAsync(notifications));
         }
 
         public virtual async Task DeleteAsync(TNotification notification)

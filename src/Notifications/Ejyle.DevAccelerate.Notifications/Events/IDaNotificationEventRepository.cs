@@ -21,10 +21,11 @@ namespace Ejyle.DevAccelerate.Notifications.Events
         where TNotificationEvent : IDaNotificationEvent<TKey>
     {
         IQueryable<TNotificationEvent> NotificationEvents { get; }
-        Task CreateAsync(TNotificationEvent notificationRequest);
+        Task CreateAsync(TNotificationEvent notificationEvent);
         Task<TNotificationEvent> FindByIdAsync(TKey id);
-        Task UpdateAsync(TNotificationEvent notificationRequest);
-        Task DeleteAsync(TNotificationEvent notificationRequest);
-        Task<DaPaginatedEntityList<TKey, TNotificationEvent>> FindUnprocessedAsync(DaDataPaginationCriteria paginationCriteria);
+        Task UpdateAsync(TNotificationEvent notificationEvent);
+        Task UpdateAsync(List<TNotificationEvent> notificationEvents);
+        Task DeleteAsync(TNotificationEvent notificationEvent);
+        Task<List<TNotificationEvent>> FindUnprocessedAsync(int count);
     }
 }

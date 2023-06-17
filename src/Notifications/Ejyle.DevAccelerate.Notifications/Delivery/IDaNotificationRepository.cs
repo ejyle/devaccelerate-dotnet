@@ -22,8 +22,10 @@ namespace Ejyle.DevAccelerate.Notifications.Delivery
     {
         IQueryable<TNotification> Notifications { get; }
         Task CreateAsync(TNotification notification);
+        Task CreateAsync(List<TNotification> notifications);
         Task<TNotification> FindByIdAsync(TKey id);
         Task UpdateAsync(TNotification notification);
+        Task UpdateAsync(List<TNotification> notifications);
         Task DeleteAsync(TNotification notification);
         Task<DaPaginatedEntityList<TKey, TNotification>> FindByStatusAsync(DaNotificationStatus status, DaDataPaginationCriteria paginationCriteria);
     }

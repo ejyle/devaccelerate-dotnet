@@ -14,18 +14,6 @@ using Microsoft.EntityFrameworkCore;
 using Ejyle.DevAccelerate.Core.Data;
 using System.Xml.Linq;
 using Ejyle.DevAccelerate.Notifications.Delivery;
-
-/* Unmerged change from project 'Ejyle.DevAccelerate.Notifications.EF (netcoreapp3.1)'
-Before:
-using Ejyle.DevAccelerate.Notifications.Events;
-After:
-using Ejyle.DevAccelerate.Notifications.Events;
-using Ejyle;
-using Ejyle.DevAccelerate;
-using Ejyle.DevAccelerate.Notifications;
-using Ejyle.DevAccelerate.Notifications.EF;
-using Ejyle.DevAccelerate.Notifications.EF.Events;
-*/
 using Ejyle.DevAccelerate.Notifications.Events;
 
 namespace Ejyle.DevAccelerate.Notifications.EF.Events
@@ -72,31 +60,23 @@ namespace Ejyle.DevAccelerate.Notifications.EF.Events
             return NotificationEventsSet.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
         }
 
-        public Task UpdateAsync(TNotificationEvent notificationTemplate)
+        public Task UpdateAsync(TNotificationEvent notificationEvent)
         {
-            DbContext.Entry(notificationTemplate).State = EntityState.Modified;
+            DbContext.Update(notificationEvent);
             return SaveChangesAsync();
         }
 
-        public async Task<DaPaginatedEntityList<TKey, TNotificationEvent>> FindUnprocessedAsync(DaDataPaginationCriteria paginationCriteria)
+        public Task UpdateAsync(List<TNotificationEvent> notificationEvents)
         {
-            var totalCount = await NotificationEventsSet.Where(m => m.IsProcessingComplete == false).CountAsync();
+            DbContext.UpdateRange(notificationEvents);
+            return SaveChangesAsync();
+        }
 
-            if (totalCount <= 0)
-            {
-                return null;
-            }
-
-            var query = NotificationEventsSet
+        public Task<List<TNotificationEvent>> FindUnprocessedAsync(int count)
+        {
+            return NotificationEventsSet
                 .Where(m => m.IsProcessingComplete == false)
-                .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
-                .Take(paginationCriteria.PageSize)
-                .AsQueryable();
-
-            var result = await query.ToListAsync();
-
-            return new DaPaginatedEntityList<TKey, TNotificationEvent>(result
-                , new DaDataPaginationResult(paginationCriteria, totalCount));
+                .Take(count).ToListAsync();
         }
     }
 }

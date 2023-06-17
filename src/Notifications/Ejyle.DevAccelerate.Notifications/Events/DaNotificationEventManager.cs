@@ -6,6 +6,7 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
@@ -65,6 +66,19 @@ namespace Ejyle.DevAccelerate.Notifications.Events
             DaAsyncHelper.RunSync(() => UpdateAsync(notificationEvent));
         }
 
+        public virtual async Task UpdateAsync(List<TNotificationEvent> notificationEvents)
+        {
+            ThrowIfDisposed();
+            ThrowIfArgumentIsNull(notificationEvents, nameof(notificationEvents));
+
+            await Repository.UpdateAsync(notificationEvents);
+        }
+
+        public virtual void Update(List<TNotificationEvent> notificationEvents)
+        {
+            DaAsyncHelper.RunSync(() => UpdateAsync(notificationEvents));
+        }
+
         public virtual async Task DeleteAsync(TNotificationEvent notificationEvent)
         {
             ThrowIfDisposed();
@@ -89,15 +103,15 @@ namespace Ejyle.DevAccelerate.Notifications.Events
             return Repository.FindByIdAsync(id);
         }
 
-        public DaPaginatedEntityList<TKey, TNotificationEvent> FindUnprocessed(DaDataPaginationCriteria paginationCriteria)
+        public List<TNotificationEvent> FindUnprocessed(int count)
         {
-            return DaAsyncHelper.RunSync(() => FindUnprocessedAsync(paginationCriteria));
+            return DaAsyncHelper.RunSync(() => FindUnprocessedAsync(count));
         }
 
-        public Task<DaPaginatedEntityList<TKey, TNotificationEvent>> FindUnprocessedAsync(DaDataPaginationCriteria paginationCriteria)
+        public Task<List<TNotificationEvent>> FindUnprocessedAsync(int count)
         {
             ThrowIfDisposed();
-            return Repository.FindUnprocessedAsync(paginationCriteria);
+            return Repository.FindUnprocessedAsync(count);
         }
     }
 }

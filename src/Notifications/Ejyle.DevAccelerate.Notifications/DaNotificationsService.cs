@@ -16,10 +16,11 @@ using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core.Data;
+using Ejyle.DevAccelerate.Notifications.Subscriptions;
 
 namespace Ejyle.DevAccelerate.Notifications
 {
-    public class DaNotificationsService<TKey, TNotificationManager, TNotification, TNotificationEventManager, TNotificationEvent, TNotificationEventChannel, TNotificationEventVariable, TNotificationEventSubscriber, TNotificationEventSubscriberVariable, TNotificationEventDefinitionManager, TNotificationEventDefinition, TNotificationEventDefinitionChannel>
+    public class DaNotificationsService<TKey, TNotificationManager, TNotification, TNotificationEventManager, TNotificationEvent, TNotificationEventChannel, TNotificationEventVariable, TNotificationEventSubscriber, TNotificationEventSubscriberVariable, TNotificationEventDefinitionManager, TNotificationEventDefinition, TNotificationEventDefinitionChannel, TNotificationSubscriptionManager, TNotificationSubscription>
         where TKey : IEquatable<TKey>
         where TNotificationManager : DaNotificationManager<TKey, TNotification>
         where TNotification : DaNotification<TKey>, new()
@@ -32,11 +33,14 @@ namespace Ejyle.DevAccelerate.Notifications
         where TNotificationEventDefinitionManager : DaNotificationEventDefinitionManager<TKey, TNotificationEventDefinition>
         where TNotificationEventDefinition : DaNotificationEventDefinition<TKey, TNotificationEventDefinitionChannel>
         where TNotificationEventDefinitionChannel : DaNotificationEventDefinitionChannel<TKey, TNotificationEventDefinition>
+        where TNotificationSubscriptionManager : DaNotificationSubscriptionManager<TKey, TNotificationSubscription>
+        where TNotificationSubscription : DaNotificationSubscription<TKey>
     {
         private TNotificationEventManager _notificationEventManager;
         private TNotificationEventDefinitionManager _notificationEventDefinitionManager;
-
-        public DaNotificationsService(TNotificationEventManager notificationEventManager, TNotificationEventDefinitionManager notificationEventDefinitionManager)
+        private TNotificationSubscriptionManager _notificationSubscriptionManager;
+        private TNotificationManager _notificationManager;
+        public DaNotificationsService(TNotificationEventManager notificationEventManager, TNotificationEventDefinitionManager notificationEventDefinitionManager, TNotificationSubscriptionManager notificationSubscriptionManager, TNotificationManager notificationManager)
         {
             if (notificationEventManager == null)
             {
@@ -48,8 +52,20 @@ namespace Ejyle.DevAccelerate.Notifications
                 throw new ArgumentNullException(nameof(notificationEventDefinitionManager));
             }
 
+            if (notificationSubscriptionManager == null)
+            {
+                throw new ArgumentNullException(nameof(notificationSubscriptionManager));
+            }
+
+            if (notificationEventManager == null)
+            {
+                throw new ArgumentNullException(nameof(notificationEventManager));
+            }
+
             _notificationEventManager = notificationEventManager;
             _notificationEventDefinitionManager = notificationEventDefinitionManager;
+            _notificationManager = notificationManager;
+            _notificationSubscriptionManager = notificationSubscriptionManager;
         }
 
         public virtual async Task CreateEventAsync(string eventName, string userId, DaNotificationSubscriberInfo subscriber, List<DaNotificationVariableInfo> variables)
@@ -168,19 +184,24 @@ namespace Ejyle.DevAccelerate.Notifications
                 throw new InvalidOperationException("Process count cannot be less than 1.");
             }
 
-            var result = new DaNotificationProcessingResult();
-            var paginationCriteria = new DaDataPaginationCriteria(1, processCount);
+            var result = new DaNotificationProcessingResult();        
+            var events = await _notificationEventManager.FindUnprocessedAsync(processCount);
 
-            var eventsResult = await _notificationEventManager.FindUnprocessedAsync(paginationCriteria);
-
-            if (eventsResult == null || eventsResult.Entities == null)
+            if (events == null || events.Count < 1)
             {
                 return result;
             }
 
-            foreach (var notificationEvent in eventsResult.Entities)
+            var notifications = new List<TNotification>();
+
+            foreach (var notificationEvent in events)
             {
-                result.ProcessingCount = result.ProcessingCount + 1;
+                var eventDefinition = await _notificationEventDefinitionManager.FindByIdAsync(notificationEvent.NotificationEventDefinitionId);
+
+                if (eventDefinition == null)
+                {
+                    throw new InvalidOperationException("Notification event definition not found.");
+                }
 
                 foreach (var channel in notificationEvent.Channels)
                 {
@@ -188,6 +209,11 @@ namespace Ejyle.DevAccelerate.Notifications
                     {
                         var notification = new TNotification()
                         {
+                            FromAddress = eventDefinition.FromAddress,
+                            FromName = eventDefinition.FromName,
+                            RecipientAddress = subscriber.SubscriberAddress,
+                            RecipientName = subscriber.SubscriberName,
+                            Status = DaNotificationStatus.New,
                             Body = channel.Body,
                             Channel = channel.Channel,
                             CreatedDateUtc = DateTime.UtcNow,
@@ -199,24 +225,18 @@ namespace Ejyle.DevAccelerate.Notifications
                             NotificationEventId = notificationEvent.Id,
                             Subject = channel.Subject
                         };
+
+                        notifications.Add(notification);
+
+                        notificationEvent.SubscribersProcessedCount = notificationEvent.SubscribersProcessedCount + 1;
+                        subscriber.IsNotificationCreated = true;
                     }
                 }
 
-                if (notificationEvent.NotificationEventDefinitionId != null)
+                if (notifications.Count > 0)
                 {
-                    var eventDefinition = await _notificationEventDefinitionManager.FindByIdAsync(notificationEvent.NotificationEventDefinitionId);
-
-                    if (eventDefinition == null)
-                    {
-                        throw new InvalidOperationException("Notification event definition not found.");
-                    }
-                }
-
-
-                foreach (var subscriber in notificationEvent.Subscribers)
-                {
-                    notificationEvent.SubscribersProcessedCount = notificationEvent.SubscribersProcessedCount + 1;
-                    subscriber.IsNotificationCreated = true;
+                    await _notificationManager.CreateAsync(notifications);
+                    await _notificationEventManager.UpdateAsync(events);
                 }
             }
 

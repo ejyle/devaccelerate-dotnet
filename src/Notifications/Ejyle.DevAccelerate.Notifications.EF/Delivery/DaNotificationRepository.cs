@@ -13,18 +13,6 @@ using Ejyle.DevAccelerate.Core.EF;
 using Microsoft.EntityFrameworkCore;
 using Ejyle.DevAccelerate.Core.Data;
 using System.Xml.Linq;
-
-/* Unmerged change from project 'Ejyle.DevAccelerate.Notifications.EF (netcoreapp3.1)'
-Before:
-using Ejyle.DevAccelerate.Notifications.Delivery;
-After:
-using Ejyle.DevAccelerate.Notifications.Delivery;
-using Ejyle;
-using Ejyle.DevAccelerate;
-using Ejyle.DevAccelerate.Notifications;
-using Ejyle.DevAccelerate.Notifications.EF;
-using Ejyle.DevAccelerate.Notifications.EF.Delivery;
-*/
 using Ejyle.DevAccelerate.Notifications.Delivery;
 
 namespace Ejyle.DevAccelerate.Notifications.EF.Delivery
@@ -56,6 +44,12 @@ namespace Ejyle.DevAccelerate.Notifications.EF.Delivery
             return SaveChangesAsync();
         }
 
+        public Task CreateAsync(List<TNotification> notifications)
+        {
+            NotificationsSet.AddRange(notifications);
+            return SaveChangesAsync();
+        }
+
         public Task DeleteAsync(TNotification notification)
         {
             NotificationsSet.Remove(notification);
@@ -69,7 +63,13 @@ namespace Ejyle.DevAccelerate.Notifications.EF.Delivery
 
         public Task UpdateAsync(TNotification notification)
         {
-            DbContext.Entry(notification).State = EntityState.Modified;
+            DbContext.Update(notification);
+            return SaveChangesAsync();
+        }
+
+        public Task UpdateAsync(List<TNotification> notifications)
+        {
+            DbContext.UpdateRange(notifications);
             return SaveChangesAsync();
         }
 
