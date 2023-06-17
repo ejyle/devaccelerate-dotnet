@@ -7,26 +7,22 @@
 
 using Ejyle.DevAccelerate.Core;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using System.Xml.Linq;
 
-namespace Ejyle.DevAccelerate.Notifications.Requests
+namespace Ejyle.DevAccelerate.Notifications.Events
 {
-    public class DaNotificationRequestVariable : DaNotificationRequestVariable<string, DaNotificationRequest>
+    public class DaNotificationEventSubscriberVariable : DaNotificationEventSubscriberVariable<string, DaNotificationEventSubscriber>
     { }
 
-    public class DaNotificationRequestVariable<TKey, TNotificationRequest> : DaEntityBase<TKey>, IDaNotificationRequestVariable<TKey>
+    public class DaNotificationEventSubscriberVariable<TKey, TNotificationEventSubscriber> : DaEntityBase<TKey>, IDaNotificationEventSubscriberVariable<TKey>
         where TKey : IEquatable<TKey>
-        where TNotificationRequest : IDaNotificationRequest<TKey>
+        where TNotificationEventSubscriber : IDaNotificationEventSubscriber<TKey>
     {
-        public virtual TNotificationRequest NotificationRequest
+        public virtual TNotificationEventSubscriber NotificationEventSubscriber
         {
             get;
             set;
         }
-        public TKey NotificationRequestId { get; set; }
+        public TKey NotificationEventSubscriberId { get; set; }
         public string Name { get; set; }
         public string Value { get; set; }
         public bool ForSubject { get; set; }

@@ -6,27 +6,27 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using Ejyle.DevAccelerate.Core;
 
-namespace Ejyle.DevAccelerate.Notifications.Requests
+namespace Ejyle.DevAccelerate.Notifications.EventDefinitions
 {
-    public class DaNotificationRequestChannel : DaNotificationRequestChannel<string, DaNotificationRequest>
+    public class DaNotificationEventDefinitionChannel : DaNotificationEventDefinitionChannel<string, DaNotificationEventDefinition>
     {
-        public DaNotificationRequestChannel()
-        { }
+        public DaNotificationEventDefinitionChannel()
+        { 
+        }
     }
 
-    public class DaNotificationRequestChannel<TKey, TNotificationRequest> : DaAuditedEntityBase<TKey>, IDaNotificationRequestChannel<TKey>
+    public class DaNotificationEventDefinitionChannel<TKey, TNotificationEventDefinition> : DaEntityBase<TKey>, IDaNotificationEventDefinitionChannel<TKey>
         where TKey : IEquatable<TKey>
-        where TNotificationRequest : IDaNotificationRequest<TKey>
+        where TNotificationEventDefinition : IDaNotificationEventDefinition<TKey>
     {
-        public DaNotificationChannel Channel { get; set; }
+        public TKey NotificationEventDefinitionId { get; set; }
         public string Subject { get; set; }
         public string Body { get; set; }
+        public DaNotificationChannel Channel { get; set; }
         public string Format { get; set; }
-        public TKey NotificationChannelTemplateId { get; set; }
-        public TKey NotificationRequestId { get; set; }
-        public virtual TNotificationRequest NotificationRequest { get; set; }
+        public virtual TNotificationEventDefinition NotificationEventDefinition { get; set; }
     }
 }

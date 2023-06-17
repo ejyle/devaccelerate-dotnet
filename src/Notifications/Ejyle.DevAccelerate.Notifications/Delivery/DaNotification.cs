@@ -20,11 +20,13 @@ namespace Ejyle.DevAccelerate.Notifications.Delivery
     public class DaNotification<TKey> : DaEntityBase<TKey>, IDaNotification<TKey>
         where TKey : IEquatable<TKey>
     {
-        public TKey NotificationRequestId { get; set; }
+        public TKey NotificationEventId { get; set; }
         public DaNotificationLevel? Level { get; set; }
         public DaNotificationChannel Channel { get; set; }
         public DaNotificationStatus Status { get; set; }
         public string FailureMessage { get; set; }
+        public string FromName { get; set; }
+        public string FromAddress { get; set; }
         public string RecipientName { get; set; }
         public string RecipientAddress { get; set; }
         public string Subject { get; set; }

@@ -8,28 +8,28 @@
 using System;
 using System.Collections.Generic;
 using Ejyle.DevAccelerate.Core;
-using Ejyle.DevAccelerate.Notifications.Requests;
+using Ejyle.DevAccelerate.Notifications.Events;
 
-namespace Ejyle.DevAccelerate.Notifications.Templates
+namespace Ejyle.DevAccelerate.Notifications.EventDefinitions
 {
-    public class DaNotificationTemplate : DaNotificationTemplate<string, DaNotificationChannelTemplate>
+    public class DaNotificationEventDefinition : DaNotificationEventDefinition<string, DaNotificationEventDefinitionChannel>
     {
-        public DaNotificationTemplate()
+        public DaNotificationEventDefinition()
         { 
         }
     }
 
-    public class DaNotificationTemplate<TKey, TNotificationChannelTemplate> : DaEntityBase<TKey>, IDaNotificationTemplate<TKey>
+    public class DaNotificationEventDefinition<TKey, TNotificationEventDefinitionChannel> : DaEntityBase<TKey>, IDaNotificationEventDefinition<TKey>
         where TKey : IEquatable<TKey>
-        where TNotificationChannelTemplate : IDaNotificationChannelTemplate<TKey>
+        where TNotificationEventDefinitionChannel : IDaNotificationEventDefinitionChannel<TKey>
     {
+        public string Title { get; set; }
         public string Name { get; set; }
-        public string Key { get; set; }
         public string Description { get; set; }
         public string VariableDelimiter { get; set; }
         public DaNotificationLevel? Level { get; set; }
         public string FromAddress { get; set; }
         public string FromName { get; set; }
-        public virtual ICollection<TNotificationChannelTemplate> Channels { get; set; }
+        public virtual ICollection<TNotificationEventDefinitionChannel> Channels { get; set; }
     }
 }

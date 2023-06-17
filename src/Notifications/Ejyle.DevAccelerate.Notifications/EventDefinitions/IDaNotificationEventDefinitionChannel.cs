@@ -5,24 +5,21 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 using Ejyle.DevAccelerate.Core;
-using Ejyle.DevAccelerate.Notifications.Delivery;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ejyle.DevAccelerate.Notifications.Requests
+namespace Ejyle.DevAccelerate.Notifications.EventDefinitions
 {
-    public interface IDaNotificationRequestRecipient<TKey> : IDaEntity<TKey>
+    public interface IDaNotificationEventDefinitionChannel<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {
-        TKey NotificationRequestId { get; set; }
-        string RecipientName { get; set; }
-        string RecipientAddress { get; set; }
-        DaNotificationStatus Status { get; set; }
-        string FailureMessage { get; set; }
-        int AttemptCount { get; set; }
-        string UserId { get; set; }
+        TKey NotificationEventDefinitionId { get; set; }
+        string Subject { get; set; }
+        string Body { get; set; }
+        DaNotificationChannel Channel { get; set; }
+        string Format { get; set; }
     }
 }

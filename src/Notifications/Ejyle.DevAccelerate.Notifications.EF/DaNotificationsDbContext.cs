@@ -10,14 +10,15 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using Ejyle.DevAccelerate.Core;
 using Microsoft.EntityFrameworkCore;
-using Ejyle.DevAccelerate.Notifications.Requests;
-using Ejyle.DevAccelerate.Notifications.Templates;
+using Ejyle.DevAccelerate.Notifications.Events;
+using Ejyle.DevAccelerate.Notifications.EventDefinitions;
 using Ejyle.DevAccelerate.Notifications.Delivery;
+using Ejyle.DevAccelerate.Notifications.Subscriptions;
 
 namespace Ejyle.DevAccelerate.Notifications.EF
 {
     public class DaNotificationsDbContext
-        : DaNotificationsDbContext<string, DaNotificationTemplate, DaNotificationChannelTemplate, DaNotificationRequest, DaNotificationRequestChannel, DaNotificationRequestVariable, DaNotificationRequestRecipient, DaNotificationRequestRecipientVariable, DaNotification>
+        : DaNotificationsDbContext<string, DaNotificationEventDefinition, DaNotificationEventDefinitionChannel, DaNotificationSubscription, DaNotificationEvent, DaNotificationEventChannel, DaNotificationEventVariable, DaNotificationEventSubscriber, DaNotificationEventSubscriberVariable, DaNotification>
     {
         public DaNotificationsDbContext() : base()
         { }
@@ -31,15 +32,16 @@ namespace Ejyle.DevAccelerate.Notifications.EF
         { }
     }
 
-    public class DaNotificationsDbContext<TKey, TNotificationTemplate, TNotificationChannelTemplate, TNotificationRequest, TNotificationRequestChannel, TNotificationRequestVariable, TNotificationRequestRecipient, TNotificationRequestRecipientVariable, TNotification> : DbContext
+    public class DaNotificationsDbContext<TKey, TNotificationEventDefinition, TNotificationEventDefinitionChannel, TNotificationSubscription, TNotificationEvent, TNotificationEventChannel, TNotificationEventVariable, TNotificationEventSubscriber, TNotificationEventSubscriberVariable, TNotification> : DbContext
         where TKey : IEquatable<TKey>
-        where TNotificationTemplate : DaNotificationTemplate<TKey, TNotificationChannelTemplate>
-        where TNotificationChannelTemplate : DaNotificationChannelTemplate<TKey, TNotificationTemplate>
-        where TNotificationRequest : DaNotificationRequest<TKey, TNotificationRequestChannel, TNotificationRequestVariable, TNotificationRequestRecipient>
-        where TNotificationRequestChannel : DaNotificationRequestChannel<TKey, TNotificationRequest>
-        where TNotificationRequestVariable : DaNotificationRequestVariable<TKey, TNotificationRequest>
-        where TNotificationRequestRecipient : DaNotificationRequestRecipient<TKey, TNotificationRequest, TNotificationRequestRecipientVariable>
-        where TNotificationRequestRecipientVariable : DaNotificationRequestRecipientVariable<TKey, TNotificationRequestRecipient>
+        where TNotificationEventDefinition : DaNotificationEventDefinition<TKey, TNotificationEventDefinitionChannel>
+        where TNotificationEventDefinitionChannel : DaNotificationEventDefinitionChannel<TKey, TNotificationEventDefinition>
+        where TNotificationSubscription : DaNotificationSubscription<TKey>
+        where TNotificationEvent : DaNotificationEvent<TKey, TNotificationEventChannel, TNotificationEventVariable, TNotificationEventSubscriber>
+        where TNotificationEventChannel : DaNotificationEventChannel<TKey, TNotificationEvent>
+        where TNotificationEventVariable : DaNotificationEventVariable<TKey, TNotificationEvent>
+        where TNotificationEventSubscriber : DaNotificationEventSubscriber<TKey, TNotificationEvent, TNotificationEventSubscriberVariable>
+        where TNotificationEventSubscriberVariable : DaNotificationEventSubscriberVariable<TKey, TNotificationEventSubscriber>
         where TNotification : DaNotification<TKey>
     {
         private const string SCHEMA_NAME = "Da.Notifications";
@@ -51,7 +53,7 @@ namespace Ejyle.DevAccelerate.Notifications.EF
             : base(options)
         { }
 
-        public DaNotificationsDbContext(DbContextOptions<DaNotificationsDbContext<TKey, TNotificationTemplate, TNotificationChannelTemplate, TNotificationRequest, TNotificationRequestChannel, TNotificationRequestVariable, TNotificationRequestRecipient, TNotificationRequestRecipientVariable, TNotification>> options)
+        public DaNotificationsDbContext(DbContextOptions<DaNotificationsDbContext<TKey, TNotificationEventDefinition, TNotificationEventDefinitionChannel, TNotificationSubscription, TNotificationEvent, TNotificationEventChannel, TNotificationEventVariable, TNotificationEventSubscriber, TNotificationEventSubscriberVariable, TNotification>> options)
             : base(options)
         { }
 
@@ -59,14 +61,15 @@ namespace Ejyle.DevAccelerate.Notifications.EF
             : base(GetOptions(connectionString))
         { }
 
-        private static DbContextOptions<DaNotificationsDbContext<TKey, TNotificationTemplate, TNotificationChannelTemplate, TNotificationRequest, TNotificationRequestChannel, TNotificationRequestVariable, TNotificationRequestRecipient, TNotificationRequestRecipientVariable, TNotification>> GetOptions(string connectionString)
+        private static DbContextOptions<DaNotificationsDbContext<TKey, TNotificationEventDefinition, TNotificationEventDefinitionChannel, TNotificationSubscription, TNotificationEvent, TNotificationEventChannel, TNotificationEventVariable, TNotificationEventSubscriber, TNotificationEventSubscriberVariable, TNotification>> GetOptions(string connectionString)
         {
-            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaNotificationsDbContext<TKey, TNotificationTemplate, TNotificationChannelTemplate, TNotificationRequest, TNotificationRequestChannel, TNotificationRequestVariable, TNotificationRequestRecipient, TNotificationRequestRecipientVariable, TNotification>>(), connectionString).Options;
+            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaNotificationsDbContext<TKey, TNotificationEventDefinition, TNotificationEventDefinitionChannel, TNotificationSubscription, TNotificationEvent, TNotificationEventChannel, TNotificationEventVariable, TNotificationEventSubscriber, TNotificationEventSubscriberVariable, TNotification>>(), connectionString).Options;
         }
 
         public virtual DbSet<TNotification> Notifications { get; set; }
-        public virtual DbSet<TNotificationRequest> NotificationRequests { get; set; }
-        public virtual DbSet<TNotificationTemplate> NotificationTemplates { get; set; }
+        public virtual DbSet<TNotificationEvent> NotificationEvents { get; set; }
+        public virtual DbSet<TNotificationSubscription> NotificationSubscriptions { get; set; }
+        public virtual DbSet<TNotificationEventDefinition> NotificationEventDefinitions { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -82,9 +85,9 @@ namespace Ejyle.DevAccelerate.Notifications.EF
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<TNotificationTemplate>(entity =>
+            modelBuilder.Entity<TNotificationEventDefinition>(entity =>
             {
-                entity.ToTable("NotificationTemplates", SCHEMA_NAME);
+                entity.ToTable("EventDefinitions", SCHEMA_NAME);
 
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
@@ -92,20 +95,16 @@ namespace Ejyle.DevAccelerate.Notifications.EF
                     .HasMaxLength(256)
                     .IsRequired();
 
-                entity.Property(e => e.Key)
-                    .HasMaxLength(128)
-                    .IsRequired();
-
                 entity.Property(e => e.VariableDelimiter)
                     .HasMaxLength(5);
 
-                entity.HasIndex(e => e.Key).IsUnique();
+                entity.HasIndex(e => e.Name).IsUnique();
             });
 
 
-            modelBuilder.Entity<TNotificationChannelTemplate>(entity =>
+            modelBuilder.Entity<TNotificationEventDefinitionChannel>(entity =>
             {
-                entity.ToTable("NotificationChannelTemplates", SCHEMA_NAME);
+                entity.ToTable("EventDefinitionChannels", SCHEMA_NAME);
 
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
@@ -119,9 +118,20 @@ namespace Ejyle.DevAccelerate.Notifications.EF
                     .HasMaxLength(500);
             });
 
-            modelBuilder.Entity<TNotificationRequest>(entity =>
+            modelBuilder.Entity<TNotificationSubscription>(entity =>
             {
-                entity.ToTable("NotificationRequests", SCHEMA_NAME);
+                entity.ToTable("Subscriptions", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(450)
+                    .IsRequired();
+            });
+
+            modelBuilder.Entity<TNotificationEvent>(entity =>
+            {
+                entity.ToTable("Events", SCHEMA_NAME);
 
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
@@ -132,9 +142,9 @@ namespace Ejyle.DevAccelerate.Notifications.EF
                     .HasMaxLength(450);
             });
 
-            modelBuilder.Entity<TNotificationRequestChannel>(entity =>
+            modelBuilder.Entity<TNotificationEventChannel>(entity =>
             {
-                entity.ToTable("NotificationRequestChannels", SCHEMA_NAME);
+                entity.ToTable("EventChannels", SCHEMA_NAME);
 
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
@@ -148,9 +158,9 @@ namespace Ejyle.DevAccelerate.Notifications.EF
                     .HasMaxLength(500);
             });
 
-            modelBuilder.Entity<TNotificationRequestVariable>(entity =>
+            modelBuilder.Entity<TNotificationEventVariable>(entity =>
             {
-                entity.ToTable("NotificationRequestVariables", SCHEMA_NAME);
+                entity.ToTable("EventVariables", SCHEMA_NAME);
 
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
@@ -158,33 +168,33 @@ namespace Ejyle.DevAccelerate.Notifications.EF
                     .HasMaxLength(256)
                     .IsRequired();
 
-                entity.HasOne(d => d.NotificationRequest)
+                entity.HasOne(d => d.NotificationEvent)
                     .WithMany(p => p.Variables)
-                    .HasForeignKey(d => d.NotificationRequestId);
+                    .HasForeignKey(d => d.NotificationEventId);
             });
 
-            modelBuilder.Entity<TNotificationRequestRecipient>(entity =>
+            modelBuilder.Entity<TNotificationEventSubscriber>(entity =>
             {
-                entity.ToTable("NotificationRequestRecipients", SCHEMA_NAME);
+                entity.ToTable("EventSubscribers", SCHEMA_NAME);
 
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
-                entity.Property(e => e.RecipientName)
+                entity.Property(e => e.SubscriberName)
                     .HasMaxLength(256)
                     .IsRequired();
 
-                entity.Property(e => e.RecipientAddress)
+                entity.Property(e => e.SubscriberAddress)
                     .HasMaxLength(500)
                     .IsRequired();
 
-                entity.HasOne(d => d.NotificationRequest)
-                    .WithMany(p => p.Recipients)
-                    .HasForeignKey(d => d.NotificationRequestId);
+                entity.HasOne(d => d.NotificationEvent)
+                    .WithMany(p => p.Subscribers)
+                    .HasForeignKey(d => d.NotificationEventId);
             });
 
-            modelBuilder.Entity<TNotificationRequestRecipientVariable>(entity =>
+            modelBuilder.Entity<TNotificationEventSubscriberVariable>(entity =>
             {
-                entity.ToTable("NotificationRequestRecipientVariables", SCHEMA_NAME);
+                entity.ToTable("EventSubscriberVariables", SCHEMA_NAME);
 
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
@@ -192,9 +202,9 @@ namespace Ejyle.DevAccelerate.Notifications.EF
                     .HasMaxLength(256)
                     .IsRequired();
 
-                entity.HasOne(d => d.NotificationRequestRecipient)
+                entity.HasOne(d => d.NotificationEventSubscriber)
                     .WithMany(p => p.Variables)
-                    .HasForeignKey(d => d.NotificationRequestRecipientId);
+                    .HasForeignKey(d => d.NotificationEventSubscriberId);
             });
 
             modelBuilder.Entity<TNotification>(entity =>

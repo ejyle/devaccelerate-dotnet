@@ -53,8 +53,8 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Notifications
                     }
                 };
 
-                var messagesService = new DaNotificationsFacade(new DaNotificationRequestManager(new DaNotificationRequestRepository(context)), new DaNotificationTemplateManager(new DaNotificationTemplateRepository(context)));
-                messagesService.ProcessNotifications(settings, 1000, DaProcessNotificationsFlag.New);
+                var messagesService = new DaNotificationsFacade(new DaNotificationRequestManager(new DaNotificationEventRepository(context)), new DaNotificationEventDefinitionManager(new DaNotificationEventDefinitionRepository(context)));
+                // messagesService.ProcessNotifications(settings, 1000, DaProcessNotificationsFlag.New);
 
                 Console.WriteLine($"{0} notifications processed.");
             }

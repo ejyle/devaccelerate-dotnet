@@ -8,16 +8,17 @@
 using System;
 using Ejyle.DevAccelerate.Core;
 
-namespace Ejyle.DevAccelerate.Notifications.Requests
+namespace Ejyle.DevAccelerate.Notifications.Events
 {
-    public interface IDaNotificationRequestChannel<TKey> : IDaAuditedEntity<TKey>
+    public interface IDaNotificationEvent<TKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
-        string Subject { get; set; }
-        string Body { get; set; }
-        string Format { get; set; }
-        public DaNotificationChannel Channel { get; set; }
-        TKey NotificationChannelTemplateId { get; set; }
-        TKey NotificationRequestId { get; set; }
+        TKey NotificationEventDefinitionId { get; set; }
+        DaNotificationLevel? Level { get; set; }
+        bool IsProcessingComplete { get; set; }
+        int SubscribersProcessedCount { get; set; }
+        int SubscribersCount { get; set; }
+        string VariableDelimiter { get; set; }
+        string ObjectIdentifier { get; set; }
     }
 }

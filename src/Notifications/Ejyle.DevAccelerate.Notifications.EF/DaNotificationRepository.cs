@@ -13,7 +13,6 @@ using Ejyle.DevAccelerate.Core.EF;
 using Microsoft.EntityFrameworkCore;
 using Ejyle.DevAccelerate.Core.Data;
 using System.Xml.Linq;
-using Ejyle.DevAccelerate.Notifications.Requests;
 using Ejyle.DevAccelerate.Notifications.Delivery;
 
 namespace Ejyle.DevAccelerate.Notifications.EF
