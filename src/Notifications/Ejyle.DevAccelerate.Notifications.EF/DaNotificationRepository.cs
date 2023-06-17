@@ -10,28 +10,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Ejyle.DevAccelerate.Core.EF;
-using Ejyle.DevAccelerate.Notifications;
 using Microsoft.EntityFrameworkCore;
 using Ejyle.DevAccelerate.Core.Data;
 using System.Xml.Linq;
+using Ejyle.DevAccelerate.Notifications.Requests;
+using Ejyle.DevAccelerate.Notifications.Delivery;
 
 namespace Ejyle.DevAccelerate.Notifications.EF
 {
-    public class DaNotificationRepository : DaNotificationRepository<string, DaNotification, DaNotificationVariable, DaNotificationRecipient, DaNotificationRecipientVariable, DbContext>
+    public class DaNotificationRepository : DaNotificationRepository<string, DaNotification, DbContext>
     {
         public DaNotificationRepository(DbContext dbContext)
             : base(dbContext)
         { }
     }
 
-
-    public class DaNotificationRepository<TKey, TNotification, TNotificationVariable, TNotificationRecipient, TNotificationRecipientVariable, TDbContext>
+    public class DaNotificationRepository<TKey, TNotification, TDbContext>
         : DaEntityRepositoryBase<TKey, TNotification, TDbContext>, IDaNotificationRepository<TKey, TNotification>
         where TKey : IEquatable<TKey>
-        where TNotification : DaNotification<TKey, TNotificationVariable, TNotificationRecipient>
-        where TNotificationVariable : DaNotificationVariable<TKey, TNotification>
-        where TNotificationRecipient : DaNotificationRecipient<TKey, TNotification, TNotificationRecipientVariable>
-        where TNotificationRecipientVariable : DaNotificationRecipientVariable<TKey, TNotificationRecipient>
+        where TNotification : DaNotification<TKey>
         where TDbContext : DbContext
     {
         public DaNotificationRepository(TDbContext dbContext)
@@ -40,7 +37,7 @@ namespace Ejyle.DevAccelerate.Notifications.EF
 
         private DbSet<TNotification> NotificationsSet { get { return DbContext.Set<TNotification>(); } }
 
-        public IQueryable<TNotification> Messages => NotificationsSet.AsQueryable();
+        public IQueryable<TNotification> Notifications => NotificationsSet.AsQueryable();
 
         public Task CreateAsync(TNotification notification)
         {
@@ -59,12 +56,11 @@ namespace Ejyle.DevAccelerate.Notifications.EF
             return NotificationsSet.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
         }
 
-        public Task UpdateAsync(TNotification notificationTemplate)
+        public Task UpdateAsync(TNotification notification)
         {
-            DbContext.Entry<TNotification>(notificationTemplate).State = EntityState.Modified;
+            DbContext.Entry<TNotification>(notification).State = EntityState.Modified;
             return SaveChangesAsync();
         }
-
 
         public async Task<DaPaginatedEntityList<TKey, TNotification>> FindByStatusAsync(DaNotificationStatus status, DaDataPaginationCriteria paginationCriteria)
         {

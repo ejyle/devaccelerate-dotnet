@@ -9,7 +9,10 @@ using Ejyle.DevAccelerate.Core;
 using Ejyle.DevAccelerate.Mail;
 using Ejyle.DevAccelerate.Mail.SendGrid;
 using Ejyle.DevAccelerate.Notifications;
+using Ejyle.DevAccelerate.Notifications.Delivery;
 using Ejyle.DevAccelerate.Notifications.EF;
+using Ejyle.DevAccelerate.Notifications.Requests;
+using Ejyle.DevAccelerate.Notifications.Templates;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Options;
@@ -21,28 +24,32 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Facades.Notifications
 {
-    public class DaNotificationsFacade : DaNotificationsFacade<string, DaNotificationManager, DaNotification, DaNotificationVariable, DaNotificationRecipient, DaNotificationRecipientVariable, DaNotificationTemplateManager, DaNotificationTemplate>
+    public class DaNotificationsFacade : DaNotificationsFacade<string, DaNotificationManager, DaNotification, DaNotificationRequestManager, DaNotificationRequest, DaNotificationRequestChannel, DaNotificationRequestVariable, DaNotificationRequestRecipient, DaNotificationRequestRecipientVariable, DaNotificationTemplateManager, DaNotificationTemplate, DaNotificationChannelTemplate>
     {
-        public DaNotificationsFacade(DaNotificationManager notificationManager, DaNotificationTemplateManager notificationTemplateManager)
+        public DaNotificationsFacade(DaNotificationRequestManager notificationManager, DaNotificationTemplateManager notificationTemplateManager)
             : base(notificationManager, notificationTemplateManager)
         {
         }
     }
 
-    public class DaNotificationsFacade<TKey, TNotificationManager, TNotification, TNotificationVariable, TNotificationRecipient, TNotificationRecipientVariable, TNotificationTemplateManager, TNotificationTemplate>
+    public class DaNotificationsFacade<TKey, TNotificationManager, TNotification, TNotificationRequestManager, TNotificationRequest, TNotificationRequestChannel, TNotificationRequestVariable, TNotificationRequestRecipient, TNotificationRequestRecipientVariable, TNotificationTemplateManager, TNotificationTemplate, TNotificationChannelTemplate>
         where TKey : IEquatable<TKey>
         where TNotificationManager : DaNotificationManager<TKey, TNotification>
-        where TNotification : DaNotification<TKey, TNotificationVariable, TNotificationRecipient>, new ()
-        where TNotificationVariable : DaNotificationVariable<TKey, TNotification>, new()
-        where TNotificationRecipientVariable : DaNotificationRecipientVariable<TKey, TNotificationRecipient>, new()
-        where TNotificationRecipient : DaNotificationRecipient<TKey, TNotification, TNotificationRecipientVariable>, new ()
+        where TNotification : DaNotification<TKey>
+        where TNotificationRequestManager : DaNotificationRequestManager<TKey, TNotificationRequest>
+        where TNotificationRequest : DaNotificationRequest<TKey, TNotificationRequestChannel, TNotificationRequestVariable, TNotificationRequestRecipient>, new ()
+        where TNotificationRequestChannel : DaNotificationRequestChannel<TKey, TNotificationRequest>
+        where TNotificationRequestVariable : DaNotificationRequestVariable<TKey, TNotificationRequest>, new()
+        where TNotificationRequestRecipientVariable : DaNotificationRequestRecipientVariable<TKey, TNotificationRequestRecipient>, new()
+        where TNotificationRequestRecipient : DaNotificationRequestRecipient<TKey, TNotificationRequest, TNotificationRequestRecipientVariable>, new ()
         where TNotificationTemplateManager : DaNotificationTemplateManager<TKey, TNotificationTemplate>
-        where TNotificationTemplate : DaNotificationTemplate<TKey>
+        where TNotificationTemplate : DaNotificationTemplate<TKey, TNotificationChannelTemplate>
+        where TNotificationChannelTemplate : DaNotificationChannelTemplate<TKey, TNotificationTemplate>
     {
-        private TNotificationManager _notificationManager;
+        private TNotificationRequestManager _notificationManager;
         private TNotificationTemplateManager _notificationTemplateManager;
 
-        public DaNotificationsFacade(TNotificationManager notificationManager, TNotificationTemplateManager notificationTemplateManager)
+        public DaNotificationsFacade(TNotificationRequestManager notificationManager, TNotificationTemplateManager notificationTemplateManager)
         {
             if (notificationManager == null)
             {
@@ -77,14 +84,10 @@ namespace Ejyle.DevAccelerate.Facades.Notifications
                 throw new DaNotFoundException($"Notification template key {notificationTemplateKey} not found.");
             }
 
-            var notification = new TNotification()
+            var notification = new TNotificationRequest()
             {
-                Channel = notificationTemplate.Channel,
-                Format = notificationTemplate.Format,
-                Body = notificationTemplate.Body,
                 NotificationTemplateId = notificationTemplate.Id,
-                Status = DaNotificationStatus.New,
-                Subject = notificationTemplate.Subject,
+                IsProcessingComplete = false,
                 FailureMessage = null,
                 CreatedBy = userId,
                 CreatedDateUtc = DateTime.UtcNow,
@@ -94,45 +97,45 @@ namespace Ejyle.DevAccelerate.Facades.Notifications
 
             if (notificationVariables != null)
             {
-                notification.Variables = new List<TNotificationVariable>();
+                notification.Variables = new List<TNotificationRequestVariable>();
 
                 foreach (var variable in notificationVariables)
                 {
-                    notification.Variables.Add(new TNotificationVariable()
+                    notification.Variables.Add(new TNotificationRequestVariable()
                     {
                         ForNotification = variable.ForNotification,
                         Name = variable.Name,
                         Value = variable.Value,
-                        Notification = notification,
+                        NotificationRequest = notification,
                         ForSubject = variable.ForSubject
                     });
                 }
             }
 
-            notification.Recipients = new List<TNotificationRecipient>();
+            notification.Recipients = new List<TNotificationRequestRecipient>();
 
             foreach (var recipientInfo in recipients)
             {
-                var recipient = new TNotificationRecipient()
+                var recipient = new TNotificationRequestRecipient()
                 {
-                    Notification = notification,
+                    NotificationRequest = notification,
                     RecipientAddress = recipientInfo.To,
                     RecipientName = recipientInfo.DisplayName,
                     Status = DaNotificationStatus.New,
-                    Variables = new List<TNotificationRecipientVariable>()
+                    Variables = new List<TNotificationRequestRecipientVariable>()
                 };
 
                 if (recipientInfo.Variables != null)
                 {
                     foreach (var variable in recipientInfo.Variables)
                     {
-                        recipient.Variables.Add(new TNotificationRecipientVariable()
+                        recipient.Variables.Add(new TNotificationRequestRecipientVariable()
                         {
                             ForNotification = variable.ForNotification,
                             Name = variable.Name,
                             ForSubject = variable.ForSubject,
                             Value = variable.Value,
-                            NotificationRecipient = recipient
+                            NotificationRequestRecipient = recipient
                         });
                     }
                 }
@@ -176,28 +179,30 @@ namespace Ejyle.DevAccelerate.Facades.Notifications
                 status = DaNotificationStatus.Failed;
             }
 
-            List<TNotification> notifications = null;
+            List<TNotificationRequest> notifications = null;
 
             var result = new DaNotificationProcessingResult();
 
             if (status != null)
             {
-                notifications = await _notificationManager.Notifications
+                notifications = await _notificationManager.NotificationRequests
+                    .Include(m => m.Channels)
                     .Include(m => m.Variables)
                     .Include(m => m.Recipients)
                     .ThenInclude(m => m.Variables)
-                    .Where(m => m.Status == DaNotificationStatus.New && m.RecipientsCount < m.RecipientsProcessedCount)
+                    .Where(m => m.IsProcessingComplete == false && m.RecipientsCount < m.RecipientsProcessedCount)
                     .Take(processCount)
                     .ToListAsync();
             }
             else
             {
-                notifications = await _notificationManager.Notifications
+                notifications = await _notificationManager.NotificationRequests
+                    .Include(m => m.Channels)
                     .Include(m => m.Variables)
                     .Include(m => m.Recipients)
                     .ThenInclude(m => m.Variables)
                     .Take(processCount)
-                    .Where(m => (m.Status == DaNotificationStatus.New || m.Status == DaNotificationStatus.Failed) && m.RecipientsCount < m.RecipientsProcessedCount).ToListAsync();
+                    .Where(m => (m.IsProcessingComplete == false) && m.RecipientsCount < m.RecipientsProcessedCount).ToListAsync();
             }
 
             if (notifications == null)
@@ -220,7 +225,7 @@ namespace Ejyle.DevAccelerate.Facades.Notifications
                     if(notificationTemplate == null)
                     {
                         notification.FailureMessage = "Invalid notification template.";
-                        notification.Status= DaNotificationStatus.Failed;
+                        
                         notification.RecipientsCount = notification.RecipientsCount + 1;
                         result.NotificationFailureCount = result.NotificationFailureCount + 1;
                         await _notificationManager.UpdateAsync(notification);
@@ -242,7 +247,7 @@ namespace Ejyle.DevAccelerate.Facades.Notifications
                 {
                     notification.RecipientsProcessedCount = notification.RecipientsProcessedCount + 1;
 
-                    await mailSender.SendAsync(recipient.RecipientAddress, from, notification.Subject, notification.Body);
+                    // await mailSender.SendAsync(recipient.RecipientAddress, from, notification.Subject, notification.Body);
                     recipient.Status = DaNotificationStatus.Delivered;
                 }
             }

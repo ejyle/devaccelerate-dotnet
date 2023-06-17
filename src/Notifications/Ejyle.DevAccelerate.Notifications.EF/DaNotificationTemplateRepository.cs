@@ -10,14 +10,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Ejyle.DevAccelerate.Core.EF;
-using Ejyle.DevAccelerate.Notifications;
+using Ejyle.DevAccelerate.Notifications.Templates;
 using Microsoft.EntityFrameworkCore;
 using Ejyle.DevAccelerate.Core.Data;
 using System.Xml.Linq;
 
 namespace Ejyle.DevAccelerate.Notifications.EF
 {
-    public class DaNotificationTemplateRepository : DaNotificationTemplateRepository<string, DaNotificationTemplate, DbContext>
+    public class DaNotificationTemplateRepository : DaNotificationTemplateRepository<string, DaNotificationTemplate, DaNotificationChannelTemplate, DbContext>
     {
         public DaNotificationTemplateRepository(DbContext dbContext)
             : base(dbContext)
@@ -25,10 +25,11 @@ namespace Ejyle.DevAccelerate.Notifications.EF
     }
 
 
-    public class DaNotificationTemplateRepository<TKey, TNotificationTemplate, TDbContext>
+    public class DaNotificationTemplateRepository<TKey, TNotificationTemplate, TNotificationChannelTemplate, TDbContext>
         : DaEntityRepositoryBase<TKey, TNotificationTemplate, TDbContext>, IDaNotificationTemplateRepository<TKey, TNotificationTemplate>
         where TKey : IEquatable<TKey>
-        where TNotificationTemplate : DaNotificationTemplate<TKey>
+        where TNotificationTemplate : DaNotificationTemplate<TKey, TNotificationChannelTemplate>
+        where TNotificationChannelTemplate: DaNotificationChannelTemplate<TKey, TNotificationTemplate>
         where TDbContext : DbContext
     {
         public DaNotificationTemplateRepository(TDbContext dbContext)

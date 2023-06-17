@@ -11,17 +11,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ejyle.DevAccelerate.Notifications
+namespace Ejyle.DevAccelerate.Notifications.Requests
 {
-    public interface IDaNotificationRecipient<TKey> : IDaEntity<TKey>
+    public interface IDaNotificationRequestVariable<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {
-        TKey NotificationId { get; set; }
-        string RecipientName { get; set; }
-        string RecipientAddress { get; set; }
-        DaNotificationStatus Status { get; set; }
-        string FailureMessage { get; set; }
-        int AttemptCount { get; set; }
-        string UserId { get; set; }
+        TKey NotificationRequestId { get; set; }
+        string Name { get; set; }
+        string Value { get; set; }
+        bool ForSubject { get; set; }
+        bool ForNotification { get; set; }
     }
 }

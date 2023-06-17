@@ -6,39 +6,40 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using Ejyle.DevAccelerate.Core;
+using Ejyle.DevAccelerate.Notifications.Delivery;
 using System;
 using System.Collections.Generic;
 
-namespace Ejyle.DevAccelerate.Notifications
+namespace Ejyle.DevAccelerate.Notifications.Requests
 {
-    public class DaNotificationRecipient : DaNotificationRecipient<string, DaNotification, DaNotificationRecipientVariable>
+    public class DaNotificationRequestRecipient : DaNotificationRequestRecipient<string, DaNotificationRequest, DaNotificationRequestRecipientVariable>
     {
-        public DaNotificationRecipient()
+        public DaNotificationRequestRecipient()
         { }
     }
 
-    public class DaNotificationRecipient<TKey, TNotification, TNotificationRecipientVariable> : DaEntityBase<TKey>, IDaNotificationRecipient<TKey>
+    public class DaNotificationRequestRecipient<TKey, TNotificationRequest, TNotificationRequestRecipientVariable> : DaEntityBase<TKey>, IDaNotificationRequestRecipient<TKey>
         where TKey : IEquatable<TKey>
-        where TNotification : IDaNotification<TKey>
-        where TNotificationRecipientVariable : IDaNotificationRecipientVariable<TKey>
+        where TNotificationRequest : IDaNotificationRequest<TKey>
+        where TNotificationRequestRecipientVariable : IDaNotificationRequestRecipientVariable<TKey>
     {
-        public DaNotificationRecipient()
+        public DaNotificationRequestRecipient()
         {
-            Variables = new HashSet<TNotificationRecipientVariable>();
+            Variables = new HashSet<TNotificationRequestRecipientVariable>();
         }
 
-        public virtual ICollection<TNotificationRecipientVariable> Variables
+        public virtual ICollection<TNotificationRequestRecipientVariable> Variables
         {
             get;
             set;
         }
 
-        public virtual TNotification Notification
+        public virtual TNotificationRequest NotificationRequest
         {
             get;
             set;
         }
-        public TKey NotificationId { get; set; }
+        public TKey NotificationRequestId { get; set; }
         public string RecipientName { get; set; }
         public string RecipientAddress { get; set; }
         public DaNotificationStatus Status { get; set; }

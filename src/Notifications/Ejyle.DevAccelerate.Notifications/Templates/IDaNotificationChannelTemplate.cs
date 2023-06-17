@@ -4,17 +4,22 @@
 // Copyright © Ejyle Technologies (P) Ltd. All rights reserved.
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
+using Ejyle.DevAccelerate.Core;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-using Ejyle.DevAccelerate.Notifications;
-using Ejyle.DevAccelerate.Notifications.Templates;
-using System.Xml.Linq;
-
-namespace Ejyle.DevAccelerate.Notifications.EF
+namespace Ejyle.DevAccelerate.Notifications.Templates
 {
-    public class DaNotificationTemplateManager : DaNotificationTemplateManager<string, DaNotificationTemplate>
+    public interface IDaNotificationChannelTemplate<TKey> : IDaEntity<TKey>
+        where TKey : IEquatable<TKey>
     {
-        public DaNotificationTemplateManager(DaNotificationTemplateRepository repository)
-            : base(repository)
-        { }
+        TKey NotificationTemplateId { get; set; }
+        string Subject { get; set; }
+        string Body { get; set; }
+        DaNotificationChannel Channel { get; set; }
+        string Format { get; set; }
     }
 }

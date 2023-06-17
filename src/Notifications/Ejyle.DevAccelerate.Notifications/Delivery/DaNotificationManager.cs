@@ -10,8 +10,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
 using Ejyle.DevAccelerate.Core.Data;
+using Ejyle.DevAccelerate.Notifications.Delivery;
 
-namespace Ejyle.DevAccelerate.Notifications
+namespace Ejyle.DevAccelerate.Notifications.Delivery
 {
     public class DaNotificationManager<TKey, TNotification> : DaEntityManagerBase<TKey, TNotification>
         where TKey : IEquatable<TKey>
@@ -34,7 +35,7 @@ namespace Ejyle.DevAccelerate.Notifications
         {
             get
             {
-                return Repository.Messages;
+                return Repository.Notifications;
             }
         }
 
@@ -79,7 +80,7 @@ namespace Ejyle.DevAccelerate.Notifications
 
         public virtual TNotification FindById(TKey id)
         {
-            return DaAsyncHelper.RunSync<TNotification>(() => FindByIdAsync(id));
+            return DaAsyncHelper.RunSync(() => FindByIdAsync(id));
         }
 
         public virtual Task<TNotification> FindByIdAsync(TKey id)
@@ -90,7 +91,7 @@ namespace Ejyle.DevAccelerate.Notifications
 
         public DaPaginatedEntityList<TKey, TNotification> FindByStatus(DaNotificationStatus status, DaDataPaginationCriteria paginationCriteria)
         {
-            return DaAsyncHelper.RunSync<DaPaginatedEntityList<TKey, TNotification>>(() => FindByStatusAsync(status, paginationCriteria));
+            return DaAsyncHelper.RunSync(() => FindByStatusAsync(status, paginationCriteria));
         }
 
         public Task<DaPaginatedEntityList<TKey, TNotification>> FindByStatusAsync(DaNotificationStatus status, DaDataPaginationCriteria paginationCriteria)

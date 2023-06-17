@@ -5,16 +5,19 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-using Ejyle.DevAccelerate.Notifications;
-using Ejyle.DevAccelerate.Notifications.Templates;
-using System.Xml.Linq;
+using System;
+using Ejyle.DevAccelerate.Core;
 
-namespace Ejyle.DevAccelerate.Notifications.EF
+namespace Ejyle.DevAccelerate.Notifications.Requests
 {
-    public class DaNotificationTemplateManager : DaNotificationTemplateManager<string, DaNotificationTemplate>
+    public interface IDaNotificationRequestChannel<TKey> : IDaAuditedEntity<TKey>
+        where TKey : IEquatable<TKey>
     {
-        public DaNotificationTemplateManager(DaNotificationTemplateRepository repository)
-            : base(repository)
-        { }
+        string Subject { get; set; }
+        string Body { get; set; }
+        string Format { get; set; }
+        public DaNotificationChannel Channel { get; set; }
+        TKey NotificationChannelTemplateId { get; set; }
+        TKey NotificationRequestId { get; set; }
     }
 }

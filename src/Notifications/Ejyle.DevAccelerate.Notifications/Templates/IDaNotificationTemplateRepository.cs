@@ -5,19 +5,25 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
+using Ejyle.DevAccelerate.Core;
+using Ejyle.DevAccelerate.Core.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ejyle.DevAccelerate.Notifications
+namespace Ejyle.DevAccelerate.Notifications.Templates
 {
-    public enum DaNotificationStatus
+    public interface IDaNotificationTemplateRepository<TKey, TMessageTemplate> : IDaEntityRepository<TKey, TMessageTemplate>
+        where TKey : IEquatable<TKey>
+        where TMessageTemplate : IDaNotificationTemplate<TKey>
     {
-        New = 0,
-        Delivered = 1,
-        Failed = 2,
-        Cancelled = 3
+        Task CreateAsync(TMessageTemplate messageTemplate);
+        Task<List<TMessageTemplate>> FindAllAsync();
+        Task<TMessageTemplate> FindByIdAsync(TKey id);
+        Task<TMessageTemplate> FindByKeyAsync(string key);
+        Task UpdateAsync(TMessageTemplate messageTemplate);
+        Task DeleteAsync(TMessageTemplate messageTemplate);
     }
 }

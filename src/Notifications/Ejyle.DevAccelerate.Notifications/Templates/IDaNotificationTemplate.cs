@@ -4,25 +4,25 @@
 // Copyright © Ejyle Technologies (P) Ltd. All rights reserved.
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
-
-using System;
 using Ejyle.DevAccelerate.Core;
+using Ejyle.DevAccelerate.Notifications.Requests;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Ejyle.DevAccelerate.Notifications
+namespace Ejyle.DevAccelerate.Notifications.Templates
 {
-    public interface IDaNotification<TKey> : IDaAuditedEntity<TKey>
+    public interface IDaNotificationTemplate<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {
-        string Subject { get; set; }
-        string Body { get; set; }
-        string Format { get; set; }
-        public DaNotificationChannel Channel { get; set; }
-        TKey NotificationTemplateId { get; set; }
-        DaNotificationStatus Status { get; set; }
-        string FailureMessage { get; set; }
-        int RecipientsCount { get; set; }
-        int RecipientsProcessedCount { get; set; }
+        string Name { get; set; }
+        string Key { get; set; }
+        string Description { get; set; }
+        string FromAddress { get; set; }
+        string FromName { get; set; }
+        DaNotificationLevel? Level { get; set; }
         string VariableDelimiter { get; set; }
-        string ObjectIdentifier { get; set; }
     }
 }

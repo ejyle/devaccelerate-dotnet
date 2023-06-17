@@ -7,23 +7,24 @@
 
 using Ejyle.DevAccelerate.Core;
 using Ejyle.DevAccelerate.Core.Data;
+using Ejyle.DevAccelerate.Notifications.Delivery;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ejyle.DevAccelerate.Notifications
+namespace Ejyle.DevAccelerate.Notifications.Requests
 {
-    public interface IDaNotificationRepository<TKey, TMessage> : IDaEntityRepository<TKey, TMessage>
+    public interface IDaNotificationRequestRepository<TKey, TNotificationRequest> : IDaEntityRepository<TKey, TNotificationRequest>
         where TKey : IEquatable<TKey>
-        where TMessage : IDaNotification<TKey>
+        where TNotificationRequest : IDaNotificationRequest<TKey>
     {
-        IQueryable<TMessage> Messages { get; }
-        Task CreateAsync(TMessage message);
-        Task<TMessage> FindByIdAsync(TKey id);
-        Task UpdateAsync(TMessage message);
-        Task DeleteAsync(TMessage message);
-        Task<DaPaginatedEntityList<TKey, TMessage>> FindByStatusAsync(DaNotificationStatus status, DaDataPaginationCriteria paginationCriteria);
+        IQueryable<TNotificationRequest> NotificationRequests { get; }
+        Task CreateAsync(TNotificationRequest notificationRequest);
+        Task<TNotificationRequest> FindByIdAsync(TKey id);
+        Task UpdateAsync(TNotificationRequest notificationRequest);
+        Task DeleteAsync(TNotificationRequest notificationRequest);
+        Task<DaPaginatedEntityList<TKey, TNotificationRequest>> FindUnprocessedAsync(DaDataPaginationCriteria paginationCriteria);
     }
 }
