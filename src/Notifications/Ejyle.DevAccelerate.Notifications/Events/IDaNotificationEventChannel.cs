@@ -10,7 +10,7 @@ using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.Notifications.Events
 {
-    public interface IDaNotificationEventChannel<TKey> : IDaAuditedEntity<TKey>
+    public interface IDaNotificationEventChannel<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         string Subject { get; set; }

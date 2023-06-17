@@ -102,6 +102,11 @@ namespace Ejyle.DevAccelerate.Core.EF
                 entity.HasOne(d => d.ObjectType)
                     .WithMany(p => p.ObjectInstances)
                     .HasForeignKey(d => d.ObjectTypeId);
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TObjectHistoryItem>(entity =>
@@ -113,6 +118,11 @@ namespace Ejyle.DevAccelerate.Core.EF
                 entity.HasOne(d => d.ObjectInstance)
                     .WithMany(p => p.ObjectHistoryItems)
                     .HasForeignKey(d => d.ObjectInstanceId);
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TObjectDependency>(entity =>
@@ -124,6 +134,11 @@ namespace Ejyle.DevAccelerate.Core.EF
                 entity.HasOne(d => d.ObjectInstance)
                     .WithMany(p => p.ObjectDependencies)
                     .HasForeignKey(d => d.ObjectInstanceId);
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
         }
     }

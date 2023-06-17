@@ -127,6 +127,11 @@ namespace Ejyle.DevAccelerate.Notifications.EF
                 entity.Property(e => e.UserId)
                     .HasMaxLength(450)
                     .IsRequired();
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TNotificationEvent>(entity =>
@@ -140,6 +145,11 @@ namespace Ejyle.DevAccelerate.Notifications.EF
 
                 entity.Property(e => e.ObjectIdentifier)
                     .HasMaxLength(450);
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TNotificationEventChannel>(entity =>
@@ -221,6 +231,9 @@ namespace Ejyle.DevAccelerate.Notifications.EF
 
                 entity.Property(e => e.Subject)
                     .HasMaxLength(500);
+
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
         }
     }

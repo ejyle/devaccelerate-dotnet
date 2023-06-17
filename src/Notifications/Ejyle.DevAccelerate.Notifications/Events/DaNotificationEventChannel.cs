@@ -17,7 +17,7 @@ namespace Ejyle.DevAccelerate.Notifications.Events
         { }
     }
 
-    public class DaNotificationEventChannel<TKey, TNotificationEvent> : DaAuditedEntityBase<TKey>, IDaNotificationEventChannel<TKey>
+    public class DaNotificationEventChannel<TKey, TNotificationEvent> : DaEntityBase<TKey>, IDaNotificationEventChannel<TKey>
         where TKey : IEquatable<TKey>
         where TNotificationEvent : IDaNotificationEvent<TKey>
     {

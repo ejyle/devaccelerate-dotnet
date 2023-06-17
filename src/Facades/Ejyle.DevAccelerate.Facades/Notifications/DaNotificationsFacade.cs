@@ -26,9 +26,9 @@ using Ejyle.DevAccelerate.Notifications.EF.Delivery;
 
 namespace Ejyle.DevAccelerate.Facades.Notifications
 {
-    public class DaNotificationsFacade : DaNotificationsFacade<string, DaNotificationManager, DaNotification, DaNotificationRequestManager, DaNotificationEvent, DaNotificationEventChannel, DaNotificationEventVariable, DaNotificationEventSubscriber, DaNotificationEventSubscriberVariable, DaNotificationEventDefinitionManager, DaNotificationEventDefinition, DaNotificationEventDefinitionChannel>
+    public class DaNotificationsFacade : DaNotificationsFacade<string, DaNotificationManager, DaNotification, DaNotificationEventManager, DaNotificationEvent, DaNotificationEventChannel, DaNotificationEventVariable, DaNotificationEventSubscriber, DaNotificationEventSubscriberVariable, DaNotificationEventDefinitionManager, DaNotificationEventDefinition, DaNotificationEventDefinitionChannel>
     {
-        public DaNotificationsFacade(DaNotificationRequestManager notificationManager, DaNotificationEventDefinitionManager notificationTemplateManager)
+        public DaNotificationsFacade(DaNotificationEventManager notificationManager, DaNotificationEventDefinitionManager notificationTemplateManager)
             : base(notificationManager, notificationTemplateManager)
         {
         }
@@ -68,12 +68,12 @@ namespace Ejyle.DevAccelerate.Facades.Notifications
         }
 
         /*
-        public virtual async Task CreateNotificationRequestAsync(string notificationTemplateKey, TKey userId, DaNotificationRecipientInfo recipient, List<DaNotificationVariableInfo> notificationVariables)
+        public virtual async Task CreateEventAsync(string notificationTemplateKey, TKey userId, DaNotificationSubscriberInfo recipient, List<DaNotificationVariableInfo> notificationVariables)
         {
-            await CreateNotificationRequestAsync(notificationTemplateKey, userId, new List<DaNotificationRecipientInfo>() { recipient }, notificationVariables);
+            await CreateEventAsync(notificationTemplateKey, userId, new List<DaNotificationSubscriberInfo>() { recipient }, notificationVariables);
         }
 
-        public virtual async Task CreateNotificationRequestAsync(string notificationTemplateKey, TKey userId, List<DaNotificationRecipientInfo> recipients, List<DaNotificationVariableInfo> notificationVariables)
+        public virtual async Task CreateEventAsync(string notificationTemplateKey, TKey userId, List<DaNotificationSubscriberInfo> recipients, List<DaNotificationVariableInfo> notificationVariables)
         {
             if(string.IsNullOrEmpty(notificationTemplateKey))
             {
@@ -174,14 +174,14 @@ namespace Ejyle.DevAccelerate.Facades.Notifications
             await _notificationManager.CreateAsync(notificationRequest);
         }
 
-        public virtual void CreateNotificationRequest(string key, TKey userId, DaNotificationRecipientInfo recipient, List<DaNotificationVariableInfo> variables)
+        public virtual void CreateNotificationRequest(string key, TKey userId, DaNotificationSubscriberInfo recipient, List<DaNotificationVariableInfo> variables)
         {
-            DaAsyncHelper.RunSync(() => CreateNotificationRequestAsync(key, userId, recipient, variables));
+            DaAsyncHelper.RunSync(() => CreateEventAsync(key, userId, recipient, variables));
         }
 
-        public virtual void CreateNotificationRequest(string key, TKey userId, List<DaNotificationRecipientInfo> recipients, List<DaNotificationVariableInfo> variables)
+        public virtual void CreateNotificationRequest(string key, TKey userId, List<DaNotificationSubscriberInfo> recipients, List<DaNotificationVariableInfo> variables)
         {
-            DaAsyncHelper.RunSync(() => CreateNotificationRequestAsync(key, userId, recipients, variables));
+            DaAsyncHelper.RunSync(() => CreateEventAsync(key, userId, recipients, variables));
         }
 
         public async Task<DaNotificationProcessingResult> CreateNotificationsAsync(int processCount = 100)

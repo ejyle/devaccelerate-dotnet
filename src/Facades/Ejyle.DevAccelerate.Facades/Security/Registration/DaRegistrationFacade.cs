@@ -381,9 +381,9 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
                 Gender = registrationInfo.Gender,
                 JobTitle = registrationInfo.JobTitle,
                 OwnerUserId = user.Id,
-                CreatedBy = user.Id,
+                CreatedBy = user.Id.ToString(),
                 CreatedDateUtc = DateTime.UtcNow,
-                LastUpdatedBy = user.Id,
+                LastUpdatedBy = user.Id.ToString(),
                 LastUpdatedDateUtc = DateTime.UtcNow
             };
 
@@ -420,8 +420,8 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
                     CurrencyId = country.CurrencyId,
                     BillingEmail = registrationInfo.Email,
                     CreatedDateUtc = DateTime.UtcNow,
-                    CreatedBy = user.Id,
-                    LastUpdatedBy = user.Id,
+                    CreatedBy = user.Id.ToString(),
+                    LastUpdatedBy = user.Id.ToString(),
                     LastUpdatedDateUtc = DateTime.UtcNow
                 };
 
@@ -471,9 +471,9 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
                         OrganizationName = registrationInfo.Organization.OrganizationName,
                         OrganizationType = registrationInfo.Organization.OrganizationType,
                         TenantId = tenant.Id,
-                        CreatedBy = user.Id,
+                        CreatedBy = user.Id.ToString(),
                         CreatedDateUtc = DateTime.UtcNow,
-                        LastUpdatedBy = user.Id,
+                        LastUpdatedBy = user.Id.ToString(),
                         LastUpdatedDateUtc = DateTime.UtcNow
                     };
 
@@ -512,9 +512,9 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
                     City = registrationInfo.Address.City,
                     CountryId = registrationInfo.Address.CountryId,
                     OwnerUserId = user.Id,
-                    CreatedBy = user.Id,
+                    CreatedBy = user.Id.ToString(),
                     CreatedDateUtc = DateTime.UtcNow,
-                    LastUpdatedBy = user.Id,
+                    LastUpdatedBy = user.Id.ToString(),
                     LastUpdatedDateUtc = DateTime.UtcNow
                 };
 
@@ -525,9 +525,9 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
                     UserId = user.Id,
                     AddressType = DaAddressType.Billing,
                     TenantId = tenant == null ? default(TKey) : tenant.Id,
-                    CreatedBy = user.Id,
+                    CreatedBy = user.Id.ToString(),
                     CreatedDateUtc = DateTime.UtcNow,
-                    LastUpdatedBy = user.Id,
+                    LastUpdatedBy = user.Id.ToString(),
                     LastUpdatedDateUtc = DateTime.UtcNow,
                     AddressProfileId = addressProfile.Id
                 };
@@ -539,9 +539,9 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
                     UserId = user.Id,
                     AddressType = DaAddressType.Shipping,
                     TenantId = billingAddress.TenantId,
-                    CreatedBy = user.Id,
+                    CreatedBy = user.Id.ToString(),
                     CreatedDateUtc = DateTime.UtcNow,
-                    LastUpdatedBy = user.Id,
+                    LastUpdatedBy = user.Id.ToString(),
                     LastUpdatedDateUtc = DateTime.UtcNow,
                     AddressProfileId = addressProfile.Id
                 };
@@ -583,8 +583,8 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
                 BillingInterval = DaBillingInterval.Monthly,
                 StartDateUtc = DateTime.UtcNow,
                 TrialStartDateUtc = null,
-                CreatedBy = user.Id,
-                LastUpdatedBy = user.Id
+                CreatedBy = user.Id.ToString(),
+                LastUpdatedBy = user.Id.ToString()
             };
 
             DateTime subscriptionDate = DateTime.UtcNow;
@@ -627,9 +627,9 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
                     Subscription = subscription,
                     InvoiceId = default(TKey),
                     TransactionId = default(TKey),
-                    CreatedBy = user.Id,
+                    CreatedBy = user.Id.ToString(),
                     CreatedDateUtc = DateTime.UtcNow,
-                    LastUpdatedBy = user.Id,
+                    LastUpdatedBy = user.Id.ToString(),
                     LastUpdatedDateUtc = DateTime.UtcNow
                 };
 

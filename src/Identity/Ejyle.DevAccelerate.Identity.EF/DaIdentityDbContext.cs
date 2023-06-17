@@ -154,6 +154,11 @@ namespace Ejyle.DevAccelerate.Identity.EF
                 entity.Property(e => e.OrganizationName).HasMaxLength(256);
 
                 entity.Property(e => e.Salutation).HasMaxLength(50);
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TGroup>(entity =>
@@ -165,6 +170,11 @@ namespace Ejyle.DevAccelerate.Identity.EF
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(256);
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TGroupRole>(entity =>
@@ -198,6 +208,8 @@ namespace Ejyle.DevAccelerate.Identity.EF
                 entity.HasOne(d => d.UserActivityCategory)
                     .WithMany(p => p.UserActivities)
                     .HasForeignKey(d => d.UserActivityCategoryId);
+
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TUserActivityCategory>(entity =>
@@ -218,6 +230,8 @@ namespace Ejyle.DevAccelerate.Identity.EF
                 entity.Property(e => e.AccessToken).HasMaxLength(128);
 
                 entity.Property(e => e.SystemSessionId).HasMaxLength(128);
+
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TUserSetting>(entity =>
@@ -225,6 +239,11 @@ namespace Ejyle.DevAccelerate.Identity.EF
                 entity.ToTable("UserSettings", SCHEMA_NAME);
 
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TUserAgreementVersionAction>(entity =>
@@ -236,6 +255,11 @@ namespace Ejyle.DevAccelerate.Identity.EF
                 entity.HasOne(d => d.UserAgreementVersion)
                     .WithMany(p => p.Actions)
                     .HasForeignKey(d => d.UserAgreementVersionId);
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TUserAgreementVersion>(entity =>
@@ -247,6 +271,11 @@ namespace Ejyle.DevAccelerate.Identity.EF
                 entity.HasOne(d => d.UserAgreement)
                     .WithMany(p => p.UserAgreementVersions)
                     .HasForeignKey(d => d.UserAgreementId);
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TUserAgreement>(entity =>
@@ -262,6 +291,11 @@ namespace Ejyle.DevAccelerate.Identity.EF
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(256);
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
         }
     }

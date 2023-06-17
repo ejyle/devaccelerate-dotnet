@@ -119,6 +119,11 @@ namespace Ejyle.DevAccelerate.Subscriptions.EF
                 entity.HasOne(d => d.Subscription)
                     .WithMany(p => p.BillingCycles)
                     .HasForeignKey(d => d.SubscriptionId);
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TBillingCycleAttribute>(entity =>
@@ -167,6 +172,11 @@ namespace Ejyle.DevAccelerate.Subscriptions.EF
                 entity.HasOne(d => d.SubscriptionPlan)
                     .WithMany(p => p.BillingCycleOptions)
                     .HasForeignKey(d => d.SubscriptionPlanId);
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TSubscriptionAppRole>(entity =>
@@ -359,6 +369,11 @@ namespace Ejyle.DevAccelerate.Subscriptions.EF
 
                 entity.HasIndex(m => m.Code)
                     .IsUnique();
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TSubscription>(entity =>
@@ -376,6 +391,11 @@ namespace Ejyle.DevAccelerate.Subscriptions.EF
                 entity.HasOne(d => d.SubscriptionPlan)
                     .WithMany(p => p.Subscriptions)
                     .HasForeignKey(d => d.SubscriptionPlanId);
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
         }
     }

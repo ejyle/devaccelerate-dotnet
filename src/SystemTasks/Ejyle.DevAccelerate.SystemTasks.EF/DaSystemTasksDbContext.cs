@@ -87,6 +87,9 @@ namespace Ejyle.DevAccelerate.SystemTasks.EF
 
                 entity.Property(e => e.ErrorDataType)
                     .HasMaxLength(500);
+
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TSystemTaskDefinitionAttribute>(entity =>

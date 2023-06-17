@@ -18,6 +18,8 @@ using Ejyle.DevAccelerate.Notifications.EF;
 using Ejyle.DevAccelerate.Notifications;
 using Ejyle.DevAccelerate.Facades.Notifications;
 using Ejyle.DevAccelerate.Mail;
+using Ejyle.DevAccelerate.Notifications.EF.Events;
+using Ejyle.DevAccelerate.Notifications.EF.EventDefinitions;
 
 namespace Ejyle.DevAccelerate.Tools.Commands.Notifications
 {
@@ -53,7 +55,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Notifications
                     }
                 };
 
-                var messagesService = new DaNotificationsFacade(new DaNotificationRequestManager(new DaNotificationEventRepository(context)), new DaNotificationEventDefinitionManager(new DaNotificationEventDefinitionRepository(context)));
+                var messagesService = new DaNotificationsFacade(new DaNotificationEventManager(new DaNotificationEventRepository(context)), new DaNotificationEventDefinitionManager(new DaNotificationEventDefinitionRepository(context)));
                 // messagesService.ProcessNotifications(settings, 1000, DaProcessNotificationsFlag.New);
 
                 Console.WriteLine($"{0} notifications processed.");

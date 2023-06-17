@@ -132,6 +132,11 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
 
                 entity.HasIndex(e => e.Domain)
                     .IsUnique();
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TAddressProfile>(entity =>
@@ -139,6 +144,11 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
                 entity.ToTable("AddressProfiles", SCHEMA_NAME);
 
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TApiKey>(entity =>
@@ -151,6 +161,8 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
                 entity.Property(e => e.ApiKey).HasMaxLength(128).IsRequired();
 
                 entity.HasIndex(e => e.ApiKey).IsUnique();
+
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TOrganizationProfileAttribute>(entity =>
@@ -181,6 +193,11 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
                 entity.HasOne(d => d.Parent)
                     .WithMany(p => p.Children)
                     .HasForeignKey(d => d.ParentId);
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TOrganizationGroup>(entity =>
@@ -200,6 +217,11 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
                 entity.HasOne(d => d.OrganizationProfile)
                      .WithMany(p => p.Groups)
                      .HasForeignKey(d => d.OrganizationProfileId);
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TUserAddress>(entity =>
@@ -215,6 +237,11 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
                 entity.HasOne(d => d.AddressProfile)
                     .WithMany(p => p.UserAddresses)
                     .HasForeignKey(d => d.AddressProfileId);
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
         }
     }

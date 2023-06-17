@@ -10,9 +10,9 @@ using System.Xml.Linq;
 
 namespace Ejyle.DevAccelerate.Notifications.EF.Events
 {
-    public class DaNotificationRequestManager : DaNotificationEventManager<string, DaNotificationEvent>
+    public class DaNotificationEventManager : DaNotificationEventManager<string, DaNotificationEvent>
     {
-        public DaNotificationRequestManager(DaNotificationEventRepository repository)
+        public DaNotificationEventManager(DaNotificationEventRepository repository)
             : base(repository)
         { }
     }

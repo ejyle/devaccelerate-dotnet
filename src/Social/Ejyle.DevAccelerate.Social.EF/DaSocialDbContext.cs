@@ -101,10 +101,10 @@ namespace Ejyle.DevAccelerate.Social.EF
                 entity.Property(e => e.MediaFileId)
                     .HasMaxLength(450);
 
-                entity.Property(e => e.CreatedBy).IsRequired();
-                entity.Property(e => e.CreatedDateUtc).IsRequired();
-                entity.Property(e => e.LastUpdatedBy).IsRequired();
-                entity.Property(e => e.LastUpdatedDateUtc).IsRequired();
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TPostRole>(entity =>

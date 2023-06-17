@@ -350,6 +350,11 @@ namespace Ejyle.DevAccelerate.Lists.EF
 
                 entity.HasIndex(e => e.Key)
                     .IsUnique(true);
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TSystemLanguage>(entity =>

@@ -92,6 +92,11 @@ namespace Ejyle.DevAccelerate.Comments.EF
                 entity.HasOne(d => d.Parent)
                     .WithMany(p => p.Children)
                     .HasForeignKey(d => d.ParentId);
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TCommentFile>(entity =>
@@ -103,6 +108,11 @@ namespace Ejyle.DevAccelerate.Comments.EF
                 entity.HasOne(d => d.Comment)
                     .WithMany(p => p.Files)
                     .HasForeignKey(d => d.CommentId);
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TCommentFlag>(entity =>
@@ -114,6 +124,11 @@ namespace Ejyle.DevAccelerate.Comments.EF
                 entity.HasOne(d => d.Comment)
                     .WithMany(p => p.Flags)
                     .HasForeignKey(d => d.CommentId);
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TCommentThread>(entity =>
@@ -124,6 +139,11 @@ namespace Ejyle.DevAccelerate.Comments.EF
 
                 entity.Property(e => e.Format)
                     .HasMaxLength(256);
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
         }
     }
