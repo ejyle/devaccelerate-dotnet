@@ -5,14 +5,14 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-using Ejyle.DevAccelerate.Notifications.Delivery;
+using Ejyle.DevAccelerate.Notifications.Subscriptions;
 using System.Xml.Linq;
 
-namespace Ejyle.DevAccelerate.Notifications.EF
+namespace Ejyle.DevAccelerate.Notifications.EF.Subscriptions
 {
-    public class DaNotificationManager : DaNotificationManager<string, DaNotification>
+    public class DaNotificationSubscriptionManager : DaNotificationSubscriptionManager<string, DaNotificationSubscription>
     {
-        public DaNotificationManager(DaNotificationRepository repository)
+        public DaNotificationSubscriptionManager(DaNotificationSubscriptionRepository repository)
             : base(repository)
         { }
     }

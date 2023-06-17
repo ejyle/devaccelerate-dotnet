@@ -13,9 +13,21 @@ using Ejyle.DevAccelerate.Core.EF;
 using Ejyle.DevAccelerate.Notifications.EventDefinitions;
 using Microsoft.EntityFrameworkCore;
 using Ejyle.DevAccelerate.Core.Data;
+
+/* Unmerged change from project 'Ejyle.DevAccelerate.Notifications.EF (netcoreapp3.1)'
+Before:
+using System.Xml.Linq;
+After:
+using System.Xml.Linq;
+using Ejyle;
+using Ejyle.DevAccelerate;
+using Ejyle.DevAccelerate.Notifications;
+using Ejyle.DevAccelerate.Notifications.EF;
+using Ejyle.DevAccelerate.Notifications.EF.EventDefinitions;
+*/
 using System.Xml.Linq;
 
-namespace Ejyle.DevAccelerate.Notifications.EF
+namespace Ejyle.DevAccelerate.Notifications.EF.EventDefinitions
 {
     public class DaNotificationEventDefinitionRepository : DaNotificationEventDefinitionRepository<string, DaNotificationEventDefinition, DaNotificationEventDefinitionChannel, DbContext>
     {
@@ -29,7 +41,7 @@ namespace Ejyle.DevAccelerate.Notifications.EF
         : DaEntityRepositoryBase<TKey, TNotificationEventDefinition, TDbContext>, IDaNotificationEventDefinitionRepository<TKey, TNotificationEventDefinition>
         where TKey : IEquatable<TKey>
         where TNotificationEventDefinition : DaNotificationEventDefinition<TKey, TNotificationEventDefinitionChannel>
-        where TNotificationEventDefinitionChannel: DaNotificationEventDefinitionChannel<TKey, TNotificationEventDefinition>
+        where TNotificationEventDefinitionChannel : DaNotificationEventDefinitionChannel<TKey, TNotificationEventDefinition>
         where TDbContext : DbContext
     {
         public DaNotificationEventDefinitionRepository(TDbContext dbContext)
@@ -67,7 +79,7 @@ namespace Ejyle.DevAccelerate.Notifications.EF
 
         public Task UpdateAsync(TNotificationEventDefinition notificationEventDefinition)
         {
-            DbContext.Entry<TNotificationEventDefinition>(notificationEventDefinition).State = EntityState.Modified;
+            DbContext.Entry(notificationEventDefinition).State = EntityState.Modified;
             return SaveChangesAsync();
         }
     }

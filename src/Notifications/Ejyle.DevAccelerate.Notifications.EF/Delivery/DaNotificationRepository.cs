@@ -13,9 +13,21 @@ using Ejyle.DevAccelerate.Core.EF;
 using Microsoft.EntityFrameworkCore;
 using Ejyle.DevAccelerate.Core.Data;
 using System.Xml.Linq;
+
+/* Unmerged change from project 'Ejyle.DevAccelerate.Notifications.EF (netcoreapp3.1)'
+Before:
+using Ejyle.DevAccelerate.Notifications.Delivery;
+After:
+using Ejyle.DevAccelerate.Notifications.Delivery;
+using Ejyle;
+using Ejyle.DevAccelerate;
+using Ejyle.DevAccelerate.Notifications;
+using Ejyle.DevAccelerate.Notifications.EF;
+using Ejyle.DevAccelerate.Notifications.EF.Delivery;
+*/
 using Ejyle.DevAccelerate.Notifications.Delivery;
 
-namespace Ejyle.DevAccelerate.Notifications.EF
+namespace Ejyle.DevAccelerate.Notifications.EF.Delivery
 {
     public class DaNotificationRepository : DaNotificationRepository<string, DaNotification, DbContext>
     {
@@ -57,7 +69,7 @@ namespace Ejyle.DevAccelerate.Notifications.EF
 
         public Task UpdateAsync(TNotification notification)
         {
-            DbContext.Entry<TNotification>(notification).State = EntityState.Modified;
+            DbContext.Entry(notification).State = EntityState.Modified;
             return SaveChangesAsync();
         }
 

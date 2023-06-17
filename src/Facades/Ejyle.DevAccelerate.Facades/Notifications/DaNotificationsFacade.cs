@@ -10,7 +10,6 @@ using Ejyle.DevAccelerate.Mail;
 using Ejyle.DevAccelerate.Mail.SendGrid;
 using Ejyle.DevAccelerate.Notifications;
 using Ejyle.DevAccelerate.Notifications.Delivery;
-using Ejyle.DevAccelerate.Notifications.EF;
 using Ejyle.DevAccelerate.Notifications.Events;
 using Ejyle.DevAccelerate.Notifications.EventDefinitions;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +20,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using Ejyle.DevAccelerate.Notifications.EF.EventDefinitions;
+using Ejyle.DevAccelerate.Notifications.EF.Events;
+using Ejyle.DevAccelerate.Notifications.EF.Delivery;
 
 namespace Ejyle.DevAccelerate.Facades.Notifications
 {

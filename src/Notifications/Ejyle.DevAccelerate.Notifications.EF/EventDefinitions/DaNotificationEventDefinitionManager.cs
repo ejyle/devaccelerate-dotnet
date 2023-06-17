@@ -5,14 +5,14 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-using Ejyle.DevAccelerate.Notifications.Events;
+using Ejyle.DevAccelerate.Notifications.EventDefinitions;
 using System.Xml.Linq;
 
-namespace Ejyle.DevAccelerate.Notifications.EF
+namespace Ejyle.DevAccelerate.Notifications.EF.EventDefinitions
 {
-    public class DaNotificationRequestManager : DaNotificationEventManager<string, DaNotificationEvent>
+    public class DaNotificationEventDefinitionManager : DaNotificationEventDefinitionManager<string, DaNotificationEventDefinition>
     {
-        public DaNotificationRequestManager(DaNotificationEventRepository repository)
+        public DaNotificationEventDefinitionManager(DaNotificationEventDefinitionRepository repository)
             : base(repository)
         { }
     }
