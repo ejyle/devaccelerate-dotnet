@@ -88,6 +88,7 @@ namespace Ejyle.DevAccelerate.Notifications.EF.Delivery
             }
 
             query = query
+                .OrderByDescending(m => m.CreatedDateUtc)
                 .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
                 .Take(paginationCriteria.PageSize);
 
