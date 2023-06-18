@@ -107,6 +107,9 @@ namespace Ejyle.DevAccelerate.Comments.EF
                     .WithMany(p => p.Files)
                     .HasForeignKey(d => d.FileCollectionId);
 
+                entity.Property(e => e.ObjectIdentifier)
+                    .HasMaxLength(450);
+
                 entity.Property(e => e.TenantId)
                     .HasMaxLength(450);
 
@@ -133,6 +136,9 @@ namespace Ejyle.DevAccelerate.Comments.EF
                 entity.HasOne(d => d.Parent)
                     .WithMany(p => p.Children)
                     .HasForeignKey(d => d.ParentId);
+
+                entity.Property(e => e.ObjectIdentifier)
+                    .HasMaxLength(450);
 
                 entity.Property(e => e.TenantId)
                     .HasMaxLength(450);
