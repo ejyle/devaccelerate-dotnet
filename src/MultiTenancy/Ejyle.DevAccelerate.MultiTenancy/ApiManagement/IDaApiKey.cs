@@ -16,7 +16,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy.ApiManagement
         TKey TenantId { get; set; }
         string ApiKey { get; set; }
         string Salt { get; set; }
-        string HashedSecretKey { get; set; }
+        string SecretKey { get; set; }
         bool IsActive { get; set; }
         bool IsExpired { get; set; }
         DateTime? ExpiryDateUtc { get; set; }

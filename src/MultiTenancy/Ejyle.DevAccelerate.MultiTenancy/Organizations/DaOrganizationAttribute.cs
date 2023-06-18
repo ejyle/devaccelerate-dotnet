@@ -10,29 +10,29 @@ using System;
 
 namespace Ejyle.DevAccelerate.MultiTenancy.Organizations
 {
-    public class DaOrganizationProfileAttribute : DaOrganizationProfileAttribute<DaOrganizationProfile>
+    public class DaOrganizationAttribute : DaOrganizationAttribute<DaOrganization>
     {
-        public DaOrganizationProfileAttribute() : base()
+        public DaOrganizationAttribute() : base()
         { }
     }
 
-    public class DaOrganizationProfileAttribute<TOrganizationProfile> : DaOrganizationProfileAttribute<string, TOrganizationProfile>
-        where TOrganizationProfile : IDaOrganizationProfile<string>
+    public class DaOrganizationAttribute<TOrganization> : DaOrganizationAttribute<string, TOrganization>
+        where TOrganization : IDaOrganization<string>
     {
-        public DaOrganizationProfileAttribute() : base()
+        public DaOrganizationAttribute() : base()
         { }
     }
 
-    public class DaOrganizationProfileAttribute<TKey, TOrganizationProfile> : DaEntityBase<TKey>, IDaOrganizationProfileAttribute<TKey>
+    public class DaOrganizationAttribute<TKey, TOrganization> : DaEntityBase<TKey>, IDaOrganizationAttribute<TKey>
         where TKey : IEquatable<TKey>
-        where TOrganizationProfile : IDaOrganizationProfile<TKey>
+        where TOrganization : IDaOrganization<TKey>
     {
-        public DaOrganizationProfileAttribute() : base()
+        public DaOrganizationAttribute() : base()
         { }
 
-        public TKey OrganizationProfileId { get; set; }
+        public TKey OrganizationId { get; set; }
         public string AttributeName { get; set; }
         public string AttributeValue { get; set; }
-        public virtual TOrganizationProfile OrganizationProfile { get; set; }
+        public virtual TOrganization Organization { get; set; }
     }
 }

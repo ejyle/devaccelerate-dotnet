@@ -30,17 +30,17 @@ namespace Ejyle.DevAccelerate.MultiTenancy.Tenants
         public virtual ICollection<TTenantUser> TenantUsers { get; set; }
         public virtual ICollection<TTenantAttribute> Attributes { get; set; }
         public DaTenantType TenantType { get; set; }
-        public TKey OwnerUserId { get; set; }
+        public string OwnerUserId { get; set; }
         public string Name { get; set; }
         public bool IsSystemTenant { get; set; }
         public string Domain { get; set; }
         public bool IsDomainOwnershipVerified { get; set; }
         public DaTenantStatus Status { get; set; }
-        public TKey CountryId { get; set; }
-        public TKey CurrencyId { get; set; }
-        public TKey TimeZoneId { get; set; }
+        public string Country { get; set; }
+        public string Currency { get; set; }
+        public string TimeZone { get; set; }
         public string BillingEmail { get; set; }
-        public TKey DateFormatId { get; set; }
-        public TKey SystemLanguageId { get; set; }
+        public string DateFormat { get; set; }
+        public string SystemLanguage { get; set; }
     }
 }

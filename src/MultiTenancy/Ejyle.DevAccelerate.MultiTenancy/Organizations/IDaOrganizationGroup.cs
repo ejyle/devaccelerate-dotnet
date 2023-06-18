@@ -10,9 +10,9 @@ namespace Ejyle.DevAccelerate.MultiTenancy.Organizations
     public interface IDaOrganizationGroup<TKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
-        TKey OrganizationProfileId { get; set; }
+        TKey OrganizationId { get; set; }
         TKey ParentId { get; set; }
-        TKey OwnerUserId { get; set; }
+        string OwnerUserId { get; set; }
         string GroupName { get; set; }
         DaOrganizationGroupType GroupType { get; set; }
     }

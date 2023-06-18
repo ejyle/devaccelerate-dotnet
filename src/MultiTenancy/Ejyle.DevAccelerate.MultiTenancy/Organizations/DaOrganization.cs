@@ -11,33 +11,33 @@ using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.MultiTenancy.Organizations
 {
-    public class DaOrganizationProfile : DaOrganizationProfile<string, DaOrganizationProfile, DaOrganizationProfileAttribute, DaOrganizationGroup>
+    public class DaOrganization : DaOrganization<string, DaOrganization, DaOrganizationAttribute, DaOrganizationGroup>
     {
-        public DaOrganizationProfile() : base()
+        public DaOrganization() : base()
         { }
     }
 
-    public class DaOrganizationProfile<TKey, TOrganizationProfile, TOrganizationProfileAttribute, TOrganizationGroup> : DaAuditedEntityBase<TKey>, IDaOrganizationProfile<TKey>
+    public class DaOrganization<TKey, TOrganization, TOrganizationAttribute, TOrganizationGroup> : DaAuditedEntityBase<TKey>, IDaOrganization<TKey>
         where TKey : IEquatable<TKey>
-        where TOrganizationProfile : IDaOrganizationProfile<TKey>
-        where TOrganizationProfileAttribute : IDaOrganizationProfileAttribute<TKey>
+        where TOrganization : IDaOrganization<TKey>
+        where TOrganizationAttribute : IDaOrganizationAttribute<TKey>
         where TOrganizationGroup : IDaOrganizationGroup<TKey>
     {
-        public DaOrganizationProfile() : base()
+        public DaOrganization() : base()
         {
-            Attributes = new HashSet<TOrganizationProfileAttribute>();
+            Attributes = new HashSet<TOrganizationAttribute>();
             Groups= new HashSet<TOrganizationGroup>();
         }
 
         public TKey TenantId { get; set; }
-        public TKey OwnerUserId { get; set; }
+        public string OwnerUserId { get; set; }
         public string OrganizationName { get; set; }
         public DaOrganizationType OrganizationType { get; set; }
         public TKey ParentId { get; set; }
-        public TOrganizationProfile Parent { get; set; }
-        public ICollection<TOrganizationProfile> Children { get; set; }
-        public TKey IndustryId { get; set; }
+        public TOrganization Parent { get; set; }
+        public ICollection<TOrganization> Children { get; set; }
+        public string Industry { get; set; }
         public virtual ICollection<TOrganizationGroup> Groups { get; set; }
-        public virtual ICollection<TOrganizationProfileAttribute> Attributes { get; set; }
+        public virtual ICollection<TOrganizationAttribute> Attributes { get; set; }
     }
 }

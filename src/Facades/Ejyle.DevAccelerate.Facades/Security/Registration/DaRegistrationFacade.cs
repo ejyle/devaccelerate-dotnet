@@ -48,9 +48,9 @@ using Ejyle.DevAccelerate.MultiTenancy.EF.Addresses;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Registration
 {
-    public class DaRegistrationFacade : DaRegistrationFacade<string, DaRegistrationInfo, DaAddressRegistrationInfo, DaOrganizationRegistrationInfo, DaTenantRegistrationInfo, DaSubscriptionRegistrationInfo, UserManager<DaUser>, DaUser, DaUserProfileManager, DaUserProfile, DaUserProfileAttribute, DaOrganizationProfileManager, DaOrganizationProfile, DaOrganizationProfileAttribute, DaOrganizationGroup, DaTenantManager, DaTenant, DaTenantUser, DaTenantAttribute, DaAddressProfileManager, DaAddressProfile, DaUserAddress, DaUserAgreementManager, DaUserAgreement, DaUserAgreementVersion, DaUserAgreementVersionAction, DaAppManager, DaApp, DaAppAttribute, DaFeatureManager, DaFeature, DaAppFeature, DaFeatureAction, DaSubscriptionPlanManager, DaSubscriptionPlan, DaSubscriptionPlanAttribute, DaBillingCycleOption, DaSubscriptionPlanApp, DaSubscriptionPlanFeature, DaSubscriptionPlanFeatureAttribute, DaSubscriptionManager, DaSubscription, DaSubscriptionAttribute, DaSubscriptionApp, DaSubscriptionFeature, DaSubscriptionFeatureAttribute, DaSubscriptionAppRole, DaSubscriptionAppUser, DaSubscriptionFeatureRole, DaSubscriptionFeatureRoleAction, DaSubscriptionFeatureUser, DaSubscriptionFeatureUserAction, DaBillingCycle, DaBillingCycleAttribute, DaBillingCycleFeatureUsage, DaCurrencyManager, DaCurrency, DaCountryManager, DaCountry, DaCountryRegion, DaCountryDateFormat, DaCountrySystemLanguage, DaCountryTimeZone, DaDateFormatManager, DaDateFormat, DaTimeZoneManager, DaTimeZone, DaSystemLanguageManager, DaSystemLanguage>
+    public class DaRegistrationFacade : DaRegistrationFacade<string, DaRegistrationInfo, DaAddressRegistrationInfo, DaOrganizationRegistrationInfo, DaTenantRegistrationInfo, DaSubscriptionRegistrationInfo, UserManager<DaUser>, DaUser, DaUserProfileManager, DaUserProfile, DaUserProfileAttribute, DaOrganizationManager, DaOrganization, DaOrganizationAttribute, DaOrganizationGroup, DaTenantManager, DaTenant, DaTenantUser, DaTenantAttribute, DaAddressProfileManager, DaAddressProfile, DaUserAddress, DaUserAgreementManager, DaUserAgreement, DaUserAgreementVersion, DaUserAgreementVersionAction, DaAppManager, DaApp, DaAppAttribute, DaFeatureManager, DaFeature, DaAppFeature, DaFeatureAction, DaSubscriptionPlanManager, DaSubscriptionPlan, DaSubscriptionPlanAttribute, DaBillingCycleOption, DaSubscriptionPlanApp, DaSubscriptionPlanFeature, DaSubscriptionPlanFeatureAttribute, DaSubscriptionManager, DaSubscription, DaSubscriptionAttribute, DaSubscriptionApp, DaSubscriptionFeature, DaSubscriptionFeatureAttribute, DaSubscriptionAppRole, DaSubscriptionAppUser, DaSubscriptionFeatureRole, DaSubscriptionFeatureRoleAction, DaSubscriptionFeatureUser, DaSubscriptionFeatureUserAction, DaBillingCycle, DaBillingCycleAttribute, DaBillingCycleFeatureUsage, DaCurrencyManager, DaCurrency, DaCountryManager, DaCountry, DaCountryRegion, DaCountryDateFormat, DaCountrySystemLanguage, DaCountryTimeZone, DaDateFormatManager, DaDateFormat, DaTimeZoneManager, DaTimeZone, DaSystemLanguageManager, DaSystemLanguage>
     {        
-        public DaRegistrationFacade(UserManager<DaUser> userManager, DaUserProfileManager userProfileManager, DaOrganizationProfileManager organizationProfileManager,  DaTenantManager tenantManager, DaAddressProfileManager addressProfileManager,  DaAppManager appManager, DaFeatureManager featureManager, DaUserAgreementManager userAgreementManager, DaSubscriptionPlanManager subscriptionPlanManager, DaSubscriptionManager subscriptionManager, DaCurrencyManager currencyManager, DaCountryManager countryManager, DaDateFormatManager dateformatManager, DaTimeZoneManager timeZoneManager, DaSystemLanguageManager systemLanguageManager)
+        public DaRegistrationFacade(UserManager<DaUser> userManager, DaUserProfileManager userProfileManager, DaOrganizationManager organizationProfileManager,  DaTenantManager tenantManager, DaAddressProfileManager addressProfileManager,  DaAppManager appManager, DaFeatureManager featureManager, DaUserAgreementManager userAgreementManager, DaSubscriptionPlanManager subscriptionPlanManager, DaSubscriptionManager subscriptionManager, DaCurrencyManager currencyManager, DaCountryManager countryManager, DaDateFormatManager dateformatManager, DaTimeZoneManager timeZoneManager, DaSystemLanguageManager systemLanguageManager)
             : base(userManager, userProfileManager, organizationProfileManager, tenantManager, addressProfileManager, appManager, featureManager, userAgreementManager, subscriptionPlanManager, subscriptionManager, currencyManager, countryManager, dateformatManager, timeZoneManager, systemLanguageManager)
         {
         }
@@ -68,10 +68,10 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
         where TUserProfile : DaUserProfile<TKey, TUserProfileAttribute>, new()
         where TUserProfileAttribute : DaUserProfileAttribute<TKey, TUserProfile>, new()
         where TUserProfileManager : DaUserProfileManager<TKey, TUserProfile>
-        where TOrganizationProfile : DaOrganizationProfile<TKey, TOrganizationProfile, TOrganizationProfileAttribute, TOrganizationGroup>, new()
-        where TOrganizationProfileAttribute : DaOrganizationProfileAttribute<TKey, TOrganizationProfile>, new()
+        where TOrganizationProfile : DaOrganization<TKey, TOrganizationProfile, TOrganizationProfileAttribute, TOrganizationGroup>, new()
+        where TOrganizationProfileAttribute : DaOrganizationAttribute<TKey, TOrganizationProfile>, new()
         where TOrganizationGroup : DaOrganizationGroup<TKey, TOrganizationGroup, TOrganizationProfile>
-        where TOrganizationProfileManager : DaOrganizationProfileManager<TKey, TOrganizationProfile, TOrganizationGroup>
+        where TOrganizationProfileManager : DaOrganizationManager<TKey, TOrganizationProfile, TOrganizationGroup>
         where TAddressProfileManager : DaAddressProfileManager<TKey, TAddressProfile>
         where TAddressProfile : DaAddressProfile<TKey, TUserAddress>, new()
         where TUserAddress : DaUserAddress<TKey, TAddressProfile>, new()
@@ -416,8 +416,8 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
                     TenantType = DaTenantType.Organization,
                     Domain = null,
                     IsDomainOwnershipVerified = false,
-                    CountryId = country.Id,
-                    CurrencyId = country.CurrencyId,
+                    Country = country.Id,
+                    Currency = country.CurrencyId,
                     BillingEmail = registrationInfo.Email,
                     CreatedDateUtc = DateTime.UtcNow,
                     CreatedBy = user.Id.ToString(),
@@ -485,8 +485,8 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
                             {
                                 AttributeName = key,
                                 AttributeValue = registrationInfo.Organization.OrganizationProfileAttributes[key],
-                                OrganizationProfile = organizationProfile,
-                                OrganizationProfileId = organizationProfile.Id
+                                Organization = organizationProfile,
+                                OrganizationId = organizationProfile.Id
                             };
 
                             organizationProfile.Attributes.Add(attribute);

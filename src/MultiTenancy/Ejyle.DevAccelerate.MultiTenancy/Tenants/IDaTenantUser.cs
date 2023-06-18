@@ -20,7 +20,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy.Tenants
         /// <summary>
         /// Gets or sets the ID of the user.
         /// </summary>
-        TKey UserId { get; set; }
+        string UserId { get; set; }
 
         /// <summary>
         /// Gets or sets the ID of the tenant.

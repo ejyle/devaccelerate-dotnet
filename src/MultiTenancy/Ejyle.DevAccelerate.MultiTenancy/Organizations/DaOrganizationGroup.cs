@@ -11,29 +11,29 @@ using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.MultiTenancy.Organizations
 {
-    public class DaOrganizationGroup : DaOrganizationGroup<string, DaOrganizationGroup, DaOrganizationProfile>
+    public class DaOrganizationGroup : DaOrganizationGroup<string, DaOrganizationGroup, DaOrganization>
     {
         public DaOrganizationGroup() : base()
         { }
     }
 
-    public class DaOrganizationGroup<TKey, TOrganizationGroup, TOrganizationProfile> : DaAuditedEntityBase<TKey>, IDaOrganizationGroup<TKey>
+    public class DaOrganizationGroup<TKey, TOrganizationGroup, TOrganization> : DaAuditedEntityBase<TKey>, IDaOrganizationGroup<TKey>
         where TKey : IEquatable<TKey>
         where TOrganizationGroup : IDaOrganizationGroup<TKey>
-        where TOrganizationProfile : IDaOrganizationProfile<TKey>
+        where TOrganization : IDaOrganization<TKey>
     {
         public DaOrganizationGroup() : base()
         {
             Children = new HashSet<TOrganizationGroup>();
         }
 
-        public TKey OrganizationProfileId { get; set; }
-        public TKey OwnerUserId { get; set; }
+        public TKey OrganizationId { get; set; }
+        public string OwnerUserId { get; set; }
         public string GroupName { get; set; }
         public DaOrganizationGroupType GroupType { get; set; }
         public TKey ParentId { get; set; }
         public TOrganizationGroup Parent { get; set; }
         public ICollection<TOrganizationGroup> Children { get; set; }
-        public virtual TOrganizationProfile OrganizationProfile { get; set; }
+        public virtual TOrganization Organization { get; set; }
     }
 }

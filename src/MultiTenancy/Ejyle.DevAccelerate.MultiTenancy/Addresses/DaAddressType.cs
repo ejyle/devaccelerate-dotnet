@@ -13,6 +13,6 @@ namespace Ejyle.DevAccelerate.MultiTenancy.Addresses
         Office = 1,
         Shipping = 2,
         Billing = 3,
-        Ohter = 100
+        Other = 100
     }
 }

@@ -14,7 +14,7 @@ using Ejyle.DevAccelerate.MultiTenancy.ApiManagement;
 
 namespace Ejyle.DevAccelerate.MultiTenancy.EF
 {
-    public class DaMultiTenancyDbContext : DaMultiTenancyDbContext<string, DaTenant, DaTenantUser, DaTenantAttribute, DaApiKey, DaOrganizationProfile, DaOrganizationProfileAttribute, DaOrganizationGroup, DaAddressProfile, DaUserAddress>
+    public class DaMultiTenancyDbContext : DaMultiTenancyDbContext<string, DaTenant, DaTenantUser, DaTenantAttribute, DaApiKey, DaOrganization, DaOrganizationAttribute, DaOrganizationGroup, DaAddressProfile, DaUserAddress>
     {
         public DaMultiTenancyDbContext()
             : base()
@@ -29,15 +29,15 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
         { }
     }
 
-    public class DaMultiTenancyDbContext<TKey, TTenant, TTenantUser, TTenantAttribute, TApiKey, TOrganizationProfile, TOrganizationProfileAttribute, TOrganizationGroup, TAddressProfile, TUserAddress> : DbContext
+    public class DaMultiTenancyDbContext<TKey, TTenant, TTenantUser, TTenantAttribute, TApiKey, TOrganization, TOrganizationAttribute, TOrganizationGroup, TAddressProfile, TUserAddress> : DbContext
         where TKey : IEquatable<TKey>
         where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute>
         where TTenantAttribute : DaTenantAttribute<TKey, TTenant>
         where TTenantUser : DaTenantUser<TKey, TTenant>
         where TApiKey : DaApiKey<TKey>
-        where TOrganizationProfile : DaOrganizationProfile<TKey, TOrganizationProfile, TOrganizationProfileAttribute, TOrganizationGroup>
-        where TOrganizationGroup : DaOrganizationGroup<TKey, TOrganizationGroup, TOrganizationProfile>
-        where TOrganizationProfileAttribute : DaOrganizationProfileAttribute<TKey, TOrganizationProfile>
+        where TOrganization : DaOrganization<TKey, TOrganization, TOrganizationAttribute, TOrganizationGroup>
+        where TOrganizationGroup : DaOrganizationGroup<TKey, TOrganizationGroup, TOrganization>
+        where TOrganizationAttribute : DaOrganizationAttribute<TKey, TOrganization>
         where TAddressProfile : DaAddressProfile<TKey, TUserAddress>
         where TUserAddress : DaUserAddress<TKey, TAddressProfile>
     {
@@ -51,7 +51,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
             : base(options)
         { }
 
-        public DaMultiTenancyDbContext(DbContextOptions<DaMultiTenancyDbContext<TKey, TTenant, TTenantUser, TTenantAttribute, TApiKey, TOrganizationProfile, TOrganizationProfileAttribute, TOrganizationGroup, TAddressProfile, TUserAddress>> options)
+        public DaMultiTenancyDbContext(DbContextOptions<DaMultiTenancyDbContext<TKey, TTenant, TTenantUser, TTenantAttribute, TApiKey, TOrganization, TOrganizationAttribute, TOrganizationGroup, TAddressProfile, TUserAddress>> options)
             : base(options)
         { }
 
@@ -59,16 +59,16 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
             : base(GetOptions(connectionString))
         { }
 
-        private static DbContextOptions<DaMultiTenancyDbContext<TKey, TTenant, TTenantUser, TTenantAttribute, TApiKey, TOrganizationProfile, TOrganizationProfileAttribute, TOrganizationGroup, TAddressProfile, TUserAddress>> GetOptions(string connectionString)
+        private static DbContextOptions<DaMultiTenancyDbContext<TKey, TTenant, TTenantUser, TTenantAttribute, TApiKey, TOrganization, TOrganizationAttribute, TOrganizationGroup, TAddressProfile, TUserAddress>> GetOptions(string connectionString)
         {
-            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaMultiTenancyDbContext<TKey, TTenant, TTenantUser, TTenantAttribute, TApiKey, TOrganizationProfile, TOrganizationProfileAttribute, TOrganizationGroup, TAddressProfile, TUserAddress>>(), connectionString).Options;
+            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaMultiTenancyDbContext<TKey, TTenant, TTenantUser, TTenantAttribute, TApiKey, TOrganization, TOrganizationAttribute, TOrganizationGroup, TAddressProfile, TUserAddress>>(), connectionString).Options;
         }
 
         public virtual DbSet<TTenant> Tenants { get; set; }
         public virtual DbSet<TTenantUser> TenantUsers { get; set; }
         public virtual DbSet<TTenantAttribute> TenantAttributes { get; set; }
-        public virtual DbSet<TOrganizationProfile> OrganizationProfiles { get; set; }
-        public virtual DbSet<TOrganizationProfileAttribute> OrganizationProfileAttributes { get; set; }
+        public virtual DbSet<TOrganization> Organizations { get; set; }
+        public virtual DbSet<TOrganizationAttribute> OrganizationAttributes { get; set; }
         public virtual DbSet<TOrganizationGroup> OrganizationGroups { get; set; }
         public virtual DbSet<TAddressProfile> AddressProfiles { get; set; }
         public virtual DbSet<TUserAddress> UserAddresses { get; set; }
@@ -107,6 +107,8 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
                 entity.ToTable("TenantUsers", SCHEMA_NAME);
 
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
+                entity.Property(e => e.TenantId).IsRequired();
+                entity.Property(e => e.UserId).HasMaxLength(450).IsRequired();
 
                 entity.HasOne(d => d.Tenant)
                     .WithMany(p => p.TenantUsers)
@@ -133,6 +135,13 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
                 entity.HasIndex(e => e.Domain)
                     .IsUnique();
 
+                entity.Property(e => e.Country).HasMaxLength(450);
+                entity.Property(e => e.Currency).HasMaxLength(450);
+                entity.Property(e => e.SystemLanguage).HasMaxLength(450);
+                entity.Property(e => e.TimeZone).HasMaxLength(450);
+
+                entity.Property(e => e.OwnerUserId).HasMaxLength(450).IsRequired();
+
                 entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
                 entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
                 entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
@@ -144,6 +153,8 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
                 entity.ToTable("AddressProfiles", SCHEMA_NAME);
 
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.OwnerUserId).HasMaxLength(450).IsRequired();
 
                 entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
                 entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
@@ -157,32 +168,35 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
 
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
                 entity.Property(e => e.Salt).HasMaxLength(128).IsRequired();
-                entity.Property(e => e.HashedSecretKey).HasMaxLength(1000).IsRequired();
+                entity.Property(e => e.SecretKey).HasMaxLength(1000).IsRequired();
                 entity.Property(e => e.ApiKey).HasMaxLength(128).IsRequired();
 
                 entity.HasIndex(e => e.ApiKey).IsUnique();
 
+                entity.Property(e => e.TenantId).IsRequired();
+
                 entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
             });
 
-            modelBuilder.Entity<TOrganizationProfileAttribute>(entity =>
+            modelBuilder.Entity<TOrganizationAttribute>(entity =>
             {
-                entity.ToTable("OrganizationProfileAttributes", SCHEMA_NAME);
+                entity.ToTable("OrganizationAttributes", SCHEMA_NAME);
 
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
+                entity.Property(e => e.OrganizationId).IsRequired();
 
                 entity.Property(e => e.AttributeName)
                     .IsRequired()
                     .HasMaxLength(256);
 
-                entity.HasOne(d => d.OrganizationProfile)
+                entity.HasOne(d => d.Organization)
                     .WithMany(p => p.Attributes)
-                    .HasForeignKey(d => d.OrganizationProfileId);
+                    .HasForeignKey(d => d.OrganizationId);
             });
 
-            modelBuilder.Entity<TOrganizationProfile>(entity =>
+            modelBuilder.Entity<TOrganization>(entity =>
             {
-                entity.ToTable("OrganizationProfiles", SCHEMA_NAME);
+                entity.ToTable("Organizations", SCHEMA_NAME);
 
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
@@ -193,6 +207,9 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
                 entity.HasOne(d => d.Parent)
                     .WithMany(p => p.Children)
                     .HasForeignKey(d => d.ParentId);
+
+                entity.Property(d => d.TenantId).IsRequired();
+                entity.Property(e => e.OwnerUserId).HasMaxLength(450).IsRequired();
 
                 entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
                 entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
@@ -214,9 +231,11 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
                     .WithMany(p => p.Children)
                     .HasForeignKey(d => d.ParentId);
 
-                entity.HasOne(d => d.OrganizationProfile)
+                entity.HasOne(d => d.Organization)
                      .WithMany(p => p.Groups)
-                     .HasForeignKey(d => d.OrganizationProfileId);
+                     .HasForeignKey(d => d.OrganizationId);
+
+                entity.Property(e => e.OwnerUserId).HasMaxLength(450).IsRequired();
 
                 entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
                 entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");

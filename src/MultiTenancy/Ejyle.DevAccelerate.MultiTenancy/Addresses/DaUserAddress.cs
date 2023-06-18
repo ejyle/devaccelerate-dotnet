@@ -30,7 +30,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy.Addresses
         public DaUserAddress() : base()
         { }
 
-        public TKey UserId { get; set; }
+        public string UserId { get; set; }
         public string Name { get; set; }
         public TKey TenantId { get; set; }
         public DaAddressType AddressType { get; set; }

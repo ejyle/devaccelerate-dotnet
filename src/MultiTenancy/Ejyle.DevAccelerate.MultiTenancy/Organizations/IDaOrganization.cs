@@ -5,14 +5,21 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-using Ejyle.DevAccelerate.MultiTenancy.Organizations;
+using Ejyle.DevAccelerate.Core;
+using System;
 
-namespace Ejyle.DevAccelerate.MultiTenancy.EF.Organizations
+namespace Ejyle.DevAccelerate.MultiTenancy.Organizations
 {
-    public class DaOrganizationProfileManager : DaOrganizationProfileManager<string, DaOrganizationProfile, DaOrganizationGroup>
+    public interface IDaOrganization<TKey> : IDaAuditedEntity<TKey>
+        where TKey : IEquatable<TKey>
     {
-        public DaOrganizationProfileManager(DaOrganizationProfileRepository repository)
-            : base(repository)
-        { }
+
+        TKey TenantId { get; set; }
+        string OwnerUserId { get; set; }
+
+        string OrganizationName { get; set; }
+        public TKey ParentId { get; set; }
+        DaOrganizationType OrganizationType { get; set; }
+        string Industry { get; set; }
     }
 }

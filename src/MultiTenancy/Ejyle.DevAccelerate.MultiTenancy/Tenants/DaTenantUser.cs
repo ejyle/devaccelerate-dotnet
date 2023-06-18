@@ -25,7 +25,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy.Tenants
         }
 
 
-        public TKey UserId
+        public string UserId
         {
             get;
             set;

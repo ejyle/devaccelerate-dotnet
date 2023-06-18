@@ -29,7 +29,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy.ApiManagement
 
             var hashedSecretKey = DaHashAlgorithm.GenerateHashedString(secret, out salt);
             apiKey.ApiKey = Guid.NewGuid().ToString();
-            apiKey.HashedSecretKey = hashedSecretKey;
+            apiKey.SecretKey = hashedSecretKey;
             apiKey.Salt = salt;
 
             await Repository.CreateAsync(apiKey);

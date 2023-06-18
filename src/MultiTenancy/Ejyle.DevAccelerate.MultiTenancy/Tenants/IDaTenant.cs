@@ -44,34 +44,34 @@ namespace Ejyle.DevAccelerate.MultiTenancy.Tenants
         bool IsDomainOwnershipVerified { get; set; }
 
         /// <summary>
-        /// Gets or sets the ID of the country of the tenant.
+        /// Gets or sets the country of the tenant.
         /// </summary>
-        TKey CountryId { get; set; }
+        string Country { get; set; }
 
         /// <summary>
-        /// Gets or sets the currency ID of the tenant.
+        /// Gets or sets the currency of the tenant.
         /// </summary>
-        TKey CurrencyId { get; set; }
+        string Currency { get; set; }
 
         /// <summary>
-        /// Gets or sets the time zone of the tenant.
+        /// Gets or sets the preferred time zone of the tenant.
         /// </summary>
-        TKey TimeZoneId { get; set; }
+        string TimeZone { get; set; }
 
         /// <summary>
-        /// Gets or sets the ID of the date and time format.
+        /// Gets or sets the preferred date format of the tenant.
         /// </summary>
-        TKey DateFormatId { get; set; }
+        string DateFormat { get; set; }
 
         /// <summary>
-        /// Gets or sets the ID of the system language.
+        /// Gets or sets the preferred system language of the tenant.
         /// </summary>
-        TKey SystemLanguageId { get; set; }
+        string SystemLanguage { get; set; }
 
         /// <summary>
         /// Gets or sets the ID of the user who owns the tenant.
         /// </summary>
-        TKey OwnerUserId { get; set; }
+        string OwnerUserId { get; set; }
 
         /// <summary>
         /// Gets or sets the status of the tenant.

@@ -10,10 +10,10 @@ using System;
 
 namespace Ejyle.DevAccelerate.MultiTenancy.Organizations
 {
-    public interface IDaOrganizationProfileAttribute<TKey> : IDaEntity<TKey>
+    public interface IDaOrganizationAttribute<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {
-        TKey OrganizationProfileId { get; set; }
+        TKey OrganizationId { get; set; }
         string AttributeName { get; set; }
         string AttributeValue { get; set; }
     }

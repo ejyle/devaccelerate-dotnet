@@ -14,7 +14,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy.Addresses
         where TKey : IEquatable<TKey>
     {
         TKey AddressProfileId { get; set; }
-        TKey UserId { get; set; }
+        string UserId { get; set; }
         string Name { get; set; }
         TKey TenantId { get; set; }
         DaAddressType AddressType { get; set; }

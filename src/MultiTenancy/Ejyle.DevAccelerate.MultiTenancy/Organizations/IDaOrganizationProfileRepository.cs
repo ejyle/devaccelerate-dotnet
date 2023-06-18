@@ -14,7 +14,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy.Organizations
 {
     public interface IDaOrganizationProfileRepository<TKey, TOrganizationProfile, TOrganizationGroup> : IDaEntityRepository<TKey, TOrganizationProfile>
         where TKey : IEquatable<TKey>
-        where TOrganizationProfile : IDaOrganizationProfile<TKey>
+        where TOrganizationProfile : IDaOrganization<TKey>
         where TOrganizationGroup : IDaOrganizationGroup<TKey>
 
     {
@@ -24,6 +24,6 @@ namespace Ejyle.DevAccelerate.MultiTenancy.Organizations
         Task UpdateAsync(TOrganizationProfile organizationProfile);
         Task DeleteAsync(TOrganizationProfile organizationProfile);
         Task<List<TOrganizationProfile>> FindByAttributeAsync(string attributeName, string attributeValue);
-        Task<TOrganizationGroup> FindOrganizaitonGroupByIdAsync(TKey id, TKey organizationGroupId);
+        Task<TOrganizationGroup> FindOrganizationGroupByIdAsync(TKey id, TKey organizationGroupId);
     }
 }
