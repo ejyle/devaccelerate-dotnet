@@ -16,8 +16,8 @@ namespace Ejyle.DevAccelerate.Subscriptions.Subscriptions
     {
         string Name { get; set; }
         bool IsActive { get; set; }
-        TKey CurrencyId { get; set; }
-        TKey CountryId { get; set; }
+        string Currency { get; set; }
+        string Country { get; set; }
         decimal BillingAmount { get; set; }
         TKey SubscriptionPlanId { get; set; }
         DateTime? TrialPeriodStartDateUtc { get; set; }
@@ -29,11 +29,11 @@ namespace Ejyle.DevAccelerate.Subscriptions.Subscriptions
         bool IsFree { get; set; }
         DateTime StartDateUtc { get; set; }
         bool IsAutoRenewUntilCanceled { get; set; }
-        TKey TenantId { get; set; }
-        TKey UserAgreementVersionId { get; set; }
-        TKey OwnerUserId { get; set; }
-        TKey LastTransactionId { get; set; }
-        TKey LastPaymentMethodId { get; set; }
+        string TenantId { get; set; }
+        string UserAgreementVersionId { get; set; }
+        string OwnerUserId { get; set; }
+        string LastTransactionId { get; set; }
+        string LastPaymentMethodId { get; set; }
         string ReferenceNumber { get; set; }
         DateTime? NextBillingDateUtc { get; set; }
         DateTime? TrialStartDateUtc { get; set; }

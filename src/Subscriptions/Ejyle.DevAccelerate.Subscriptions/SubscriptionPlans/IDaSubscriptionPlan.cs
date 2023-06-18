@@ -20,7 +20,7 @@ namespace Ejyle.DevAccelerate.Subscriptions.SubscriptionPlans
         int? ValidityInMonths { get; set; }
         bool IsFeatured { get; set; }
         double? SetupFee { get; set; }
-        TKey CurrencyId { get; set; }
+        string Currency { get; set; }
         bool AllowTrial { get; set; }
         bool StartOnlyWithTrial { get; set; }
         int? TrialDays { get; set; }
@@ -28,7 +28,7 @@ namespace Ejyle.DevAccelerate.Subscriptions.SubscriptionPlans
         bool IsFree { get; set; }
         DaBillingType BillingType { get; set; }
         DaSubscriptionPlanStatus Status { get; set; }
-        TKey UserAgreementVersionId { get; set; }
+        string UserAgreementVersionId { get; set; }
         TKey DefaultBillingCycleId { get; set; }
         DateTime? PublishedDateUtc { get; set; }
     }

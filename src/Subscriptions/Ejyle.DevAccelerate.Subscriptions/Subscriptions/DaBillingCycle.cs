@@ -33,10 +33,10 @@ namespace Ejyle.DevAccelerate.Subscriptions.Subscriptions
         public DateTime FromDateUtc { get; set; }
         public DateTime? ToDateUtc { get; set; }
         public decimal? Amount { get; set; }
-        public TKey CurrencyId { get; set; }
-        public TKey InvoiceId { get; set; }
+        public string Currency { get; set; }
+        public string InvoiceId { get; set; }
         public bool IsPaid { get; set; }
-        public TKey TransactionId { get; set; }
+        public string TransactionId { get; set; }
         public virtual TSubscription Subscription { get; set; }
         public virtual ICollection<TAttribute> Attributes { get; set; }
         public virtual ICollection<TBillingCycleFeatureUsage> FeatureUsage { get; set; }

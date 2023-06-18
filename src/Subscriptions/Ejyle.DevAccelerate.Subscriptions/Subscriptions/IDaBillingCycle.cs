@@ -17,9 +17,9 @@ namespace Ejyle.DevAccelerate.Subscriptions.Subscriptions
         DateTime FromDateUtc { get; set; }
         DateTime? ToDateUtc { get; set; }
         decimal? Amount { get; set; }
-        TKey CurrencyId { get; set; }
-        TKey InvoiceId { get; set; }
+        string Currency { get; set; }
+        string InvoiceId { get; set; }
         bool IsPaid { get; set; }
-        TKey TransactionId { get; set; }
+        string TransactionId { get; set; }
     }
 }

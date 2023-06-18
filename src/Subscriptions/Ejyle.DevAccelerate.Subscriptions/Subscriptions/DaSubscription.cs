@@ -38,16 +38,16 @@ namespace Ejyle.DevAccelerate.Subscriptions.Subscriptions
         public bool IsActive { get; set; }
         public bool IsFree { get; set; }
         public DateTime? ExpiryDateUtc { get; set; }
-        public TKey CurrencyId { get; set; }
-        public TKey CountryId { get; set; }
+        public string Currency { get; set; }
+        public string Country { get; set; }
         public decimal BillingAmount { get; set; }
         public DaBillingInterval? BillingInterval { get; set; }
-        public TKey TenantId { get; set; }
+        public string TenantId { get; set; }
         public int Level { get; set; }
-        public TKey UserAgreementVersionId { get; set; }
-        public TKey OwnerUserId { get; set; }
-        public TKey LastTransactionId { get; set; }
-        public TKey LastPaymentMethodId { get; set; }
+        public string UserAgreementVersionId { get; set; }
+        public string OwnerUserId { get; set; }
+        public string LastTransactionId { get; set; }
+        public string LastPaymentMethodId { get; set; }
         public TKey SubscriptionPlanId { get; set; }
         public bool IsCurrentlyInTrial { get; set; }
 

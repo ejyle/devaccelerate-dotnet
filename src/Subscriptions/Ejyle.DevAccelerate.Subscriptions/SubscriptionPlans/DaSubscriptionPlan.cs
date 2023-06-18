@@ -49,7 +49,7 @@ namespace Ejyle.DevAccelerate.Subscriptions.SubscriptionPlans
 
         public DaSubscriptionPlanStatus Status { get; set; }
 
-        public TKey CurrencyId { get; set; }
+        public string Currency { get; set; }
 
         public double? SetupFee { get; set; }
 
@@ -63,7 +63,7 @@ namespace Ejyle.DevAccelerate.Subscriptions.SubscriptionPlans
 
         public bool IsFree { get; set; }
 
-        public TKey UserAgreementVersionId { get; set; }
+        public string UserAgreementVersionId { get; set; }
 
         public DateTime? PublishedDateUtc { get; set; }
 

@@ -120,6 +120,10 @@ namespace Ejyle.DevAccelerate.Subscriptions.EF
                     .WithMany(p => p.BillingCycles)
                     .HasForeignKey(d => d.SubscriptionId);
 
+                entity.Property(e => e.Currency).HasMaxLength(450);
+                entity.Property(e => e.InvoiceId).HasMaxLength(450);
+                entity.Property(e => e.TransactionId).HasMaxLength(450);
+
                 entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
                 entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
                 entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
@@ -370,6 +374,9 @@ namespace Ejyle.DevAccelerate.Subscriptions.EF
                 entity.HasIndex(m => m.Code)
                     .IsUnique();
 
+                entity.Property(e => e.Currency).HasMaxLength(450);
+                entity.Property(e => e.UserAgreementVersionId).HasMaxLength(450);
+
                 entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
                 entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
                 entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
@@ -391,6 +398,12 @@ namespace Ejyle.DevAccelerate.Subscriptions.EF
                 entity.HasOne(d => d.SubscriptionPlan)
                     .WithMany(p => p.Subscriptions)
                     .HasForeignKey(d => d.SubscriptionPlanId);
+
+                entity.Property(e => e.Currency).HasMaxLength(450);
+                entity.Property(e => e.Country).HasMaxLength(450);
+                entity.Property(e => e.TenantId).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.UserAgreementVersionId).HasMaxLength(450);
+                entity.Property(e => e.OwnerUserId).HasMaxLength(450).IsRequired();
 
                 entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
                 entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
