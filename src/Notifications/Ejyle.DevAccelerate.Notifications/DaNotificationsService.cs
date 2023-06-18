@@ -172,7 +172,7 @@ namespace Ejyle.DevAccelerate.Notifications
             await _notificationEventManager.CreateAsync(notificationEvent);
         }
 
-        public async Task<DaNotificationProcessingResult> CreateNotificationsAsync(int processCount = 100)
+        public async Task<DaNotificationProcessingResult> CreateNotificationsAsync(int processCount = 1000)
         {
             if (processCount > 10000)
             {
@@ -266,12 +266,5 @@ namespace Ejyle.DevAccelerate.Notifications
         public string Value { get; set; }
         public bool ForSubject { get; set; }
         public bool ForNotification { get; set; }
-    }
-
-    public enum DaProcessNotificationsFlag
-    {
-        New = 0,
-        Failed = 1,
-        All = 10
     }
 }
