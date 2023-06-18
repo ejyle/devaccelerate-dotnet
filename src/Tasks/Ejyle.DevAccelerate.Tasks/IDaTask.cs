@@ -21,13 +21,13 @@ namespace Ejyle.DevAccelerate.Tasks
         DaTaskPriority? Priority { get; set; }
         DaTaskStatus Status { get; set; }
         string StatusReason { get; set; }
-        TKey AssignedTo { get; set; }
-        TKey OwnerUserId { get; set; }
-        TKey TenantId { get; set; }
+        string AssignedTo { get; set; }
+        string OwnerUserId { get; set; }
+        string TenantId { get; set; }
         string Category { get; set; }
         string ApiUrl { get; set; }
         string PageUrl { get; set; }
         bool LastStatusUpdatedBySystem { get; set; }
-        TKey ObjectInstanceId { get; set; }
+        string ObjectIdentifier { get; set; }
     }
 }

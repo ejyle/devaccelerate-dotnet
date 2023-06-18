@@ -60,7 +60,7 @@ namespace Ejyle.DevAccelerate.Tasks.EF
             await SaveChangesAsync();
         }
 
-        public async Task<DaPaginatedEntityList<TKey, TTask>> FindByAssignedToAsync(TKey assignedTo, DaDataPaginationCriteria paginationCriteria)
+        public async Task<DaPaginatedEntityList<TKey, TTask>> FindByAssignedToAsync(string assignedTo, DaDataPaginationCriteria paginationCriteria)
         {
             var totalCount = await TasksSet.Where(m => m.AssignedTo.Equals(assignedTo)).CountAsync();
 
@@ -81,9 +81,9 @@ namespace Ejyle.DevAccelerate.Tasks.EF
                 , new DaDataPaginationResult(paginationCriteria, totalCount));
         }
 
-        public async Task<DaPaginatedEntityList<TKey, TTask>> FindByObjectInstanceIdAsync(TKey objectInstanceId, DaDataPaginationCriteria paginationCriteria)
+        public async Task<DaPaginatedEntityList<TKey, TTask>> FindByObjectIdentifierAsync(string objectIdentifier, DaDataPaginationCriteria paginationCriteria)
         {
-            var totalCount = await TasksSet.Where(m => m.ObjectInstanceId.Equals(objectInstanceId)).CountAsync();
+            var totalCount = await TasksSet.Where(m => m.ObjectIdentifier.Equals(objectIdentifier)).CountAsync();
 
             if (totalCount <= 0)
             {
@@ -91,7 +91,7 @@ namespace Ejyle.DevAccelerate.Tasks.EF
             }
 
             var query = TasksSet
-                .Where(m => m.ObjectInstanceId.Equals(objectInstanceId))
+                .Where(m => m.ObjectIdentifier.Equals(objectIdentifier))
                 .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
                 .Take(paginationCriteria.PageSize)
                 .AsQueryable();
@@ -102,7 +102,7 @@ namespace Ejyle.DevAccelerate.Tasks.EF
                 , new DaDataPaginationResult(paginationCriteria, totalCount));
         }
 
-        public async Task<DaPaginatedEntityList<TKey, TTask>> FindByTenantIdAsync(TKey tenantId, DaDataPaginationCriteria paginationCriteria)
+        public async Task<DaPaginatedEntityList<TKey, TTask>> FindByTenantIdAsync(string tenantId, DaDataPaginationCriteria paginationCriteria)
         {
             var totalCount = await TasksSet.Where(m => m.TenantId.Equals(tenantId)).CountAsync();
 

@@ -25,14 +25,14 @@ namespace Ejyle.DevAccelerate.Tasks
         public string Description { get; set; }
         public DaTaskStatus Status { get; set; }
         public string StatusReason { get; set; }
-        public TKey AssignedTo { get; set; }
-        public TKey OwnerUserId { get; set; }
-        public TKey TenantId { get; set; }
+        public string AssignedTo { get; set; }
+        public string OwnerUserId { get; set; }
+        public string TenantId { get; set; }
         public string Category { get; set; }
         public string ApiUrl { get; set; }
         public string PageUrl { get; set; }
         public DaTaskPriority? Priority { get; set; }
-        public TKey ObjectInstanceId { get; set; }
+        public string ObjectIdentifier { get; set; }
         public bool IsSystemTask { get; set; }
         public bool LastStatusUpdatedBySystem { get; set; }
         public string Rating { get; set; }

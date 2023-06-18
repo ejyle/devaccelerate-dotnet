@@ -82,34 +82,34 @@ namespace Ejyle.DevAccelerate.Tasks
             return Repository.FindByIdAsync(id);
         }
 
-        public virtual DaPaginatedEntityList<TKey, TTask> FindByAssignedTo(TKey assignedTo, DaDataPaginationCriteria paginationCriteria)
+        public virtual DaPaginatedEntityList<TKey, TTask> FindByAssignedTo(string assignedTo, DaDataPaginationCriteria paginationCriteria)
         {
             return DaAsyncHelper.RunSync<DaPaginatedEntityList<TKey, TTask>>(() => FindByAssignedToAsync(assignedTo, paginationCriteria));
         }
 
-        public virtual Task<DaPaginatedEntityList<TKey, TTask>> FindByAssignedToAsync(TKey asignedTo, DaDataPaginationCriteria paginationCriteria)
+        public virtual Task<DaPaginatedEntityList<TKey, TTask>> FindByAssignedToAsync(string asignedTo, DaDataPaginationCriteria paginationCriteria)
         {
             ThrowIfDisposed();
             return Repository.FindByAssignedToAsync(asignedTo, paginationCriteria);
         }
 
-        public virtual DaPaginatedEntityList<TKey, TTask> FindByObjectInstanceId(TKey objectInstanceId, DaDataPaginationCriteria paginationCriteria)
+        public virtual DaPaginatedEntityList<TKey, TTask> FindByObjectIdentifier(string objectIdentifier, DaDataPaginationCriteria paginationCriteria)
         {
-            return DaAsyncHelper.RunSync<DaPaginatedEntityList<TKey, TTask>>(() => FindByAssignedToAsync(objectInstanceId, paginationCriteria));
+            return DaAsyncHelper.RunSync<DaPaginatedEntityList<TKey, TTask>>(() => FindByAssignedToAsync(objectIdentifier, paginationCriteria));
         }
 
-        public virtual Task<DaPaginatedEntityList<TKey, TTask>> FindByObjectInstanceIdAsync(TKey objectInstanceId, DaDataPaginationCriteria paginationCriteria)
+        public virtual Task<DaPaginatedEntityList<TKey, TTask>> FindByObjectIdentifierAsync(string objectIdentifier, DaDataPaginationCriteria paginationCriteria)
         {
             ThrowIfDisposed();
-            return Repository.FindByObjectInstanceIdAsync(objectInstanceId, paginationCriteria);
+            return Repository.FindByObjectIdentifierAsync(objectIdentifier, paginationCriteria);
         }
 
-        public virtual DaPaginatedEntityList<TKey, TTask> FindByTenantId(TKey tenantId, DaDataPaginationCriteria paginationCriteria)
+        public virtual DaPaginatedEntityList<TKey, TTask> FindByTenantId(string tenantId, DaDataPaginationCriteria paginationCriteria)
         {
             return DaAsyncHelper.RunSync<DaPaginatedEntityList<TKey, TTask>>(() => FindByTenantIdAsync(tenantId, paginationCriteria));
         }
 
-        public virtual Task<DaPaginatedEntityList<TKey, TTask>> FindByTenantIdAsync(TKey tenantId, DaDataPaginationCriteria paginationCriteria)
+        public virtual Task<DaPaginatedEntityList<TKey, TTask>> FindByTenantIdAsync(string tenantId, DaDataPaginationCriteria paginationCriteria)
         {
             ThrowIfDisposed();
             return Repository.FindByTenantIdAsync(tenantId, paginationCriteria);

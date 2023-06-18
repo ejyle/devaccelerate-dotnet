@@ -93,6 +93,11 @@ namespace Ejyle.DevAccelerate.Tasks.EF
                 entity.Property(e => e.StatusReason)
                     .HasMaxLength(500);
 
+                entity.Property(e => e.ObjectIdentifier).HasMaxLength(450);
+                entity.Property(e => e.AssignedTo).HasMaxLength(450);
+                entity.Property(e => e.OwnerUserId).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.TenantId).HasMaxLength(450);
+
                 entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
                 entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
                 entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();

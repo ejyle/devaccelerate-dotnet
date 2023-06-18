@@ -8,9 +8,7 @@
 using Ejyle.DevAccelerate.Core;
 using Ejyle.DevAccelerate.Core.Data;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Tasks
@@ -24,8 +22,8 @@ namespace Ejyle.DevAccelerate.Tasks
         Task UpdateAsync(TTask task);
         Task DeleteAsync(TTask task);
         IQueryable<TTask> Tasks { get; }
-        Task<DaPaginatedEntityList<TKey, TTask>> FindByObjectInstanceIdAsync(TKey objectInstanceId, DaDataPaginationCriteria paginationCriteria);
-        Task<DaPaginatedEntityList<TKey, TTask>> FindByAssignedToAsync(TKey assignedTo, DaDataPaginationCriteria paginationCriteria);
-        Task<DaPaginatedEntityList<TKey, TTask>> FindByTenantIdAsync(TKey tenantId, DaDataPaginationCriteria paginationCriteria);
+        Task<DaPaginatedEntityList<TKey, TTask>> FindByObjectIdentifierAsync(string objectIdentifier, DaDataPaginationCriteria paginationCriteria);
+        Task<DaPaginatedEntityList<TKey, TTask>> FindByAssignedToAsync(string assignedTo, DaDataPaginationCriteria paginationCriteria);
+        Task<DaPaginatedEntityList<TKey, TTask>> FindByTenantIdAsync(string tenantId, DaDataPaginationCriteria paginationCriteria);
     }
 }
