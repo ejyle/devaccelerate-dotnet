@@ -23,9 +23,9 @@ namespace Ejyle.DevAccelerate.Files
         long? FileSize { get; set; }
         string Extension { get; set; }
         TKey FileCollectionId { get; set; }
-        TKey OwnerUserId { get; set; }
-        TKey TenantId { get; set; }
-        TKey ObjectInstanceId { get; set; }
+        string OwnerUserId { get; set; }
+        string TenantId { get; set; }
+        string ObjectIdentifier { get; set; }
         TKey FileStorageLocationId { get; set; }
     }
 }

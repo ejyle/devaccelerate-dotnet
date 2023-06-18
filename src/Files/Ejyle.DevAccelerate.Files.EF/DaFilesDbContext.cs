@@ -107,6 +107,13 @@ namespace Ejyle.DevAccelerate.Comments.EF
                     .WithMany(p => p.Files)
                     .HasForeignKey(d => d.FileCollectionId);
 
+                entity.Property(e => e.TenantId)
+                    .HasMaxLength(450);
+
+                entity.Property(e => e.OwnerUserId)
+                    .HasMaxLength(450)
+                    .IsRequired();
+
                 entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
                 entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
                 entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
@@ -126,6 +133,13 @@ namespace Ejyle.DevAccelerate.Comments.EF
                 entity.HasOne(d => d.Parent)
                     .WithMany(p => p.Children)
                     .HasForeignKey(d => d.ParentId);
+
+                entity.Property(e => e.TenantId)
+                    .HasMaxLength(450);
+
+                entity.Property(e => e.OwnerUserId)
+                    .HasMaxLength(450)
+                    .IsRequired();
 
                 entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
                 entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");

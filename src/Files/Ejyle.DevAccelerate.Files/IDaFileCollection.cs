@@ -18,10 +18,10 @@ namespace Ejyle.DevAccelerate.Files
         where TKey : IEquatable<TKey>
     {
         string Name { get; set; }
-        TKey ObjectInstanceId { get; set; }
-        TKey OwnerUserId { get; set; }
+        string ObjectIdentifier { get; set; }
+        string OwnerUserId { get; set; }
         TKey ParentId { get; set; }
-        TKey TenantId { get; set; }
+        string TenantId { get; set; }
         bool IsUserDefined { get; set; }
         TKey FileStorageLocationId { get; set; }
     }

@@ -29,11 +29,11 @@ namespace Ejyle.DevAccelerate.Files
         }
 
         public string Name { get; set; }
-        public TKey ObjectInstanceId { get; set; }
+        public string ObjectIdentifier { get; set; }
         public bool IsUserDefined { get; set; }
-        public TKey OwnerUserId { get; set; }
+        public string OwnerUserId { get; set; }
         public TKey ParentId { get; set; }
-        public TKey TenantId { get; set; }
+        public string TenantId { get; set; }
         public virtual TFileCollection Parent { get; set; }
         public virtual ICollection<TFileCollection> Children { get; set; }
         public virtual ICollection<TFile> Files { get; set; }

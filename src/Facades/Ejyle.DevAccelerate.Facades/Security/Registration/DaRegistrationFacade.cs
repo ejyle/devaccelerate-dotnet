@@ -411,13 +411,13 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
             {
                 tenant = new TTenant()
                 {
-                    OwnerUserId = user.Id,
+                    OwnerUserId = user.Id.ToString(),
                     Status = DaTenantStatus.Active,
                     TenantType = DaTenantType.Organization,
                     Domain = null,
                     IsDomainOwnershipVerified = false,
-                    Country = country.Id,
-                    Currency = country.CurrencyId,
+                    Country = country.Id.ToString(),
+                    Currency = country.CurrencyId.ToString(),
                     BillingEmail = registrationInfo.Email,
                     CreatedDateUtc = DateTime.UtcNow,
                     CreatedBy = user.Id.ToString(),
@@ -442,7 +442,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
                 {
                     Tenant = tenant,
                     IsActive = true,
-                    UserId = user.Id,
+                    UserId = user.Id.ToString(),
                     TenantId = tenant.Id
                 };
 
@@ -522,7 +522,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
                 {
                     AddressProfile = addressProfile,
                     Name = "Billing",
-                    UserId = user.Id,
+                    UserId = user.Id.ToString(),
                     AddressType = DaAddressType.Billing,
                     TenantId = tenant == null ? default(TKey) : tenant.Id,
                     CreatedBy = user.Id.ToString(),
@@ -536,7 +536,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Registration
                 {
                     AddressProfile = addressProfile,
                     Name = "Shipping",
-                    UserId = user.Id,
+                    UserId = user.Id.ToString(),
                     AddressType = DaAddressType.Shipping,
                     TenantId = billingAddress.TenantId,
                     CreatedBy = user.Id.ToString(),
