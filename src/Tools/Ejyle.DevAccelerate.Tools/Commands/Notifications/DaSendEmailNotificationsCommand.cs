@@ -16,15 +16,15 @@ using System.Linq;
 using Microsoft.Extensions.Logging;
 using Ejyle.DevAccelerate.Notifications.EF;
 using Ejyle.DevAccelerate.Notifications;
-using Ejyle.DevAccelerate.Facades.Notifications;
+using Ejyle.DevAccelerate.Notifications.SendGrid;
 using Ejyle.DevAccelerate.Mail;
 using Ejyle.DevAccelerate.Notifications.EF.Events;
 using Ejyle.DevAccelerate.Notifications.EF.EventDefinitions;
 
 namespace Ejyle.DevAccelerate.Tools.Commands.Notifications
 {
-    [Verb("processnotifications", HelpText = "Process and send notificaitons.")]
-    public class DaProcessNotificationsCommand : DaDatabaseCommand
+    [Verb("sendemailnotifications", HelpText = "Send email notifications.")]
+    public class DaSendEmailNotificationsCommand : DaDatabaseCommand
     {
         [Option('s', "sender", Required = false, HelpText = "Email of the sender.")]
         public string Sender
@@ -40,7 +40,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Notifications
             set;
         }
 
-        public override void Execute()
+        public override async void Execute()
         {
             EnsureConnectionIsValid();
 
@@ -55,10 +55,10 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Notifications
                     }
                 };
 
-                var messagesService = new DaNotificationsFacade(new DaNotificationEventManager(new DaNotificationEventRepository(context)), new DaNotificationEventDefinitionManager(new DaNotificationEventDefinitionRepository(context)));
-                // messagesService.ProcessNotifications(settings, 1000, DaProcessNotificationsFlag.New);
+                var notificationsService = new DaNotificationsService(context);
+                var count =  await notificationsService.SendEmailsAsync(settings);
 
-                Console.WriteLine($"{0} notifications processed.");
+                Console.WriteLine($"{count} email notifications processed and sent.");
             }
         }
     }

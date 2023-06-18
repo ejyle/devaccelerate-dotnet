@@ -87,8 +87,12 @@
     <ProjectReference Include="..\..\Identity\Ejyle.DevAccelerate.Identity\Ejyle.DevAccelerate.Identity.csproj" />
     <ProjectReference Include="..\..\Lists\Ejyle.DevAccelerate.Lists.EF\Ejyle.DevAccelerate.Lists.EF.csproj" />
     <ProjectReference Include="..\..\Lists\Ejyle.DevAccelerate.Lists\Ejyle.DevAccelerate.Lists.csproj" />
+    <ProjectReference Include="..\..\Mail\Ejyle.DevAccelerate.Mail.SendGrid\Ejyle.DevAccelerate.Mail.SendGrid.csproj" />
     <ProjectReference Include="..\..\MultiTenancy\Ejyle.DevAccelerate.MultiTenancy.EF\Ejyle.DevAccelerate.MultiTenancy.EF.csproj" />
     <ProjectReference Include="..\..\MultiTenancy\Ejyle.DevAccelerate.MultiTenancy\Ejyle.DevAccelerate.MultiTenancy.csproj" />
+    <ProjectReference Include="..\..\Notifications\Ejyle.DevAccelerate.Notifications.EF\Ejyle.DevAccelerate.Notifications.EF.csproj" />
+    <ProjectReference Include="..\..\Notifications\Ejyle.DevAccelerate.Notifications.SendGrid\Ejyle.DevAccelerate.Notifications.SendGrid.csproj" />
+    <ProjectReference Include="..\..\Notifications\Ejyle.DevAccelerate.Notifications\Ejyle.DevAccelerate.Notifications.csproj" />
     <ProjectReference Include="..\..\Platform\Ejyle.DevAccelerate.Platform.EF\Ejyle.DevAccelerate.Platform.EF.csproj" />
     <ProjectReference Include="..\..\Platform\Ejyle.DevAccelerate.Platform\Ejyle.DevAccelerate.Platform.csproj" />
     <ProjectReference Include="..\..\Subscriptions\Ejyle.DevAccelerate.Subscriptions.EF\Ejyle.DevAccelerate.Subscriptions.EF.csproj" />

@@ -10,7 +10,7 @@ namespace Ejyle.DevAccelerate.Notifications.SendGrid
 {
     public static class DaNotificationsServiceSGExtensions
     {
-        public static async Task SendEmailsAsync(this DaNotificationsService service, DaMailSettings settings)
+        public static async Task<int> SendEmailsAsync(this DaNotificationsService service, DaMailSettings settings)
         {
             var paginationCriteria = new DaDataPaginationCriteria(1, 1000);
             var result = await service.NotificationManager.FindAsync(paginationCriteria, Delivery.DaNotificationStatus.New, DaNotificationChannel.EmailNotification);
@@ -25,9 +25,10 @@ namespace Ejyle.DevAccelerate.Notifications.SendGrid
                 }
 
                 await service.NotificationManager.UpdateAsync(result.Entities);
+                return result.Entities.Count;
             }
 
-            return;
+            return 0;
         }
     }
 }
