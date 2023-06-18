@@ -21,14 +21,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ejyle.DevAccelerate.Lists.EF.SystemLanguages
 {
-    public class DaSystemLanguageRepository : DaSystemLanguageRepository<string, DaCountrySystemLanguage, DaTimeZone, DaDateFormat, DaSystemLanguage, DaCurrency, DaCountry, DaCountryRegion, DaCountryTimeZone, DaCountryDateFormat, DaCustomList, DaCustomListItem, DaListsDbContext>
+    public class DaSystemLanguageRepository : DaSystemLanguageRepository<string, DaCountrySystemLanguage, DaTimeZone, DaDateFormat, DaSystemLanguage, DaCurrency, DaCountry, DaCountryRegion, DaCountryTimeZone, DaCountryDateFormat, DbContext>
     {
         public DaSystemLanguageRepository(DaListsDbContext dbContext)
             : base(dbContext)
         { }
     }
 
-    public class DaSystemLanguageRepository<TKey, TCountrySystemLanguage, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCustomList, TCustomListItem, TDbContext>
+    public class DaSystemLanguageRepository<TKey, TCountrySystemLanguage, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TDbContext>
         : DaEntityRepositoryBase<TKey, TSystemLanguage, TDbContext>, IDaSystemLanguageRepository<TKey, TSystemLanguage>
        where TKey : IEquatable<TKey>
         where TTimeZone : DaTimeZone<TKey, TCountryTimeZone>
@@ -40,17 +40,18 @@ namespace Ejyle.DevAccelerate.Lists.EF.SystemLanguages
         where TCountryTimeZone : DaCountryTimeZone<TKey, TCountry, TTimeZone>
         where TCountryDateFormat : DaCountryDateFormat<TKey, TCountry, TDateFormat>
         where TCountrySystemLanguage : DaCountrySystemLanguage<TKey, TCountry, TSystemLanguage>
-        where TCustomList : DaCustomList<TKey, TCustomListItem>
-        where TCustomListItem : DaCustomListItem<TKey, TCustomList, TCustomListItem>
-        where TDbContext : DaListsDbContext<TKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem>
+        where TDbContext : DbContext
     {
         public DaSystemLanguageRepository(TDbContext dbContext)
             : base(dbContext)
         { }
 
+        private DbSet<TSystemLanguage> SystemLanguagesSet { get { return DbContext.Set<TSystemLanguage>(); } }
+
+
         public Task<List<TSystemLanguage>> FindAllAsync()
         {
-            return DbContext.SystemLanguages
+            return SystemLanguagesSet
                 .Include(m => m.CountrySystemLanguages)
                 .ThenInclude(m => m.Country)
                 .ToListAsync();
@@ -58,14 +59,14 @@ namespace Ejyle.DevAccelerate.Lists.EF.SystemLanguages
 
         public async Task<DaPaginatedEntityList<TKey, TSystemLanguage>> FindAllAsync(DaDataPaginationCriteria paginationCriteria)
         {
-            var totalCount = await DbContext.SystemLanguages.CountAsync();
+            var totalCount = await SystemLanguagesSet.CountAsync();
 
             if (totalCount <= 0)
             {
                 return null;
             }
 
-            var query = DbContext.SystemLanguages
+            var query = SystemLanguagesSet
                 .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
                 .Take(paginationCriteria.PageSize)
                 .Include(m => m.CountrySystemLanguages)
@@ -80,7 +81,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.SystemLanguages
 
         public Task<TSystemLanguage> FindByIdAsync(TKey id)
         {
-            return DbContext.SystemLanguages
+            return SystemLanguagesSet
                 .Where(m => m.Id.Equals(id))
                 .Include(m => m.CountrySystemLanguages)
                 .ThenInclude(m => m.Country)
@@ -89,7 +90,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.SystemLanguages
 
         public Task<List<TSystemLanguage>> FindByCountryIdAsync(TKey countryId)
         {
-            return DbContext.SystemLanguages
+            return SystemLanguagesSet
                 .Where(m => m.CountrySystemLanguages.Any(x => x.CountryId.Equals(countryId)))
                 .Include(m => m.CountrySystemLanguages)
                 .ThenInclude(m => m.Country)
@@ -98,7 +99,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.SystemLanguages
 
         public Task CreateAsync(TSystemLanguage systemLanguage)
         {
-            DbContext.SystemLanguages.Add(systemLanguage);
+            SystemLanguagesSet.Add(systemLanguage);
             return DbContext.SaveChangesAsync();
         }
 
@@ -110,13 +111,13 @@ namespace Ejyle.DevAccelerate.Lists.EF.SystemLanguages
 
         public Task DeleteAsync(TSystemLanguage systemLanguage)
         {
-            DbContext.SystemLanguages.Remove(systemLanguage);
+            SystemLanguagesSet.Remove(systemLanguage);
             return DbContext.SaveChangesAsync();
         }
 
         public Task<TSystemLanguage> FindByNameAsync(string name)
         {
-            return DbContext.SystemLanguages.Where(m => m.Name == name)
+            return SystemLanguagesSet.Where(m => m.Name == name)
                 .Include(m => m.CountrySystemLanguages)
                 .ThenInclude(m => m.Country)
                 .SingleOrDefaultAsync();
@@ -124,7 +125,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.SystemLanguages
 
         public Task<TSystemLanguage> FindFirstAsync()
         {
-            return DbContext.SystemLanguages
+            return SystemLanguagesSet
                 .Include(m => m.CountrySystemLanguages)
                 .ThenInclude(m => m.Country)
                 .FirstOrDefaultAsync();

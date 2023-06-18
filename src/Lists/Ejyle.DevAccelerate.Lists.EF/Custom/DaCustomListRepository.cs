@@ -22,36 +22,31 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ejyle.DevAccelerate.Lists.EF.Custom
 {
-    public class DaCustomListRepository : DaCustomListRepository<string, DaCustomList, DaCustomListItem, DaCountry, DaCountryRegion, DaTimeZone, DaDateFormat, DaSystemLanguage, DaCurrency, DaCountryTimeZone, DaCountryDateFormat, DaCountrySystemLanguage, DaListsDbContext>
+    public class DaCustomListRepository : DaCustomListRepository<string, DaCustomList, DaCustomListItem, DbContext>
     {
         public DaCustomListRepository(DaListsDbContext dbContext)
             : base(dbContext)
         { }
     }
 
-    public class DaCustomListRepository<TKey, TCustomList, TCustomListItem, TCountry, TCountryRegion, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TDbContext>
-        : DaEntityRepositoryBase<TKey, TCountry, TDbContext>, IDaCustomListRepository<TKey, TCustomList, TCustomListItem>
+    public class DaCustomListRepository<TKey, TCustomList, TCustomListItem, TDbContext>
+        : DaEntityRepositoryBase<TKey, TCustomList, TDbContext>, IDaCustomListRepository<TKey, TCustomList, TCustomListItem>
         where TKey : IEquatable<TKey>
-        where TTimeZone : DaTimeZone<TKey, TCountryTimeZone>
-        where TDateFormat : DaDateFormat<TKey, TCountryDateFormat>
-        where TSystemLanguage : DaSystemLanguage<TKey, TCountrySystemLanguage>
-        where TCurrency : DaCurrency<TKey, TCountry>
-        where TCountry : DaCountry<TKey, TCurrency, TCountryTimeZone, TCountryRegion, TCountrySystemLanguage, TCountryDateFormat>
-        where TCountryRegion : DaCountryRegion<TKey, TCountryRegion, TCountry>
-        where TCountryTimeZone : DaCountryTimeZone<TKey, TCountry, TTimeZone>
-        where TCountryDateFormat : DaCountryDateFormat<TKey, TCountry, TDateFormat>
-        where TCountrySystemLanguage : DaCountrySystemLanguage<TKey, TCountry, TSystemLanguage>
         where TCustomList : DaCustomList<TKey, TCustomListItem>
         where TCustomListItem : DaCustomListItem<TKey, TCustomList, TCustomListItem>
-        where TDbContext : DaListsDbContext<TKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem>
+        where TDbContext : DbContext
     {
         public DaCustomListRepository(TDbContext dbContext)
             : base(dbContext)
         { }
 
+        private DbSet<TCustomList> CustomListsSet { get { return DbContext.Set<TCustomList>(); } }
+        private DbSet<TCustomListItem> CustomListItemsSet { get { return DbContext.Set<TCustomListItem>(); } }
+
+
         public Task<List<TCustomList>> FindWithoutTenantIdAsync()
         {
-            return DbContext.CustomLists
+            return CustomListsSet
                 .Include(m => m.ListItems)
                 .ThenInclude(m => m.Children)
                 .OrderBy(m => m.Name)
@@ -60,14 +55,14 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
 
         public async Task<DaPaginatedEntityList<TKey, TCustomList>> FindWithoutTenantIdAsync(DaDataPaginationCriteria paginationCriteria)
         {
-            var totalCount = await DbContext.CustomLists.CountAsync();
+            var totalCount = await CustomListsSet.CountAsync();
 
             if (totalCount <= 0)
             {
                 return null;
             }
 
-            var query = DbContext.CustomLists
+            var query = CustomListsSet
                 .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
                 .Take(paginationCriteria.PageSize)
                 .Include(m => m.ListItems)
@@ -83,7 +78,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
 
         public Task<TCustomList> FindByIdAsync(TKey id)
         {
-            return DbContext.CustomLists
+            return CustomListsSet
                 .Where(m => m.Id.Equals(id))
                 .Include(m => m.ListItems)
                 .ThenInclude(m => m.Children)
@@ -92,7 +87,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
 
         public Task<TCustomList> FindByKeyAsync(string key)
         {
-            return DbContext.CustomLists
+            return CustomListsSet
                 .Where(m => m.Key == key)
                 .Include(m => m.ListItems)
                 .ThenInclude(m => m.Children)
@@ -101,13 +96,13 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
 
         public Task CreateAsync(TCustomList list)
         {
-            DbContext.CustomLists.Add(list);
+            CustomListsSet.Add(list);
             return DbContext.SaveChangesAsync();
         }
 
         public Task CreateAsync(TCustomList[] lists)
         {
-            DbContext.CustomLists.AddRange(lists);
+            CustomListsSet.AddRange(lists);
             return DbContext.SaveChangesAsync();
         }
 
@@ -119,13 +114,13 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
 
         public Task DeleteAsync(TCustomList list)
         {
-            DbContext.CustomLists.Remove(list);
+            CustomListsSet.Remove(list);
             return DbContext.SaveChangesAsync();
         }
 
         public Task<List<TCustomList>> FindWithTenantIdAsync(string tenantId)
         {
-            return DbContext.CustomLists
+            return CustomListsSet
                 .Where(m => m.TenantId.Equals(tenantId))
                 .Include(m => m.ListItems)
                 .ThenInclude(m => m.Children)
@@ -135,14 +130,14 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
 
         public async Task<DaPaginatedEntityList<TKey, TCustomList>> FindWithTenantIdAsync(string tenantId, DaDataPaginationCriteria paginationCriteria)
         {
-            var totalCount = await DbContext.CustomLists.CountAsync();
+            var totalCount = await CustomListsSet.CountAsync();
 
             if (totalCount <= 0)
             {
                 return null;
             }
 
-            var query = DbContext.CustomLists
+            var query = CustomListsSet
                 .Where(m => m.TenantId.Equals(m.TenantId))
                 .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
                 .Take(paginationCriteria.PageSize)
@@ -159,7 +154,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
 
         public Task<TCustomListItem> FindListItemByIdAsync(TKey listItemId)
         {
-            return DbContext.CustomListItems
+            return CustomListItemsSet
                 .Where(m => m.Id.Equals(listItemId))
                 .Include(m => m.List)
                 .Include(m => m.Children)
@@ -170,7 +165,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
         public Task DeleteListItemAsync(TCustomListItem customListItem)
         {
             customListItem.List.ListItems.Remove(customListItem);
-            DbContext.CustomListItems.Remove(customListItem);
+            CustomListItemsSet.Remove(customListItem);
             return DbContext.SaveChangesAsync();
         }
     }

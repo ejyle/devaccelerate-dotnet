@@ -21,14 +21,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ejyle.DevAccelerate.Lists.EF.TimeZones
 {
-    public class DaTimeZoneRepository : DaTimeZoneRepository<string, DaTimeZone, DaDateFormat, DaSystemLanguage, DaCurrency, DaCountry, DaCountryRegion, DaCountryTimeZone, DaCountryDateFormat, DaCountrySystemLanguage, DaCustomList, DaCustomListItem, DaListsDbContext>
+    public class DaTimeZoneRepository : DaTimeZoneRepository<string, DaTimeZone, DaDateFormat, DaSystemLanguage, DaCurrency, DaCountry, DaCountryRegion, DaCountryTimeZone, DaCountryDateFormat, DaCountrySystemLanguage, DbContext>
     {
         public DaTimeZoneRepository(DaListsDbContext dbContext)
             : base(dbContext)
         { }
     }
 
-    public class DaTimeZoneRepository<TKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem, TDbContext>
+    public class DaTimeZoneRepository<TKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TDbContext>
         : DaEntityRepositoryBase<TKey, TTimeZone, TDbContext>, IDaTimeZoneRepository<TKey, TTimeZone>
        where TKey : IEquatable<TKey>
         where TTimeZone : DaTimeZone<TKey, TCountryTimeZone>
@@ -40,17 +40,18 @@ namespace Ejyle.DevAccelerate.Lists.EF.TimeZones
         where TCountryTimeZone : DaCountryTimeZone<TKey, TCountry, TTimeZone>
         where TCountryDateFormat : DaCountryDateFormat<TKey, TCountry, TDateFormat>
         where TCountrySystemLanguage : DaCountrySystemLanguage<TKey, TCountry, TSystemLanguage>
-        where TCustomList : DaCustomList<TKey, TCustomListItem>
-        where TCustomListItem : DaCustomListItem<TKey, TCustomList, TCustomListItem>
-        where TDbContext : DaListsDbContext<TKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem>
+        where TDbContext : DbContext
     {
         public DaTimeZoneRepository(TDbContext dbContext)
             : base(dbContext)
         { }
 
+        private DbSet<TTimeZone> TimeZonesSet { get { return DbContext.Set<TTimeZone>(); } }
+
+
         public Task<List<TTimeZone>> FindAllAsync()
         {
-            return DbContext.TimeZones
+            return TimeZonesSet
                 .Include(m => m.CountryTimeZones)
                 .ThenInclude(m => m.Country)
                 .ToListAsync();
@@ -58,14 +59,14 @@ namespace Ejyle.DevAccelerate.Lists.EF.TimeZones
 
         public async Task<DaPaginatedEntityList<TKey, TTimeZone>> FindAllAsync(DaDataPaginationCriteria paginationCriteria)
         {
-            var totalCount = await DbContext.TimeZones.CountAsync();
+            var totalCount = await TimeZonesSet.CountAsync();
 
             if (totalCount <= 0)
             {
                 return null;
             }
 
-            var query = DbContext.TimeZones
+            var query = TimeZonesSet
                 .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
                 .Take(paginationCriteria.PageSize)
                 .Include(m => m.CountryTimeZones)
@@ -80,7 +81,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.TimeZones
 
         public Task<TTimeZone> FindByIdAsync(TKey id)
         {
-            return DbContext.TimeZones
+            return TimeZonesSet
                 .Where(m => m.Id.Equals(id))
                 .Include(m => m.CountryTimeZones)
                 .ThenInclude(m => m.Country)
@@ -89,7 +90,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.TimeZones
 
         public Task<List<TTimeZone>> FindByCountryIdAsync(TKey countryId)
         {
-            return DbContext.TimeZones
+            return TimeZonesSet
                 .Where(m => m.CountryTimeZones.Any(x => x.CountryId.Equals(countryId)))
                 .Include(m => m.CountryTimeZones)
                 .ThenInclude(m => m.Country)
@@ -98,7 +99,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.TimeZones
 
         public Task CreateAsync(TTimeZone timeZone)
         {
-            DbContext.TimeZones.Add(timeZone);
+            TimeZonesSet.Add(timeZone);
             return DbContext.SaveChangesAsync();
         }
 
@@ -110,13 +111,13 @@ namespace Ejyle.DevAccelerate.Lists.EF.TimeZones
 
         public Task DeleteAsync(TTimeZone timeZone)
         {
-            DbContext.TimeZones.Remove(timeZone);
+            TimeZonesSet.Remove(timeZone);
             return DbContext.SaveChangesAsync();
         }
 
         public Task<TTimeZone> FindByNameAsync(string name)
         {
-            return DbContext.TimeZones
+            return TimeZonesSet
                 .Where(m => m.Name == name)
                 .Include(m => m.CountryTimeZones)
                 .ThenInclude(m => m.Country)
@@ -125,7 +126,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.TimeZones
 
         public Task<TTimeZone> FindFirstAsync()
         {
-            return DbContext.TimeZones
+            return TimeZonesSet
                 .Include(m => m.CountryTimeZones)
                 .ThenInclude(m => m.Country)
                 .FirstOrDefaultAsync();

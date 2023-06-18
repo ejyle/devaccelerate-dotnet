@@ -21,14 +21,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ejyle.DevAccelerate.Lists.EF.Countries
 {
-    public class DaCountryRepository : DaCountryRepository<string, DaCountry, DaCountryRegion, DaTimeZone, DaDateFormat, DaSystemLanguage, DaCurrency, DaCountryTimeZone, DaCountryDateFormat, DaCountrySystemLanguage, DaCustomList, DaCustomListItem, DaListsDbContext>
+    public class DaCountryRepository : DaCountryRepository<string, DaCountry, DaCountryRegion, DaTimeZone, DaDateFormat, DaSystemLanguage, DaCurrency, DaCountryTimeZone, DaCountryDateFormat, DaCountrySystemLanguage, DbContext>
     {
         public DaCountryRepository(DaListsDbContext dbContext)
             : base(dbContext)
         { }
     }
 
-    public class DaCountryRepository<TKey, TCountry, TCountryRegion, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem, TDbContext>
+    public class DaCountryRepository<TKey, TCountry, TCountryRegion, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TDbContext>
         : DaEntityRepositoryBase<TKey, TCountry, TDbContext>, IDaCountryRepository<TKey, TCountry, TCountryRegion>
         where TKey : IEquatable<TKey>
         where TTimeZone : DaTimeZone<TKey, TCountryTimeZone>
@@ -40,22 +40,23 @@ namespace Ejyle.DevAccelerate.Lists.EF.Countries
         where TCountryTimeZone : DaCountryTimeZone<TKey, TCountry, TTimeZone>
         where TCountryDateFormat : DaCountryDateFormat<TKey, TCountry, TDateFormat>
         where TCountrySystemLanguage : DaCountrySystemLanguage<TKey, TCountry, TSystemLanguage>
-        where TCustomList : DaCustomList<TKey, TCustomListItem>
-        where TCustomListItem : DaCustomListItem<TKey, TCustomList, TCustomListItem>
-        where TDbContext : DaListsDbContext<TKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem>
+        where TDbContext : DbContext
     {
         public DaCountryRepository(TDbContext dbContext)
             : base(dbContext)
         { }
 
+        private DbSet<TCountry> CountriesSet { get { return DbContext.Set<TCountry>(); } }
+        private DbSet<TCountryRegion> CountryRegionsSet { get { return DbContext.Set<TCountryRegion>(); } }
+
         public Task<List<TCountry>> FindAllAsync()
         {
-            return DbContext.Countries.ToListAsync();
+            return CountriesSet.ToListAsync();
         }
 
         public Task<TCountry> FindByIdAsync(TKey id)
         {
-            return DbContext.Countries
+            return CountriesSet
                 .Where(m => m.Id.Equals(id))
                 .Include(m => m.Regions)
                 .Include(m => m.Currency)
@@ -64,14 +65,14 @@ namespace Ejyle.DevAccelerate.Lists.EF.Countries
 
         public Task<TCountryRegion> FindCountryRegionByIdAsync(TKey id)
         {
-            return DbContext.CountryRegions
+            return CountryRegionsSet
                 .Where(m => m.Id.Equals(id))
                 .SingleOrDefaultAsync();
         }
 
         public Task<TCountry> FindByNameAsync(string name)
         {
-            return DbContext.Countries
+            return CountriesSet
                 .Where(m => m.Name == name)
                 .Include(m => m.Regions)
                 .Include(m => m.Currency)
@@ -80,7 +81,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.Countries
 
         public Task CreateAsync(TCountry country)
         {
-            DbContext.Countries.Add(country);
+            CountriesSet.Add(country);
             return DbContext.SaveChangesAsync();
         }
 
@@ -92,13 +93,13 @@ namespace Ejyle.DevAccelerate.Lists.EF.Countries
 
         public Task DeleteAsync(TCountry country)
         {
-            DbContext.Countries.Remove(country);
+            CountriesSet.Remove(country);
             return DbContext.SaveChangesAsync();
         }
 
         public Task<TCountry> FindByTwoLetterCodeAsync(string twoLetterCode)
         {
-            return DbContext.Countries
+            return CountriesSet
                 .Where(m => m.TwoLetterCode == twoLetterCode)
                 .Include(m => m.Regions)
                 .Include(m => m.Currency)
@@ -107,7 +108,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.Countries
 
         public Task<TCountry> FindByThreeLetterCodeAsync(string threeLetterCode)
         {
-            return DbContext.Countries
+            return CountriesSet
                 .Where(m => m.ThreeLetterCode == threeLetterCode)
                 .Include(m => m.Regions)
                 .Include(m => m.Currency)
@@ -116,7 +117,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.Countries
 
         public Task<TCountry> FindFirstAsync()
         {
-            return DbContext.Countries
+            return CountriesSet
                 .Include(m => m.Regions)
                 .Include(m => m.Currency)
                 .FirstOrDefaultAsync();
@@ -124,14 +125,14 @@ namespace Ejyle.DevAccelerate.Lists.EF.Countries
 
         public async Task<DaPaginatedEntityList<TKey, TCountry>> FindAllAsync(DaDataPaginationCriteria paginationCriteria)
         {
-            var totalCount = await DbContext.Countries.CountAsync();
+            var totalCount = await CountriesSet.CountAsync();
 
             if (totalCount <= 0)
             {
                 return null;
             }
 
-            var query = DbContext.Countries
+            var query = CountriesSet
                 .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
                 .Take(paginationCriteria.PageSize)
                 .Include(m => m.Currency)
@@ -145,7 +146,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.Countries
 
         public Task<TCountry> FindByNameOrCodeAsync(string nameOrCode)
         {
-            return DbContext.Countries
+            return CountriesSet
                 .Where(m => m.Name == nameOrCode || m.TwoLetterCode == nameOrCode || m.ThreeLetterCode == nameOrCode)
                 .Include(m => m.Regions)
                 .Include(m => m.Currency)

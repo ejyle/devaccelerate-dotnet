@@ -21,14 +21,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ejyle.DevAccelerate.Lists.EF.Currencies
 {
-    public class DaCurrencyRepository : DaCurrencyRepository<string, DaTimeZone, DaDateFormat, DaSystemLanguage, DaCurrency, DaCountry, DaCountryRegion, DaCountryTimeZone, DaCountryDateFormat, DaCountrySystemLanguage, DaCustomList, DaCustomListItem, DaListsDbContext>
+    public class DaCurrencyRepository : DaCurrencyRepository<string, DaTimeZone, DaDateFormat, DaSystemLanguage, DaCurrency, DaCountry, DaCountryRegion, DaCountryTimeZone, DaCountryDateFormat, DaCountrySystemLanguage, DbContext>
     {
         public DaCurrencyRepository(DaListsDbContext dbContext)
             : base(dbContext)
         { }
     }
 
-    public class DaCurrencyRepository<TKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem, TDbContext>
+    public class DaCurrencyRepository<TKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TDbContext>
         : DaEntityRepositoryBase<TKey, TCurrency, TDbContext>, IDaCurrencyRepository<TKey, TCurrency>
         where TKey : IEquatable<TKey>
         where TTimeZone : DaTimeZone<TKey, TCountryTimeZone>
@@ -40,43 +40,43 @@ namespace Ejyle.DevAccelerate.Lists.EF.Currencies
         where TCountryTimeZone : DaCountryTimeZone<TKey, TCountry, TTimeZone>
         where TCountryDateFormat : DaCountryDateFormat<TKey, TCountry, TDateFormat>
         where TCountrySystemLanguage : DaCountrySystemLanguage<TKey, TCountry, TSystemLanguage>
-        where TCustomList : DaCustomList<TKey, TCustomListItem>
-        where TCustomListItem : DaCustomListItem<TKey, TCustomList, TCustomListItem>
-        where TDbContext : DaListsDbContext<TKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem>
+        where TDbContext : DbContext
     {
         public DaCurrencyRepository(TDbContext dbContext)
             : base(dbContext)
         { }
 
+        private DbSet<TCurrency> CurrenciesSet { get { return DbContext.Set<TCurrency>(); } }
+
         public Task CreateAsync(TCurrency currency)
         {
-            DbContext.Currencies.Add(currency);
+            CurrenciesSet.Add(currency);
             return DbContext.SaveChangesAsync();
         }
 
         public Task DeleteAsync(TCurrency currency)
         {
-            DbContext.Currencies.Remove(currency);
+            CurrenciesSet.Remove(currency);
             return DbContext.SaveChangesAsync();
         }
 
         public Task<List<TCurrency>> FindAllAsync()
         {
-            return DbContext.Currencies
+            return CurrenciesSet
                 .Include(m => m.Countries)
                 .ToListAsync();
         }
 
         public async Task<DaPaginatedEntityList<TKey, TCurrency>> FindAllAsync(DaDataPaginationCriteria paginationCriteria)
         {
-            var totalCount = await DbContext.Currencies.CountAsync();
+            var totalCount = await CurrenciesSet.CountAsync();
 
             if (totalCount <= 0)
             {
                 return null;
             }
 
-            var query = DbContext.Currencies
+            var query = CurrenciesSet
                 .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
                 .Take(paginationCriteria.PageSize)
                 .Include(m => m.Countries)
@@ -90,7 +90,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.Currencies
 
         public Task<TCurrency> FindByIdAsync(TKey id)
         {
-            return DbContext.Currencies
+            return CurrenciesSet
                 .Where(m => m.Id.Equals(id))
                 .Include(m => m.Countries)
                 .SingleOrDefaultAsync();
@@ -98,7 +98,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.Currencies
 
         public Task<TCurrency> FindByNameAsync(string name)
         {
-            return DbContext.Currencies
+            return CurrenciesSet
                 .Where(m => m.Name == name)
                 .Include(m => m.Countries)
                 .SingleOrDefaultAsync();
@@ -112,14 +112,14 @@ namespace Ejyle.DevAccelerate.Lists.EF.Currencies
 
         public Task<TCurrency> FindFirstAsync()
         {
-            return DbContext.Currencies
+            return CurrenciesSet
                 .Include(m => m.Countries)
                 .FirstOrDefaultAsync();
         }
 
         public Task<TCurrency> FindByAlphabeticCodeAsync(string alphabeticCode)
         {
-            return DbContext.Currencies
+            return CurrenciesSet
                 .Where(m => m.AlphabeticCode == alphabeticCode)
                 .Include(m => m.Countries)
                 .SingleOrDefaultAsync();
@@ -127,7 +127,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.Currencies
 
         public Task<TCurrency> FindByNameOrCodeAsync(string nameOrCode)
         {
-            return DbContext.Currencies
+            return CurrenciesSet
                 .Where(m => m.Name == nameOrCode || m.AlphabeticCode == nameOrCode)
                 .Include(m => m.Countries)
                 .SingleOrDefaultAsync();

@@ -20,14 +20,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ejyle.DevAccelerate.Lists.EF.DateFormats
 {
-    public class DaDateFormatRepository : DaDateFormatRepository<string, DaDateFormat, DaTimeZone, DaSystemLanguage, DaCurrency, DaCountry, DaCountryRegion, DaCountryTimeZone, DaCountryDateFormat, DaCountrySystemLanguage, DaCustomList, DaCustomListItem, DaListsDbContext>
+    public class DaDateFormatRepository : DaDateFormatRepository<string, DaDateFormat, DaTimeZone, DaSystemLanguage, DaCurrency, DaCountry, DaCountryRegion, DaCountryTimeZone, DaCountryDateFormat, DaCountrySystemLanguage, DbContext>
     {
         public DaDateFormatRepository(DaListsDbContext dbContext)
             : base(dbContext)
         { }
     }
 
-    public class DaDateFormatRepository<TKey, TDateFormat, TTimeZone, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem, TDbContext>
+    public class DaDateFormatRepository<TKey, TDateFormat, TTimeZone, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TDbContext>
         : DaEntityRepositoryBase<TKey, TDateFormat, TDbContext>, IDaDateFormatRepository<TKey, TDateFormat>
         where TKey : IEquatable<TKey>
         where TTimeZone : DaTimeZone<TKey, TCountryTimeZone>
@@ -39,17 +39,17 @@ namespace Ejyle.DevAccelerate.Lists.EF.DateFormats
         where TCountryTimeZone : DaCountryTimeZone<TKey, TCountry, TTimeZone>
         where TCountryDateFormat : DaCountryDateFormat<TKey, TCountry, TDateFormat>
         where TCountrySystemLanguage : DaCountrySystemLanguage<TKey, TCountry, TSystemLanguage>
-        where TCustomList : DaCustomList<TKey, TCustomListItem>
-        where TCustomListItem : DaCustomListItem<TKey, TCustomList, TCustomListItem>
-        where TDbContext : DaListsDbContext<TKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem>
+        where TDbContext : DbContext
     {
         public DaDateFormatRepository(TDbContext dbContext)
             : base(dbContext)
         { }
 
+        private DbSet<TDateFormat> DateFormatsSet { get { return DbContext.Set<TDateFormat>(); } }
+
         public Task<List<TDateFormat>> FindAllAsync()
         {
-            return DbContext.DateFormats
+            return DateFormatsSet
                 .Include(m => m.CountryDateFormats)
                 .ThenInclude(m => m.Country)
                 .ToListAsync();
@@ -57,7 +57,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.DateFormats
 
         public Task<TDateFormat> FindByIdAsync(TKey id)
         {
-            return DbContext.DateFormats
+            return DateFormatsSet
                 .Where(m => m.Id.Equals(id))
                 .Include(m => m.CountryDateFormats)
                 .ThenInclude(m => m.Country)
@@ -66,7 +66,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.DateFormats
 
         public Task<TDateFormat> FindByDateFormatExpressionAsync(string expr)
         {
-            return DbContext.DateFormats
+            return DateFormatsSet
                 .Where(m => m.DateFormatExpression == expr)
                 .Include(m => m.CountryDateFormats)
                 .ThenInclude(m => m.Country)
@@ -75,7 +75,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.DateFormats
 
         public Task CreateAsync(TDateFormat dateFormat)
         {
-            DbContext.DateFormats.Add(dateFormat);
+            DateFormatsSet.Add(dateFormat);
             return DbContext.SaveChangesAsync();
         }
 
@@ -87,13 +87,13 @@ namespace Ejyle.DevAccelerate.Lists.EF.DateFormats
 
         public Task DeleteAsync(TDateFormat dateFormat)
         {
-            DbContext.DateFormats.Remove(dateFormat);
+            DateFormatsSet.Remove(dateFormat);
             return DbContext.SaveChangesAsync();
         }
 
         public Task<TDateFormat> FindFirstAsync()
         {
-            return DbContext.DateFormats
+            return DateFormatsSet
                 .Include(m => m.CountryDateFormats)
                 .ThenInclude(m => m.Country)
                 .FirstOrDefaultAsync();
