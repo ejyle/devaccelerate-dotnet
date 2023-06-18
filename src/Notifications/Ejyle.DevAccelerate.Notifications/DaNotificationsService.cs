@@ -249,6 +249,14 @@ namespace Ejyle.DevAccelerate.Notifications
 
             return result;
         }
+
+        public TNotificationManager NotificationManager
+        {
+            get
+            {
+                return _notificationManager;
+            }
+        }
     }
 
     public class DaNotificationProcessingResult
