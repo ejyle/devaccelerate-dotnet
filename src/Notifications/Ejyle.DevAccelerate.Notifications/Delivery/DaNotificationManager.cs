@@ -116,15 +116,15 @@ namespace Ejyle.DevAccelerate.Notifications.Delivery
             return Repository.FindByIdAsync(id);
         }
 
-        public DaPaginatedEntityList<TKey, TNotification> FindByStatus(DaNotificationStatus status, DaDataPaginationCriteria paginationCriteria)
+        public DaPaginatedEntityList<TKey, TNotification> Find(DaDataPaginationCriteria paginationCriteria, DaNotificationStatus? status, DaNotificationChannel? channel)
         {
-            return DaAsyncHelper.RunSync(() => FindByStatusAsync(status, paginationCriteria));
+            return DaAsyncHelper.RunSync(() => FindAsync(paginationCriteria, status, channel));
         }
 
-        public Task<DaPaginatedEntityList<TKey, TNotification>> FindByStatusAsync(DaNotificationStatus status, DaDataPaginationCriteria paginationCriteria)
+        public Task<DaPaginatedEntityList<TKey, TNotification>> FindAsync(DaDataPaginationCriteria paginationCriteria, DaNotificationStatus? status, DaNotificationChannel? channel)
         {
             ThrowIfDisposed();
-            return Repository.FindByStatusAsync(status, paginationCriteria);
+            return Repository.FindAsync(paginationCriteria, status, channel);
         }
     }
 }

@@ -76,6 +76,8 @@ namespace Ejyle.DevAccelerate.Notifications.EF.Events
         {
             return NotificationEventsSet
                 .Where(m => m.IsProcessingComplete == false)
+                .Include(m => m.Subscribers.Where(n => n.IsNotificationCreated == false))
+                .ThenInclude(m => m.Variables)
                 .Take(count).ToListAsync();
         }
     }

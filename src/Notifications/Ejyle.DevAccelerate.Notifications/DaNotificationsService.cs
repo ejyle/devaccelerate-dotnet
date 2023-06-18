@@ -108,15 +108,15 @@ namespace Ejyle.DevAccelerate.Notifications
 
             notificationEvent.Channels = new List<TNotificationEventChannel>();
 
-            foreach (var notificationChannelTemplate in evenDefinition.Channels)
+            foreach (var channel in evenDefinition.Channels)
             {
                 notificationEvent.Channels.Add(new TNotificationEventChannel()
                 {
-                    Body = notificationChannelTemplate.Body,
-                    Channel = notificationChannelTemplate.Channel,
-                    Format = notificationChannelTemplate.Format,
-                    NotificationEventDefinitionChannelId = notificationChannelTemplate.Id,
-                    Subject = notificationChannelTemplate.Subject,
+                    Body = channel.Body,
+                    Channel = channel.Channel,
+                    Format = channel.Format,
+                    NotificationEventDefinitionChannelId = channel.Id,
+                    Subject = channel.Subject,
                     NotificationEvent = notificationEvent
                 });
             }
@@ -196,6 +196,13 @@ namespace Ejyle.DevAccelerate.Notifications
 
             foreach (var notificationEvent in events)
             {
+                if(notificationEvent.Subscribers == null || notificationEvent.Subscribers.Count < 1)
+                {
+                    notificationEvent.IsProcessingComplete = true;
+                    await  _notificationEventManager.UpdateAsync(notificationEvent);
+                    continue;
+                }
+
                 var eventDefinition = await _notificationEventDefinitionManager.FindByIdAsync(notificationEvent.NotificationEventDefinitionId);
 
                 if (eventDefinition == null)

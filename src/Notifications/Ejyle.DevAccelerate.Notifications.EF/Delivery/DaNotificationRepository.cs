@@ -73,20 +73,23 @@ namespace Ejyle.DevAccelerate.Notifications.EF.Delivery
             return SaveChangesAsync();
         }
 
-        public async Task<DaPaginatedEntityList<TKey, TNotification>> FindByStatusAsync(DaNotificationStatus status, DaDataPaginationCriteria paginationCriteria)
+        public async Task<DaPaginatedEntityList<TKey, TNotification>> FindAsync(DaDataPaginationCriteria paginationCriteria, DaNotificationStatus? status, DaNotificationChannel? channel)
         {
-            var totalCount = await NotificationsSet.Where(m => m.Status.Equals(status)).CountAsync();
+            var query = NotificationsSet.AsQueryable();
+
+            if(status != null) { query = query.Where(m => m.Status == status); }
+            if(channel != null) { query = query.Where(m => m.Channel == channel); }
+
+            var totalCount = await query.CountAsync();
 
             if (totalCount <= 0)
             {
                 return null;
             }
 
-            var query = NotificationsSet
-                .Where(m => m.Status.Equals(status))
+            query = query
                 .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
-                .Take(paginationCriteria.PageSize)
-                .AsQueryable();
+                .Take(paginationCriteria.PageSize);
 
             var result = await query.ToListAsync();
 

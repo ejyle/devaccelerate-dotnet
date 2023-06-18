@@ -27,6 +27,6 @@ namespace Ejyle.DevAccelerate.Notifications.Delivery
         Task UpdateAsync(TNotification notification);
         Task UpdateAsync(List<TNotification> notifications);
         Task DeleteAsync(TNotification notification);
-        Task<DaPaginatedEntityList<TKey, TNotification>> FindByStatusAsync(DaNotificationStatus status, DaDataPaginationCriteria paginationCriteria);
+        Task<DaPaginatedEntityList<TKey, TNotification>> FindAsync(DaDataPaginationCriteria paginationCriteria, DaNotificationStatus? status, DaNotificationChannel? channel);
     }
 }
