@@ -348,6 +348,9 @@ namespace Ejyle.DevAccelerate.Lists.EF
                     .IsRequired()
                     .HasMaxLength(256);
 
+                entity.Property(e => e.TenantId)
+                    .HasMaxLength(450);
+
                 entity.HasIndex(e => e.Key)
                     .IsUnique(true);
 

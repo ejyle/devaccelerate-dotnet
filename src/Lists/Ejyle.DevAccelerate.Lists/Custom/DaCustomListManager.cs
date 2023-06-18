@@ -179,23 +179,23 @@ namespace Ejyle.DevAccelerate.Lists.Custom
             return Repository.FindWithoutTenantIdAsync(paginationCriteria);
         }
 
-        public List<TCustomList> FindWithTenantId(TKey tenantId)
+        public List<TCustomList> FindWithTenantId(string tenantId)
         {
             return DaAsyncHelper.RunSync<List<TCustomList>>(() => FindWithTenantIdAsync(tenantId));
         }
 
-        public Task<List<TCustomList>> FindWithTenantIdAsync(TKey tenantId)
+        public Task<List<TCustomList>> FindWithTenantIdAsync(string tenantId)
         {
             ThrowIfDisposed();
             return Repository.FindWithTenantIdAsync(tenantId);
         }
 
-        public DaPaginatedEntityList<TKey, TCustomList> FindWithTenantId(TKey tenantId, DaDataPaginationCriteria paginationCriteria)
+        public DaPaginatedEntityList<TKey, TCustomList> FindWithTenantId(string tenantId, DaDataPaginationCriteria paginationCriteria)
         {
             return DaAsyncHelper.RunSync<DaPaginatedEntityList<TKey, TCustomList>>(() => FindWithTenantIdAsync(tenantId, paginationCriteria));
         }
 
-        public Task<DaPaginatedEntityList<TKey, TCustomList>> FindWithTenantIdAsync(TKey tenantId, DaDataPaginationCriteria paginationCriteria)
+        public Task<DaPaginatedEntityList<TKey, TCustomList>> FindWithTenantIdAsync(string tenantId, DaDataPaginationCriteria paginationCriteria)
         {
             ThrowIfDisposed();
             return Repository.FindWithTenantIdAsync(tenantId, paginationCriteria);
@@ -230,7 +230,7 @@ namespace Ejyle.DevAccelerate.Lists.Custom
             return CreateKey(customList.Name, customList.TenantId);
         }
 
-        public virtual string CreateKey(string name, TKey tenantId)
+        public virtual string CreateKey(string name, string tenantId)
         {
             var key = name;
             if(tenantId != null)

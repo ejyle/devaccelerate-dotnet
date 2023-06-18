@@ -50,7 +50,7 @@ namespace Ejyle.DevAccelerate.Lists.Custom
         /// <summary>
         /// The tenant ID associated with the custom list.
         /// </summary>
-        TKey TenantId { get; set; }
+        string TenantId { get; set; }
 
         /// <summary>
         /// Determines if the color of a list item is required.

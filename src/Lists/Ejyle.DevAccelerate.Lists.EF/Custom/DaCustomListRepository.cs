@@ -123,7 +123,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
             return DbContext.SaveChangesAsync();
         }
 
-        public Task<List<TCustomList>> FindWithTenantIdAsync(TKey tenantId)
+        public Task<List<TCustomList>> FindWithTenantIdAsync(string tenantId)
         {
             return DbContext.CustomLists
                 .Where(m => m.TenantId.Equals(tenantId))
@@ -133,7 +133,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
                 .ToListAsync();
         }
 
-        public async Task<DaPaginatedEntityList<TKey, TCustomList>> FindWithTenantIdAsync(TKey tenantId, DaDataPaginationCriteria paginationCriteria)
+        public async Task<DaPaginatedEntityList<TKey, TCustomList>> FindWithTenantIdAsync(string tenantId, DaDataPaginationCriteria paginationCriteria)
         {
             var totalCount = await DbContext.CustomLists.CountAsync();
 

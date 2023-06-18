@@ -28,8 +28,8 @@ namespace Ejyle.DevAccelerate.Lists.Custom
         Task<List<TCustomList>> FindWithoutTenantIdAsync();
         Task<DaPaginatedEntityList<TKey, TCustomList>> FindWithoutTenantIdAsync(DaDataPaginationCriteria paginationCriteria);
 
-        Task<List<TCustomList>> FindWithTenantIdAsync(TKey tenantId);
-        Task<DaPaginatedEntityList<TKey, TCustomList>> FindWithTenantIdAsync(TKey tenantId, DaDataPaginationCriteria paginationCriteria);
+        Task<List<TCustomList>> FindWithTenantIdAsync(string tenantId);
+        Task<DaPaginatedEntityList<TKey, TCustomList>> FindWithTenantIdAsync(string tenantId, DaDataPaginationCriteria paginationCriteria);
         Task<TCustomList> FindByKeyAsync(string key);
         Task<TCustomListItem> FindListItemByIdAsync(TKey listItemId);
     }
