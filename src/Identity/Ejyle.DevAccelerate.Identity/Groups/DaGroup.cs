@@ -33,7 +33,7 @@ namespace Ejyle.DevAccelerate.Identity.Groups
 
         public string Name { get; set; }
         public string? Description { get; set; }
-        public TKey TenantId { get; set; }
+        public string TenantId { get; set; }
         public virtual ICollection<TGroupRole> GroupRoles { get; set; }
         public virtual ICollection<TGroupUser> GroupUsers { get; set; }
     }

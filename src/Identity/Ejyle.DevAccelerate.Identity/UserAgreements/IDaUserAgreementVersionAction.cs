@@ -15,7 +15,7 @@ namespace Ejyle.DevAccelerate.Identity.UserAgreements
     {
         TKey UserAgreementVersionId { get; set; }
         TKey UserId { get; set; }
-        TKey TenantId { get; set; }
+        string TenantId { get; set; }
         string IpAddress { get; set; }
         string DeviceAgent { get; set; }
         DaUserAgreementVersionActionOwner ActionOwner { get; set; }

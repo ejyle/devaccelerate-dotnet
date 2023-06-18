@@ -199,6 +199,7 @@ namespace Ejyle.DevAccelerate.Subscriptions.EF
                 entity.ToTable("SubscriptionAppUsers", SCHEMA_NAME);
 
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
+                entity.Property(e => e.UserId).HasMaxLength(450).IsRequired();
 
                 entity.HasOne(d => d.SubscriptionApp)
                     .WithMany(p => p.SubscriptionAppUsers)
@@ -292,6 +293,8 @@ namespace Ejyle.DevAccelerate.Subscriptions.EF
                 entity.ToTable("SubscriptionFeatureUsers", SCHEMA_NAME);
 
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.UserId).HasMaxLength(450).IsRequired();
 
                 entity.HasOne(d => d.SubscriptionFeature)
                     .WithMany(p => p.SubscriptionFeatureUsers)

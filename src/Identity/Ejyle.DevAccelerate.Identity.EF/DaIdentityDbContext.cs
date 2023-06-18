@@ -171,6 +171,8 @@ namespace Ejyle.DevAccelerate.Identity.EF
                     .IsRequired()
                     .HasMaxLength(256);
 
+                entity.Property(e => e.TenantId).HasMaxLength(450);
+
                 entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
                 entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
                 entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
@@ -255,6 +257,8 @@ namespace Ejyle.DevAccelerate.Identity.EF
                 entity.HasOne(d => d.UserAgreementVersion)
                     .WithMany(p => p.Actions)
                     .HasForeignKey(d => d.UserAgreementVersionId);
+
+                entity.Property(e => e.TenantId).HasMaxLength(450);
 
                 entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
                 entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");

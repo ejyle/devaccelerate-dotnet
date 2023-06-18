@@ -15,7 +15,7 @@ namespace Ejyle.DevAccelerate.Subscriptions.Subscriptions
     {
         TKey SubscriptionAppId { get; set; }
 
-        TKey UserId { get; set; }
+        string UserId { get; set; }
 
         bool IsEnabled { get; set; }
     }

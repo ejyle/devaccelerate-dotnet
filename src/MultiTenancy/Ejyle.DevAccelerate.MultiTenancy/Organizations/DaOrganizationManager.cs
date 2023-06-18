@@ -17,15 +17,15 @@ namespace Ejyle.DevAccelerate.MultiTenancy.Organizations
         where TOrganization : IDaOrganization<TKey>
         where TOrganizationGroup : IDaOrganizationGroup<TKey>
     {
-        public DaOrganizationManager(IDaOrganizationProfileRepository<TKey, TOrganization, TOrganizationGroup> repository) : base(repository)
+        public DaOrganizationManager(IDaOrganizationRepository<TKey, TOrganization, TOrganizationGroup> repository) : base(repository)
         {
         }
 
-        protected virtual IDaOrganizationProfileRepository<TKey, TOrganization, TOrganizationGroup> Repository
+        protected virtual IDaOrganizationRepository<TKey, TOrganization, TOrganizationGroup> Repository
         {
             get
             {
-                return GetRepository<IDaOrganizationProfileRepository<TKey, TOrganization, TOrganizationGroup>>();
+                return GetRepository<IDaOrganizationRepository<TKey, TOrganization, TOrganizationGroup>>();
             }
         }
 

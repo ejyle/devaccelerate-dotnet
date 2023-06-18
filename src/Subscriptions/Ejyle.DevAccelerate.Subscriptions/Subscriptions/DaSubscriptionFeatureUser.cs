@@ -28,7 +28,7 @@ namespace Ejyle.DevAccelerate.Subscriptions.Subscriptions
         }
 
         public TKey SubscriptionFeatureId { get; set; }
-        public TKey UserId { get; set; }
+        public string UserId { get; set; }
         public bool IsEnabled { get; set; }
         public virtual TSubscriptionFeature SubscriptionFeature { get; set; }
         public virtual ICollection<TSubscriptionFeatureUserAction> SubscriptionFeatureUserActions { get; set; }

@@ -12,18 +12,18 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.MultiTenancy.Organizations
 {
-    public interface IDaOrganizationProfileRepository<TKey, TOrganizationProfile, TOrganizationGroup> : IDaEntityRepository<TKey, TOrganizationProfile>
+    public interface IDaOrganizationRepository<TKey, TOrganization, TOrganizationGroup> : IDaEntityRepository<TKey, TOrganization>
         where TKey : IEquatable<TKey>
-        where TOrganizationProfile : IDaOrganization<TKey>
+        where TOrganization : IDaOrganization<TKey>
         where TOrganizationGroup : IDaOrganizationGroup<TKey>
 
     {
-        Task CreateAsync(TOrganizationProfile organizationProfile);
-        Task<TOrganizationProfile> FindByIdAsync(TKey id);
-        Task<List<TOrganizationProfile>> FindByTenantIdAsync(TKey tenantId);
-        Task UpdateAsync(TOrganizationProfile organizationProfile);
-        Task DeleteAsync(TOrganizationProfile organizationProfile);
-        Task<List<TOrganizationProfile>> FindByAttributeAsync(string attributeName, string attributeValue);
+        Task CreateAsync(TOrganization organization);
+        Task<TOrganization> FindByIdAsync(TKey id);
+        Task<List<TOrganization>> FindByTenantIdAsync(TKey tenantId);
+        Task UpdateAsync(TOrganization organization);
+        Task DeleteAsync(TOrganization organization);
+        Task<List<TOrganization>> FindByAttributeAsync(string attributeName, string attributeValue);
         Task<TOrganizationGroup> FindOrganizationGroupByIdAsync(TKey id, TKey organizationGroupId);
     }
 }

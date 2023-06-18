@@ -24,7 +24,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF.Organizations
 
 
     public class DaOrganizationRepository<TKey, TOrganization, TOrganizationAttribute, TOrganizationGroup, TDbContext>
-        : DaEntityRepositoryBase<TKey, TOrganization, TDbContext>, IDaOrganizationProfileRepository<TKey, TOrganization, TOrganizationGroup>
+        : DaEntityRepositoryBase<TKey, TOrganization, TDbContext>, IDaOrganizationRepository<TKey, TOrganization, TOrganizationGroup>
         where TKey : IEquatable<TKey>
         where TOrganization : DaOrganization<TKey, TOrganization, TOrganizationAttribute, TOrganizationGroup>
         where TOrganizationAttribute : DaOrganizationAttribute<TKey, TOrganization>

@@ -21,7 +21,7 @@ namespace Ejyle.DevAccelerate.Subscriptions.Subscriptions
         where TSubscriptionApp : IDaSubscriptionApp<TKey>
     {
         public TKey SubscriptionAppId { get; set; }
-        public TKey UserId { get; set; }
+        public string UserId { get; set; }
         public bool IsEnabled { get; set; }
         public virtual TSubscriptionApp SubscriptionApp { get; set; }
     }

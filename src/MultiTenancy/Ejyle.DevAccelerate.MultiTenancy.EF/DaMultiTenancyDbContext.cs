@@ -154,6 +154,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
 
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
+                entity.Property(e => e.Country).HasMaxLength(450);
                 entity.Property(e => e.OwnerUserId).HasMaxLength(450).IsRequired();
 
                 entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();

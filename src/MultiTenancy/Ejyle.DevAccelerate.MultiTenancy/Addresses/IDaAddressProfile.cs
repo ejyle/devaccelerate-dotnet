@@ -18,8 +18,8 @@ namespace Ejyle.DevAccelerate.MultiTenancy.Addresses
         string City { get; set; }
         string ZipCode { get; set; }
         string State { get; set; }
-        TKey CountryId { get; set; }
-        TKey OwnerUserId { get; set; }
+        string Country { get; set; }
+        string OwnerUserId { get; set; }
         string PhoneNumber { get; set; }
         string AreaCode { get; set; }
         string Extension { get; set; }

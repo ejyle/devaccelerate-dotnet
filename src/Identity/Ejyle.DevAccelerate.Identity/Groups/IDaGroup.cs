@@ -19,6 +19,6 @@ namespace Ejyle.DevAccelerate.Identity.Groups
     {
         string Name { get; set; }
         string Description { get; set; }
-        TKey TenantId { get; set; }
+        string TenantId { get; set; }
     }
 }

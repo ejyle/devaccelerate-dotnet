@@ -40,8 +40,8 @@ namespace Ejyle.DevAccelerate.MultiTenancy.Addresses
         public string Address2 { get; set; }
         public string ZipCode { get; set; }
         public string State { get; set; }
-        public TKey CountryId { get; set; }
-        public TKey OwnerUserId { get; set; }
+        public string Country { get; set; }
+        public string OwnerUserId { get; set; }
         public string PhoneNumber { get; set; }
         public string AreaCode { get; set; }
         public string Extension { get; set; }
