@@ -21,7 +21,7 @@ namespace Ejyle.DevAccelerate.Comments
         where TKey : IEquatable<TKey>
         where TComment: IDaComment<TKey>
     {
-        public TKey FileId { get; set; }
+        public string FileId { get; set; }
         public TKey CommentId { get; set; }
         public virtual TComment Comment { get; set; }
     }

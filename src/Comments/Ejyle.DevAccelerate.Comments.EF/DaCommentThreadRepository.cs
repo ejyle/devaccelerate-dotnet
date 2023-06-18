@@ -87,7 +87,7 @@ namespace Ejyle.DevAccelerate.Comments.EF
 
         public Task<List<TCommentThread>> FindByObjectInstanceIdAsync(TKey objectInstanceId)
         {
-            return CommentThreads.Where(m => m.ObjectInstanceId.Equals(objectInstanceId)).ToListAsync();    
+            return CommentThreads.Where(m => m.ObjectIdentifier.Equals(objectInstanceId)).ToListAsync();    
         }
 
         public Task<List<TComment>> FindCommentsAsync(TKey commentThreadId)

@@ -41,7 +41,7 @@ namespace Ejyle.DevAccelerate.Comments
             set;
         }
 
-        public TKey ObjectInstanceId
+        public string ObjectIdentifier
         {
             get;
             set;

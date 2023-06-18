@@ -17,7 +17,7 @@ namespace Ejyle.DevAccelerate.Comments
     public interface IDaCommentFile<TKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
-        TKey FileId { get; set; }
+        string FileId { get; set; }
         TKey CommentId { get; set; }
     }
 }
