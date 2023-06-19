@@ -27,7 +27,7 @@ namespace Ejyle.DevAccelerate.Files
         public long? FileSize { get; set; }
         public string Extension { get; set; }
         public TKey FileCollectionId { get; set; }
-        public string ObjectIdentifier { get; set; }
+        public string ObjectInstanceId { get; set; }
         public string OwnerUserId { get; set; }
         public string TenantId { get; set; }
         public virtual TFileCollection FileCollection { get; set; }

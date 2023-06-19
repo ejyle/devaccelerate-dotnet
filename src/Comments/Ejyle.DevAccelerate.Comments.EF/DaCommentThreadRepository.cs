@@ -85,9 +85,9 @@ namespace Ejyle.DevAccelerate.Comments.EF
                 , new DaDataPaginationResult(paginationCriteria, totalCount));
         }
 
-        public Task<List<TCommentThread>> FindByObjectInstanceIdAsync(TKey objectInstanceId)
+        public Task<List<TCommentThread>> FindByObjectInstanceIdAsync(string objectInstanceId)
         {
-            return CommentThreads.Where(m => m.ObjectIdentifier.Equals(objectInstanceId)).ToListAsync();    
+            return CommentThreads.Where(m => m.ObjectInstanceId.Equals(objectInstanceId)).ToListAsync();    
         }
 
         public Task<List<TComment>> FindCommentsAsync(TKey commentThreadId)

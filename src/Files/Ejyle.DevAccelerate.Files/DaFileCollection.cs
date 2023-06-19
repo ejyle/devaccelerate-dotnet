@@ -29,7 +29,7 @@ namespace Ejyle.DevAccelerate.Files
         }
 
         public string Name { get; set; }
-        public string ObjectIdentifier { get; set; }
+        public string ObjectInstanceId { get; set; }
         public bool IsUserDefined { get; set; }
         public string OwnerUserId { get; set; }
         public TKey ParentId { get; set; }

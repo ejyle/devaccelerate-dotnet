@@ -32,7 +32,7 @@ namespace Ejyle.DevAccelerate.Tasks
         public string ApiUrl { get; set; }
         public string PageUrl { get; set; }
         public DaTaskPriority? Priority { get; set; }
-        public string ObjectIdentifier { get; set; }
+        public string ObjectInstanceId { get; set; }
         public bool IsSystemTask { get; set; }
         public bool LastStatusUpdatedBySystem { get; set; }
         public string Rating { get; set; }

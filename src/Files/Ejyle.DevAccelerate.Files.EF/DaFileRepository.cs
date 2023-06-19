@@ -86,7 +86,7 @@ namespace Ejyle.DevAccelerate.Files.EF
 
         public async Task<DaPaginatedEntityList<TKey, TFile>> FindByObjectInstanceIdAsync(TKey objectInstanceId, DaDataPaginationCriteria paginationCriteria)
         {
-            var totalCount = await FilesDbSet.Where(m => m.ObjectIdentifier.Equals(objectInstanceId)).CountAsync();
+            var totalCount = await FilesDbSet.Where(m => m.ObjectInstanceId.Equals(objectInstanceId)).CountAsync();
 
             if (totalCount <= 0)
             {
@@ -94,7 +94,7 @@ namespace Ejyle.DevAccelerate.Files.EF
             }
 
             var query = FilesDbSet
-                .Where(m => m.ObjectIdentifier.Equals(objectInstanceId))
+                .Where(m => m.ObjectInstanceId.Equals(objectInstanceId))
                 .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
                 .Take(paginationCriteria.PageSize)
                 .AsQueryable();

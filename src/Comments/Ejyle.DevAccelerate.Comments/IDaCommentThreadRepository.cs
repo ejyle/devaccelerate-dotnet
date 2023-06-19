@@ -22,7 +22,7 @@ namespace Ejyle.DevAccelerate.Comments
     {
         Task CreateAsync(TCommentThread commentThread);
         Task<TCommentThread> FindByIdAsync(TKey id);
-        Task<List<TCommentThread>> FindByObjectInstanceIdAsync(TKey objectInstanceId);
+        Task<List<TCommentThread>> FindByObjectInstanceIdAsync(string objectInstanceId);
         Task CreateCommentAsync(TKey id, TComment comment);
         Task DeleteAsync(TCommentThread commentThread);
         Task<DaPaginatedEntityList<TKey, TComment>> FindCommentsAsync(TKey commentThreadId, DaDataPaginationCriteria paginationCriteria);

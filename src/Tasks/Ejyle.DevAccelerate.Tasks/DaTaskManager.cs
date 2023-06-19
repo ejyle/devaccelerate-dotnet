@@ -93,15 +93,15 @@ namespace Ejyle.DevAccelerate.Tasks
             return Repository.FindByAssignedToAsync(asignedTo, paginationCriteria);
         }
 
-        public virtual DaPaginatedEntityList<TKey, TTask> FindByObjectIdentifier(string objectIdentifier, DaDataPaginationCriteria paginationCriteria)
+        public virtual DaPaginatedEntityList<TKey, TTask> FindByObjectInstanceId(string objectIdentifier, DaDataPaginationCriteria paginationCriteria)
         {
             return DaAsyncHelper.RunSync<DaPaginatedEntityList<TKey, TTask>>(() => FindByAssignedToAsync(objectIdentifier, paginationCriteria));
         }
 
-        public virtual Task<DaPaginatedEntityList<TKey, TTask>> FindByObjectIdentifierAsync(string objectIdentifier, DaDataPaginationCriteria paginationCriteria)
+        public virtual Task<DaPaginatedEntityList<TKey, TTask>> FindByObjectInstanceIdAsync(string objectIdentifier, DaDataPaginationCriteria paginationCriteria)
         {
             ThrowIfDisposed();
-            return Repository.FindByObjectIdentifierAsync(objectIdentifier, paginationCriteria);
+            return Repository.FindByObjectInstanceIdAsync(objectIdentifier, paginationCriteria);
         }
 
         public virtual DaPaginatedEntityList<TKey, TTask> FindByTenantId(string tenantId, DaDataPaginationCriteria paginationCriteria)

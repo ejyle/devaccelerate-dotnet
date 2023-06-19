@@ -82,12 +82,12 @@ namespace Ejyle.DevAccelerate.Comments
             return Repository.FindByIdAsync(id);
         }
 
-        public virtual List<TCommentThread> FindByObjectInstanceId(TKey objectInstanceId)
+        public virtual List<TCommentThread> FindByObjectInstanceId(string objectInstanceId)
         {
             return DaAsyncHelper.RunSync<List<TCommentThread>>(() => FindByObjectInstanceIdAsync(objectInstanceId));
         }
 
-        public virtual Task<List<TCommentThread>> FindByObjectInstanceIdAsync(TKey objectInstanceId)
+        public virtual Task<List<TCommentThread>> FindByObjectInstanceIdAsync(string objectInstanceId)
         {
             ThrowIfDisposed();
             return Repository.FindByObjectInstanceIdAsync(objectInstanceId);

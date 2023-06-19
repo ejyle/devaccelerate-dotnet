@@ -18,7 +18,7 @@ namespace Ejyle.DevAccelerate.Comments
     public interface IDaCommentThread<TKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
-        string ObjectIdentifier { get; set; }
+        string ObjectInstanceId { get; set; }
 
         string Format
         {

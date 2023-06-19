@@ -25,7 +25,7 @@ namespace Ejyle.DevAccelerate.Files
         TKey FileCollectionId { get; set; }
         string OwnerUserId { get; set; }
         string TenantId { get; set; }
-        string ObjectIdentifier { get; set; }
+        string ObjectInstanceId { get; set; }
         TKey FileStorageLocationId { get; set; }
     }
 }

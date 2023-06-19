@@ -25,6 +25,7 @@ namespace Ejyle.DevAccelerate.Notifications.Delivery
         string Subject { get; set; }
         string Body { get; set; }
         string Format { get; set; }
+        string ObjectInstanceId { get; set; }
         DateTime CreatedDateUtc { get; set; }
         DateTime LastUpdatedDateUtc { get; set; }
         DateTime? DeliveryDateUtc { get; set; }

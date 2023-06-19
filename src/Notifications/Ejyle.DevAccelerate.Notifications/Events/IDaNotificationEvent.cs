@@ -19,6 +19,6 @@ namespace Ejyle.DevAccelerate.Notifications.Events
         int SubscribersProcessedCount { get; set; }
         int SubscribersCount { get; set; }
         string VariableDelimiter { get; set; }
-        string ObjectIdentifier { get; set; }
+        string ObjectInstanceId { get; set; }
     }
 }

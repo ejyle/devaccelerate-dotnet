@@ -55,6 +55,6 @@ namespace Ejyle.DevAccelerate.Notifications.Events
         public string VariableDelimiter { get; set; }
         public int SubscribersProcessedCount { get; set; }
         public int SubscribersCount { get; set; }
-        public string ObjectIdentifier { get; set; }
+        public string ObjectInstanceId { get; set; }
     }
 }

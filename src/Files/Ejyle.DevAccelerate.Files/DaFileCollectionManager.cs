@@ -92,12 +92,12 @@ namespace Ejyle.DevAccelerate.Files
             return Repository.FindByParentIdAsync(parentId, paginationCriteria);
         }
 
-        public virtual DaPaginatedEntityList<TKey, TFileCollection> FindByObjectInstanceId(TKey objectInstanceId, DaDataPaginationCriteria paginationCriteria)
+        public virtual DaPaginatedEntityList<TKey, TFileCollection> FindByObjectInstanceId(string objectInstanceId, DaDataPaginationCriteria paginationCriteria)
         {
-            return DaAsyncHelper.RunSync<DaPaginatedEntityList<TKey, TFileCollection>>(() => FindByParentIdAsync(objectInstanceId, paginationCriteria));
+            return DaAsyncHelper.RunSync<DaPaginatedEntityList<TKey, TFileCollection>>(() => FindByObjectInstanceIdAsync(objectInstanceId, paginationCriteria));
         }
 
-        public virtual Task<DaPaginatedEntityList<TKey, TFileCollection>> FindByObjectInstanceIdAsync(TKey objectInstanceId, DaDataPaginationCriteria paginationCriteria)
+        public virtual Task<DaPaginatedEntityList<TKey, TFileCollection>> FindByObjectInstanceIdAsync(string objectInstanceId, DaDataPaginationCriteria paginationCriteria)
         {
             ThrowIfDisposed();
             return Repository.FindByObjectInstanceIdAsync(objectInstanceId, paginationCriteria);

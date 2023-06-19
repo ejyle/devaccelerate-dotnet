@@ -143,7 +143,7 @@ namespace Ejyle.DevAccelerate.Comments.EF
                 entity.Property(e => e.Format)
                     .HasMaxLength(256);
 
-                entity.Property(e => e.ObjectIdentifier).HasMaxLength(450);
+                entity.Property(e => e.ObjectInstanceId).HasMaxLength(450);
 
                 entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
                 entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");

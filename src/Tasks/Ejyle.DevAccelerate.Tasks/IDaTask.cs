@@ -28,6 +28,6 @@ namespace Ejyle.DevAccelerate.Tasks
         string ApiUrl { get; set; }
         string PageUrl { get; set; }
         bool LastStatusUpdatedBySystem { get; set; }
-        string ObjectIdentifier { get; set; }
+        string ObjectInstanceId { get; set; }
     }
 }

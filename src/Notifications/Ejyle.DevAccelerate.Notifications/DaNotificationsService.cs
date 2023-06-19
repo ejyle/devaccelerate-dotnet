@@ -96,7 +96,7 @@ namespace Ejyle.DevAccelerate.Notifications
             {
                 NotificationEventDefinitionId = evenDefinition.Id,
                 Level = DaNotificationLevel.Info,
-                ObjectIdentifier = null,
+                ObjectInstanceId = null,
                 SubscribersProcessedCount = 0,
                 VariableDelimiter = evenDefinition.VariableDelimiter,
                 IsProcessingComplete = false,

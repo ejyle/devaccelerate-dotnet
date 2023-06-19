@@ -81,9 +81,9 @@ namespace Ejyle.DevAccelerate.Tasks.EF
                 , new DaDataPaginationResult(paginationCriteria, totalCount));
         }
 
-        public async Task<DaPaginatedEntityList<TKey, TTask>> FindByObjectIdentifierAsync(string objectIdentifier, DaDataPaginationCriteria paginationCriteria)
+        public async Task<DaPaginatedEntityList<TKey, TTask>> FindByObjectInstanceIdAsync(string objectInstanceId, DaDataPaginationCriteria paginationCriteria)
         {
-            var totalCount = await TasksSet.Where(m => m.ObjectIdentifier.Equals(objectIdentifier)).CountAsync();
+            var totalCount = await TasksSet.Where(m => m.ObjectInstanceId.Equals(objectInstanceId)).CountAsync();
 
             if (totalCount <= 0)
             {
@@ -91,7 +91,7 @@ namespace Ejyle.DevAccelerate.Tasks.EF
             }
 
             var query = TasksSet
-                .Where(m => m.ObjectIdentifier.Equals(objectIdentifier))
+                .Where(m => m.ObjectInstanceId.Equals(objectInstanceId))
                 .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
                 .Take(paginationCriteria.PageSize)
                 .AsQueryable();

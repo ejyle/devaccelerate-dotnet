@@ -143,7 +143,7 @@ namespace Ejyle.DevAccelerate.Notifications.EF
                 entity.Property(e => e.VariableDelimiter)
                     .HasMaxLength(5);
 
-                entity.Property(e => e.ObjectIdentifier)
+                entity.Property(e => e.ObjectInstanceId)
                     .HasMaxLength(450);
 
                 entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
@@ -231,6 +231,9 @@ namespace Ejyle.DevAccelerate.Notifications.EF
 
                 entity.Property(e => e.Subject)
                     .HasMaxLength(500);
+
+                entity.Property(e => e.ObjectInstanceId)
+                    .HasMaxLength(450);
 
                 entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
                 entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");

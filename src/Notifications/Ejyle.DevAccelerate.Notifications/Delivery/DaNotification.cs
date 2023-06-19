@@ -32,6 +32,7 @@ namespace Ejyle.DevAccelerate.Notifications.Delivery
         public string Subject { get; set; }
         public string Body { get; set; }
         public string Format { get; set; }
+        public string ObjectInstanceId { get; set; }
         public DateTime CreatedDateUtc { get; set; }
         public DateTime LastUpdatedDateUtc { get; set; }
         public DateTime? DeliveryDateUtc { get; set; }
