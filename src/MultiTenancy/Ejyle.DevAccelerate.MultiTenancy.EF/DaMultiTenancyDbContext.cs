@@ -32,10 +32,10 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
 
     public class DaMultiTenancyDbContext<TKey, TTenant, TTenantUser, TTenantAttribute, TMTPTenant, TApiKey, TOrganization, TOrganizationAttribute, TOrganizationGroup, TAddressProfile, TUserAddress> : DbContext
         where TKey : IEquatable<TKey>
-        where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute, TMTPTenant>
+        where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute>
         where TTenantAttribute : DaTenantAttribute<TKey, TTenant>
         where TTenantUser : DaTenantUser<TKey, TTenant>
-        where TMTPTenant : DaMTPTenant<TKey, TTenant>
+        where TMTPTenant : DaMTPTenant<TKey>
         where TApiKey : DaApiKey<TKey>
         where TOrganization : DaOrganization<TKey, TOrganization, TOrganizationAttribute, TOrganizationGroup>
         where TOrganizationGroup : DaOrganizationGroup<TKey, TOrganizationGroup, TOrganization>
@@ -123,23 +123,15 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
                 entity.ToTable("MTPTenants", SCHEMA_NAME);
 
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
-                entity.Property(e => e.MemberTenantId).IsRequired();
+                entity.Property(e => e.TenantId).IsRequired();
                 entity.Property(e => e.MTPTenantId).IsRequired();
 
-                entity.Property(e => e.MTPId)
+                entity.Property(e => e.MTPNumber)
                     .IsRequired() 
                     .ValueGeneratedOnAdd()
                     .UseIdentityColumn();
 
-                entity.HasIndex(e => e.MTPId).IsUnique();
-
-                entity.HasOne(d => d.MTPTenant)
-                    .WithMany(p => p.MTPTenants)
-                    .HasForeignKey(d => d.MTPTenantId);
-
-                entity.HasOne(d => d.MemberTenant)
-                    .WithMany(p => p.MTPTenantMembers)
-                    .HasForeignKey(d => d.MemberTenantId);
+                entity.HasIndex(e => e.MTPNumber).IsUnique();
 
                 entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
                 entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");

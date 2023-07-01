@@ -35,6 +35,13 @@ namespace Ejyle.DevAccelerate.MultiTenancy.Tenants
             return GetRepository().CreateAsync(tenant);
         }
 
+        public Task CreateAsync(TTenant tenant, TKey mtpTenantId)
+        {
+            ThrowIfDisposed();
+            ThrowIfArgumentIsNull(tenant, nameof(tenant));
+            return GetRepository().CreateAsync(tenant, mtpTenantId);
+        }
+
         public Task<TTenant> FindByIdAsync(TKey tenantId)
         {
             ThrowIfDisposed();
@@ -44,13 +51,25 @@ namespace Ejyle.DevAccelerate.MultiTenancy.Tenants
         public void Create(TTenant tenant)
         {
             ThrowIfDisposed();
-            ThrowIfArgumentIsNull(tenant, "tenant");
+            ThrowIfArgumentIsNull(tenant, nameof(tenant));
             DaAsyncHelper.RunSync(() => CreateAsync(tenant));
+        }
+
+        public void Create(TTenant tenant, TKey mtpTenantId)
+        {
+            ThrowIfDisposed();
+            ThrowIfArgumentIsNull(tenant, nameof(tenant));
+            DaAsyncHelper.RunSync(() => CreateAsync(tenant, mtpTenantId));
         }
 
         public void Update(TTenant tenant)
         {
             DaAsyncHelper.RunSync(() => UpdateAsync(tenant));
+        }
+
+        public void UpdateMTPTenantStatus(TKey mtpTenantId, TKey tenantId, bool isActive)
+        {
+            DaAsyncHelper.RunSync(() => UpdateMTPTenantStatusAsync(mtpTenantId, tenantId, isActive));
         }
 
         public TTenant FindById(TKey tenantId)
@@ -75,6 +94,12 @@ namespace Ejyle.DevAccelerate.MultiTenancy.Tenants
             ThrowIfDisposed();
             ThrowIfArgumentIsNull(tenant, nameof(tenant));
             return GetRepository().UpdateAsync(tenant);
+        }
+
+        public Task UpdateMTPTenantStatusAsync(TKey mtpTenantId, TKey tenantId, bool isActive)
+        {
+            ThrowIfDisposed();
+            return GetRepository().UpdateMTPTenantStatusAsync(mtpTenantId, tenantId, isActive);
         }
 
         public Task<List<TTenant>> FindByUserIdAsync(TKey userId)

@@ -11,27 +11,22 @@ using System.Collections.Generic;
 
 namespace Ejyle.DevAccelerate.MultiTenancy.Tenants
 {
-    public class DaTenant : DaTenant<string, DaTenantUser, DaTenantAttribute, DaMTPTenant>
+    public class DaTenant : DaTenant<string, DaTenantUser, DaTenantAttribute>
     {
         public DaTenant() : base()
         { }
     }
 
-    public class DaTenant<TKey, TTenantUser, TTenantAttribute, TMTPTenant> : DaAuditedEntityBase<TKey>, IDaTenant<TKey>
+    public class DaTenant<TKey, TTenantUser, TTenantAttribute> : DaAuditedEntityBase<TKey>, IDaTenant<TKey>
         where TKey : IEquatable<TKey>
         where TTenantUser : IDaTenantUser<TKey>
         where TTenantAttribute : IDaTenantAttribute<TKey>
-        where TMTPTenant: IDaMTPTenant<TKey>
     {
         public DaTenant()
         {
             TenantUsers = new List<TTenantUser>();
-            MTPTenants = new List<TMTPTenant>();
-            MTPTenantMembers = new List<TMTPTenant>();
         }
 
-        public virtual ICollection<TMTPTenant> MTPTenants { get; set; }
-        public virtual ICollection<TMTPTenant> MTPTenantMembers { get; set; }
         public virtual ICollection<TTenantUser> TenantUsers { get; set; }
         public virtual ICollection<TTenantAttribute> Attributes { get; set; }
         public DaTenantType TenantType { get; set; }
@@ -48,5 +43,6 @@ namespace Ejyle.DevAccelerate.MultiTenancy.Tenants
         public string DateFormat { get; set; }
         public string SystemLanguage { get; set; }
         public bool? IsMTP { get; set; }
+        public bool? IsMTPManaged { get; set;}
     }
 }

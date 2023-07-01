@@ -26,8 +26,8 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF.Tenants
     public class DaTenantRepository<TKey, TTenant, TTenantUser, TTenantAttribute, TMTPTenant, TDbContext>
          : DaEntityRepositoryBase<TKey, TTenant, DbContext>, IDaTenantRepository<TKey, TTenant, TTenantUser>
         where TKey : IEquatable<TKey>
-        where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute, TMTPTenant>
-        where TMTPTenant : DaMTPTenant<TKey, TTenant>
+        where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute>
+        where TMTPTenant : DaMTPTenant<TKey>, new()
         where TTenantUser : DaTenantUser<TKey, TTenant>
         where TTenantAttribute : DaTenantAttribute<TKey, TTenant>
     {
@@ -37,6 +37,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF.Tenants
 
         private DbSet<TTenant> TenantsSet { get { return DbContext.Set<TTenant>(); } }
         private DbSet<TTenantUser> TenantUsersSet { get { return DbContext.Set<TTenantUser>(); } }
+        private DbSet<TMTPTenant> MTPTenantsSet { get { return DbContext.Set<TMTPTenant>(); } }
 
         public IQueryable<TTenant> Tenants => TenantsSet.AsQueryable();
 
@@ -102,6 +103,44 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF.Tenants
                 .Include(x => x.TenantUsers)
                 .Include(x => x.Attributes)
                 .SingleOrDefaultAsync();
+        }
+
+        public async Task CreateAsync(TTenant tenant, TKey mtpTenantId)
+        {
+            tenant.IsMTPManaged = true;
+
+            TenantsSet.Add(tenant);
+            await SaveChangesAsync();
+
+            var mtpMember = new TMTPTenant()
+            {
+                IsActive = true,
+                TenantId = tenant.Id,
+                MTPTenantId = mtpTenantId,
+                CreatedBy = tenant.CreatedBy,
+                LastUpdatedBy = tenant.LastUpdatedBy,
+                CreatedDateUtc = tenant.CreatedDateUtc,
+                LastUpdatedDateUtc = tenant.LastUpdatedDateUtc
+            };
+
+            MTPTenantsSet.Add(mtpMember);
+            await SaveChangesAsync();
+        }
+
+        public Task UpdateMTPTenantStatusAsync(TKey mtpTenantId, TKey tenantId, bool isActive)
+        {
+            var mtpTenant = MTPTenantsSet.Where(m => m.MTPTenantId.Equals(mtpTenantId) && m.TenantId.Equals(tenantId)).SingleOrDefault();
+
+            if (mtpTenant == null)
+            {
+                throw new InvalidOperationException("MTPTenant not found.");
+            }
+
+            mtpTenant.IsActive = isActive;
+            mtpTenant.LastUpdatedDateUtc = DateTime.UtcNow;
+
+            DbContext.Entry(mtpTenant).State = EntityState.Modified;
+            return SaveChangesAsync();
         }
     }
 }

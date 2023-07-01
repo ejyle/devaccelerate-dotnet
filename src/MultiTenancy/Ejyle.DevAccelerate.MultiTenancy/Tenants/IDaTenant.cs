@@ -87,5 +87,10 @@ namespace Ejyle.DevAccelerate.MultiTenancy.Tenants
         /// Determines if the tenant is a managed tenant provider.
         /// </summary>
         bool? IsMTP { get; set; }
+
+        /// <summary>
+        /// Determines if the tenant is managed by an MTP.
+        /// </summary>
+        bool? IsMTPManaged { get; set; }
     }
 }
