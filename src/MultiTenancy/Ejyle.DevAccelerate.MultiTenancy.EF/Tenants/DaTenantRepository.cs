@@ -12,33 +12,23 @@ using System.Collections.Generic;
 using Ejyle.DevAccelerate.Core.EF;
 using Microsoft.EntityFrameworkCore;
 
-/* Unmerged change from project 'Ejyle.DevAccelerate.MultiTenancy.EF (net7.0)'
-Before:
-using Ejyle.DevAccelerate.MultiTenancy.Tenants;
-After:
-using Ejyle.DevAccelerate.MultiTenancy.Tenants;
-using Ejyle;
-using Ejyle.DevAccelerate;
-using Ejyle.DevAccelerate.MultiTenancy;
-using Ejyle.DevAccelerate.MultiTenancy.EF;
-using Ejyle.DevAccelerate.MultiTenancy.EF.Tenants;
-*/
 using Ejyle.DevAccelerate.MultiTenancy.Tenants;
 
 namespace Ejyle.DevAccelerate.MultiTenancy.EF.Tenants
 {
-    public class DaTenantRepository : DaTenantRepository<string, DaTenant, DaTenantUser, DaTenantAttribute, DbContext>
+    public class DaTenantRepository : DaTenantRepository<string, DaTenant, DaTenantUser, DaTenantAttribute, DaMTPTenant, DbContext>
     {
         public DaTenantRepository(DbContext dbContext)
             : base(dbContext)
         { }
     }
 
-    public class DaTenantRepository<TKey, TTenant, TTenantUser, TTenantAttribute, TDbContext>
+    public class DaTenantRepository<TKey, TTenant, TTenantUser, TTenantAttribute, TMTPTenant, TDbContext>
          : DaEntityRepositoryBase<TKey, TTenant, DbContext>, IDaTenantRepository<TKey, TTenant, TTenantUser>
-         where TKey : IEquatable<TKey>
-         where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute>
-         where TTenantUser : DaTenantUser<TKey, TTenant>
+        where TKey : IEquatable<TKey>
+        where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute, TMTPTenant>
+        where TMTPTenant : DaMTPTenant<TKey, TTenant>
+        where TTenantUser : DaTenantUser<TKey, TTenant>
         where TTenantAttribute : DaTenantAttribute<TKey, TTenant>
     {
         public DaTenantRepository(DbContext dbContext)

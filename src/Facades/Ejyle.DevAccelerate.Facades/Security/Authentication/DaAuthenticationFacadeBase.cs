@@ -16,12 +16,13 @@ using Ejyle.DevAccelerate.MultiTenancy.Tenants;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Authentication
 {
-    public abstract class DaAuthenticationFacadeBase<TKey, TUser, TUserManager, TTenant, TTenantUser, TTenantAttribute, TTenantManager, TUserSession, TUserSessionManager, TAuthenticationResult>
+    public abstract class DaAuthenticationFacadeBase<TKey, TUser, TUserManager, TTenant, TTenantUser, TTenantAttribute, TMTPTenant, TTenantManager, TUserSession, TUserSessionManager, TAuthenticationResult>
         where TKey : IEquatable<TKey>
         where TUser : DaUser<TKey>
         where TUserManager : UserManager<TUser>
         where TTenantManager : DaTenantManager<TKey, TTenant, TTenantUser>
-        where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute>, new()
+        where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute, TMTPTenant>, new()
+        where TMTPTenant : DaMTPTenant<TKey, TTenant>
         where TTenantAttribute : DaTenantAttribute<TKey, TTenant>
         where TTenantUser : DaTenantUser<TKey, TTenant>, new()
         where TUserSession : DaUserSession<TKey>, new()

@@ -25,7 +25,7 @@ using Ejyle.DevAccelerate.MultiTenancy.EF.Tenants;
 
 namespace Ejyle.DevAccelerate.Facades.Security.Authentication
 {
-    public class DaApiAuthenticationFacade : DaApiAuthenticationFacade<string, DaUser, UserManager<DaUser>, DaTenant, DaTenantUser, DaTenantAttribute, DaTenantManager, DaUserSession, DaUserSessionManager, DaAuthenticationResult>
+    public class DaApiAuthenticationFacade : DaApiAuthenticationFacade<string, DaUser, UserManager<DaUser>, DaTenant, DaTenantUser, DaTenantAttribute, DaMTPTenant, DaTenantManager, DaUserSession, DaUserSessionManager, DaAuthenticationResult>
     {
         public DaApiAuthenticationFacade(UserManager<DaUser> userManager, DaTenantManager tenantManager, DaUserSessionManager userSessionManager)
             : base(userManager, tenantManager, userSessionManager)
@@ -33,13 +33,14 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
         }
     }
 
-    public class DaApiAuthenticationFacade<TKey, TUser, TUserManager, TTenant, TTenantUser, TTenantAttribute, TTenantManager, TUserSession, TUserSessionManager, TAuthenticationResult>
-        : DaAuthenticationFacadeBase<TKey, TUser, TUserManager, TTenant, TTenantUser, TTenantAttribute, TTenantManager, TUserSession, TUserSessionManager, TAuthenticationResult>
+    public class DaApiAuthenticationFacade<TKey, TUser, TUserManager, TTenant, TTenantUser, TTenantAttribute, TMTPTenant, TTenantManager, TUserSession, TUserSessionManager, TAuthenticationResult>
+        : DaAuthenticationFacadeBase<TKey, TUser, TUserManager, TTenant, TTenantUser, TTenantAttribute, TMTPTenant, TTenantManager, TUserSession, TUserSessionManager, TAuthenticationResult>
         where TKey : IEquatable<TKey>
         where TUser : DaUser<TKey>
         where TUserManager : UserManager<TUser>
         where TTenantManager : DaTenantManager<TKey, TTenant, TTenantUser>
-        where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute>, new()
+        where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute, TMTPTenant>, new()
+        where TMTPTenant : DaMTPTenant<TKey, TTenant>
         where TTenantAttribute : DaTenantAttribute<TKey, TTenant>
         where TTenantUser : DaTenantUser<TKey, TTenant>, new()
         where TUserSession : DaUserSession<TKey>, new()
