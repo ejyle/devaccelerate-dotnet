@@ -80,34 +80,22 @@ The following is the list of DevAccelerate modules with corresponding NuGet pack
 
 ## Getting Started
 ### Installation
-DevAccelerate modules are available on NuGet. Each module has its own package(s). Use ```dotnet add package``` command to install DevAccelerate modules:
+DevAccelerate modules are available on NuGet. Each module has its own package(s). Use ```dotnet add package``` command to install DevAccelerate modules. Here are some of the examples:
 ```
-dotnet add package DevAccelerateCore
 dotnet add package DevAccelerateCoreEF
-dotnet add package DevAccelerateComments
 dotnet add package DevAccelerateCommentsEF
-dotnet add package DevAccelerateFiles
 dotnet add package DevAccelerateFilesEF
-dotnet add package DevAccelerateLists
 dotnet add package DevAccelerateListsEF
-dotnet add package DevAccelerateIdentity
 dotnet add package DevAccelerateIdentityEF
-dotnet add package DevAcceleratePlatform
 dotnet add package DevAcceleratePlatformEF
-dotnet add package DevAccelerateMultiTenancy
 dotnet add package DevAccelerateMultiTenancyEF
-dotnet add package DevAccelerateSubscriptions
 dotnet add package DevAccelerateSubscriptionsEF
-dotnet add package DevAccelerateTasks
 dotnet add package DevAccelerateTasksEF
-dotnet add package DevAccelerateNotifications
 dotnet add package DevAccelerateNotificationsEF
-dotnet add package DevAccelerateMail
 dotnet add package DevAccelerateMailSendGrid
-dotnet add package DevAccelerateSms
 dotnet add package DevAccelerateSmsTextlocal
 dotnet add package DevAccelerateSmsTwilio
-dotnet add package DevAccelerateSecurityFacade
+dotnet add package DevAccelerateFacades
 ```
 To install all the DevAccelerate modules (libraries) in one go, the DevAccelerateAll metapackage can be quite handy:
 ```
