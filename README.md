@@ -1,3 +1,4 @@
+![DevAccelerate Logo](https://github.com/ejyle/devaccelerate-dotnet/blob/dev/assets/da_logo_sm.png?raw=true)
 # DevAccelerate for .NET
 
 **DevAccelerate for .NET** is a comprehensive and well-designed development accelerator for Microsoft .NET Framework. It is free and open source. It contains common components and functionalities that allow developers to build real-world .NET apps rapidly. It is broken up into individual modules and therefore allows developers to use only what is needed. The usage of the framework is governed by the terms and conditions of its [License](https://github.com/devaccelerate/DevAccelerateNet/blob/master/LICENSE).
@@ -11,6 +12,7 @@ DevAccelerate for .NET 7.0 is a major release and has new many new APIs and some
 * Moved apps and features related types to a new module called platform.
 * Moved user profile related types to identity module.
 * Removed enterprise security and profiles modules.
+  Migrated the new messages module back to notifications.
 * General design and code improvements.
 
 ## 6.5.0 Changes
@@ -56,9 +58,9 @@ The following is the list of DevAccelerate modules with corresponding NuGet pack
 #### Subscriptions
 * [DevAccelerateSubscriptions](https://www.nuget.org/packages/DevAccelerateSubscriptions/)
 * [DevAccelerateSubscriptionsEF](https://www.nuget.org/packages/DevAccelerateSubscriptionsEF/)
-#### Messages
-* [DevAccelerateMessages](https://www.nuget.org/packages/DevAccelerateMessages)
-* [DevAccelerateMessagesEF](https://www.nuget.org/packages/DevAccelerateMessagesEF)
+#### Notifications
+* [DevAccelerateNotifications](https://www.nuget.org/packages/DevAccelerateNotifications)
+* [DevAccelerateNotificationsEF](https://www.nuget.org/packages/DevAccelerateNotificationsEF)
 #### Mail and SMS
 * [DevAccelerateMail](https://www.nuget.org/packages/DevAccelerateMail/)
 * [DevAccelerateMailSendGrid](https://www.nuget.org/packages/DevAccelerateMailSendGrid/)
@@ -98,8 +100,8 @@ dotnet add package DevAccelerateSubscriptions
 dotnet add package DevAccelerateSubscriptionsEF
 dotnet add package DevAccelerateTasks
 dotnet add package DevAccelerateTasksEF
-dotnet add package DevAccelerateMessages
-dotnet add package DevAccelerateMessagesEF
+dotnet add package DevAccelerateNotifications
+dotnet add package DevAccelerateNotificationsEF
 dotnet add package DevAccelerateMail
 dotnet add package DevAccelerateMailSendGrid
 dotnet add package DevAccelerateSms
