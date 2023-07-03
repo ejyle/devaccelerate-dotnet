@@ -11,20 +11,23 @@ using System.Collections.Generic;
 
 namespace Ejyle.DevAccelerate.MultiTenancy.Tenants
 {
-    public class DaTenant : DaTenant<string, DaTenantUser, DaTenantAttribute>
+    public class DaTenant : DaTenant<string, DaTenantUser, DaTenantAttribute, DaMTPTenant>
     {
         public DaTenant() : base()
         { }
     }
 
-    public class DaTenant<TKey, TTenantUser, TTenantAttribute> : DaAuditedEntityBase<TKey>, IDaTenant<TKey>
+    public class DaTenant<TKey, TTenantUser, TTenantAttribute, TMTPTenant> : DaAuditedEntityBase<TKey>, IDaTenant<TKey>
         where TKey : IEquatable<TKey>
         where TTenantUser : IDaTenantUser<TKey>
         where TTenantAttribute : IDaTenantAttribute<TKey>
+        where TMTPTenant : IDaMTPTenant<TKey>
     {
         public DaTenant()
         {
-            TenantUsers = new List<TTenantUser>();
+            TenantUsers = new HashSet<TTenantUser>();
+            MTPManagedTenants = new HashSet<TMTPTenant>();
+            MTPTenants = new HashSet<TMTPTenant>();
         }
 
         public virtual ICollection<TTenantUser> TenantUsers { get; set; }
@@ -42,7 +45,9 @@ namespace Ejyle.DevAccelerate.MultiTenancy.Tenants
         public string BillingEmail { get; set; }
         public string DateFormat { get; set; }
         public string SystemLanguage { get; set; }
-        public bool? IsMTP { get; set; }
-        public bool? IsMTPManaged { get; set;}
+        public bool IsMTP { get; set; }
+        public bool IsMTPManaged { get; set; }
+        public virtual ICollection<TMTPTenant> MTPTenants { get; set; }
+        public virtual ICollection<TMTPTenant> MTPManagedTenants { get; set; }
     }
 }

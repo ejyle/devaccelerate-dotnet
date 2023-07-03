@@ -11,18 +11,21 @@ using System.Collections.Generic;
 
 namespace Ejyle.DevAccelerate.MultiTenancy.Tenants
 {
-    public class DaMTPTenant : DaMTPTenant<string>
+    public class DaMTPTenant : DaMTPTenant<string, DaTenant>
     {
         public DaMTPTenant() : base()
         { }
     }
 
-    public class DaMTPTenant<TKey> : DaAuditedEntityBase<TKey>, IDaMTPTenant<TKey>
+    public class DaMTPTenant<TKey, TTenant> : DaAuditedEntityBase<TKey>, IDaMTPTenant<TKey>
         where TKey : IEquatable<TKey>
+        where TTenant : IDaTenant<TKey>
     {
         public TKey MTPTenantId { get; set; }
-        public TKey TenantId { get; set; }
+        public TKey MTPManagedTenantId { get; set; }
         public int MTPNumber { get; set; }
         public bool IsActive { get; set; }
+        public virtual TTenant MTPTenant { get; set; }
+        public virtual TTenant MTPManagedTenant { get; set; }
     }
 }

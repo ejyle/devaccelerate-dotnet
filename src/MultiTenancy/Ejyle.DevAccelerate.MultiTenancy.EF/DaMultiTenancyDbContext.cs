@@ -32,10 +32,10 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
 
     public class DaMultiTenancyDbContext<TKey, TTenant, TTenantUser, TTenantAttribute, TMTPTenant, TApiKey, TOrganization, TOrganizationAttribute, TOrganizationGroup, TAddressProfile, TUserAddress> : DbContext
         where TKey : IEquatable<TKey>
-        where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute>
+        where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute, TMTPTenant>
         where TTenantAttribute : DaTenantAttribute<TKey, TTenant>
         where TTenantUser : DaTenantUser<TKey, TTenant>
-        where TMTPTenant : DaMTPTenant<TKey>
+        where TMTPTenant : DaMTPTenant<TKey, TTenant>
         where TApiKey : DaApiKey<TKey>
         where TOrganization : DaOrganization<TKey, TOrganization, TOrganizationAttribute, TOrganizationGroup>
         where TOrganizationGroup : DaOrganizationGroup<TKey, TOrganizationGroup, TOrganization>
@@ -123,7 +123,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
                 entity.ToTable("MTPTenants", SCHEMA_NAME);
 
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
-                entity.Property(e => e.TenantId).IsRequired();
+                entity.Property(e => e.MTPManagedTenantId).IsRequired();
                 entity.Property(e => e.MTPTenantId).IsRequired();
 
                 entity.Property(e => e.MTPNumber)
@@ -137,6 +137,18 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
                 entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
                 entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
                 entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
+
+                entity.HasOne(d => d.MTPManagedTenant)
+                    .WithMany(p => p.MTPManagedTenants)
+                    .HasForeignKey(d => d.MTPManagedTenantId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_MTPTenants_MTPManagedTenants");
+
+                entity.HasOne(d => d.MTPTenant)
+                    .WithMany(p => p.MTPTenants)
+                    .HasForeignKey(d => d.MTPTenantId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_MTPTenants_MTPTenants");
             });
 
             modelBuilder.Entity<TTenant>(entity =>

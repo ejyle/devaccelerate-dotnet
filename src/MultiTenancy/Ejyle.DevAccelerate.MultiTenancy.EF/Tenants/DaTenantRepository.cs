@@ -26,8 +26,8 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF.Tenants
     public class DaTenantRepository<TKey, TTenant, TTenantUser, TTenantAttribute, TMTPTenant, TDbContext>
          : DaEntityRepositoryBase<TKey, TTenant, DbContext>, IDaTenantRepository<TKey, TTenant, TTenantUser>
         where TKey : IEquatable<TKey>
-        where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute>
-        where TMTPTenant : DaMTPTenant<TKey>, new()
+        where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute, TMTPTenant>
+        where TMTPTenant : DaMTPTenant<TKey, TTenant>, new()
         where TTenantUser : DaTenantUser<TKey, TTenant>
         where TTenantAttribute : DaTenantAttribute<TKey, TTenant>
     {
@@ -108,15 +108,20 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF.Tenants
         public async Task CreateAsync(TTenant tenant, TKey mtpTenantId)
         {
             tenant.IsMTPManaged = true;
-
             TenantsSet.Add(tenant);
-            await SaveChangesAsync();
+
+            var mtpTenant = await TenantsSet.Where(m => m.Id.Equals(mtpTenantId)).SingleOrDefaultAsync();   
+
+            if(mtpTenant == null)
+            {
+                throw new InvalidOperationException("MTPTenant not found.");
+            }
 
             var mtpMember = new TMTPTenant()
             {
                 IsActive = true,
-                TenantId = tenant.Id,
-                MTPTenantId = mtpTenantId,
+                MTPManagedTenant = tenant,
+                MTPTenant = mtpTenant,
                 CreatedBy = tenant.CreatedBy,
                 LastUpdatedBy = tenant.LastUpdatedBy,
                 CreatedDateUtc = tenant.CreatedDateUtc,
@@ -129,7 +134,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF.Tenants
 
         public Task UpdateMTPTenantStatusAsync(TKey mtpTenantId, TKey tenantId, bool isActive)
         {
-            var mtpTenant = MTPTenantsSet.Where(m => m.MTPTenantId.Equals(mtpTenantId) && m.TenantId.Equals(tenantId)).SingleOrDefault();
+            var mtpTenant = MTPTenantsSet.Where(m => m.MTPTenantId.Equals(mtpTenantId) && m.MTPManagedTenantId.Equals(tenantId)).SingleOrDefault();
 
             if (mtpTenant == null)
             {

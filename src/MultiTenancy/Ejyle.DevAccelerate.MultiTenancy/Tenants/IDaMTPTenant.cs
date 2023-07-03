@@ -14,7 +14,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy.Tenants
         where TKey : IEquatable<TKey>
     {
         TKey MTPTenantId { get; set; }
-        TKey TenantId { get; set; }
+        TKey MTPManagedTenantId { get; set; }
         int MTPNumber { get; set; }
         bool IsActive { get; set; }
     }
