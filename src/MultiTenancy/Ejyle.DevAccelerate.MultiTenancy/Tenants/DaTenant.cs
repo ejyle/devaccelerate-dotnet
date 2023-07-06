@@ -45,8 +45,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy.Tenants
         public string BillingEmail { get; set; }
         public string DateFormat { get; set; }
         public string SystemLanguage { get; set; }
-        public bool IsMTP { get; set; }
-        public bool IsMTPManaged { get; set; }
+        public DaTenantMTPStatus MTPStatus { get; set; }
         public virtual ICollection<TMTPTenant> MTPTenants { get; set; }
         public virtual ICollection<TMTPTenant> MTPManagedTenants { get; set; }
     }

@@ -84,13 +84,8 @@ namespace Ejyle.DevAccelerate.MultiTenancy.Tenants
         string BillingEmail { get; set; }
 
         /// <summary>
-        /// Determines if the tenant is a managed tenant provider.
+        /// Gets or sets the MTP status of the tenant.
         /// </summary>
-        bool IsMTP { get; set; }
-
-        /// <summary>
-        /// Determines if the tenant is managed by an MTP.
-        /// </summary>
-        bool IsMTPManaged { get; set; }
+        DaTenantMTPStatus MTPStatus { get; set; }
     }
 }

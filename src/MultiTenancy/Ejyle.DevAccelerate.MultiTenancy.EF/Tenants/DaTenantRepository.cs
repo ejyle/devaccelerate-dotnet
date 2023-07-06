@@ -107,7 +107,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF.Tenants
 
         public async Task CreateAsync(TTenant tenant, TKey mtpTenantId)
         {
-            tenant.IsMTPManaged = true;
+            tenant.MTPStatus = DaTenantMTPStatus.IsMTPManaged;
             TenantsSet.Add(tenant);
 
             var mtpTenant = await TenantsSet.Where(m => m.Id.Equals(mtpTenantId)).SingleOrDefaultAsync();   
