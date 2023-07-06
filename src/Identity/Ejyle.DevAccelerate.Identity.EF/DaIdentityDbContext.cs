@@ -40,7 +40,7 @@ namespace Ejyle.DevAccelerate.Identity.EF
         where TUser: IdentityUser<TKey>
         where TUserProfile : DaUserProfile<TKey, TUserProfileAttribute>
         where TUserProfileAttribute : DaUserProfileAttribute<TKey, TUserProfile>
-        where TRole : IdentityRole<TKey>
+        where TRole : DaRole<TKey>
         where TGroup : DaGroup<TKey, TGroupRole, TGroupUser>
         where TGroupRole : DaGroupRole<TKey, TGroup>
         where TGroupUser : DaGroupUser<TKey, TGroup>
@@ -105,13 +105,17 @@ namespace Ejyle.DevAccelerate.Identity.EF
             modelBuilder.Entity<TUser>(entity =>
             {
                 entity.ToTable("Users", SCHEMA_NAME);
-                entity.Property("Id").ValueGeneratedOnAdd();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
             });
 
             modelBuilder.Entity<TRole>(entity =>
             {
                 entity.ToTable("Roles", SCHEMA_NAME);
-                entity.Property("Id").ValueGeneratedOnAdd();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.FriendlyName).HasMaxLength(256).IsRequired();
+                entity.Property(e => e.Owner).HasMaxLength(450);
+                entity.Property(e => e.Description).HasMaxLength(1000);
             });
 
             modelBuilder.Entity<IdentityUserClaim<TKey>>().ToTable("UserClaims", SCHEMA_NAME);

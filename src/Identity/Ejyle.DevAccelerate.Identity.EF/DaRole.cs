@@ -30,15 +30,16 @@ namespace Ejyle.DevAccelerate.Identity.EF
     public class DaRole<TKey> : IdentityRole<TKey>, IDaRole<TKey>
         where TKey : IEquatable<TKey>
     {
-        public const string GLOBAL_SUPER_ADMIN = "GlobalSuperAdmin";
-        public const string TENANT_SUPER_ADMIN = "TenantSuperAdmin";
-        public const string USER = "User";
-
         /// <summary>
         /// Creates an instance of the Role class.
         /// </summary>
         public DaRole()
             : base()
         { }
+
+        public string FriendlyName { get; set;  }
+        public DaRoleType RoleType { get; set;  }
+        public string Owner { get; set;  }
+        public string Description { get; set; }
     }
 }
