@@ -17,6 +17,7 @@ using CommandLine;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Ejyle.DevAccelerate.Identity;
 
 namespace Ejyle.DevAccelerate.Tools.Commands.Identity
 {
@@ -101,6 +102,8 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Identity
 
                     role = new DaRole();
                     role.Name = roleName;
+                    role.FriendlyName = roleName;
+                    role.RoleType = DaRoleType.SystemRole;
 
                     results.Add(DaAsyncHelper.RunSync<IdentityResult>(() => roleManager.CreateAsync(role)));
                 }
