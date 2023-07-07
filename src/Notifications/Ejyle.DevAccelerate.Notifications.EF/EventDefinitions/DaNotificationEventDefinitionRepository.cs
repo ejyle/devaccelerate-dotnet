@@ -13,18 +13,6 @@ using Ejyle.DevAccelerate.Core.EF;
 using Ejyle.DevAccelerate.Notifications.EventDefinitions;
 using Microsoft.EntityFrameworkCore;
 using Ejyle.DevAccelerate.Core.Data;
-
-/* Unmerged change from project 'Ejyle.DevAccelerate.Notifications.EF (netcoreapp3.1)'
-Before:
-using System.Xml.Linq;
-After:
-using System.Xml.Linq;
-using Ejyle;
-using Ejyle.DevAccelerate;
-using Ejyle.DevAccelerate.Notifications;
-using Ejyle.DevAccelerate.Notifications.EF;
-using Ejyle.DevAccelerate.Notifications.EF.EventDefinitions;
-*/
 using System.Xml.Linq;
 
 namespace Ejyle.DevAccelerate.Notifications.EF.EventDefinitions
@@ -74,7 +62,7 @@ namespace Ejyle.DevAccelerate.Notifications.EF.EventDefinitions
 
         public Task<TNotificationEventDefinition> FindByNameAsync(string name)
         {
-            return NotificationEventDefinitions.Where(m => m.Name == name).SingleOrDefaultAsync();
+            return NotificationEventDefinitions.Where(m => m.Name == name).Include(m => m.Channels).SingleOrDefaultAsync();
         }
 
         public Task UpdateAsync(TNotificationEventDefinition notificationEventDefinition)
