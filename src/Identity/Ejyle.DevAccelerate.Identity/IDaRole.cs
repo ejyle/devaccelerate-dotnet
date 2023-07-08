@@ -38,6 +38,11 @@ namespace Ejyle.DevAccelerate.Identity
         string Owner { get; set; }
 
         /// <summary>
+        /// Gets or sets the owner type of the role.
+        /// </summary>
+        string OwnerType { get; set; }
+
+        /// <summary>
         /// Gets or sets the description of the role.
         /// </summary>
         string Description { get; set; }

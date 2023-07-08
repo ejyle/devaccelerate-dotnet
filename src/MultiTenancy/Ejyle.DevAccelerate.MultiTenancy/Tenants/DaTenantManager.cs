@@ -13,19 +13,20 @@ using System.Linq;
 
 namespace Ejyle.DevAccelerate.MultiTenancy.Tenants
 {
-    public class DaTenantManager<TKey, TTenant, TTenantUser>
+    public class DaTenantManager<TKey, TTenant, TTenantUser, TMTPTenant>
         : DaEntityManagerBase<TKey, TTenant>
         where TKey : IEquatable<TKey>
         where TTenant : IDaTenant<TKey>
         where TTenantUser : IDaTenantUser<TKey>
+        where TMTPTenant : IDaMTPTenant<TKey>
     {
-        public DaTenantManager(IDaTenantRepository<TKey, TTenant, TTenantUser> repository)
+        public DaTenantManager(IDaTenantRepository<TKey, TTenant, TTenantUser, TMTPTenant> repository)
             : base(repository)
         { }
 
-        private IDaTenantRepository<TKey, TTenant, TTenantUser> GetRepository()
+        private IDaTenantRepository<TKey, TTenant, TTenantUser, TMTPTenant> GetRepository()
         {
-            return GetRepository<IDaTenantRepository<TKey, TTenant, TTenantUser>>();
+            return GetRepository<IDaTenantRepository<TKey, TTenant, TTenantUser, TMTPTenant>>();
         }
 
         public Task CreateAsync(TTenant tenant)
@@ -111,6 +112,17 @@ namespace Ejyle.DevAccelerate.MultiTenancy.Tenants
         public List<TTenant> FindByUserId(TKey userId)
         {
             return DaAsyncHelper.RunSync(() => FindByUserIdAsync(userId));
+        }
+
+        public Task<TMTPTenant> FindMTPTenantIdAsync(TKey tenantId)
+        {
+            ThrowIfDisposed();
+            return GetRepository().FindMTPTenantIdAsync(tenantId);
+        }
+
+        public TMTPTenant FindMTPTenantId(TKey tenantId)
+        {
+            return DaAsyncHelper.RunSync(() => FindMTPTenantIdAsync(tenantId));
         }
 
         public IQueryable<TTenant> Tenants

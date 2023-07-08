@@ -115,6 +115,7 @@ namespace Ejyle.DevAccelerate.Identity.EF
 
                 entity.Property(e => e.FriendlyName).HasMaxLength(256).IsRequired();
                 entity.Property(e => e.Owner).HasMaxLength(450);
+                entity.Property(e => e.Owner).HasMaxLength(256);
                 entity.Property(e => e.Description).HasMaxLength(1000);
             });
 

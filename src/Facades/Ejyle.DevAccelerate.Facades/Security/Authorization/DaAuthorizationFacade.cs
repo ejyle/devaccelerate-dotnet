@@ -89,7 +89,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authorization
         where TBillingCycleAttribute : DaBillingCycleAttribute<TKey, TBillingCycle>
         where TBillingCycleFeatureUsage : DaBillingCycleFeatureUsage<TKey, TBillingCycle, TSubscriptionFeature>
         where TSubscriptionAttribute : DaSubscriptionAttribute<TKey, TSubscription>
-        where TTenantManager : DaTenantManager<TKey, TTenant, TTenantUser>
+        where TTenantManager : DaTenantManager<TKey, TTenant, TTenantUser, TMTPTenant>
         where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute, TMTPTenant>, new()
         where TMTPTenant : DaMTPTenant<TKey, TTenant>
         where TTenantAttribute : DaTenantAttribute<TKey, TTenant>

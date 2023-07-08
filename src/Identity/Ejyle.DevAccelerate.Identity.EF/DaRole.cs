@@ -41,5 +41,6 @@ namespace Ejyle.DevAccelerate.Identity.EF
         public DaRoleType RoleType { get; set;  }
         public string Owner { get; set;  }
         public string Description { get; set; }
+        public string OwnerType { get; set; }
     }
 }

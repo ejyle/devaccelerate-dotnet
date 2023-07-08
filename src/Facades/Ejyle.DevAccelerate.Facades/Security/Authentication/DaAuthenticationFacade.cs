@@ -39,7 +39,7 @@ namespace Ejyle.DevAccelerate.Facades.Security.Authentication
         where TUser : DaUser<TKey>
         where TUserManager : UserManager<TUser>
         where TSignInManager : SignInManager<TUser>
-        where TTenantManager : DaTenantManager<TKey, TTenant, TTenantUser>
+        where TTenantManager : DaTenantManager<TKey, TTenant, TTenantUser, TMTPTenant>
         where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute, TMTPTenant>, new()
         where TMTPTenant : DaMTPTenant<TKey, TTenant>
         where TTenantAttribute : DaTenantAttribute<TKey, TTenant>

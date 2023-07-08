@@ -24,7 +24,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF.Tenants
     }
 
     public class DaTenantRepository<TKey, TTenant, TTenantUser, TTenantAttribute, TMTPTenant, TDbContext>
-         : DaEntityRepositoryBase<TKey, TTenant, DbContext>, IDaTenantRepository<TKey, TTenant, TTenantUser>
+         : DaEntityRepositoryBase<TKey, TTenant, DbContext>, IDaTenantRepository<TKey, TTenant, TTenantUser, TMTPTenant>
         where TKey : IEquatable<TKey>
         where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute, TMTPTenant>
         where TMTPTenant : DaMTPTenant<TKey, TTenant>, new()
@@ -146,6 +146,23 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF.Tenants
 
             DbContext.Entry(mtpTenant).State = EntityState.Modified;
             return SaveChangesAsync();
+        }
+
+        public async Task<TMTPTenant> FindMTPTenantIdAsync(TKey id)
+        {
+            var tenant = await TenantsSet.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
+            
+            if(tenant == null)
+            {
+                throw new ArgumentException($"Invalid {nameof(id)} {id}");
+            }
+
+            if(tenant.MTPStatus != DaTenantMTPStatus.IsMTPManaged)
+            {
+                return null;
+            }
+
+            return await MTPTenantsSet.Where(m => m.MTPManagedTenantId.Equals(tenant.Id)).SingleOrDefaultAsync();
         }
     }
 }
