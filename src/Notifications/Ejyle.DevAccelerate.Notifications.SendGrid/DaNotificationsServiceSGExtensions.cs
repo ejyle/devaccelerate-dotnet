@@ -15,7 +15,7 @@ namespace Ejyle.DevAccelerate.Notifications.SendGrid
             var paginationCriteria = new DaDataPaginationCriteria(1, 1000);
             var result = await service.NotificationManager.FindAsync(paginationCriteria, Delivery.DaNotificationStatus.New, DaNotificationChannel.EmailNotification);
 
-            if (result.Entities == null && result.Entities.Count > 0)
+            if (result.Entities != null && result.Entities.Count > 0)
             {
                 var mailProvider = new DaSendGridMailProvider(settings);
                 foreach (var entity in result.Entities)
