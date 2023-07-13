@@ -15,7 +15,7 @@ using System.Xml;
 
 namespace Ejyle.DevAccelerate.MultiTenancy.EF
 {
-    public class DaMultiTenancyDbContext : DaMultiTenancyDbContext<string, DaTenant, DaTenantUser, DaTenantAttribute, DaMTPTenant, DaApiKey, DaOrganization, DaOrganizationAttribute, DaOrganizationGroup, DaAddressProfile, DaUserAddress>
+    public class DaMultiTenancyDbContext : DaMultiTenancyDbContext<string, DaTenant, DaTenantUser, DaTenantAttribute, DaMTPTenant, DaTenantDomain, DaApiKey, DaOrganization, DaOrganizationAttribute, DaOrganizationGroup, DaAddressProfile, DaUserAddress>
     {
         public DaMultiTenancyDbContext()
             : base()
@@ -30,12 +30,13 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
         { }
     }
 
-    public class DaMultiTenancyDbContext<TKey, TTenant, TTenantUser, TTenantAttribute, TMTPTenant, TApiKey, TOrganization, TOrganizationAttribute, TOrganizationGroup, TAddressProfile, TUserAddress> : DbContext
+    public class DaMultiTenancyDbContext<TKey, TTenant, TTenantUser, TTenantAttribute, TMTPTenant, TTenantDomain, TApiKey, TOrganization, TOrganizationAttribute, TOrganizationGroup, TAddressProfile, TUserAddress> : DbContext
         where TKey : IEquatable<TKey>
-        where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute, TMTPTenant>
+        where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute, TMTPTenant, TTenantDomain>
         where TTenantAttribute : DaTenantAttribute<TKey, TTenant>
         where TTenantUser : DaTenantUser<TKey, TTenant>
         where TMTPTenant : DaMTPTenant<TKey, TTenant>
+        where TTenantDomain : DaTenantDomain<TKey, TTenant>
         where TApiKey : DaApiKey<TKey>
         where TOrganization : DaOrganization<TKey, TOrganization, TOrganizationAttribute, TOrganizationGroup>
         where TOrganizationGroup : DaOrganizationGroup<TKey, TOrganizationGroup, TOrganization>
@@ -53,7 +54,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
             : base(options)
         { }
 
-        public DaMultiTenancyDbContext(DbContextOptions<DaMultiTenancyDbContext<TKey, TTenant, TTenantUser, TTenantAttribute, TMTPTenant, TApiKey, TOrganization, TOrganizationAttribute, TOrganizationGroup, TAddressProfile, TUserAddress>> options)
+        public DaMultiTenancyDbContext(DbContextOptions<DaMultiTenancyDbContext<TKey, TTenant, TTenantUser, TTenantAttribute, TMTPTenant, TTenantDomain, TApiKey, TOrganization, TOrganizationAttribute, TOrganizationGroup, TAddressProfile, TUserAddress>> options)
             : base(options)
         { }
 
@@ -61,9 +62,9 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
             : base(GetOptions(connectionString))
         { }
 
-        private static DbContextOptions<DaMultiTenancyDbContext<TKey, TTenant, TTenantUser, TTenantAttribute, TMTPTenant, TApiKey, TOrganization, TOrganizationAttribute, TOrganizationGroup, TAddressProfile, TUserAddress>> GetOptions(string connectionString)
+        private static DbContextOptions<DaMultiTenancyDbContext<TKey, TTenant, TTenantUser, TTenantAttribute, TMTPTenant, TTenantDomain, TApiKey, TOrganization, TOrganizationAttribute, TOrganizationGroup, TAddressProfile, TUserAddress>> GetOptions(string connectionString)
         {
-            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaMultiTenancyDbContext<TKey, TTenant, TTenantUser, TTenantAttribute, TMTPTenant, TApiKey, TOrganization, TOrganizationAttribute, TOrganizationGroup, TAddressProfile, TUserAddress>>(), connectionString).Options;
+            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaMultiTenancyDbContext<TKey, TTenant, TTenantUser, TTenantAttribute, TMTPTenant, TTenantDomain, TApiKey, TOrganization, TOrganizationAttribute, TOrganizationGroup, TAddressProfile, TUserAddress>>(), connectionString).Options;
         }
 
         public virtual DbSet<TTenant> Tenants { get; set; }
@@ -157,18 +158,18 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
 
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
-                entity.Property(e => e.BillingEmail).HasMaxLength(256);
+                entity.Property(e => e.BillingEmail)
+                    .HasMaxLength(256);
 
-                entity.Property(e => e.Domain).HasMaxLength(256);
+                entity.Property(e => e.FriendlyName)
+                    .HasMaxLength(256)
+                    .IsRequired();
 
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(256);
 
                 entity.HasIndex(e => e.Name)
-                    .IsUnique();
-
-                entity.HasIndex(e => e.Domain)
                     .IsUnique();
 
                 entity.Property(e => e.Country).HasMaxLength(450);
@@ -182,6 +183,35 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF
                 entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
                 entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
                 entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<TTenantDomain>(entity =>
+            {
+                entity.ToTable("Domains", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.VerificationValue)
+                    .HasMaxLength(256)
+                    .IsRequired();
+
+                entity.Property(e => e.VerificationFileName)
+                    .HasMaxLength(256);
+
+                entity.HasIndex(e => e.Domain)
+                    .IsUnique();
+
+                entity.Property(e => e.VerificationCodeCreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.VerificationCodeExpiryDateUtc).HasColumnType("datetime");
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Tenant)
+                     .WithMany(p => p.Domains)
+                     .HasForeignKey(d => d.TenantId);
             });
 
             modelBuilder.Entity<TAddressProfile>(entity =>

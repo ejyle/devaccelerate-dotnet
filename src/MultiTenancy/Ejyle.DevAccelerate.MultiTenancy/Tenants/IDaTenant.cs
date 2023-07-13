@@ -24,24 +24,19 @@ namespace Ejyle.DevAccelerate.MultiTenancy.Tenants
         DaTenantType TenantType { get; set; }
 
         /// <summary>
-        /// Gets the name of a tenant.
+        /// Gets or sets the name of a tenant.
         /// </summary>
         string Name { get; set; }
 
         /// <summary>
-        /// Gets the unique domain of a tenant.
+        /// Gets or sets the friendly name of a tenant.
         /// </summary>
-        string Domain { get; set; }
+        string FriendlyName { get; set; }
 
         /// <summary>
         /// Determines if the tenant is part of the system.
         /// </summary>
         bool IsSystemTenant { get; set; }
-
-        /// <summary>
-        /// Determines if the domain's ownership is verified or not.
-        /// </summary>
-        bool IsDomainOwnershipVerified { get; set; }
 
         /// <summary>
         /// Gets or sets the country of the tenant.

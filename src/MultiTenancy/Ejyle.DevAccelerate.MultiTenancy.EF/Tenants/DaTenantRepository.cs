@@ -16,20 +16,21 @@ using Ejyle.DevAccelerate.MultiTenancy.Tenants;
 
 namespace Ejyle.DevAccelerate.MultiTenancy.EF.Tenants
 {
-    public class DaTenantRepository : DaTenantRepository<string, DaTenant, DaTenantUser, DaTenantAttribute, DaMTPTenant, DbContext>
+    public class DaTenantRepository : DaTenantRepository<string, DaTenant, DaTenantUser, DaTenantAttribute, DaMTPTenant, DaTenantDomain, DbContext>
     {
         public DaTenantRepository(DbContext dbContext)
             : base(dbContext)
         { }
     }
 
-    public class DaTenantRepository<TKey, TTenant, TTenantUser, TTenantAttribute, TMTPTenant, TDbContext>
+    public class DaTenantRepository<TKey, TTenant, TTenantUser, TTenantAttribute, TMTPTenant, TTenantDomain, TDbContext>
          : DaEntityRepositoryBase<TKey, TTenant, DbContext>, IDaTenantRepository<TKey, TTenant, TTenantUser, TMTPTenant>
         where TKey : IEquatable<TKey>
-        where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute, TMTPTenant>
+        where TTenant : DaTenant<TKey, TTenantUser, TTenantAttribute, TMTPTenant, TTenantDomain>
         where TMTPTenant : DaMTPTenant<TKey, TTenant>, new()
         where TTenantUser : DaTenantUser<TKey, TTenant>
         where TTenantAttribute : DaTenantAttribute<TKey, TTenant>
+        where TTenantDomain : DaTenantDomain<TKey, TTenant>
     {
         public DaTenantRepository(DbContext dbContext)
             : base(dbContext)
@@ -38,9 +39,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF.Tenants
         private DbSet<TTenant> TenantsSet { get { return DbContext.Set<TTenant>(); } }
         private DbSet<TTenantUser> TenantUsersSet { get { return DbContext.Set<TTenantUser>(); } }
         private DbSet<TMTPTenant> MTPTenantsSet { get { return DbContext.Set<TMTPTenant>(); } }
-
         public IQueryable<TTenant> Tenants => TenantsSet.AsQueryable();
-
         public IQueryable<TTenantUser> TenantUsers => TenantUsersSet.AsQueryable();
 
         public Task CreateAsync(TTenant tenant)
@@ -53,6 +52,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF.Tenants
         {
             return TenantsSet.Where(m => m.Id.Equals(tenantId))
                 .Include(x => x.TenantUsers)
+                .Include(x => x.Domains)
                 .Include(x => x.Attributes)
                 .SingleOrDefaultAsync();
         }
@@ -73,6 +73,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF.Tenants
         {
             return TenantsSet.Where(m => m.TenantUsers.Any(x => x.UserId.Equals(userId)))
                 .Include(x => x.TenantUsers)
+                .Include(x => x.Domains)
                 .Include(x => x.Attributes)
                 .ToListAsync();
         }
@@ -93,6 +94,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF.Tenants
         {
             return TenantsSet.Where(m => m.Attributes.Any(x => x.AttributeName == attributeName && x.AttributeValue == attributeValue))
                 .Include(x => x.TenantUsers)
+                .Include(x => x.Domains)
                 .Include(x => x.Attributes)
                 .ToListAsync();
         }
@@ -101,6 +103,7 @@ namespace Ejyle.DevAccelerate.MultiTenancy.EF.Tenants
         {
             return TenantsSet.Where(m => m.Name == name)
                 .Include(x => x.TenantUsers)
+                .Include(x => x.Domains)
                 .Include(x => x.Attributes)
                 .SingleOrDefaultAsync();
         }
