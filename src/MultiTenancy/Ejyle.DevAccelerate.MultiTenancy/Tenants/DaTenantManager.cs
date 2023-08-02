@@ -85,9 +85,9 @@ namespace Ejyle.DevAccelerate.MultiTenancy.Tenants
             return GetRepository().FindByNameAsync(name);
         }
 
-        public TTenant FindByUniqueName(string uniqueName)
+        public TTenant FindByName(string name)
         {
-            return DaAsyncHelper.RunSync(() => FindByNameAsync(uniqueName));
+            return DaAsyncHelper.RunSync(() => FindByNameAsync(name));
         }
 
         public Task UpdateAsync(TTenant tenant)
