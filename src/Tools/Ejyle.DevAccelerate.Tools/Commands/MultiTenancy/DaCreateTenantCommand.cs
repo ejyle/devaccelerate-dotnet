@@ -91,9 +91,22 @@ namespace Ejyle.DevAccelerate.Tools.Commands.MultiTenancy
                     Username = Name
                 };
 
+                var addUserToRoleCmd = new DaAddUserToRolesCommand()
+                {
+                    Role = "TENANT_ADMIN, TENANT_USER",
+                    Username = Username
+                };
+
                 try
                 {
                     userCreationCmd.Execute();
+
+                    if(mtpTenant == null && IsMTP == true)
+                    {
+                        addUserToRoleCmd.Role = $"{addUserToRoleCmd.Role}, MTP_ADMIN";
+                    }
+
+                    addUserToRoleCmd.Execute();
 
                     var services = new DaIdentityServiceConfiguration().CreateAndConfigureIdentity(GetConnectionString());
                     services.AddScoped<IDaUserService, DaUserService>();
