@@ -47,7 +47,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Identity
             EnsureConnectionIsValid();
 
             var services = new DaIdentityServiceConfiguration().CreateAndConfigureIdentity(GetConnectionString());
-            services.AddScoped<IDaUserService, UserCreationService>();
+            services.AddScoped<IDaUserService, DaUserService>();
             
             var provider = services.BuildServiceProvider();
 
@@ -71,41 +71,6 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Identity
                 }
 
                 throw new Exception(errorMessage);
-            }
-        }
-
-        private interface IDaUserService
-        {
-            IdentityResult Create(string userName, string email, string password);
-        }
-
-        private class UserCreationService : IDaUserService
-        {
-            private readonly UserManager<DaUser> userManager;
-
-            public UserCreationService(UserManager<DaUser> userManager)
-            {
-                this.userManager = userManager;
-            }
-
-            public IdentityResult Create(string userName, string email, string password)
-            {
-                var user = DaAsyncHelper.RunSync<DaUser>(() => this.userManager.FindByNameAsync(userName));
-
-                if(user != null)
-                {
-                    throw new Exception($"Username {userName} already exists.");
-                }
-
-                user = DaAsyncHelper.RunSync<DaUser>(() => this.userManager.FindByEmailAsync(email));
-
-                if (user != null)
-                {
-                    throw new Exception($"Email address {email} already exists.");
-                }
-
-                user = new DaUser { UserName = userName, Email = email, EmailConfirmed = true, Status = DaAccountStatus.Active };
-                return DaAsyncHelper.RunSync<IdentityResult>(() => this.userManager.CreateAsync(user, password));
             }
         }
     }

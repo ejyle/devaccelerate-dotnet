@@ -13,6 +13,7 @@ using Ejyle.DevAccelerate.Tools.Commands.Platform;
 using Ejyle.DevAccelerate.Tools.Commands.Files;
 using Ejyle.DevAccelerate.Tools.Commands.Identity;
 using Ejyle.DevAccelerate.Tools.Commands.Lists;
+using Ejyle.DevAccelerate.Tools.Commands.MultiTenancy;
 
 namespace Ejyle.DevAccelerate.Tools
 {
@@ -33,7 +34,9 @@ namespace Ejyle.DevAccelerate.Tools
                     DaCreateFileStorageLocationCommand,
                     DaCreateUserCommand,
                     DaCreateRolesCommand,
-                    DaAddUserToRolesCommand>(args)
+                    DaAddUserToRolesCommand,
+                    DaCreateTenantCommand,
+                    DaAddUserToTenantCommand>(args)
                 .WithParsed<IDaCommand>(t => t.Execute());
             }
             catch (Exception ex)
