@@ -25,8 +25,8 @@ namespace Ejyle.DevAccelerate.Tools.Commands.MultiTenancy
             set;
         }
 
-        [Option('m', "mtpid", Required = false, HelpText = "ID of the MTP with which tenant will be associated with.")]
-        public string MTPId
+        [Option('m', "mtpname", Required = false, HelpText = "Name of the MTP with which tenant will be associated with.")]
+        public string MTPName
         {
             get;
             set;
@@ -74,13 +74,13 @@ namespace Ejyle.DevAccelerate.Tools.Commands.MultiTenancy
 
                 DaTenant mtpTenant = null;
 
-                if(!string.IsNullOrEmpty(MTPId))
+                if(!string.IsNullOrEmpty(MTPName))
                 {
-                    mtpTenant = tenantManager.FindById(MTPId);
+                    mtpTenant = tenantManager.FindByName(MTPName);
 
                     if(mtpTenant == null || mtpTenant.MTPStatus != DaTenantMTPStatus.IsMTP)
                     {
-                        throw new Exception("Invalid MTP ID.");
+                        throw new Exception("Invalid MTP name.");
                     }
                 }
 
@@ -88,7 +88,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.MultiTenancy
                 {
                     Email = Email,
                     Password = Password,
-                    Username = Name
+                    Username = Username
                 };
 
                 var addUserToRoleCmd = new DaAddUserToRolesCommand()
@@ -154,6 +154,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.MultiTenancy
                         {
                             MTPManagedTenant = tenant,
                             MTPTenant = mtpTenant,
+                            MTPTenantId = mtpTenant.Id,
                             IsActive = true,
                             CreatedBy = systemUser.Id,
                             CreatedDateUtc = DateTime.UtcNow,

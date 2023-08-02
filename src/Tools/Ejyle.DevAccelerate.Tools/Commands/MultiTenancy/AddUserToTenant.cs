@@ -18,8 +18,8 @@ namespace Ejyle.DevAccelerate.Tools.Commands.MultiTenancy
     [Verb("adduser", HelpText = "Creates a new user and adds the user to a tenant.")]
     public class DaAddUserToTenantCommand : DaDatabaseCommand
     {
-        [Option('i', "id", Required = true, HelpText = "ID of the tenant.")]
-        public string TenantId
+        [Option('n', "name", Required = true, HelpText = "Name of the tenant.")]
+        public string TenantName
         {
             get;
             set;
@@ -52,25 +52,25 @@ namespace Ejyle.DevAccelerate.Tools.Commands.MultiTenancy
 
             using (var context = new DaMultiTenancyDbContext(GetConnectionString()))
             {
-                if (string.IsNullOrEmpty(TenantId))
+                if (string.IsNullOrEmpty(TenantName))
                 {
                     throw new Exception("Tenant ID is required.");
                 }
 
                 var tenantManager = new DaTenantManager(new DaTenantRepository(context));
 
-                var tenant = tenantManager.FindById(TenantId);
+                var tenant = tenantManager.FindByName(TenantName);
 
                 if (tenant == null)
                 {
-                    throw new Exception("Invalid tenant ID.");
+                    throw new Exception("Invalid tenant name.");
                 }
 
                 var userCreationCmd = new DaCreateUserCommand()
                 {
                     Email = Email,
                     Password = Password,
-                    Username = TenantId
+                    Username = TenantName
                 };
 
                 var addUserToRoleCmd = new DaAddUserToRolesCommand()
@@ -100,6 +100,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.MultiTenancy
                     tenant.TenantUsers.Add(new DaTenantUser()
                     {
                         Tenant = tenant,
+                        TenantId = tenant.Id,
                         UserId = tenantUser.Id,
                         IsActive = true
                     });

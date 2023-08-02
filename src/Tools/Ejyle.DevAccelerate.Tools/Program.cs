@@ -44,6 +44,8 @@ namespace Ejyle.DevAccelerate.Tools
                 var errorWriter = Console.Error;
                 errorWriter.WriteLine($"Something went wrong. More information: {ex.Message}");
             }
+
+            Console.ReadKey();
         }
     }
 }
