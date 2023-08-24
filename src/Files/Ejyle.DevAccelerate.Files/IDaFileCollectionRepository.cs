@@ -15,15 +15,15 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Files
 {
-    public interface IDaFileCollectionRepository<TKey, TNullableKey, TFileCollection> : IDaEntityRepository<TKey, TFileCollection>
+    public interface IDaFileCollectionRepository<TKey, TFileCollection> : IDaEntityRepository<TKey, TFileCollection>
         where TKey : IEquatable<TKey>
-        where TFileCollection : IDaFileCollection<TKey, TNullableKey>
+        where TFileCollection : IDaFileCollection<TKey>
     {
         Task CreateAsync(TFileCollection fileCollection);
         Task<TFileCollection> FindByIdAsync(TKey id);
         Task RenameAsync(TKey id, string newName);
         Task DeleteAsync(TFileCollection fileCollection);
         Task<DaPaginatedEntityList<TKey, TFileCollection>> FindByParentIdAsync(TKey parentId, DaDataPaginationCriteria paginationCriteria);
-        Task<DaPaginatedEntityList<TKey, TFileCollection>> FindByObjectInstanceIdAsync(TKey objectInstanceId, DaDataPaginationCriteria paginationCriteria);
+        Task<DaPaginatedEntityList<TKey, TFileCollection>> FindByObjectInstanceIdAsync(string objectInstanceId, DaDataPaginationCriteria paginationCriteria);
     }
 }

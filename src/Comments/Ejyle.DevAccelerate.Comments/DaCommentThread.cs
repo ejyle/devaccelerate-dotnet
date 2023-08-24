@@ -14,15 +14,15 @@ using System.Text;
 
 namespace Ejyle.DevAccelerate.Comments
 {
-    public class DaCommentThread : DaCommentThread<int, int?, DaComment>
+    public class DaCommentThread : DaCommentThread<string, DaComment>
     {
         public DaCommentThread()
         { }
     }
 
-    public class DaCommentThread<TKey, TNullableKey, TComment> : DaAuditedEntityBase<TKey>, IDaCommentThread<TKey>
+    public class DaCommentThread<TKey, TComment> : DaAuditedEntityBase<TKey>, IDaCommentThread<TKey>
         where TKey : IEquatable<TKey>
-        where TComment : IDaComment<TKey, TNullableKey>
+        where TComment : IDaComment<TKey>
     {
         public DaCommentThread()
         {
@@ -41,7 +41,7 @@ namespace Ejyle.DevAccelerate.Comments
             set;
         }
 
-        public TKey ObjectInstanceId
+        public string ObjectInstanceId
         {
             get;
             set;

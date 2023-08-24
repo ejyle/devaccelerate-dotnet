@@ -109,7 +109,20 @@ namespace Ejyle.DevAccelerate.Core
         /// </summary>
         /// <param name="arg">The argument.</param>
         /// <param name="parameterName">The name of the parameter.</param>
-        protected void ThrowIfArgumentIsNull(List<TEntity> arg, string parameterName)
+        protected void ThrowIfArgumentIsNull(IEnumerable<TEntity> arg, string parameterName)
+        {
+            if (arg == null)
+            {
+                throw new ArgumentNullException(parameterName);
+            }
+        }
+
+        /// <summary>
+        /// Throws <see cref="ArgumentNullException"/> if the given argument is null.
+        /// </summary>
+        /// <param name="arg">The argument.</param>
+        /// <param name="parameterName">The name of the parameter.</param>
+        protected void ThrowIfArgumentIsNull(TEntity[] arg, string parameterName)
         {
             if (arg == null)
             {

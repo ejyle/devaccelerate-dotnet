@@ -8,10 +8,12 @@
 using System;
 using CommandLine;
 using Ejyle.DevAccelerate.Tools.Commands;
-using Ejyle.DevAccelerate.Tools.Commands.EnterpriseSecurity;
+using Ejyle.DevAccelerate.Tools.Commands.Core;
+using Ejyle.DevAccelerate.Tools.Commands.Platform;
 using Ejyle.DevAccelerate.Tools.Commands.Files;
 using Ejyle.DevAccelerate.Tools.Commands.Identity;
 using Ejyle.DevAccelerate.Tools.Commands.Lists;
+using Ejyle.DevAccelerate.Tools.Commands.MultiTenancy;
 
 namespace Ejyle.DevAccelerate.Tools
 {
@@ -24,6 +26,7 @@ namespace Ejyle.DevAccelerate.Tools
                 Parser.Default.ParseArguments<
                     DaSetConnectionCommand,
                     DaCreateDatabaseCommand,
+                    DaCreateObjectTypesCommand,
                     DaCreateAppCommand,
                     DaCreateAppFeatureCommand,
                     DaCreateDefaultListsCommand,
@@ -31,7 +34,9 @@ namespace Ejyle.DevAccelerate.Tools
                     DaCreateFileStorageLocationCommand,
                     DaCreateUserCommand,
                     DaCreateRolesCommand,
-                    DaAddUserToRolesCommand>(args)
+                    DaAddUserToRolesCommand,
+                    DaCreateTenantCommand,
+                    DaAddUserToTenantCommand>(args)
                 .WithParsed<IDaCommand>(t => t.Execute());
             }
             catch (Exception ex)
@@ -39,6 +44,8 @@ namespace Ejyle.DevAccelerate.Tools
                 var errorWriter = Console.Error;
                 errorWriter.WriteLine($"Something went wrong. More information: {ex.Message}");
             }
+
+            Console.ReadKey();
         }
     }
 }

@@ -13,10 +13,10 @@ using Ejyle.DevAccelerate.Core.Data;
 
 namespace Ejyle.DevAccelerate.Identity.UserSessions
 {
-    public class DaUserSessionManager<TUserSession> : DaUserSessionManager<int, TUserSession>
-        where TUserSession : IDaUserSession<int>
+    public class DaUserSessionManager<TUserSession> : DaUserSessionManager<string, TUserSession>
+        where TUserSession : IDaUserSession<string>
     {
-        public DaUserSessionManager(IDaUserSessionRepository<int, TUserSession> repository)
+        public DaUserSessionManager(IDaUserSessionRepository<string, TUserSession> repository)
             : base(repository)
         {
         }
@@ -55,7 +55,7 @@ namespace Ejyle.DevAccelerate.Identity.UserSessions
                 throw new InvalidOperationException("Invalid user session ID.");
             }
 
-            if (status == DaUserSessionStatus.LoggedOff || status == DaUserSessionStatus.Unknown)
+            if (status != DaUserSessionStatus.Active)
             {
                 userSession.ExpiredDateUtc = DateTime.UtcNow;
             }
@@ -78,14 +78,14 @@ namespace Ejyle.DevAccelerate.Identity.UserSessions
             return GetRepository().FindByIdAsync(userSessionId);
         }
 
-        public Task<TUserSession> FindBySessionKeyAsync(string sessionKey)
+        public Task<TUserSession> FindByAccessTokenAsync(string accessToken)
         {
-            return GetRepository().FindBySessionKeyAsync(sessionKey);
+            return GetRepository().FindByAccessTokenAsync(accessToken);
         }
 
-        public TUserSession FindBySessionKey(string sessionKey)
+        public TUserSession FindByAccessToken(string accessToken)
         {
-            return DaAsyncHelper.RunSync<TUserSession>(() => FindBySessionKeyAsync(sessionKey));
+            return DaAsyncHelper.RunSync<TUserSession>(() => FindByAccessTokenAsync(accessToken));
         }
 
         public Task<List<TUserSession>> FindBySystemSessionIdAsync(string systemSessionId)

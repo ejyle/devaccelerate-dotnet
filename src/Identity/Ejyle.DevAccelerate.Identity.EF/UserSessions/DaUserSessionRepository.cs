@@ -24,8 +24,8 @@ namespace Ejyle.DevAccelerate.Identity.EF.UserSessions
     }
 
     public class DaUserSessionRepository<TUserSession, TDbContext>
-        : DaUserSessionRepository<int, TUserSession, TDbContext>
-        where TUserSession : DaUserSession<int>
+        : DaUserSessionRepository<string, TUserSession, TDbContext>
+        where TUserSession : DaUserSession<string>
         where TDbContext : DbContext
     {
         public DaUserSessionRepository(TDbContext context)
@@ -59,11 +59,11 @@ namespace Ejyle.DevAccelerate.Identity.EF.UserSessions
             return UserSessions.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
         }
 
-        public Task<TUserSession> FindBySessionKeyAsync(string sessionKey)
+        public Task<TUserSession> FindByAccessTokenAsync(string sessionKey)
         {
             ThrowIfDisposed();
             ThrowIfArgumentIsNullOrEmpty(sessionKey, nameof(sessionKey));
-            return UserSessions.Where(m => m.SessionKey == sessionKey).SingleOrDefaultAsync();
+            return UserSessions.Where(m => m.AccessToken == sessionKey).SingleOrDefaultAsync();
         }
 
         public Task<List<TUserSession>> FindBySystemSessionIdAsync(string systemSessionId)

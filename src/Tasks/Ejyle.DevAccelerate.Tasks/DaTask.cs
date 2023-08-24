@@ -14,10 +14,10 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Tasks
 {
-    public class DaTask : DaTask<int, int?>
+    public class DaTask : DaTask<string>
     { }
 
-    public class DaTask<TKey, TNullableKey> : DaAuditedEntityBase<TKey>, IDaTask<TKey, TNullableKey>
+    public class DaTask<TKey> : DaAuditedEntityBase<TKey>, IDaTask<TKey>
         where TKey : IEquatable<TKey>
     {
         public string Name { get; set; }
@@ -25,9 +25,16 @@ namespace Ejyle.DevAccelerate.Tasks
         public string Description { get; set; }
         public DaTaskStatus Status { get; set; }
         public string StatusReason { get; set; }
-        public TNullableKey AssignedTo { get; set; }
-        public TKey OwnerUserId { get; set; }
-        public TNullableKey TenantId { get; set; }
-        public TNullableKey ObjectInstanceId { get; set; }
+        public string AssignedTo { get; set; }
+        public string OwnerUserId { get; set; }
+        public string TenantId { get; set; }
+        public string Category { get; set; }
+        public string ApiUrl { get; set; }
+        public string PageUrl { get; set; }
+        public DaTaskPriority? Priority { get; set; }
+        public string ObjectInstanceId { get; set; }
+        public bool IsSystemTask { get; set; }
+        public bool LastStatusUpdatedBySystem { get; set; }
+        public string Rating { get; set; }
     }
 }

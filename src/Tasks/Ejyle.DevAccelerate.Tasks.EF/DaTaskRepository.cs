@@ -17,7 +17,7 @@ using System.Xml.Linq;
 
 namespace Ejyle.DevAccelerate.Tasks.EF
 {
-    public class DaTaskRepository : DaTaskRepository<int, int?, DaTask, DbContext>
+    public class DaTaskRepository : DaTaskRepository<string, DaTask, DbContext>
     {
         public DaTaskRepository(DbContext dbContext)
             : base(dbContext)
@@ -25,33 +25,33 @@ namespace Ejyle.DevAccelerate.Tasks.EF
     }
 
 
-    public class DaTaskRepository<TKey, TNullableKey, TTask, TDbContext>
-        : DaEntityRepositoryBase<TKey, TTask, TDbContext>, IDaTaskRepository<TKey, TNullableKey, TTask>
+    public class DaTaskRepository<TKey, TTask, TDbContext>
+        : DaEntityRepositoryBase<TKey, TTask, TDbContext>, IDaTaskRepository<TKey, TTask>
         where TKey : IEquatable<TKey>
-        where TTask : DaTask<TKey, TNullableKey>
+        where TTask : DaTask<TKey>
         where TDbContext : DbContext
     {
         public DaTaskRepository(TDbContext dbContext)
             : base(dbContext)
         { }
 
-        private DbSet<TTask> Tasks { get { return DbContext.Set<TTask>(); } }
+        private DbSet<TTask> TasksSet { get { return DbContext.Set<TTask>(); } }
 
         public Task CreateAsync(TTask task)
         {
-            Tasks.Add(task);
+            TasksSet.Add(task);
             return SaveChangesAsync();
         }
 
         public Task DeleteAsync(TTask task)
         {
-            Tasks.Remove(task);
+            TasksSet.Remove(task);
             return SaveChangesAsync();
         }
 
         public Task<TTask> FindByIdAsync(TKey id)
         {
-            return Tasks.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
+            return TasksSet.Where(m => m.Id.Equals(id)).SingleOrDefaultAsync();
         }
 
         public async Task UpdateAsync(TTask task)
@@ -60,16 +60,16 @@ namespace Ejyle.DevAccelerate.Tasks.EF
             await SaveChangesAsync();
         }
 
-        public async Task<DaPaginatedEntityList<TKey, TTask>> FindByAssignedToAsync(TKey assignedTo, DaDataPaginationCriteria paginationCriteria)
+        public async Task<DaPaginatedEntityList<TKey, TTask>> FindByAssignedToAsync(string assignedTo, DaDataPaginationCriteria paginationCriteria)
         {
-            var totalCount = await Tasks.Where(m => m.AssignedTo.Equals(assignedTo)).CountAsync();
+            var totalCount = await TasksSet.Where(m => m.AssignedTo.Equals(assignedTo)).CountAsync();
 
             if (totalCount <= 0)
             {
                 return null;
             }
 
-            var query = Tasks
+            var query = TasksSet
                 .Where(m => m.AssignedTo.Equals(assignedTo))
                 .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
                 .Take(paginationCriteria.PageSize)
@@ -81,16 +81,16 @@ namespace Ejyle.DevAccelerate.Tasks.EF
                 , new DaDataPaginationResult(paginationCriteria, totalCount));
         }
 
-        public async Task<DaPaginatedEntityList<TKey, TTask>> FindByObjectInstanceIdAsync(TKey objectInstanceId, DaDataPaginationCriteria paginationCriteria)
+        public async Task<DaPaginatedEntityList<TKey, TTask>> FindByObjectInstanceIdAsync(string objectInstanceId, DaDataPaginationCriteria paginationCriteria)
         {
-            var totalCount = await Tasks.Where(m => m.ObjectInstanceId.Equals(objectInstanceId)).CountAsync();
+            var totalCount = await TasksSet.Where(m => m.ObjectInstanceId.Equals(objectInstanceId)).CountAsync();
 
             if (totalCount <= 0)
             {
                 return null;
             }
 
-            var query = Tasks
+            var query = TasksSet
                 .Where(m => m.ObjectInstanceId.Equals(objectInstanceId))
                 .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
                 .Take(paginationCriteria.PageSize)
@@ -102,16 +102,16 @@ namespace Ejyle.DevAccelerate.Tasks.EF
                 , new DaDataPaginationResult(paginationCriteria, totalCount));
         }
 
-        public async Task<DaPaginatedEntityList<TKey, TTask>> FindByTenantIdAsync(TKey tenantId, DaDataPaginationCriteria paginationCriteria)
+        public async Task<DaPaginatedEntityList<TKey, TTask>> FindByTenantIdAsync(string tenantId, DaDataPaginationCriteria paginationCriteria)
         {
-            var totalCount = await Tasks.Where(m => m.TenantId.Equals(tenantId)).CountAsync();
+            var totalCount = await TasksSet.Where(m => m.TenantId.Equals(tenantId)).CountAsync();
 
             if (totalCount <= 0)
             {
                 return null;
             }
 
-            var query = Tasks
+            var query = TasksSet
                 .Where(m => m.TenantId.Equals(tenantId))
                 .Skip((paginationCriteria.PageIndex - 1) * paginationCriteria.PageSize)
                 .Take(paginationCriteria.PageSize)
@@ -122,5 +122,7 @@ namespace Ejyle.DevAccelerate.Tasks.EF
             return new DaPaginatedEntityList<TKey, TTask>(result
                 , new DaDataPaginationResult(paginationCriteria, totalCount));
         }
+
+        public IQueryable<TTask> Tasks => TasksSet.AsQueryable();
     }
 }

@@ -15,15 +15,15 @@ namespace Ejyle.DevAccelerate.Mail
     /// <summary>
     /// Represents the base and common functionality for a mail provider.
     /// </summary>
-    public abstract class DaMailProviderBase : IDaMailProvider
+    public abstract class DaMailProviderBase<TResponse> : IDaMailProvider<TResponse>
     {
         /// <summary>
         /// Creates an instance of <see cref="DaMailProviderBase"/>.
         /// </summary>
-        public DaMailProviderBase(IOptions<DaMailSettings> options)
+        public DaMailProviderBase(DaMailSettings settings)
         {
-            if(options == null) { throw new ArgumentNullException(nameof(options)); }            
-            Settings = options.Value;
+            if(settings == null) { throw new ArgumentNullException(nameof(settings)); }            
+            Settings = settings;
         }
 
         /// <summary>
@@ -38,13 +38,23 @@ namespace Ejyle.DevAccelerate.Mail
         /// <param name="from">The sender of the mail.</param>
         /// <param name="subject">The subject of the mail</param>
         /// <param name="body">The body of the mail message.</param>
-        public abstract void Send(string to, string from, string subject, string body);
+        public abstract TResponse Send(string to, string from, string subject, string body);
+
+
+        /// <summary>
+        /// Sends a mail.
+        /// </summary>
+        /// <param name="to">The recipient of the mail.</param>
+        /// <param name="subject">The subject of the mail</param>
+        /// <param name="body">The body of the mail message.</param>
+        public abstract TResponse Send(string to, string subject, string body);
+
 
         /// <summary>
         /// Sends a mail.
         /// </summary>
         /// <param name="message">The mail message object.</param>
-        public abstract void Send(MailMessage message);
+        public abstract TResponse Send(MailMessage message);
 
         /// <summary>
         /// Asynchronously sends a mail.
@@ -54,13 +64,22 @@ namespace Ejyle.DevAccelerate.Mail
         /// <param name="subject">The subject of the mail</param>
         /// <param name="body">The body of the mail message.</param>
         /// <returns>A task that represents the asynchronous save operation.</returns>
-        public abstract Task SendAsync(string to, string from, string subject, string body);
+        public abstract Task<TResponse> SendAsync(string to, string from, string subject, string body);
+
+        /// <summary>
+        /// Asynchronously sends a mail.
+        /// </summary>
+        /// <param name="to">The recipient of the mail.</param>
+        /// <param name="subject">The subject of the mail</param>
+        /// <param name="body">The body of the mail message.</param>
+        /// <returns>A task that represents the asynchronous save operation.</returns>
+        public abstract Task<TResponse> SendAsync(string to, string subject, string body);
 
         /// <summary>
         /// Asynchronously sends a mail.
         /// </summary>
         /// <param name="message">The mail message object.</param>
         /// <returns>A task that represents the asynchronous save operation.</returns>
-        public abstract Task SendAsync(MailMessage message);
+        public abstract Task<TResponse> SendAsync(MailMessage message);
     }
 }

@@ -8,23 +8,22 @@
 using Ejyle.DevAccelerate.Core;
 using Ejyle.DevAccelerate.Core.Data;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Tasks
 {
-    public interface IDaTaskRepository<TKey, TNullableKey, TTask> : IDaEntityRepository<TKey, TTask>
+    public interface IDaTaskRepository<TKey, TTask> : IDaEntityRepository<TKey, TTask>
         where TKey : IEquatable<TKey>
-        where TTask : IDaTask<TKey, TNullableKey>
+        where TTask : IDaTask<TKey>
     {
         Task CreateAsync(TTask task);
         Task<TTask> FindByIdAsync(TKey id);
         Task UpdateAsync(TTask task);
         Task DeleteAsync(TTask task);
-        Task<DaPaginatedEntityList<TKey, TTask>> FindByObjectInstanceIdAsync(TKey objectInstanceId, DaDataPaginationCriteria paginationCriteria);
-        Task<DaPaginatedEntityList<TKey, TTask>> FindByAssignedToAsync(TKey assignedTo, DaDataPaginationCriteria paginationCriteria);
-        Task<DaPaginatedEntityList<TKey, TTask>> FindByTenantIdAsync(TKey tenantId, DaDataPaginationCriteria paginationCriteria);
+        IQueryable<TTask> Tasks { get; }
+        Task<DaPaginatedEntityList<TKey, TTask>> FindByObjectInstanceIdAsync(string objectInstanceId, DaDataPaginationCriteria paginationCriteria);
+        Task<DaPaginatedEntityList<TKey, TTask>> FindByAssignedToAsync(string assignedTo, DaDataPaginationCriteria paginationCriteria);
+        Task<DaPaginatedEntityList<TKey, TTask>> FindByTenantIdAsync(string tenantId, DaDataPaginationCriteria paginationCriteria);
     }
 }

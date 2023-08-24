@@ -12,10 +12,10 @@ using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.Identity.UserSettings
 {
-    public class DaUserSettingManager<TUserSetting> : DaUserSettingManager<int, TUserSetting>
-        where TUserSetting : IDaUserSetting<int>
+    public class DaUserSettingManager<TUserSetting> : DaUserSettingManager<string, TUserSetting>
+        where TUserSetting : IDaUserSetting<string>
     {
-        public DaUserSettingManager(IDaUserSettingRepository<int, TUserSetting> repository)
+        public DaUserSettingManager(IDaUserSettingRepository<string, TUserSetting> repository)
             : base(repository)
         { }
     }

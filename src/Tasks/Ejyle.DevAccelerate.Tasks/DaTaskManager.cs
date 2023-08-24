@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
 using Ejyle.DevAccelerate.Core.Data;
@@ -14,20 +15,20 @@ using Ejyle.DevAccelerate.Core.Utils;
 
 namespace Ejyle.DevAccelerate.Tasks
 {
-    public class DaTaskManager<TKey, TNullableKey, TTask> : DaEntityManagerBase<TKey, TTask>
+    public class DaTaskManager<TKey, TTask> : DaEntityManagerBase<TKey, TTask>
         where TKey : IEquatable<TKey>
-        where TTask : IDaTask<TKey, TNullableKey>
+        where TTask : IDaTask<TKey>
     {
-        public DaTaskManager(IDaTaskRepository<TKey, TNullableKey, TTask> repository)
+        public DaTaskManager(IDaTaskRepository<TKey, TTask> repository)
             : base(repository)
         {
         }
 
-        protected virtual IDaTaskRepository<TKey, TNullableKey, TTask> Repository
+        protected virtual IDaTaskRepository<TKey, TTask> Repository
         {
             get
             {
-                return GetRepository<IDaTaskRepository<TKey, TNullableKey, TTask>>();
+                return GetRepository<IDaTaskRepository<TKey, TTask>>();
             }
         }
 
@@ -81,37 +82,45 @@ namespace Ejyle.DevAccelerate.Tasks
             return Repository.FindByIdAsync(id);
         }
 
-        public virtual DaPaginatedEntityList<TKey, TTask> FindByAssignedTo(TKey assignedTo, DaDataPaginationCriteria paginationCriteria)
+        public virtual DaPaginatedEntityList<TKey, TTask> FindByAssignedTo(string assignedTo, DaDataPaginationCriteria paginationCriteria)
         {
             return DaAsyncHelper.RunSync<DaPaginatedEntityList<TKey, TTask>>(() => FindByAssignedToAsync(assignedTo, paginationCriteria));
         }
 
-        public virtual Task<DaPaginatedEntityList<TKey, TTask>> FindByAssignedToAsync(TKey asignedTo, DaDataPaginationCriteria paginationCriteria)
+        public virtual Task<DaPaginatedEntityList<TKey, TTask>> FindByAssignedToAsync(string asignedTo, DaDataPaginationCriteria paginationCriteria)
         {
             ThrowIfDisposed();
             return Repository.FindByAssignedToAsync(asignedTo, paginationCriteria);
         }
 
-        public virtual DaPaginatedEntityList<TKey, TTask> FindByObjectInstanceId(TKey objectInstanceId, DaDataPaginationCriteria paginationCriteria)
+        public virtual DaPaginatedEntityList<TKey, TTask> FindByObjectInstanceId(string objectIdentifier, DaDataPaginationCriteria paginationCriteria)
         {
-            return DaAsyncHelper.RunSync<DaPaginatedEntityList<TKey, TTask>>(() => FindByAssignedToAsync(objectInstanceId, paginationCriteria));
+            return DaAsyncHelper.RunSync<DaPaginatedEntityList<TKey, TTask>>(() => FindByAssignedToAsync(objectIdentifier, paginationCriteria));
         }
 
-        public virtual Task<DaPaginatedEntityList<TKey, TTask>> FindByObjectInstanceIdAsync(TKey objectInstanceId, DaDataPaginationCriteria paginationCriteria)
+        public virtual Task<DaPaginatedEntityList<TKey, TTask>> FindByObjectInstanceIdAsync(string objectIdentifier, DaDataPaginationCriteria paginationCriteria)
         {
             ThrowIfDisposed();
-            return Repository.FindByObjectInstanceIdAsync(objectInstanceId, paginationCriteria);
+            return Repository.FindByObjectInstanceIdAsync(objectIdentifier, paginationCriteria);
         }
 
-        public virtual DaPaginatedEntityList<TKey, TTask> FindByTenantId(TKey tenantId, DaDataPaginationCriteria paginationCriteria)
+        public virtual DaPaginatedEntityList<TKey, TTask> FindByTenantId(string tenantId, DaDataPaginationCriteria paginationCriteria)
         {
             return DaAsyncHelper.RunSync<DaPaginatedEntityList<TKey, TTask>>(() => FindByTenantIdAsync(tenantId, paginationCriteria));
         }
 
-        public virtual Task<DaPaginatedEntityList<TKey, TTask>> FindByTenantIdAsync(TKey tenantId, DaDataPaginationCriteria paginationCriteria)
+        public virtual Task<DaPaginatedEntityList<TKey, TTask>> FindByTenantIdAsync(string tenantId, DaDataPaginationCriteria paginationCriteria)
         {
             ThrowIfDisposed();
             return Repository.FindByTenantIdAsync(tenantId, paginationCriteria);
+        }
+
+        public IQueryable<TTask> Tasks
+        {
+            get
+            {
+                return Repository.Tasks;
+            }
         }
     }
 }

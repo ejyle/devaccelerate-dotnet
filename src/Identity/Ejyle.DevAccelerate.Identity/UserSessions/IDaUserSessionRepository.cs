@@ -20,7 +20,7 @@ namespace Ejyle.DevAccelerate.Identity.UserSessions
         Task CreateAsync(TUserSession userSession);
         Task UpdateAsync(TUserSession userSession);
         Task<TUserSession> FindByIdAsync(TKey id);
-        Task<TUserSession> FindBySessionKeyAsync(string sessionKey);
+        Task<TUserSession> FindByAccessTokenAsync(string sessionKey);
         Task<List<TUserSession>> FindBySystemSessionIdAsync(string systemSessionId);
         Task<TUserSession> FindLatestByUserIdAsync(TKey userId);
         Task<DaPaginatedEntityList<TKey, TUserSession>> FindByUserIdAsync(DaDataPaginationCriteria paginationCriteria, TKey userId);

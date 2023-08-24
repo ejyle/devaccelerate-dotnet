@@ -21,7 +21,7 @@ namespace Ejyle.DevAccelerate.Core
         /// Gets or sets the ID of the user who created the entity.
         /// </summary>
         [Required]
-        TKey CreatedBy { get; set; }
+        string CreatedBy { get; set; }
 
         /// <summary>
         /// Gets or sets the created UTC date and time of the entity.
@@ -33,7 +33,7 @@ namespace Ejyle.DevAccelerate.Core
         /// Gets or sets the ID of the user who last updated the entity.
         /// </summary>
         [Required]
-        TKey LastUpdatedBy { get; set; }
+        string LastUpdatedBy { get; set; }
 
         /// <summary>
         /// Gets or sets the last updated UTC date and time of the entity.

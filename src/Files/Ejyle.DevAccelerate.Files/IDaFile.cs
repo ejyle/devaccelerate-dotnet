@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Files
 {
-    public interface IDaFile<TKey, TNullableKey> : IDaAuditedEntity<TKey>
+    public interface IDaFile<TKey> : IDaAuditedEntity<TKey>
         where TKey : IEquatable<TKey>
     {
         string FileName { get; set; }
@@ -22,10 +22,10 @@ namespace Ejyle.DevAccelerate.Files
         string MimeType { get; set; }
         long? FileSize { get; set; }
         string Extension { get; set; }
-        TNullableKey FileCollectionId { get; set; }
-        TKey OwnerUserId { get; set; }
-        TNullableKey TenantId { get; set; }
-        TNullableKey ObjectInstanceId { get; set; }
-        TNullableKey FileStorageLocationId { get; set; }
+        TKey FileCollectionId { get; set; }
+        string OwnerUserId { get; set; }
+        string TenantId { get; set; }
+        string ObjectInstanceId { get; set; }
+        TKey FileStorageLocationId { get; set; }
     }
 }

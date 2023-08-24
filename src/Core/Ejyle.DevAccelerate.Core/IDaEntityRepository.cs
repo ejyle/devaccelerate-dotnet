@@ -13,8 +13,8 @@ namespace Ejyle.DevAccelerate.Core
     /// Represents the basic interface of an entity's repository.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    public interface IDaEntityRepository<TEntity> : IDaEntityRepository<int, TEntity>
-        where TEntity : IDaEntity<int>
+    public interface IDaEntityRepository<TEntity> : IDaEntityRepository<string, TEntity>
+        where TEntity : IDaEntity<string>
     {
     }
 

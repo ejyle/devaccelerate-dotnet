@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace Ejyle.DevAccelerate.Files.EF
 {
-    public class DaFileManager : DaFileManager<int, int?, DaFile>
+    public class DaFileManager : DaFileManager<string, DaFile>
     {
         public DaFileManager(DaFileRepository repository)
             : base(repository)

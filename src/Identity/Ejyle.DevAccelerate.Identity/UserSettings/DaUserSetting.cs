@@ -10,7 +10,7 @@ using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.Identity.UserSettings
 {
-    public class DaUserSetting : DaUserSetting<int>
+    public class DaUserSetting : DaUserSetting<string>
     { }
 
     public class DaUserSetting<TKey> : DaAuditedEntityBase<TKey>, IDaUserSetting<TKey>

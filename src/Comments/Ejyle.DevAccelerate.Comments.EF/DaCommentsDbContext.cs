@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Ejyle.DevAccelerate.Comments.EF
 {
     public class DaCommentsDbContext
-        : DaCommentsDbContext<int,int?, DaCommentThread, DaComment>
+        : DaCommentsDbContext<string, DaCommentThread, DaComment, DaCommentFlag, DaCommentFile>
     {
         public DaCommentsDbContext() : base()
         { }
@@ -28,12 +28,14 @@ namespace Ejyle.DevAccelerate.Comments.EF
         { }
     }
 
-    public class DaCommentsDbContext<TKey, TNullableKey, TCommentThread, TComment> : DbContext
+    public class DaCommentsDbContext<TKey, TCommentThread, TComment, TCommentFlag, TCommentFile> : DbContext
         where TKey : IEquatable<TKey>
-        where TComment : DaComment<TKey, TNullableKey, TComment, TCommentThread>
-        where TCommentThread : DaCommentThread<TKey, TNullableKey, TComment>
+        where TComment : DaComment<TKey, TComment, TCommentFlag, TCommentFile, TCommentThread>
+        where TCommentFlag : DaCommentFlag<TKey, TComment>
+        where TCommentFile : DaCommentFile<TKey, TComment>
+        where TCommentThread : DaCommentThread<TKey, TComment>
     {
-        private const string SCHEMA_NAME = "Comments";
+        private const string SCHEMA_NAME = "Da.Comments";
 
         public DaCommentsDbContext() : base()
         { }
@@ -42,7 +44,7 @@ namespace Ejyle.DevAccelerate.Comments.EF
             : base(options)
         { }
 
-        public DaCommentsDbContext(DbContextOptions<DaCommentsDbContext<TKey, TNullableKey, TCommentThread, TComment>> options)
+        public DaCommentsDbContext(DbContextOptions<DaCommentsDbContext<TKey, TCommentThread, TComment, TCommentFlag, TCommentFile>> options)
             : base(options)
         { }
 
@@ -50,13 +52,25 @@ namespace Ejyle.DevAccelerate.Comments.EF
             : base(GetOptions(connectionString))
         { }
 
-        private static DbContextOptions<DaCommentsDbContext<TKey, TNullableKey, TCommentThread, TComment>> GetOptions(string connectionString)
+        private static DbContextOptions<DaCommentsDbContext<TKey, TCommentThread, TComment, TCommentFlag, TCommentFile>> GetOptions(string connectionString)
         {
-            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaCommentsDbContext<TKey, TNullableKey, TCommentThread, TComment>>(), connectionString).Options;
+            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaCommentsDbContext<TKey, TCommentThread, TComment, TCommentFlag, TCommentFile>>(), connectionString).Options;
         }
 
         public virtual DbSet<TComment> Comments { get; set; }
+        public virtual DbSet<TCommentFile> CommentFiles { get; set; }
+        public virtual DbSet<TCommentFlag> CommentFlags { get; set; }
         public virtual DbSet<TCommentThread> CommentThreads { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            string connectionString = "Server=(localdb)\\mssqllocaldb;Database=Ejyle.DevAccelerate;Trusted_Connection = True;MultipleActiveResultSets=True";
+
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(connectionString);
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -65,6 +79,8 @@ namespace Ejyle.DevAccelerate.Comments.EF
             modelBuilder.Entity<TComment>(entity =>
             {
                 entity.ToTable("Comments", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Message)
                     .IsRequired();
@@ -76,14 +92,63 @@ namespace Ejyle.DevAccelerate.Comments.EF
                 entity.HasOne(d => d.Parent)
                     .WithMany(p => p.Children)
                     .HasForeignKey(d => d.ParentId);
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<TCommentFile>(entity =>
+            {
+                entity.ToTable("CommentFiles", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.HasOne(d => d.Comment)
+                    .WithMany(p => p.Files)
+                    .HasForeignKey(d => d.CommentId);
+
+                entity.Property(e => e.FileId).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CommentId).IsRequired();
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<TCommentFlag>(entity =>
+            {
+                entity.ToTable("CommentFlags", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.HasOne(d => d.Comment)
+                    .WithMany(p => p.Flags)
+                    .HasForeignKey(d => d.CommentId);
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TCommentThread>(entity =>
             {
                 entity.ToTable("CommentThreads", SCHEMA_NAME);
 
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
                 entity.Property(e => e.Format)
                     .HasMaxLength(256);
+
+                entity.Property(e => e.ObjectInstanceId).HasMaxLength(450);
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
         }
     }

@@ -15,15 +15,17 @@ using System.Threading.Tasks;
 
 namespace Ejyle.DevAccelerate.Comments
 {
-    public interface IDaCommentThreadRepository<TKey, TNullableKey, TCommentThread, TComment> : IDaEntityRepository<TKey, TCommentThread>
+    public interface IDaCommentThreadRepository<TKey, TCommentThread, TComment> : IDaEntityRepository<TKey, TCommentThread>
         where TKey : IEquatable<TKey>
         where TCommentThread : IDaCommentThread<TKey>
-        where TComment : IDaComment<TKey, TNullableKey>
+        where TComment : IDaComment<TKey>
     {
         Task CreateAsync(TCommentThread commentThread);
         Task<TCommentThread> FindByIdAsync(TKey id);
+        Task<List<TCommentThread>> FindByObjectInstanceIdAsync(string objectInstanceId);
         Task CreateCommentAsync(TKey id, TComment comment);
         Task DeleteAsync(TCommentThread commentThread);
         Task<DaPaginatedEntityList<TKey, TComment>> FindCommentsAsync(TKey commentThreadId, DaDataPaginationCriteria paginationCriteria);
+        Task<List<TComment>> FindCommentsAsync(TKey commentThreadId);
     }
 }

@@ -35,6 +35,6 @@ namespace Ejyle.DevAccelerate.Lists
         /// <summary>
         /// Determines if the list item information is verified to be valid.
         /// </summary>
-        bool IsVerified { get; set; }
+        bool? IsVerified { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace Ejyle.DevAccelerate.Core
     /// <summary>
     /// Represents the base class for an entity with basic auditing properties. The type of the entity ID is <see cref="System.Int32"/>.
     /// </summary>
-    public abstract class DaAuditedEntityBase : DaAuditedEntityBase<int>
+    public abstract class DaAuditedEntityBase : DaAuditedEntityBase<string>
     { }
 
     /// <summary>
@@ -27,7 +27,7 @@ namespace Ejyle.DevAccelerate.Core
         /// Gets or sets the ID of the user who created the entity.
         /// </summary>
         [Required]
-        public TKey CreatedBy { get; set; }
+        public string CreatedBy { get; set; }
 
         /// <summary>
         /// Gets or sets the created UTC date and time of the entity.
@@ -39,7 +39,7 @@ namespace Ejyle.DevAccelerate.Core
         /// Gets or sets the ID of the user who last updated the entity.
         /// </summary>
         [Required]
-        public TKey LastUpdatedBy { get; set; }
+        public string LastUpdatedBy { get; set; }
 
         /// <summary>
         /// Gets or sets the last updated UTC date and time of the entity.

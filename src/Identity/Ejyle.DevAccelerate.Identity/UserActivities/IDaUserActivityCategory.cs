@@ -10,10 +10,10 @@ using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.Identity.UserActivities
 {
-    public interface IDaUserActivityCategory<TKey, TNullableKey> : IDaEntity<TKey>
+    public interface IDaUserActivityCategory<TKey> : IDaEntity<TKey>
         where TKey : IEquatable<TKey>
     {
-        TNullableKey AppId { get; set; }
+        TKey AppId { get; set; }
         string UserActivityCategoryName { get; set; }
         bool IsEnabled { get; set; }
     }

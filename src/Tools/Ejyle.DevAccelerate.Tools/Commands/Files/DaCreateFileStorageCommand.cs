@@ -5,9 +5,8 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-using Ejyle.DevAccelerate.Lists.Culture;
+
 using Ejyle.DevAccelerate.Lists.EF;
-using Ejyle.DevAccelerate.Lists.EF.Culture;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

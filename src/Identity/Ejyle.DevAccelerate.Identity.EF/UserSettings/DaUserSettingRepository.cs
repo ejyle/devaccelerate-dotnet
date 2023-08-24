@@ -23,8 +23,8 @@ namespace Ejyle.DevAccelerate.Identity.EF.UserSettings
     }
 
     public class DaUserSettingRepository<TUserSetting, TDbContext>
-        : DaUserSettingRepository<int, TUserSetting, TDbContext>
-        where TUserSetting : DaUserSetting<int>
+        : DaUserSettingRepository<string, TUserSetting, TDbContext>
+        where TUserSetting : DaUserSetting<string>
         where TDbContext : DbContext
     {
         public DaUserSettingRepository(TDbContext context)

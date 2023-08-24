@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Ejyle.DevAccelerate.Tasks.EF
 {
     public class DaTasksDbContext
-        : DaTasksDbContext<int, int?, DaTask>
+        : DaTasksDbContext<string, DaTask>
     {
         public DaTasksDbContext() : base()
         { }
@@ -29,11 +29,11 @@ namespace Ejyle.DevAccelerate.Tasks.EF
         { }
     }
 
-    public class DaTasksDbContext<TKey, TNullableKey, TTask> : DbContext
+    public class DaTasksDbContext<TKey, TTask> : DbContext
         where TKey : IEquatable<TKey>
-        where TTask : DaTask<TKey, TNullableKey>
+        where TTask : DaTask<TKey>
     {
-        private const string SCHEMA_NAME = "Tasks";
+        private const string SCHEMA_NAME = "Da.Tasks";
 
         public DaTasksDbContext() : base()
         { }
@@ -42,7 +42,7 @@ namespace Ejyle.DevAccelerate.Tasks.EF
             : base(options)
         { }
 
-        public DaTasksDbContext(DbContextOptions<DaTasksDbContext<TKey, TNullableKey, TTask>> options)
+        public DaTasksDbContext(DbContextOptions<DaTasksDbContext<TKey, TTask>> options)
             : base(options)
         { }
 
@@ -50,12 +50,22 @@ namespace Ejyle.DevAccelerate.Tasks.EF
             : base(GetOptions(connectionString))
         { }
 
-        private static DbContextOptions<DaTasksDbContext<TKey, TNullableKey, TTask>> GetOptions(string connectionString)
+        private static DbContextOptions<DaTasksDbContext<TKey, TTask>> GetOptions(string connectionString)
         {
-            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaTasksDbContext<TKey, TNullableKey, TTask>>(), connectionString).Options;
+            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaTasksDbContext<TKey, TTask>>(), connectionString).Options;
         }
 
         public virtual DbSet<TTask> Tasks { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            string connectionString = "Server=(localdb)\\mssqllocaldb;Database=Ejyle.DevAccelerate;Trusted_Connection = True;MultipleActiveResultSets=True";
+
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(connectionString);
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -65,12 +75,33 @@ namespace Ejyle.DevAccelerate.Tasks.EF
             {
                 entity.ToTable("Tasks", SCHEMA_NAME);
 
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(256);
 
+                entity.Property(e => e.Category)
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.ApiUrl)
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.PageUrl)
+                    .HasMaxLength(500);
+
                 entity.Property(e => e.StatusReason)
                     .HasMaxLength(500);
+
+                entity.Property(e => e.ObjectInstanceId).HasMaxLength(450);
+                entity.Property(e => e.AssignedTo).HasMaxLength(450);
+                entity.Property(e => e.OwnerUserId).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.TenantId).HasMaxLength(450);
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
         }
     }

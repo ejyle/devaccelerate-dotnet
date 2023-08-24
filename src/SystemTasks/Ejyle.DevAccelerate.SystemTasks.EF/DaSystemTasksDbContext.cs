@@ -33,7 +33,7 @@ namespace Ejyle.DevAccelerate.SystemTasks.EF
         where TSystemTaskDefinition : DaSystemTaskDefinition<TKey, TSystemTaskDefinitionAttribute>
         where TSystemTaskDefinitionAttribute : DaSystemTaskAttribute<TKey, TSystemTaskDefinition>
     {
-        private const string SCHEMA_NAME = "SystemTasks";
+        private const string SCHEMA_NAME = "Da.SystemTasks";
 
         public DaSystemTasksDbContext() : base()
         { }
@@ -58,6 +58,16 @@ namespace Ejyle.DevAccelerate.SystemTasks.EF
         public virtual DbSet<TSystemTaskDefinition> SystemTaskDefinitions { get; set; }
         public virtual DbSet<TSystemTaskDefinitionAttribute> SystemTaskDefinitionAttributes { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            string connectionString = "Server=(localdb)\\mssqllocaldb;Database=Ejyle.DevAccelerate;Trusted_Connection = True;MultipleActiveResultSets=True";
+
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(connectionString);
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -65,6 +75,8 @@ namespace Ejyle.DevAccelerate.SystemTasks.EF
             modelBuilder.Entity<TSystemTaskDefinition>(entity =>
             {
                 entity.ToTable("SystemTaskDefinitions", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.SystemTaskType)
                     .IsRequired()
@@ -75,11 +87,16 @@ namespace Ejyle.DevAccelerate.SystemTasks.EF
 
                 entity.Property(e => e.ErrorDataType)
                     .HasMaxLength(500);
+
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TSystemTaskDefinitionAttribute>(entity =>
             {
                 entity.ToTable("SystemTaskDefinitionAttributes", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.AttributeName)
                     .IsRequired()

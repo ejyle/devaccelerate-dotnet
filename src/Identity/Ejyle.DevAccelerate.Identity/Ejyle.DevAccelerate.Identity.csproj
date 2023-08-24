@@ -1,43 +1,73 @@
 <Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<VersionPrefix>7.0.1</VersionPrefix>
+		<VersionSuffix>preview6.5</VersionSuffix>
+		<TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
+		<PlatformTarget>anycpu</PlatformTarget>
+		<GenerateDocumentationFile>false</GenerateDocumentationFile>
+		<OutputType>Library</OutputType>
+		<SignAssembly>true</SignAssembly>
+		<AssemblyOriginatorKeyFile>../../../assets/devaccelerate.snk</AssemblyOriginatorKeyFile>
+		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb;.xml</AllowedOutputExtensionsInPackageBuildOutputFolder>		
+	</PropertyGroup>
+	<PropertyGroup>
+		<RootNamespace>Ejyle.DevAccelerate.Identity</RootNamespace>
+		<AssemblyName>Ejyle.DevAccelerate.Identity</AssemblyName>
+		<ApplicationIcon>da.ico</ApplicationIcon>
+		<Company>Ejyle Technologies (P) Ltd</Company>
+		<Authors>Tanveer Yousuf</Authors>
+		<Copyright>Copyright © Ejyle Technologies (P) Ltd. All rights reserved.</Copyright>
+		<PackageProjectUrl>https://devaccelerate.github.io</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/ejyle/devaccelerate-dotnet.git</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageId>DevAccelerateIdentity</PackageId>
+		<Product>DevAccelerateIdentity</Product>
+		<Description>Provides base functionality in terms of identity management.</Description>
+		<PackageTags>DevAccelerate;Identity;Identity-Management;User-Activities;User-Sessions;User-Settings</PackageTags>
+		<Nullable>disable</Nullable>		
+		<PackageReleaseNotes>Please see https://github.com/devaccelerate/devacceleratenet/releases</PackageReleaseNotes>
+		<PackageIcon>logo.png</PackageIcon>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<PackageOutputPath>../../../nupkg</PackageOutputPath>
+	</PropertyGroup>
+	<PropertyGroup>
+		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>
+	<ItemGroup>
+		<Compile Remove="Apps\**" />
+		<Compile Remove="SubscriptionPlans\**" />
+		<Compile Remove="Subscriptions\**" />
+		<Compile Remove="Tools\**" />
+		<EmbeddedResource Remove="Apps\**" />
+		<EmbeddedResource Remove="SubscriptionPlans\**" />
+		<EmbeddedResource Remove="Subscriptions\**" />
+		<EmbeddedResource Remove="Tools\**" />
+		<None Remove="Apps\**" />
+		<None Remove="SubscriptionPlans\**" />
+		<None Remove="Subscriptions\**" />
+		<None Remove="Tools\**" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="..\..\..\assets\logo.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	</ItemGroup>
 
-  <PropertyGroup>
-    <TargetFrameworks>net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
-    <RootNamespace>Ejyle.DevAccelerate.Identity</RootNamespace>
-    <AssemblyName>Ejyle.DevAccelerate.Identity</AssemblyName>
-    <ApplicationIcon>da.ico</ApplicationIcon>
-    <Company>Ejyle Technologies (P) Ltd</Company>
-    <Authors>ejyle, tanveery</Authors>
-    <Copyright>Copyright © Ejyle Technologies (P) Ltd. All rights reserved.</Copyright>
-    <PackageProjectUrl>https://devaccelerate.github.io</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/devaccelerate/DevAccelerateNet.git</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <PackageId>DevAccelerateIdentity</PackageId>
-    <Product>DevAccelerateIdentity</Product>
-    <Description>Provides base functionality in terms of identity management.</Description>
-    <PackageTags>DevAccelerate;Identity;Identity-Management;User-Activities;User-Sessions;User-Settings</PackageTags>
-    <Version>6.5.0</Version>
-    <Nullable>disable</Nullable>
-    <GenerateDocumentationFile>False</GenerateDocumentationFile>
-    <PackageReleaseNotes>Migrated the library to .NET Core</PackageReleaseNotes>
-    <PackageIcon>logo.png</PackageIcon>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <PackageOutputPath>../../../nupkg</PackageOutputPath>        
-  </PropertyGroup>
-  <ItemGroup>
-    <None Include="..\..\..\assets\logo.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Core\Ejyle.DevAccelerate.Core\Ejyle.DevAccelerate.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Tools\" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\Core\Ejyle.DevAccelerate.Core\Ejyle.DevAccelerate.Core.csproj" />
+	</ItemGroup>
 
 </Project>

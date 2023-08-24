@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
 using Ejyle.DevAccelerate.Core.Data;
@@ -79,6 +80,14 @@ namespace Ejyle.DevAccelerate.Files
         {
             ThrowIfDisposed();
             return Repository.FindByIdAsync(id);
+        }
+
+        public IQueryable<TFileStorage> FileStorages
+        {
+            get
+            {
+                return Repository.FileStorages;
+            }
         }
 
         public virtual TFileStorage FindByName(string name)

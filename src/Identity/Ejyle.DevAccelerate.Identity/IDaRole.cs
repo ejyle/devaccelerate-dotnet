@@ -21,5 +21,30 @@ namespace Ejyle.DevAccelerate.Identity
         /// Gets or sets the name of the role.
         /// </summary>
         string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the friendly name of the role.
+        /// </summary>
+        string FriendlyName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of the role.
+        /// </summary>
+        DaRoleType RoleType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the owner of the role.
+        /// </summary>
+        string Owner { get; set; }
+
+        /// <summary>
+        /// Gets or sets the owner type of the role.
+        /// </summary>
+        string OwnerType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the description of the role.
+        /// </summary>
+        string Description { get; set; }
     }
 }

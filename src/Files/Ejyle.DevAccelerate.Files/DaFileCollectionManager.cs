@@ -14,20 +14,20 @@ using Ejyle.DevAccelerate.Core.Utils;
 
 namespace Ejyle.DevAccelerate.Files
 {
-    public class DaFileCollectionManager<TKey, TNullableKey, TFileCollection> : DaEntityManagerBase<TKey, TFileCollection>
+    public class DaFileCollectionManager<TKey, TFileCollection> : DaEntityManagerBase<TKey, TFileCollection>
         where TKey : IEquatable<TKey>
-        where TFileCollection : IDaFileCollection<TKey, TNullableKey>
+        where TFileCollection : IDaFileCollection<TKey>
     {
-        public DaFileCollectionManager(IDaFileCollectionRepository<TKey, TNullableKey, TFileCollection> repository)
+        public DaFileCollectionManager(IDaFileCollectionRepository<TKey, TFileCollection> repository)
             : base(repository)
         {
         }
 
-        protected virtual IDaFileCollectionRepository<TKey, TNullableKey, TFileCollection> Repository
+        protected virtual IDaFileCollectionRepository<TKey, TFileCollection> Repository
         {
             get
             {
-                return GetRepository<IDaFileCollectionRepository<TKey, TNullableKey, TFileCollection>>();
+                return GetRepository<IDaFileCollectionRepository<TKey, TFileCollection>>();
             }
         }
 
@@ -92,12 +92,12 @@ namespace Ejyle.DevAccelerate.Files
             return Repository.FindByParentIdAsync(parentId, paginationCriteria);
         }
 
-        public virtual DaPaginatedEntityList<TKey, TFileCollection> FindByObjectInstanceId(TKey objectInstanceId, DaDataPaginationCriteria paginationCriteria)
+        public virtual DaPaginatedEntityList<TKey, TFileCollection> FindByObjectInstanceId(string objectInstanceId, DaDataPaginationCriteria paginationCriteria)
         {
-            return DaAsyncHelper.RunSync<DaPaginatedEntityList<TKey, TFileCollection>>(() => FindByParentIdAsync(objectInstanceId, paginationCriteria));
+            return DaAsyncHelper.RunSync<DaPaginatedEntityList<TKey, TFileCollection>>(() => FindByObjectInstanceIdAsync(objectInstanceId, paginationCriteria));
         }
 
-        public virtual Task<DaPaginatedEntityList<TKey, TFileCollection>> FindByObjectInstanceIdAsync(TKey objectInstanceId, DaDataPaginationCriteria paginationCriteria)
+        public virtual Task<DaPaginatedEntityList<TKey, TFileCollection>> FindByObjectInstanceIdAsync(string objectInstanceId, DaDataPaginationCriteria paginationCriteria)
         {
             ThrowIfDisposed();
             return Repository.FindByObjectInstanceIdAsync(objectInstanceId, paginationCriteria);

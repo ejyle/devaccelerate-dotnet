@@ -7,15 +7,21 @@
 
 using System;
 using Microsoft.EntityFrameworkCore;
-using Ejyle.DevAccelerate.Lists.Culture;
-using Ejyle.DevAccelerate.Lists.Generic;
+using Ejyle.DevAccelerate.Lists.Custom;
+using Ejyle.DevAccelerate.Lists.Countries;
+using Ejyle.DevAccelerate.Lists.Currencies;
+using Ejyle.DevAccelerate.Lists.DateFormats;
+using Ejyle.DevAccelerate.Lists.SystemLanguages;
+using Ejyle.DevAccelerate.Lists.TimeZones;
+using Ejyle.DevAccelerate.Lists.Links;
+using Ejyle.DevAccelerate.Lists.Industries;
 
 namespace Ejyle.DevAccelerate.Lists.EF
 {
     /// <summary>
     /// Represents database context for list entities.
     /// </summary>
-    public class DaListsDbContext : DaListsDbContext<int, int?, DaTimeZone, DaDateFormat, DaSystemLanguage, DaCurrency, DaCountry, DaCountryRegion, DaCountryTimeZone, DaCountryDateFormat, DaCountrySystemLanguage, DaGenericList, DaGenericListItem>
+    public class DaListsDbContext : DaListsDbContext<string, DaTimeZone, DaDateFormat, DaSystemLanguage, DaCurrency, DaCountry, DaCountryRegion, DaCountryTimeZone, DaCountryDateFormat, DaCountrySystemLanguage, DaCustomList, DaCustomListItem, DaLink, DaIndustry>
     {
         public DaListsDbContext() : base()
         { }
@@ -40,47 +46,48 @@ namespace Ejyle.DevAccelerate.Lists.EF
     /// <summary>
     /// Represents the database context for list entities.
     /// </summary>
-    /// <typeparam name="TKey">Represents a non-nullable type of an entity ID.</typeparam>
-    /// <typeparam name="TNullableKey">Represents a nullable type for an entity ID.</typeparam>
+    /// <typeparam name="TKey">Represents the type of an entity ID.</typeparam>
     /// <typeparam name="TTimeZone">Represents the type of the time zone entity.</typeparam>
     /// <typeparam name="TDateFormat">Represents the type of the date format entity.</typeparam>
     /// <typeparam name="TSystemLanguage">Represents the type of the system language entity.</typeparam>
     /// <typeparam name="TCurrency">Represents the type of the currency entity.</typeparam>
     /// <typeparam name="TCountry">Represents the type of the country entity.</typeparam>
     /// <typeparam name="TCountryRegion">Represents the type of the country region entity.</typeparam>
-    /// <typeparam name="TGenericList">Represents the type of the generic list entity.</typeparam>
-    /// <typeparam name="TGenericListItem">Represents the type of the generic list item entity.</typeparam>
-    public class DaListsDbContext<TKey, TNullableKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TGenericList, TGenericListItem> : DbContext
+    /// <typeparam name="TCustomList">Represents the type of the custom list entity.</typeparam>
+    /// <typeparam name="TCustomListItem">Represents the type of the custom list item entity.</typeparam>
+    public class DaListsDbContext<TKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem, TLink, TIndustry> : DbContext
         where TKey : IEquatable<TKey>
         where TTimeZone : DaTimeZone<TKey, TCountryTimeZone>
         where TDateFormat : DaDateFormat<TKey, TCountryDateFormat>
         where TSystemLanguage : DaSystemLanguage<TKey, TCountrySystemLanguage>
-        where TCurrency : DaCurrency<TKey, TNullableKey, TCountry>
-        where TCountry : DaCountry<TKey, TNullableKey, TCurrency, TCountryTimeZone, TCountryRegion, TCountrySystemLanguage, TCountryDateFormat>
-        where TCountryRegion : DaCountryRegion<TKey, TNullableKey, TCountryRegion, TCountry>
-        where TCountryTimeZone : DaCountryTimeZone<TKey, TNullableKey, TCountry, TTimeZone>
-        where TCountryDateFormat : DaCountryDateFormat<TKey, TNullableKey, TCountry, TDateFormat>
-        where TCountrySystemLanguage : DaCountrySystemLanguage<TKey, TNullableKey, TCountry, TSystemLanguage>
-        where TGenericList : DaGenericList<TKey, TGenericListItem>
-        where TGenericListItem : DaGenericListItem<TKey, TGenericList>
+        where TCurrency : DaCurrency<TKey, TCountry>
+        where TCountry : DaCountry<TKey, TCurrency, TCountryTimeZone, TCountryRegion, TCountrySystemLanguage, TCountryDateFormat>
+        where TCountryRegion : DaCountryRegion<TKey, TCountryRegion, TCountry>
+        where TCountryTimeZone : DaCountryTimeZone<TKey, TCountry, TTimeZone>
+        where TCountryDateFormat : DaCountryDateFormat<TKey, TCountry, TDateFormat>
+        where TCountrySystemLanguage : DaCountrySystemLanguage<TKey, TCountry, TSystemLanguage>
+        where TCustomList : DaCustomList<TKey, TCustomListItem>
+        where TCustomListItem : DaCustomListItem<TKey, TCustomList, TCustomListItem>
+        where TLink : DaLink<TKey>
+        where TIndustry : DaIndustry<TKey>
     {
-        private const string SCHEMA_NAME = "Lists";
+        private const string SCHEMA_NAME = "Da.Lists";
 
         /// <summary>
-        /// Creates an instance of the <see cref="DaListsDbContext{TKey, TNullableKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TGenericList, TGenericListItem}"/> class.
+        /// Creates an instance of the <see cref="DaListsDbContext{TKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem}"/> class.
         /// </summary>
         public DaListsDbContext() : base()
         { }
 
         /// <summary>
-        /// Creates an instance of the <see cref="DaListsDbContext{TKey, TNullableKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TGenericList, TGenericListItem}"/> class.
+        /// Creates an instance of the <see cref="DaListsDbContext{TKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCustomList, TCustomListItem}"/> class.
         /// </summary>
         /// <param name="options">The options for this context.</param>
         public DaListsDbContext(DbContextOptions options)
             : base(options)
         { }
 
-        public DaListsDbContext(DbContextOptions<DaListsDbContext<TKey, TNullableKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TGenericList, TGenericListItem>> options)
+        public DaListsDbContext(DbContextOptions<DaListsDbContext<TKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem, TLink, TIndustry>> options)
             : base(options)
         { }
 
@@ -88,9 +95,9 @@ namespace Ejyle.DevAccelerate.Lists.EF
             : base(GetOptions(connectionString))
         { }
 
-        private static DbContextOptions<DaListsDbContext<TKey, TNullableKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TGenericList, TGenericListItem>> GetOptions(string connectionString)
+        private static DbContextOptions<DaListsDbContext<TKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem, TLink, TIndustry>> GetOptions(string connectionString)
         {
-            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaListsDbContext<TKey, TNullableKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TGenericList, TGenericListItem>>(), connectionString).Options;
+            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaListsDbContext<TKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem, TLink, TIndustry>>(), connectionString).Options;
         }
 
         /// <summary>
@@ -123,9 +130,34 @@ namespace Ejyle.DevAccelerate.Lists.EF
         public virtual DbSet<TDateFormat> DateFormats { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="DbSet{TGenericList}"/> of generic lists.
+        /// Gets or sets the <see cref="DbSet{TCustomList}"/> of custom lists.
         /// </summary>
-        public virtual DbSet<TGenericList> GenericLists { get; set; }
+        public virtual DbSet<TCustomList> CustomLists { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="DbSet{TCustomListItem}"/> of custom list items.
+        /// </summary>
+        public virtual DbSet<TCustomListItem> CustomListItems { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="DbSet{TLink}"/> of links.
+        /// </summary>
+        public virtual DbSet<TLink> Links { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="DbSet{TIndustry}"/> of links.
+        /// </summary>
+        public virtual DbSet<TIndustry> Industries { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            string connectionString = "Server=(localdb)\\mssqllocaldb;Database=Ejyle.DevAccelerate;Trusted_Connection = True;MultipleActiveResultSets=True";
+
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(connectionString);
+            }
+        }
 
         /// <summary>
         /// Overrides this method to futher configure the <see cref="DbSet{TEntity}"/> properties.
@@ -138,6 +170,8 @@ namespace Ejyle.DevAccelerate.Lists.EF
             modelBuilder.Entity<TCountry>(entity =>
             {
                 entity.ToTable("Countries", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.InternationalDialingCode)
                     .IsRequired()
@@ -177,6 +211,8 @@ namespace Ejyle.DevAccelerate.Lists.EF
             {
                 entity.ToTable("CountryDateFormats", SCHEMA_NAME);
 
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
                 entity.HasOne(d => d.Country)
                     .WithMany(p => p.CountryDateFormats)
                     .HasForeignKey(d => d.CountryId);
@@ -189,6 +225,8 @@ namespace Ejyle.DevAccelerate.Lists.EF
             modelBuilder.Entity<TCountryRegion>(entity =>
             {
                 entity.ToTable("CountryRegions", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.DisplayName)
                     .IsRequired()
@@ -211,6 +249,8 @@ namespace Ejyle.DevAccelerate.Lists.EF
             {
                 entity.ToTable("CountrySystemLanguages", SCHEMA_NAME);
 
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
                 entity.HasOne(d => d.Country)
                     .WithMany(p => p.CountrySystemLanguages)
                     .HasForeignKey(d => d.CountryId);
@@ -224,6 +264,8 @@ namespace Ejyle.DevAccelerate.Lists.EF
             {
                 entity.ToTable("CountryTimeZones", SCHEMA_NAME);
 
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
                 entity.HasOne(d => d.Country)
                     .WithMany(p => p.CountryTimeZones)
                     .HasForeignKey(d => d.CountryId);
@@ -236,6 +278,8 @@ namespace Ejyle.DevAccelerate.Lists.EF
             modelBuilder.Entity<TCurrency>(entity =>
             {
                 entity.ToTable("Currencies", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.AlphabeticCode)
                     .IsRequired()
@@ -264,6 +308,8 @@ namespace Ejyle.DevAccelerate.Lists.EF
             {
                 entity.ToTable("DateFormats", SCHEMA_NAME);
 
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
                 entity.Property(e => e.DateFormatExpression)
                     .IsRequired()
                     .HasMaxLength(512);
@@ -283,9 +329,11 @@ namespace Ejyle.DevAccelerate.Lists.EF
                     .IsUnique();
             });
 
-            modelBuilder.Entity<TGenericListItem>(entity =>
+            modelBuilder.Entity<TCustomListItem>(entity =>
             {
-                entity.ToTable("GenericListItems", SCHEMA_NAME);
+                entity.ToTable("CustomListItems", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.DisplayName)
                     .IsRequired()
@@ -298,23 +346,39 @@ namespace Ejyle.DevAccelerate.Lists.EF
                 entity.HasOne(d => d.List)
                     .WithMany(p => p.ListItems)
                     .HasForeignKey(d => d.ListId);
+
+                entity.HasOne(d => d.Parent)
+                    .WithMany(p => p.Children)
+                    .HasForeignKey(d => d.ParentId);
             });
 
-            modelBuilder.Entity<TGenericList>(entity =>
+            modelBuilder.Entity<TCustomList>(entity =>
             {
-                entity.ToTable("GenericLists", SCHEMA_NAME);
+                entity.ToTable("CustomLists", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(256);
 
-                entity.HasIndex(e => e.Name)
+                entity.Property(e => e.TenantId)
+                    .HasMaxLength(450);
+
+                entity.HasIndex(e => e.Key)
                     .IsUnique(true);
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TSystemLanguage>(entity =>
             {
                 entity.ToTable("SystemLanguages", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.DisplayName)
                     .IsRequired()
@@ -332,6 +396,8 @@ namespace Ejyle.DevAccelerate.Lists.EF
             {
                 entity.ToTable("TimeZones", SCHEMA_NAME);
 
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
                 entity.Property(e => e.DaylightName).HasMaxLength(256);
 
                 entity.Property(e => e.DisplayName)
@@ -346,6 +412,41 @@ namespace Ejyle.DevAccelerate.Lists.EF
 
                 entity.HasIndex(e => e.Name)
                     .IsUnique();
+            });
+
+            modelBuilder.Entity<TLink>(entity =>
+            {
+                entity.ToTable("Links", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.Url)
+                    .IsRequired()
+                    .HasMaxLength(1000);
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(450);
+
+                entity.Property(e => e.Category)
+                    .HasMaxLength(256);
+            });
+
+            modelBuilder.Entity<TIndustry>(entity =>
+            {
+                entity.ToTable("Industries", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.Sector)
+                    .HasMaxLength(256);
             });
         }
     }

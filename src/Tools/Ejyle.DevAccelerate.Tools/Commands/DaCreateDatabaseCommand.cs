@@ -12,19 +12,21 @@ using System.Text;
 using System.Threading.Tasks;
 using CommandLine;
 using Ejyle.DevAccelerate.Comments.EF;
-using Ejyle.DevAccelerate.EnterpriseSecurity.Apps;
-using Ejyle.DevAccelerate.EnterpriseSecurity.EF;
-using Ejyle.DevAccelerate.EnterpriseSecurity.EF.Apps;
+using Ejyle.DevAccelerate.Core.EF;
+using Ejyle.DevAccelerate.Platform.Apps;
+using Ejyle.DevAccelerate.Platform.EF;
+using Ejyle.DevAccelerate.Platform.EF.Apps;
 using Ejyle.DevAccelerate.Identity.EF;
 using Ejyle.DevAccelerate.Lists.EF;
-using Ejyle.DevAccelerate.Messages.EF;
-using Ejyle.DevAccelerate.Profiles.EF;
+using Ejyle.DevAccelerate.Notifications.EF;
 using Ejyle.DevAccelerate.SystemTasks.EF;
 using Ejyle.DevAccelerate.Tasks.EF;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
+using Ejyle.DevAccelerate.MultiTenancy.EF;
+using Ejyle.DevAccelerate.Subscriptions.EF;
 
 namespace Ejyle.DevAccelerate.Tools.Commands
 {
@@ -36,12 +38,12 @@ namespace Ejyle.DevAccelerate.Tools.Commands
 
         public override void Execute()
         {
-            using (var listsDbContext = new DaListsDbContext(GetConnectionString()))
+            using (var coreDbContext = new DaCoreDbContext(GetConnectionString()))
             {
                 try
                 {
-                    listsDbContext.Database.EnsureCreated();
-                    var databaseCreator = listsDbContext.GetService<IRelationalDatabaseCreator>();
+                    coreDbContext.Database.EnsureCreated();
+                    var databaseCreator = coreDbContext.GetService<IRelationalDatabaseCreator>();
                     databaseCreator.CreateTables();
                 }
                 catch(Exception)
@@ -51,6 +53,20 @@ namespace Ejyle.DevAccelerate.Tools.Commands
             }
 
             EnsureConnectionIsValid();
+
+            using (var listsDbContext = new DaListsDbContext(GetConnectionString()))
+            {
+                try
+                {
+                    listsDbContext.Database.EnsureCreated();
+                    var databaseCreator = listsDbContext.GetService<IRelationalDatabaseCreator>();
+                    databaseCreator.CreateTables();
+                }
+                catch (Exception)
+                {
+                    // Ignore the error
+                }
+            }
 
             using (var systemTasksDbContext = new DaSystemTasksDbContext(GetConnectionString()))
             {
@@ -80,12 +96,12 @@ namespace Ejyle.DevAccelerate.Tools.Commands
                 }
             }
 
-            using (var enterpriseSecurityDbContext = new DaEnterpriseSecurityDbContext(GetConnectionString()))
+            using (var platformDbcontext = new DaPlatformDbContext(GetConnectionString()))
             {
                 try
                 {
-                    enterpriseSecurityDbContext.Database.EnsureCreated();
-                    var databaseCreator = enterpriseSecurityDbContext.GetService<IRelationalDatabaseCreator>();
+                    platformDbcontext.Database.EnsureCreated();
+                    var databaseCreator = platformDbcontext.GetService<IRelationalDatabaseCreator>();
                     databaseCreator.CreateTables();
                 }
                 catch (Exception)
@@ -94,12 +110,26 @@ namespace Ejyle.DevAccelerate.Tools.Commands
                 }
             }
 
-            using (var profilesDbContext = new DaProfilesDbContext(GetConnectionString()))
+            using (var multiTenancyDbContext = new DaMultiTenancyDbContext(GetConnectionString()))
             {
                 try
                 {
-                    profilesDbContext.Database.EnsureCreated();
-                    var databaseCreator = profilesDbContext.GetService<IRelationalDatabaseCreator>();
+                    multiTenancyDbContext.Database.EnsureCreated();
+                    var databaseCreator = multiTenancyDbContext.GetService<IRelationalDatabaseCreator>();
+                    databaseCreator.CreateTables();
+                }
+                catch (Exception)
+                {
+                    // Ignore the error
+                }
+            }
+
+            using (var subscriptionsDbContext = new DaSubscriptionsDbContext(GetConnectionString()))
+            {
+                try
+                {
+                    subscriptionsDbContext.Database.EnsureCreated();
+                    var databaseCreator = subscriptionsDbContext.GetService<IRelationalDatabaseCreator>();
                     databaseCreator.CreateTables();
                 }
                 catch (Exception)
@@ -136,12 +166,12 @@ namespace Ejyle.DevAccelerate.Tools.Commands
                 }
             }
 
-            using (var messagesDbContext = new DaMessagesDbContext(GetConnectionString()))
+            using (var notificationsDbContext = new DaNotificationsDbContext(GetConnectionString()))
             {
                 try
                 {
-                    messagesDbContext.Database.EnsureCreated();
-                    var databaseCreator = messagesDbContext.GetService<IRelationalDatabaseCreator>();
+                    notificationsDbContext.Database.EnsureCreated();
+                    var databaseCreator = notificationsDbContext.GetService<IRelationalDatabaseCreator>();
                     databaseCreator.CreateTables();
                 }
                 catch (Exception)

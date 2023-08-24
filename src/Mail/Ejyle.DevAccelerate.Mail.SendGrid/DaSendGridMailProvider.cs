@@ -14,13 +14,13 @@ using SG = SendGrid;
 
 namespace Ejyle.DevAccelerate.Mail.SendGrid
 {
-    public class DaSendGridMailProvider : DaMailProviderBase
+    public class DaSendGridMailProvider : DaMailProviderBase<SG.Response>
     {
-        public DaSendGridMailProvider(IOptions<DaMailSettings> options)
-            : base(options)
+        public DaSendGridMailProvider(DaMailSettings settings)
+            : base(settings)
         { }
 
-        public override void Send(string to, string from, string subject, string body)
+        public override SG.Response Send(string to, string from, string subject, string body)
         {
             var message = new MailMessage()
             {
@@ -30,15 +30,29 @@ namespace Ejyle.DevAccelerate.Mail.SendGrid
 
             message.From = new MailAddress(from);
             message.To.Add(new MailAddress(to));
-            Send(message);
+            return Send(message);
         }
 
-        public override void Send(MailMessage message)
+        public override SG.Response Send(string to, string subject, string body)
         {
-            DaAsyncHelper.RunSync(() => SendAsync(message));
+            var message = new MailMessage()
+            {
+                Body = body,
+                Subject = subject
+            };
+
+            message.From = new MailAddress(Settings.DefaultSenderEmail, Settings.DefaultSenderName);
+            message.To.Add(new MailAddress(to));
+            return Send(message);
         }
 
-        public override Task SendAsync(MailMessage message)
+
+        public override SG.Response Send(MailMessage message)
+        {
+            return DaAsyncHelper.RunSync(() => SendAsync(message));
+        }
+
+        public override Task<SG.Response> SendAsync(MailMessage message)
         {
             if (message == null)
             {
@@ -102,10 +116,12 @@ namespace Ejyle.DevAccelerate.Mail.SendGrid
                 sgMessage.AddBcc(bcc.Address, bcc.DisplayName);
             }
 
+            SG.Response r = null;
+
             return oclient.SendEmailAsync(sgMessage);
         }
 
-        public override Task SendAsync(string to, string from, string subject, string body)
+        public override Task<SG.Response> SendAsync(string to, string from, string subject, string body)
         {
             var message = new MailMessage()
             {
@@ -114,6 +130,20 @@ namespace Ejyle.DevAccelerate.Mail.SendGrid
             };
 
             message.From = new MailAddress(from);
+            message.To.Add(new MailAddress(to));
+
+            return SendAsync(message);
+        }
+
+        public override Task<SG.Response> SendAsync(string to, string subject, string body)
+        {
+            var message = new MailMessage()
+            {
+                Body = body,
+                Subject = subject
+            };
+
+            message.From = new MailAddress(Settings.DefaultSenderEmail, Settings.DefaultSenderName);
             message.To.Add(new MailAddress(to));
 
             return SendAsync(message);

@@ -1,6 +1,19 @@
+![DevAccelerate Logo](https://github.com/ejyle/devaccelerate-dotnet/blob/dev/assets/da_logo_sm.png?raw=true)
 # DevAccelerate for .NET
 
 **DevAccelerate for .NET** is a comprehensive and well-designed development accelerator for Microsoft .NET Framework. It is free and open source. It contains common components and functionalities that allow developers to build real-world .NET apps rapidly. It is broken up into individual modules and therefore allows developers to use only what is needed. The usage of the framework is governed by the terms and conditions of its [License](https://github.com/devaccelerate/DevAccelerateNet/blob/master/LICENSE).
+
+## 7.0.1 Preview Changes
+DevAccelerate for .NET 7.0 is a major release and has new many new APIs and some of the older APIs have been removed. The following are the highlights:
+* Added object types, object instances, object history and object dependencies to the core module.
+* Removed caching, exception management, and logging APIs.
+* Moved tenant, address profile and organization profile related types to a new module called multiTenancy.
+* Moved subscription and subscription related types to a new module called subscriptions.
+* Moved apps and features related types to a new module called platform.
+* Moved user profile related types to identity module.
+* Removed enterprise security and profiles modules.
+  Migrated the new messages module back to notifications.
+* General design and code improvements.
 
 ## 6.5.0 Changes
 Some new modules have been added and few older modules have also been migrated to the latest code base. The following are the highlights:
@@ -36,15 +49,18 @@ The following is the list of DevAccelerate modules with corresponding NuGet pack
 #### Identity
 * [DevAccelerateIdentity](https://www.nuget.org/packages/DevAccelerateIdentity/)
 * [DevAccelerateIdentityEF](https://www.nuget.org/packages/DevAccelerateIdentityEF/)
-#### Messages
-* [DevAccelerateMessages](https://www.nuget.org/packages/DevAccelerateMessages)
-* [DevAccelerateMessagesEF](https://www.nuget.org/packages/DevAccelerateMessagesEF)
-#### Profiles
-* [DevAccelerateProfiles](https://www.nuget.org/packages/DevAccelerateProfiles/)
-* [DevAccelerateProfilesEF](https://www.nuget.org/packages/DevAccelerateProfilesEF/)
-#### Enterprise Security
-* [DevAccelerateEnterpriseSecurity](https://www.nuget.org/packages/DevAccelerateEnterpriseSecurity/)
-* [DevAccelerateEnterpriseSecurityEF](https://www.nuget.org/packages/DevAccelerateEnterpriseSecurityEF/)
+#### Platform
+* [DevAcceleratePlatform](https://www.nuget.org/packages/DevAcceleratePlatform)
+* [DevAcceleratePlatformEF](https://www.nuget.org/packages/DevAcceleratePlatformEF)
+#### MultiTenancy
+* [DevAccelerateMultiTenancy](https://www.nuget.org/packages/DevAccelerateMultiTenancy/)
+* [DevAccelerateMultiTenancyEF](https://www.nuget.org/packages/DevAccelerateMultiTenancyEF/)
+#### Subscriptions
+* [DevAccelerateSubscriptions](https://www.nuget.org/packages/DevAccelerateSubscriptions/)
+* [DevAccelerateSubscriptionsEF](https://www.nuget.org/packages/DevAccelerateSubscriptionsEF/)
+#### Notifications
+* [DevAccelerateNotifications](https://www.nuget.org/packages/DevAccelerateNotifications)
+* [DevAccelerateNotificationsEF](https://www.nuget.org/packages/DevAccelerateNotificationsEF)
 #### Mail and SMS
 * [DevAccelerateMail](https://www.nuget.org/packages/DevAccelerateMail/)
 * [DevAccelerateMailSendGrid](https://www.nuget.org/packages/DevAccelerateMailSendGrid/)
@@ -64,32 +80,22 @@ The following is the list of DevAccelerate modules with corresponding NuGet pack
 
 ## Getting Started
 ### Installation
-DevAccelerate modules are available on NuGet. Each module has its own package(s). Use ```dotnet add package``` command to install DevAccelerate modules:
+DevAccelerate modules are available on NuGet. Each module has its own package(s). Use ```dotnet add package``` command to install DevAccelerate modules. Here are some of the examples:
 ```
-dotnet add package DevAccelerateCore
 dotnet add package DevAccelerateCoreEF
-dotnet add package DevAccelerateComments
 dotnet add package DevAccelerateCommentsEF
-dotnet add package DevAccelerateFiles
 dotnet add package DevAccelerateFilesEF
-dotnet add package DevAccelerateLists
 dotnet add package DevAccelerateListsEF
-dotnet add package DevAccelerateIdentity
 dotnet add package DevAccelerateIdentityEF
-dotnet add package DevAccelerateMessages
-dotnet add package DevAccelerateMessagesEF
-dotnet add package DevAccelerateProfiles
-dotnet add package DevAccelerateProfilesEF
-dotnet add package DevAccelerateEnterpriseSecurity
-dotnet add package DevAccelerateEnterpriseSecurityEF
-dotnet add package DevAccelerateTasks
+dotnet add package DevAcceleratePlatformEF
+dotnet add package DevAccelerateMultiTenancyEF
+dotnet add package DevAccelerateSubscriptionsEF
 dotnet add package DevAccelerateTasksEF
-dotnet add package DevAccelerateMail
+dotnet add package DevAccelerateNotificationsEF
 dotnet add package DevAccelerateMailSendGrid
-dotnet add package DevAccelerateSms
 dotnet add package DevAccelerateSmsTextlocal
 dotnet add package DevAccelerateSmsTwilio
-dotnet add package DevAccelerateSecurityFacade
+dotnet add package DevAccelerateFacades
 ```
 To install all the DevAccelerate modules (libraries) in one go, the DevAccelerateAll metapackage can be quite handy:
 ```

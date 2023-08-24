@@ -16,7 +16,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Ejyle.DevAccelerate.Comments.EF
 {
     public class DaFilesDbContext
-        : DaFilesDbContext<int, int?, DaFileStorage, DaFileStorageLocation, DaFileStorageAttribute, DaFileCollection, DaFile>
+        : DaFilesDbContext<string, DaFileStorage, DaFileStorageLocation, DaFileStorageAttribute, DaFileCollection, DaFile>
     {
         public DaFilesDbContext() : base()
         { }
@@ -30,15 +30,15 @@ namespace Ejyle.DevAccelerate.Comments.EF
         { }
     }
 
-    public class DaFilesDbContext<TKey, TNullableKey, TFileStorage, TFileStorageLocation, TFileStorageAttribute, TFileCollection, TFile> : DbContext
+    public class DaFilesDbContext<TKey, TFileStorage, TFileStorageLocation, TFileStorageAttribute, TFileCollection, TFile> : DbContext
         where TKey : IEquatable<TKey>
         where TFileStorage : DaFileStorage<TKey, TFileStorageLocation, TFileStorageAttribute>
         where TFileStorageLocation : DaFileStorageLocation<TKey, TFileStorage>
         where TFileStorageAttribute : DaFileStorageAttribute<TKey, TFileStorage>
-        where TFile : DaFile<TKey, TNullableKey, TFileCollection>
-        where TFileCollection : DaFileCollection<TKey, TNullableKey, TFileCollection, TFile>
+        where TFile : DaFile<TKey, TFileCollection>
+        where TFileCollection : DaFileCollection<TKey, TFileCollection, TFile>
     {
-        private const string SCHEMA_NAME = "Files";
+        private const string SCHEMA_NAME = "Da.Files";
 
         public DaFilesDbContext() : base()
         { }
@@ -47,7 +47,7 @@ namespace Ejyle.DevAccelerate.Comments.EF
             : base(options)
         { }
 
-        public DaFilesDbContext(DbContextOptions<DaFilesDbContext<TKey, TNullableKey, TFileStorage, TFileStorageLocation, TFileStorageAttribute, TFileCollection, TFile>> options)
+        public DaFilesDbContext(DbContextOptions<DaFilesDbContext<TKey, TFileStorage, TFileStorageLocation, TFileStorageAttribute, TFileCollection, TFile>> options)
             : base(options)
         { }
 
@@ -55,9 +55,9 @@ namespace Ejyle.DevAccelerate.Comments.EF
             : base(GetOptions(connectionString))
         { }
 
-        private static DbContextOptions<DaFilesDbContext<TKey, TNullableKey, TFileStorage, TFileStorageLocation, TFileStorageAttribute, TFileCollection, TFile>> GetOptions(string connectionString)
+        private static DbContextOptions<DaFilesDbContext<TKey, TFileStorage, TFileStorageLocation, TFileStorageAttribute, TFileCollection, TFile>> GetOptions(string connectionString)
         {
-            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaFilesDbContext<TKey, TNullableKey, TFileStorage, TFileStorageLocation, TFileStorageAttribute, TFileCollection, TFile>>(), connectionString).Options;
+            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaFilesDbContext<TKey, TFileStorage, TFileStorageLocation, TFileStorageAttribute, TFileCollection, TFile>>(), connectionString).Options;
         }
 
         public virtual DbSet<TFileStorage> FileStorages { get; set; }
@@ -66,6 +66,16 @@ namespace Ejyle.DevAccelerate.Comments.EF
         public virtual DbSet<TFile> Files { get; set; }
         public virtual DbSet<TFileCollection> FileCollections { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            string connectionString = "Server=(localdb)\\mssqllocaldb;Database=Ejyle.DevAccelerate;Trusted_Connection = True;MultipleActiveResultSets=True";
+
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(connectionString);
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -73,6 +83,8 @@ namespace Ejyle.DevAccelerate.Comments.EF
             modelBuilder.Entity<TFile>(entity =>
             {
                 entity.ToTable("Files", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.HasIndex(e => e.GuidFileName)
                     .IsUnique();
@@ -94,11 +106,28 @@ namespace Ejyle.DevAccelerate.Comments.EF
                 entity.HasOne(d => d.FileCollection)
                     .WithMany(p => p.Files)
                     .HasForeignKey(d => d.FileCollectionId);
+
+                entity.Property(e => e.ObjectInstanceId)
+                    .HasMaxLength(450);
+
+                entity.Property(e => e.TenantId)
+                    .HasMaxLength(450);
+
+                entity.Property(e => e.OwnerUserId)
+                    .HasMaxLength(450)
+                    .IsRequired();
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TFileCollection>(entity =>
             {
                 entity.ToTable("FileCollections", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -107,11 +136,28 @@ namespace Ejyle.DevAccelerate.Comments.EF
                 entity.HasOne(d => d.Parent)
                     .WithMany(p => p.Children)
                     .HasForeignKey(d => d.ParentId);
+
+                entity.Property(e => e.ObjectInstanceId)
+                    .HasMaxLength(450);
+
+                entity.Property(e => e.TenantId)
+                    .HasMaxLength(450);
+
+                entity.Property(e => e.OwnerUserId)
+                    .HasMaxLength(450)
+                    .IsRequired();
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.CreatedDateUtc).HasColumnType("datetime");
+                entity.Property(e => e.LastUpdatedBy).HasMaxLength(450).IsRequired();
+                entity.Property(e => e.LastUpdatedDateUtc).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TFileStorage>(entity =>
             {
                 entity.ToTable("FileStorages", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.HasIndex(e => e.Name)
                     .IsUnique();
@@ -132,6 +178,8 @@ namespace Ejyle.DevAccelerate.Comments.EF
             {
                 entity.ToTable("FileStorageLocations", SCHEMA_NAME);
 
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
                 entity.Property(e => e.Location)
                     .IsRequired()
                     .HasMaxLength(1000);
@@ -144,6 +192,8 @@ namespace Ejyle.DevAccelerate.Comments.EF
             modelBuilder.Entity<TFileStorageAttribute>(entity =>
             {
                 entity.ToTable("FileStorageAttributes", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.AttributeName)
                     .IsRequired()

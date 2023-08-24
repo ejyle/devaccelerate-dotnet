@@ -14,21 +14,21 @@ using Ejyle.DevAccelerate.Core.Utils;
 
 namespace Ejyle.DevAccelerate.Comments
 {
-    public class DaCommentThreadManager<TKey, TNullableKey, TCommentThread, TComment> : DaEntityManagerBase<TKey, TCommentThread>
+    public class DaCommentThreadManager<TKey, TCommentThread, TComment> : DaEntityManagerBase<TKey, TCommentThread>
         where TKey : IEquatable<TKey>
         where TCommentThread : IDaCommentThread<TKey>
-        where TComment : IDaComment<TKey, TNullableKey>
+        where TComment : IDaComment<TKey>
     {
-        public DaCommentThreadManager(IDaCommentThreadRepository<TKey, TNullableKey, TCommentThread, TComment> repository)
+        public DaCommentThreadManager(IDaCommentThreadRepository<TKey, TCommentThread, TComment> repository)
             : base(repository)
         {
         }
 
-        protected virtual IDaCommentThreadRepository<TKey, TNullableKey, TCommentThread, TComment> Repository
+        protected virtual IDaCommentThreadRepository<TKey, TCommentThread, TComment> Repository
         {
             get
             {
-                return GetRepository<IDaCommentThreadRepository<TKey, TNullableKey, TCommentThread, TComment>>();
+                return GetRepository<IDaCommentThreadRepository<TKey, TCommentThread, TComment>>();
             }
         }
 
@@ -82,6 +82,17 @@ namespace Ejyle.DevAccelerate.Comments
             return Repository.FindByIdAsync(id);
         }
 
+        public virtual List<TCommentThread> FindByObjectInstanceId(string objectInstanceId)
+        {
+            return DaAsyncHelper.RunSync<List<TCommentThread>>(() => FindByObjectInstanceIdAsync(objectInstanceId));
+        }
+
+        public virtual Task<List<TCommentThread>> FindByObjectInstanceIdAsync(string objectInstanceId)
+        {
+            ThrowIfDisposed();
+            return Repository.FindByObjectInstanceIdAsync(objectInstanceId);
+        }
+
         public virtual DaPaginatedEntityList<TKey, TComment> FindComments(TKey commentThreadId, DaDataPaginationCriteria paginationCriteria)
         {
             return DaAsyncHelper.RunSync<DaPaginatedEntityList<TKey, TComment>>(() => FindCommentsAsync(commentThreadId, paginationCriteria));
@@ -91,6 +102,17 @@ namespace Ejyle.DevAccelerate.Comments
         {
             ThrowIfDisposed();
             return Repository.FindCommentsAsync(commentThreadId, paginationCriteria);
+        }
+
+        public virtual List<TComment> FindComments(TKey commentThreadId)
+        {
+            return DaAsyncHelper.RunSync<List<TComment>>(() => FindCommentsAsync(commentThreadId));
+        }
+
+        public virtual Task<List<TComment>> FindCommentsAsync(TKey commentThreadId)
+        {
+            ThrowIfDisposed();
+            return Repository.FindCommentsAsync(commentThreadId);
         }
     }
 }
