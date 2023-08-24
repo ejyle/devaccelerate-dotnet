@@ -58,7 +58,7 @@ namespace Ejyle.DevAccelerate.Lists.Industries
         /// <exception cref="ArgumentNullException">This exception is thrown if the name is empty or null.</exception>
         public DaIndustry(string name)
         {
-            if(!string.IsNullOrEmpty(name))
+            if(string.IsNullOrEmpty(name))
             {
                 throw new ArgumentNullException(nameof(name));
             }
@@ -76,12 +76,12 @@ namespace Ejyle.DevAccelerate.Lists.Industries
         /// <exception cref="ArgumentNullException">The exception is thrown if name or sector is empty or null.</exception>
         public DaIndustry(string name, string sector)
         {
-            if (!string.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(name))
             {
                 throw new ArgumentNullException(nameof(name));
             }
 
-            if (!string.IsNullOrEmpty(sector))
+            if (string.IsNullOrEmpty(sector))
             {
                 throw new ArgumentNullException(nameof(sector));
             }
