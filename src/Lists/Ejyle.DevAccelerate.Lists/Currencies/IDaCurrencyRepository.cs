@@ -18,6 +18,7 @@ namespace Ejyle.DevAccelerate.Lists.Currencies
         where TCurrency : IDaCurrency<TKey>
     {
         Task CreateAsync(TCurrency currency);
+        Task CreateAsync(IEnumerable<TCurrency> currencies);
         Task UpdateAsync(TCurrency currency);
         Task DeleteAsync(TCurrency currency);
 

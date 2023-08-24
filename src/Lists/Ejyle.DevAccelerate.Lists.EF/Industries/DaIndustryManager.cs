@@ -5,23 +5,14 @@
 // Licensed under the MIT license. See the LICENSE file in the project's root directory for complete license information.
 // ----------------------------------------------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Ejyle.DevAccelerate.Core;
+using Ejyle.DevAccelerate.Lists.Industries;
 
-namespace Ejyle.DevAccelerate.Lists.Links
+namespace Ejyle.DevAccelerate.Lists.EF.Industries
 {
-    public interface IDaLinkRepository<TKey, TLink> : IDaEntityRepository<TKey, TLink>
-        where TKey : IEquatable<TKey>
-        where TLink : IDaLink<TKey>
+    public class DaIndustryManager : DaIndustryManager<string, DaIndustry>
     {
-        Task CreateAsync(TLink link);
-        Task CreateAsync(IEnumerable<TLink> links);
-        Task UpdateAsync(TLink link);
-        Task DeleteAsync(TLink link);
-
-        Task<TLink> FindByIdAsync(TKey id);
-        Task<List<TLink>> FindAsync(string userId, string category);
+        public DaIndustryManager(DaIndustryRepository repository)
+            : base(repository)
+        { }
     }
 }

@@ -11,7 +11,6 @@ using Ejyle.DevAccelerate.Core;
 
 namespace Ejyle.DevAccelerate.Lists.Custom
 {
-
     /// <summary>
     /// Represents a custom list entity.
     /// </summary>
@@ -94,5 +93,10 @@ namespace Ejyle.DevAccelerate.Lists.Custom
         /// Determines if the names of the list items are required to be unique.
         /// </summary>
         public bool IsListItemNameUnique { get; set; }
+
+        /// <summary>
+        /// Determines if the list can be copied across multiple tenants.
+        /// </summary>
+        public bool? CanBeCopied { get; set; }
     }
 }

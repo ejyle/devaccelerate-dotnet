@@ -43,6 +43,19 @@ namespace Ejyle.DevAccelerate.Lists.TimeZones
             return Repository.CreateAsync(timeZone);
         }
 
+        public void Create(IEnumerable<TTimeZone> timeZones)
+        {
+            DaAsyncHelper.RunSync(() => CreateAsync(timeZones));
+        }
+
+        public Task CreateAsync(IEnumerable<TTimeZone> timeZones)
+        {
+            ThrowIfDisposed();
+            ThrowIfArgumentIsNull(timeZones, nameof(timeZones));
+
+            return Repository.CreateAsync(timeZones);
+        }
+
         public void Update(TTimeZone timeZone)
         {
             DaAsyncHelper.RunSync(() => UpdateAsync(timeZone));

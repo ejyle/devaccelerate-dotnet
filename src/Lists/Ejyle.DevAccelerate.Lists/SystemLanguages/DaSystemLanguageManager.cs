@@ -43,6 +43,19 @@ namespace Ejyle.DevAccelerate.Lists.SystemLanguages
             return Repository.CreateAsync(systemLanguage);
         }
 
+        public void Create(IEnumerable<TSystemLanguage> systemLanguages)
+        {
+            DaAsyncHelper.RunSync(() => CreateAsync(systemLanguages));
+        }
+
+        public Task CreateAsync(IEnumerable<TSystemLanguage> systemLanguages)
+        {
+            ThrowIfDisposed();
+            ThrowIfArgumentIsNull(systemLanguages, nameof(systemLanguages));
+
+            return Repository.CreateAsync(systemLanguages);
+        }
+
         public void Update(TSystemLanguage systemLanguage)
         {
             DaAsyncHelper.RunSync(() => UpdateAsync(systemLanguage));

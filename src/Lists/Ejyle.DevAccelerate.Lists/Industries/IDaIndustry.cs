@@ -6,22 +6,19 @@
 // ----------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Ejyle.DevAccelerate.Core;
 
-namespace Ejyle.DevAccelerate.Lists.Links
+namespace Ejyle.DevAccelerate.Lists.Industries
 {
-    public interface IDaLinkRepository<TKey, TLink> : IDaEntityRepository<TKey, TLink>
+    /// <summary>
+    /// Represents the basic interface of an industry entity.
+    /// </summary>
+    /// <typeparam name="TKey">Represents the type of an entity ID.</typeparam>
+    public interface IDaIndustry<TKey> : IDaListItem<TKey>
         where TKey : IEquatable<TKey>
-        where TLink : IDaLink<TKey>
     {
-        Task CreateAsync(TLink link);
-        Task CreateAsync(IEnumerable<TLink> links);
-        Task UpdateAsync(TLink link);
-        Task DeleteAsync(TLink link);
-
-        Task<TLink> FindByIdAsync(TKey id);
-        Task<List<TLink>> FindAsync(string userId, string category);
+        /// <summary>
+        /// The main category of the industry.
+        /// </summary>
+        string Sector { get; set; }
     }
 }

@@ -9,19 +9,21 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ejyle.DevAccelerate.Core;
+using Ejyle.DevAccelerate.Core.Data;
 
-namespace Ejyle.DevAccelerate.Lists.Links
+namespace Ejyle.DevAccelerate.Lists.Industries
 {
-    public interface IDaLinkRepository<TKey, TLink> : IDaEntityRepository<TKey, TLink>
+    public interface IDaIndustryRepository<TKey, TIndustry> : IDaEntityRepository<TKey, TIndustry>
         where TKey : IEquatable<TKey>
-        where TLink : IDaLink<TKey>
+        where TIndustry : IDaIndustry<TKey>
     {
-        Task CreateAsync(TLink link);
-        Task CreateAsync(IEnumerable<TLink> links);
-        Task UpdateAsync(TLink link);
-        Task DeleteAsync(TLink link);
+        Task CreateAsync(TIndustry industry);
+        Task CreateAsync(IEnumerable<TIndustry> industries);
+        Task UpdateAsync(TIndustry industry);
+        Task DeleteAsync(TIndustry industry);
 
-        Task<TLink> FindByIdAsync(TKey id);
-        Task<List<TLink>> FindAsync(string userId, string category);
+        Task<TIndustry> FindByIdAsync(TKey id);
+        Task<List<TIndustry>> FindAllAsync();
+        Task<TIndustry> FindByNameAsync(string name);
     }
 }

@@ -79,6 +79,12 @@ namespace Ejyle.DevAccelerate.Lists.EF.DateFormats
             return DbContext.SaveChangesAsync();
         }
 
+        public Task CreateAsync(IEnumerable<TDateFormat> dateFormats)
+        {
+            DateFormatsSet.AddRange(dateFormats);
+            return DbContext.SaveChangesAsync();
+        }
+
         public Task UpdateAsync(TDateFormat dateFormat)
         {
             DbContext.Entry(dateFormat).State = EntityState.Modified;

@@ -68,12 +68,12 @@ namespace Ejyle.DevAccelerate.Lists.Custom
             await Repository.CreateAsync(customList);
         }
 
-        public void Create(TCustomList[] customLists)
+        public void Create(IEnumerable<TCustomList> customLists)
         {
             DaAsyncHelper.RunSync(() => CreateAsync(customLists));
         }
 
-        public async Task CreateAsync(TCustomList[] customLists)
+        public async Task CreateAsync(IEnumerable<TCustomList> customLists)
         {
             ThrowIfDisposed();
             foreach(var customList in customLists)

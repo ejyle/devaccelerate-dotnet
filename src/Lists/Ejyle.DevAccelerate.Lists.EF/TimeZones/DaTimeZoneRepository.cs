@@ -103,6 +103,12 @@ namespace Ejyle.DevAccelerate.Lists.EF.TimeZones
             return DbContext.SaveChangesAsync();
         }
 
+        public Task CreateAsync(IEnumerable<TTimeZone> timeZones)
+        {
+            TimeZonesSet.AddRange(timeZones);
+            return DbContext.SaveChangesAsync();
+        }
+
         public Task UpdateAsync(TTimeZone timeZone)
         {
             DbContext.Entry(timeZone).State = EntityState.Modified;

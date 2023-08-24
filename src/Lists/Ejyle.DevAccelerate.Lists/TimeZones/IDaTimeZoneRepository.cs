@@ -18,6 +18,7 @@ namespace Ejyle.DevAccelerate.Lists.TimeZones
         where TTimeZone : IDaTimeZone<TKey>
     {
         Task CreateAsync(TTimeZone timeZone);
+        Task CreateAsync(IEnumerable<TTimeZone> timeZones);
         Task UpdateAsync(TTimeZone timeZone);
         Task DeleteAsync(TTimeZone timeZone);
 

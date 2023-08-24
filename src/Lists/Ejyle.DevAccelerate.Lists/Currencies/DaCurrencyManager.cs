@@ -42,6 +42,19 @@ namespace Ejyle.DevAccelerate.Lists.Currencies
             return Repository.CreateAsync(currency);
         }
 
+        public void Create(IEnumerable<TCurrency> currencies)
+        {
+            DaAsyncHelper.RunSync(() => CreateAsync(currencies));
+        }
+
+        public Task CreateAsync(IEnumerable<TCurrency> currencies)
+        {
+            ThrowIfDisposed();
+            ThrowIfArgumentIsNull(currencies, nameof(currencies));
+
+            return Repository.CreateAsync(currencies);
+        }
+
         public void Update(TCurrency currency)
         {
             DaAsyncHelper.RunSync(() => UpdateAsync(currency));

@@ -19,7 +19,7 @@ namespace Ejyle.DevAccelerate.Lists.Custom
         where TCustomListItem: IDaCustomListItem<TKey>
     {
         Task CreateAsync(TCustomList customList);
-        Task CreateAsync(TCustomList[] customList);
+        Task CreateAsync(IEnumerable<TCustomList> customLists);
         Task UpdateAsync(TCustomList customList);
         Task DeleteAsync(TCustomList customList);
         Task DeleteListItemAsync(TCustomListItem customListItem);

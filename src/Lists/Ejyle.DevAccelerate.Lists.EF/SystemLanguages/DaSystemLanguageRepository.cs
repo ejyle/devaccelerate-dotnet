@@ -103,6 +103,12 @@ namespace Ejyle.DevAccelerate.Lists.EF.SystemLanguages
             return DbContext.SaveChangesAsync();
         }
 
+        public Task CreateAsync(IEnumerable<TSystemLanguage> systemLanguages)
+        {
+            SystemLanguagesSet.AddRange(systemLanguages);
+            return DbContext.SaveChangesAsync();
+        }
+
         public Task UpdateAsync(TSystemLanguage systemLanguage)
         {
             DbContext.Entry(systemLanguage).State = EntityState.Modified;

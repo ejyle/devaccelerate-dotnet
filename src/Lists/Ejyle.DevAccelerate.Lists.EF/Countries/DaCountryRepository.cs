@@ -85,6 +85,12 @@ namespace Ejyle.DevAccelerate.Lists.EF.Countries
             return DbContext.SaveChangesAsync();
         }
 
+        public Task CreateAsync(IEnumerable<TCountry> countries)
+        {
+            CountriesSet.AddRange(countries);
+            return DbContext.SaveChangesAsync();
+        }
+
         public Task UpdateAsync(TCountry country)
         {
             DbContext.Entry(country).State = EntityState.Modified;

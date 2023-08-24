@@ -19,6 +19,7 @@ namespace Ejyle.DevAccelerate.Lists.Countries
         where TCountryRegion : IDaCountryRegion<TKey>
     {
         Task CreateAsync(TCountry country);
+        Task CreateAsync(IEnumerable<TCountry> countries);
         Task UpdateAsync(TCountry country);
         Task DeleteAsync(TCountry country);
 

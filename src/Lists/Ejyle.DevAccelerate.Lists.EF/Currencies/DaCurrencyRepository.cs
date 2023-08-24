@@ -54,6 +54,12 @@ namespace Ejyle.DevAccelerate.Lists.EF.Currencies
             return DbContext.SaveChangesAsync();
         }
 
+        public Task CreateAsync(IEnumerable<TCurrency> currencies)
+        {
+            CurrenciesSet.AddRange(currencies);
+            return DbContext.SaveChangesAsync();
+        }
+
         public Task DeleteAsync(TCurrency currency)
         {
             CurrenciesSet.Remove(currency);

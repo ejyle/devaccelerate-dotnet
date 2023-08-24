@@ -18,6 +18,7 @@ namespace Ejyle.DevAccelerate.Lists.SystemLanguages
         where TSystemLanguage : IDaSystemLanguage<TKey>
     {
         Task CreateAsync(TSystemLanguage systemLanguage);
+        Task CreateAsync(IEnumerable<TSystemLanguage> systemLanguages);
         Task UpdateAsync(TSystemLanguage systemLanguage);
         Task DeleteAsync(TSystemLanguage systemLanguage);
 

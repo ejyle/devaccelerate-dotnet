@@ -42,6 +42,19 @@ namespace Ejyle.DevAccelerate.Lists.Links
             return Repository.CreateAsync(link);
         }
 
+        public void Create(IEnumerable<TLink> links)
+        {
+            DaAsyncHelper.RunSync(() => CreateAsync(links));
+        }
+
+        public Task CreateAsync(IEnumerable<TLink> links)
+        {
+            ThrowIfDisposed();
+            ThrowIfArgumentIsNull(links, nameof(links));
+
+            return Repository.CreateAsync(links);
+        }
+
         public void Update(TLink link)
         {
             ThrowIfDisposed();

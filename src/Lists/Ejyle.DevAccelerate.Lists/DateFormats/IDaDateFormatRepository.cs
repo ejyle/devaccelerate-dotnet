@@ -17,6 +17,7 @@ namespace Ejyle.DevAccelerate.Lists.DateFormats
         where TDateFormat : IDaDateFormat<TKey>
     {
         Task CreateAsync(TDateFormat dateFormat);
+        Task CreateAsync(IEnumerable<TDateFormat> dateFormats);
         Task UpdateAsync(TDateFormat dateFormat);
         Task DeleteAsync(TDateFormat dateFormat);
 

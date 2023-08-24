@@ -14,13 +14,14 @@ using Ejyle.DevAccelerate.Lists.DateFormats;
 using Ejyle.DevAccelerate.Lists.SystemLanguages;
 using Ejyle.DevAccelerate.Lists.TimeZones;
 using Ejyle.DevAccelerate.Lists.Links;
+using Ejyle.DevAccelerate.Lists.Industries;
 
 namespace Ejyle.DevAccelerate.Lists.EF
 {
     /// <summary>
     /// Represents database context for list entities.
     /// </summary>
-    public class DaListsDbContext : DaListsDbContext<string, DaTimeZone, DaDateFormat, DaSystemLanguage, DaCurrency, DaCountry, DaCountryRegion, DaCountryTimeZone, DaCountryDateFormat, DaCountrySystemLanguage, DaCustomList, DaCustomListItem, DaLink>
+    public class DaListsDbContext : DaListsDbContext<string, DaTimeZone, DaDateFormat, DaSystemLanguage, DaCurrency, DaCountry, DaCountryRegion, DaCountryTimeZone, DaCountryDateFormat, DaCountrySystemLanguage, DaCustomList, DaCustomListItem, DaLink, DaIndustry>
     {
         public DaListsDbContext() : base()
         { }
@@ -54,7 +55,7 @@ namespace Ejyle.DevAccelerate.Lists.EF
     /// <typeparam name="TCountryRegion">Represents the type of the country region entity.</typeparam>
     /// <typeparam name="TCustomList">Represents the type of the custom list entity.</typeparam>
     /// <typeparam name="TCustomListItem">Represents the type of the custom list item entity.</typeparam>
-    public class DaListsDbContext<TKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem, TLink> : DbContext
+    public class DaListsDbContext<TKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem, TLink, TIndustry> : DbContext
         where TKey : IEquatable<TKey>
         where TTimeZone : DaTimeZone<TKey, TCountryTimeZone>
         where TDateFormat : DaDateFormat<TKey, TCountryDateFormat>
@@ -68,6 +69,7 @@ namespace Ejyle.DevAccelerate.Lists.EF
         where TCustomList : DaCustomList<TKey, TCustomListItem>
         where TCustomListItem : DaCustomListItem<TKey, TCustomList, TCustomListItem>
         where TLink : DaLink<TKey>
+        where TIndustry : DaIndustry<TKey>
     {
         private const string SCHEMA_NAME = "Da.Lists";
 
@@ -85,7 +87,7 @@ namespace Ejyle.DevAccelerate.Lists.EF
             : base(options)
         { }
 
-        public DaListsDbContext(DbContextOptions<DaListsDbContext<TKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem, TLink>> options)
+        public DaListsDbContext(DbContextOptions<DaListsDbContext<TKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem, TLink, TIndustry>> options)
             : base(options)
         { }
 
@@ -93,9 +95,9 @@ namespace Ejyle.DevAccelerate.Lists.EF
             : base(GetOptions(connectionString))
         { }
 
-        private static DbContextOptions<DaListsDbContext<TKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem, TLink>> GetOptions(string connectionString)
+        private static DbContextOptions<DaListsDbContext<TKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem, TLink, TIndustry>> GetOptions(string connectionString)
         {
-            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaListsDbContext<TKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem, TLink>>(), connectionString).Options;
+            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder<DaListsDbContext<TKey, TTimeZone, TDateFormat, TSystemLanguage, TCurrency, TCountry, TCountryRegion, TCountryTimeZone, TCountryDateFormat, TCountrySystemLanguage, TCustomList, TCustomListItem, TLink, TIndustry>>(), connectionString).Options;
         }
 
         /// <summary>
@@ -141,6 +143,11 @@ namespace Ejyle.DevAccelerate.Lists.EF
         /// Gets or sets the <see cref="DbSet{TLink}"/> of links.
         /// </summary>
         public virtual DbSet<TLink> Links { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="DbSet{TIndustry}"/> of links.
+        /// </summary>
+        public virtual DbSet<TIndustry> Industries { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -425,6 +432,20 @@ namespace Ejyle.DevAccelerate.Lists.EF
                     .HasMaxLength(450);
 
                 entity.Property(e => e.Category)
+                    .HasMaxLength(256);
+            });
+
+            modelBuilder.Entity<TIndustry>(entity =>
+            {
+                entity.ToTable("Industries", SCHEMA_NAME);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.Sector)
                     .HasMaxLength(256);
             });
         }

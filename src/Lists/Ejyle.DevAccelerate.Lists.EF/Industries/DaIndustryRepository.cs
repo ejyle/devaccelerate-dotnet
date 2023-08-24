@@ -9,73 +9,80 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ejyle.DevAccelerate.Core.Data;
 using Ejyle.DevAccelerate.Core.EF;
 using Ejyle.DevAccelerate.Lists.Countries;
 using Ejyle.DevAccelerate.Lists.Currencies;
 using Ejyle.DevAccelerate.Lists.Custom;
 using Ejyle.DevAccelerate.Lists.DateFormats;
-using Ejyle.DevAccelerate.Lists.Links;
 using Ejyle.DevAccelerate.Lists.SystemLanguages;
-using Ejyle.DevAccelerate.Lists.TimeZones;
+using Ejyle.DevAccelerate.Lists.Industries;
 using Microsoft.EntityFrameworkCore;
+using Ejyle.DevAccelerate.Lists.TimeZones;
 
-namespace Ejyle.DevAccelerate.Lists.EF.Links
+namespace Ejyle.DevAccelerate.Lists.EF.Industries
 {
-    public class DaLinkRepository : DaLinkRepository<string, DaLink, DbContext>
+    public class DaIndustryRepository : DaIndustryRepository<string, DaIndustry, DbContext>
     {
-        public DaLinkRepository(DbContext dbContext)
+        public DaIndustryRepository(DaListsDbContext dbContext)
             : base(dbContext)
         { }
     }
 
-    public class DaLinkRepository<TKey, TLink, TDbContext>
-        : DaEntityRepositoryBase<TKey, TLink, TDbContext>, IDaLinkRepository<TKey, TLink>
-        where TKey : IEquatable<TKey>
-        where TLink : DaLink<TKey>
+    public class DaIndustryRepository<TKey, TIndustry, TDbContext>
+        : DaEntityRepositoryBase<TKey, TIndustry, TDbContext>, IDaIndustryRepository<TKey, TIndustry>
+       where TKey : IEquatable<TKey>
+        where TIndustry : DaIndustry<TKey>
         where TDbContext : DbContext
     {
-        public DaLinkRepository(TDbContext dbContext)
+        public DaIndustryRepository(TDbContext dbContext)
             : base(dbContext)
         { }
 
-        private DbSet<TLink> LinksSet { get { return DbContext.Set<TLink>(); } }
+        private DbSet<TIndustry> IndustriesSet { get { return DbContext.Set<TIndustry>(); } }
 
-        public Task<List<TLink>> FindAsync(string userId, string category)
+
+        public Task<List<TIndustry>> FindAllAsync()
         {
-            return LinksSet
-                .Where(m => m.UserId == userId && m.Category == category)
-                .ToListAsync();
+            return IndustriesSet.ToListAsync();
         }
 
-        public Task<TLink> FindByIdAsync(TKey id)
+        public Task<TIndustry> FindByIdAsync(TKey id)
         {
-            return LinksSet
+            return IndustriesSet
                 .Where(m => m.Id.Equals(id))
                 .SingleOrDefaultAsync();
         }
 
-        public Task CreateAsync(TLink link)
+        public Task CreateAsync(TIndustry industry)
         {
-            LinksSet.Add(link);
+            IndustriesSet.Add(industry);
             return DbContext.SaveChangesAsync();
         }
 
-        public Task CreateAsync(IEnumerable<TLink> links)
+        public Task CreateAsync(IEnumerable<TIndustry> industries)
         {
-            LinksSet.AddRange(links);
+            IndustriesSet.AddRange(industries);
             return DbContext.SaveChangesAsync();
         }
 
-        public Task UpdateAsync(TLink link)
+        public Task UpdateAsync(TIndustry industry)
         {
-            DbContext.Update(link);
+            DbContext.Entry(industry).State = EntityState.Modified;
             return DbContext.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(TLink link)
+        public Task DeleteAsync(TIndustry industry)
         {
-            LinksSet.Remove(link);
+            IndustriesSet.Remove(industry);
             return DbContext.SaveChangesAsync();
+        }
+
+        public Task<TIndustry> FindByNameAsync(string name)
+        {
+            return IndustriesSet
+                .Where(m => m.Name == name)
+                .SingleOrDefaultAsync();
         }
     }
 }

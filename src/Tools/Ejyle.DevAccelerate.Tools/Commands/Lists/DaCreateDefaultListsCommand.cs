@@ -22,6 +22,9 @@ using Ejyle.DevAccelerate.Lists.EF.Currencies;
 using Ejyle.DevAccelerate.Lists.EF.DateFormats;
 using Ejyle.DevAccelerate.Lists.EF.SystemLanguages;
 using Ejyle.DevAccelerate.Lists.EF.TimeZones;
+using Ejyle.DevAccelerate.Lists.Custom;
+using Ejyle.DevAccelerate.Lists.Industries;
+using Ejyle.DevAccelerate.Lists.EF.Industries;
 
 namespace Ejyle.DevAccelerate.Tools.Commands.Lists
 {
@@ -44,6 +47,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Lists
 
                 var systemCurrencies = NMoneys.Currency.FindAll().Distinct();
                 var processedCurrencies = new List<string>();
+                var currenciesToCreate = new List<DaCurrency>();
 
                 foreach (var c in systemCurrencies)
                 {
@@ -55,7 +59,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Lists
 
                         if (currency == null)
                         {
-                            currenciesManager.Create(new DaCurrency()
+                            currenciesToCreate.Add(new DaCurrency()
                             {
                                 DisplayName = c.EnglishName,
                                 Name = c.EnglishName,
@@ -71,6 +75,11 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Lists
                     }
                 }
 
+                if(currenciesToCreate.Count > 0)
+                {
+                    currenciesManager.Create(currenciesToCreate);
+                }
+
                 var countryManager = new DaCountryManager(new DaCountryRepository(context));
                 var countries = countryManager.FindAll();
 
@@ -80,6 +89,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Lists
                 }
 
                 var countriesList = GetCountries();
+                List<DaCountry> countriesToCreate = new List<DaCountry>();
 
                 foreach (var c in countriesList)
                 {
@@ -87,8 +97,13 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Lists
 
                     if (country == null)
                     {
-                        countryManager.Create(c);
+                        countriesToCreate.Add(c);
                     }
+                }
+
+                if (countriesToCreate.Count > 0)
+                {
+                    countryManager.Create(countriesToCreate);
                 }
 
                 var timeZonesManager = new DaTimeZoneManager(new DaTimeZoneRepository(context));
@@ -99,13 +114,15 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Lists
                     timeZones = new List<DaTimeZone>();
                 }
 
+                var timeZonesToCreate = new List<DaTimeZone>();
+
                 foreach (TimeZoneInfo z in TimeZoneInfo.GetSystemTimeZones())
                 {
                     var timeZone = timeZones.Where(m => m.Name == z.StandardName).SingleOrDefault();
 
                     if (timeZone == null)
                     {
-                        timeZonesManager.Create(new DaTimeZone()
+                        timeZonesToCreate.Add(new DaTimeZone()
                         {
                             SystemTimeZoneId = z.Id,
                             Name = z.StandardName,
@@ -118,6 +135,11 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Lists
                     }
                 }
 
+                if (timeZonesToCreate.Count > 0)
+                {
+                    timeZonesManager.Create(timeZonesToCreate);
+                }
+
                 var dateFormatsManager = new DaDateFormatManager(new DaDateFormatRepository(context));
                 var dateFormats = dateFormatsManager.FindAll();
 
@@ -127,9 +149,11 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Lists
                 }
 
                 var dataFormat = dateFormats.Where(m => m.Name == "MM/dd/yyyy").SingleOrDefault();
+                var dateFormatsToCreate = new List<DaDateFormat>();
+
                 if (dataFormat == null)
                 {
-                    dateFormatsManager.Create(new DaDateFormat()
+                    dateFormatsToCreate.Add(new DaDateFormat()
                     {
                         DisplayName = "MM/dd/yyyy",
                         Name = "MM/dd/yyyy",
@@ -142,7 +166,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Lists
                 dataFormat = dateFormats.Where(m => m.Name == "dd/MM/yyyy").SingleOrDefault();
                 if (dataFormat == null)
                 {
-                    dateFormatsManager.Create(new DaDateFormat()
+                    dateFormatsToCreate.Add(new DaDateFormat()
                     {
                         DisplayName = "dd/MM/yyyy",
                         Name = "dd/MM/yyyy",
@@ -155,7 +179,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Lists
                 dataFormat = dateFormats.Where(m => m.Name == "dddd, dd MMMM yyyy").SingleOrDefault();
                 if (dataFormat == null)
                 {
-                    dateFormatsManager.Create(new DaDateFormat()
+                    dateFormatsToCreate.Add(new DaDateFormat()
                     {
                         DisplayName = "dddd, dd MMMM yyyy",
                         Name = "dddd, dd MMMM yyyy",
@@ -163,6 +187,11 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Lists
                         IsActive = true,
                         IsVerified = true
                     });
+                }
+
+                if (dateFormatsToCreate.Count > 0)
+                {
+                    dateFormatsManager.Create(dateFormatsToCreate);
                 }
 
                 var sysLanguagesManager = new DaSystemLanguageManager(new DaSystemLanguageRepository(context));
@@ -174,6 +203,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Lists
                 }
 
                 var cultures = CultureInfo.GetCultures(CultureTypes.AllCultures);
+                var systemLanguagesToCreate = new List<DaSystemLanguage>();
 
                 foreach (CultureInfo culture in cultures)
                 {
@@ -183,7 +213,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Lists
 
                         if (systemLanguage == null)
                         {
-                            sysLanguagesManager.Create(new DaSystemLanguage()
+                            systemLanguagesToCreate.Add(new DaSystemLanguage()
                             {
                                 Name = culture.Name,
                                 DisplayName = culture.DisplayName,
@@ -193,9 +223,65 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Lists
                         }
                     }
                 }
+
+                if(systemLanguagesToCreate.Count > 0)
+                {
+                    sysLanguagesManager.Create(systemLanguagesToCreate);
+                }
+
+                var industryManager = new DaIndustryManager(new DaIndustryRepository(context));
+                var industries = industryManager.FindAll();
+
+                if (industries == null)
+                {
+                    industries = new List<DaIndustry>();
+                }
+
+                var industriesList = GetIndustries();
+                var industriesToCreate = new List<DaIndustry>();
+
+                foreach (var i in industriesList)
+                {
+                    var industry = industries.Where(m => m.Name == i.Name).SingleOrDefault();
+
+                    if (industry == null)
+                    {
+                        industriesToCreate.Add(i);
+                    }
+                }
+
+                if(industriesToCreate.Count > 0)
+                {
+                    industryManager.Create(industriesToCreate);
+                }
             }
 
             Console.Write("Default set of lists created.");
+        }
+
+        private IEnumerable<DaIndustry> GetIndustries()
+        {
+            return new[] {
+                new DaIndustry("Agriculture"),
+                new DaIndustry("Automotive"),
+                new DaIndustry("Construction"),
+                new DaIndustry("Consulting"),
+                new DaIndustry("Education"),
+                new DaIndustry("Energy"),
+                new DaIndustry("Entertainment"),
+                new DaIndustry("Finance"),
+                new DaIndustry("Healthcare"),
+                new DaIndustry("Hospitality"),
+                new DaIndustry("Information Technology"),
+                new DaIndustry("Insurance"),
+                new DaIndustry("Manufacturing"),
+                new DaIndustry("Media"),
+                new DaIndustry("Pharmaceutical"),
+                new DaIndustry("Real Estate"),
+                new DaIndustry("Retail"),
+                new DaIndustry("Telecommunications"),
+                new DaIndustry("Transportation")
+             };
         }
 
         private IEnumerable<DaCountry> GetCountries()

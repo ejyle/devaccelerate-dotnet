@@ -44,6 +44,19 @@ namespace Ejyle.DevAccelerate.Lists.Countries
             return Repository.CreateAsync(country);
         }
 
+        public void Create(IEnumerable<TCountry> countries)
+        {
+            DaAsyncHelper.RunSync(() => CreateAsync(countries));
+        }
+
+        public Task CreateAsync(IEnumerable<TCountry> countries)
+        {
+            ThrowIfDisposed();
+            ThrowIfArgumentIsNull(countries, nameof(countries));
+
+            return Repository.CreateAsync(countries);
+        }
+
         public void Update(TCountry country)
         {
             DaAsyncHelper.RunSync(() => UpdateAsync(country));

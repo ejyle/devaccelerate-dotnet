@@ -42,6 +42,19 @@ namespace Ejyle.DevAccelerate.Lists.DateFormats
             return Repository.CreateAsync(dateFormat);
         }
 
+        public void Create(IEnumerable<TDateFormat> dateFormats)
+        {
+            DaAsyncHelper.RunSync(() => CreateAsync(dateFormats));
+        }
+
+        public Task CreateAsync(IEnumerable<TDateFormat> dateFormats)
+        {
+            ThrowIfDisposed();
+            ThrowIfArgumentIsNull(dateFormats, nameof(dateFormats));
+
+            return Repository.CreateAsync(dateFormats);
+        }
+
         public void Update(TDateFormat dateFormat)
         {
             ThrowIfDisposed();

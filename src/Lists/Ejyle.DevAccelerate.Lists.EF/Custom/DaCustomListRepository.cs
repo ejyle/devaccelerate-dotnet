@@ -100,7 +100,7 @@ namespace Ejyle.DevAccelerate.Lists.EF.Custom
             return DbContext.SaveChangesAsync();
         }
 
-        public Task CreateAsync(TCustomList[] lists)
+        public Task CreateAsync(IEnumerable<TCustomList> lists)
         {
             CustomListsSet.AddRange(lists);
             return DbContext.SaveChangesAsync();
