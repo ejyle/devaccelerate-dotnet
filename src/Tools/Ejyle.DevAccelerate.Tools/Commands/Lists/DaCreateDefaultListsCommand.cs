@@ -35,6 +35,8 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Lists
         {
             EnsureConnectionIsValid();
 
+            Console.WriteLine("Creating default set of lists...");
+
             using (var context = new DaListsDbContext(GetConnectionString()))
             {
                 var currenciesManager = new DaCurrencyManager(new DaCurrencyRepository(context));

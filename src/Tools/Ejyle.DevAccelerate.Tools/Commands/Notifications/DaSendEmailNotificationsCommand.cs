@@ -44,6 +44,8 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Notifications
         {
             EnsureConnectionIsValid();
 
+            Console.WriteLine("Processing and sending notifications...");
+
             using (var context = new DaNotificationsDbContext(GetConnectionString()))
             {
                 var settings = new DaMailSettings()

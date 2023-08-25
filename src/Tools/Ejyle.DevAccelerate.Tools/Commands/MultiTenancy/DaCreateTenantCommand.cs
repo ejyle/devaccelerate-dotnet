@@ -64,6 +64,8 @@ namespace Ejyle.DevAccelerate.Tools.Commands.MultiTenancy
         {
             EnsureConnectionIsValid();
 
+            Console.WriteLine("Creating a tenant...");
+
             using (var context = new DaMultiTenancyDbContext(GetConnectionString()))
             {
                 if(string.IsNullOrEmpty(Name)) {
@@ -180,7 +182,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.MultiTenancy
                     });
 
                     tenantManager.Create(tenant);
-                    Console.WriteLine($"Tenant created successfully.");
+                    Console.WriteLine($"Tenant created.");
                 }
                 catch(Exception)
                 {

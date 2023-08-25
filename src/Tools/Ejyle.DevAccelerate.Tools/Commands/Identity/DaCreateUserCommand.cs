@@ -46,6 +46,8 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Identity
         {
             EnsureConnectionIsValid();
 
+            Console.WriteLine($"Creating {Username} user...");
+
             var services = new DaIdentityServiceConfiguration().CreateAndConfigureIdentity(GetConnectionString());
             services.AddScoped<IDaUserService, DaUserService>();
             

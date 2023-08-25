@@ -50,6 +50,8 @@ namespace Ejyle.DevAccelerate.Tools.Commands.MultiTenancy
         {
             EnsureConnectionIsValid();
 
+            Console.WriteLine("Adding a user to a tenant...");
+
             using (var context = new DaMultiTenancyDbContext(GetConnectionString()))
             {
                 if (string.IsNullOrEmpty(TenantName))
@@ -106,7 +108,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.MultiTenancy
                     });
 
                     tenantManager.Update(tenant);
-                    Console.WriteLine($"User created and added to the tenant successfully.");
+                    Console.WriteLine($"User created and added to the tenant.");
                 }
                 catch (Exception)
                 {

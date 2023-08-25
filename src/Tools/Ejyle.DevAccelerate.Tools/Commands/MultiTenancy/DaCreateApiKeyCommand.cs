@@ -27,6 +27,8 @@ namespace Ejyle.DevAccelerate.Tools.Commands.MultiTenancy
         {
             EnsureConnectionIsValid();
 
+            Console.WriteLine("Creating an API key...");
+
             using (var context = new DaMultiTenancyDbContext(GetConnectionString()))
             {
                 DateTime? expiryDate = null;
@@ -35,7 +37,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.MultiTenancy
                 {
                     if(Expiry <= 0 || Expiry > 365)
                     {
-                        Console.WriteLine("Expiry (days) cannot be 0 or less than 0. Must be between 1 and 365.");
+                        throw new Exception("Expiry (days) cannot be 0 or less than 0. Must be between 1 and 365.");
                     }
 
                     expiryDate = DateTime.UtcNow.AddDays((int)Expiry);

@@ -23,6 +23,8 @@ namespace Ejyle.DevAccelerate.Tools.Commands
     [Verb("setconn", HelpText = "Sets DevAccelerate database connection environment variable")]
     public class DaSetConnectionCommand : IDaCommand
     {
+        private const string ENV_VARIABLE = "DEVACCELERATE_DB_CONN";
+
         public DaSetConnectionCommand()
         { }
 
@@ -31,8 +33,8 @@ namespace Ejyle.DevAccelerate.Tools.Commands
 
         public void Execute()
         {
-            Environment.SetEnvironmentVariable("DEVACCELERATE_DB_CONN", ConnectionString, EnvironmentVariableTarget.User);
-            Console.WriteLine("The environment variable with DevAccelerate database connection is set.");
+            Environment.SetEnvironmentVariable(ENV_VARIABLE, ConnectionString, EnvironmentVariableTarget.User);
+            Console.WriteLine($"The environment variable {ENV_VARIABLE} with DevAccelerate database connection is set.");
         }
     }
 }

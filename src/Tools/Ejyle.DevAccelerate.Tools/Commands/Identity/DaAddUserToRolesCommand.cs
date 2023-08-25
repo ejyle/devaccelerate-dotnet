@@ -38,6 +38,8 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Identity
         {
             EnsureConnectionIsValid();
 
+            Console.WriteLine("Adding users to roles...");
+
             var services = new DaIdentityServiceConfiguration().CreateAndConfigureIdentity(GetConnectionString());
             services.AddScoped<IDaRoleService, DaRoleService>();
             

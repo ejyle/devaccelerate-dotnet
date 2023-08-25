@@ -53,6 +53,8 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Files
         {
             EnsureConnectionIsValid();
 
+            Console.WriteLine("Creating file storage...");
+
             using (var context = new DaFilesDbContext(GetConnectionString()))
             {
                 Name = Name.Trim();
@@ -61,20 +63,17 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Files
 
                 if (string.IsNullOrEmpty(Name))
                 {
-                    Console.WriteLine("Name is required.");
-                    return;
+                    throw new Exception("Name is required.");
                 }
 
                 if (string.IsNullOrEmpty(Platform))
                 {
-                    Console.WriteLine("Platform is required.");
-                    return;
+                    throw new Exception("Platform is required.");
                 }
 
                 if (string.IsNullOrEmpty(Root))
                 {
-                    Console.WriteLine("Root is required.");
-                    return;
+                    throw new Exception("Root is required.");
                 }
 
                 var fileStorageManager = new DaFileStorageManager(new DaFileStorageRepository(context));
@@ -82,8 +81,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Files
 
                 if (existingFileStorage != null)
                 {
-                    Console.WriteLine("Name must be unique.");
-                    return;
+                    throw new Exception("Name must be unique.");
                 }
 
                 var storage = new DaFileStorage()
@@ -94,10 +92,9 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Files
                     StorageType = StorageType
                 };
 
-                fileStorageManager.Create(storage);                
+                fileStorageManager.Create(storage);
+                Console.WriteLine($"{storage.Name} file storage created.");
             }
-
-            Console.Write("File stroage created.");
         }
     }
 }

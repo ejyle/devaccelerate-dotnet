@@ -38,14 +38,16 @@ namespace Ejyle.DevAccelerate.Tools
                     DaCreateTenantCommand,
                     DaAddUserToTenantCommand>(args)
                 .WithParsed<IDaCommand>(t => t.Execute());
+
+                Environment.Exit(0);
             }
             catch (Exception ex)
             {
                 var errorWriter = Console.Error;
-                errorWriter.WriteLine($"Something went wrong. More information: {ex.Message}");
-            }
+                errorWriter.WriteLine($"ERROR: {ex.Message}");
 
-            Console.ReadKey();
+                Environment.Exit(1);
+            }
         }
     }
 }

@@ -46,7 +46,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Core
             using (var coreDbContext = new DaCoreDbContext(GetConnectionString()))
             {
                 var existingObjectTypes = coreDbContext.ObjectTypes.ToList();
-                var objecTypes = new List<DaObjectType>();
+                var objectTypes = new List<DaObjectType>();
 
                 foreach (var ot in arrObjectTypes)
                 {
@@ -64,14 +64,16 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Core
                             Name = ot
                         };
 
-                        objecTypes.Add(obectType);
+                        objectTypes.Add(obectType);
                     }
                 }
 
-                if (objecTypes.Count > 0)
+                if (objectTypes.Count > 0)
                 {
-                    coreDbContext.AddRange(objecTypes);
+                    coreDbContext.AddRange(objectTypes);
                     coreDbContext.SaveChanges();
+
+                    Console.WriteLine($"{objectTypes.Count} object types created.");
                 }
             }
         }

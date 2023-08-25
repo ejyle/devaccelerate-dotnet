@@ -46,6 +46,8 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Platform
         {
             EnsureConnectionIsValid();
 
+            Console.WriteLine("Creating an app feature...");
+
             using (var context = new DaPlatformDbContext(GetConnectionString()))
             {
                 DaApp app = null;

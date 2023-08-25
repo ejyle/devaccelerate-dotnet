@@ -41,6 +41,8 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Platform
         {
             EnsureConnectionIsValid();
 
+            Console.WriteLine("Creating an app...");
+
             using (var context = new DaPlatformDbContext(GetConnectionString()))
             {
                 var appManager = new DaAppManager(new DaAppRepository(context));

@@ -38,6 +38,8 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Files
         {
             EnsureConnectionIsValid();
 
+            Console.WriteLine("Creating file storage location...");
+
             using (var context = new DaFilesDbContext(GetConnectionString()))
             {
                 Location = Location.Trim();
@@ -45,14 +47,12 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Files
 
                 if (string.IsNullOrEmpty(FileStorageName))
                 {
-                    Console.WriteLine("Name of the file storage is required.");
-                    return;
+                    throw new Exception("Name of the file storage is required.");
                 }
 
                 if (string.IsNullOrEmpty(Location))
                 {
-                    Console.WriteLine("Location is required.");
-                    return;
+                    throw new Exception("Location is required.");
                 }
 
                 var fileStorageManager = new DaFileStorageManager(new DaFileStorageRepository(context));
@@ -60,8 +60,7 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Files
 
                 if (fileStorage == null)
                 {
-                    Console.WriteLine("File storage doesn't exist.");
-                    return;
+                    throw new Exception("File storage doesn't exist.");
                 }
 
                 var storageLocation = new DaFileStorageLocation()
@@ -73,9 +72,9 @@ namespace Ejyle.DevAccelerate.Tools.Commands.Files
 
                 fileStorage.Locations.Add(storageLocation);
                 fileStorageManager.Update(fileStorage);
-            }
 
-            Console.Write("File stroage created.");
+                Console.Write($"{storageLocation.Location} file storage location created.");
+            }
         }
     }
 }
